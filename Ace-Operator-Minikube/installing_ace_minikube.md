@@ -454,7 +454,43 @@ The runtime works and is accessible
 
 ![img_14.png](img_14.png)
 
+First, it's always a good idea to enable some logging. You can turn up the log level to debug, by patching the dashboard.
 
+```yaml
+spec:
+  logLevel: debug
+```
+
+```powershell
+> k patch dashboard ace-dashboard --patch-file .\ace\debug-log.yaml --type merge
+dashboard.appconnect.ibm.com/ace-dashboard patched
+```
+
+Next, wait for the dashboard patch to complete the rollout
+```powershell
+> kubectl -n ace-demo rollout status deployment/ace-dashboard-dash
+deployment "ace-dashboard-dash" successfully rolled out
+```
+
+Next check the log files for the dashboard pod, this will generate a log of logging, so it is handy to redirect the output to 
+a log file
+```powershell
+> kubectl get pods -l release=ace-dashboard
+NAME                                 READY   STATUS    RESTARTS   AGE
+ace-dashboard-dash-9668bd46f-fprh9   2/2     Running   0          95m
+
+> k logs ace-dashboard-dash-5d99db548d-7sr5c -c control-ui > .\ace\dashboard-debug.log
+```
+
+If the log begins like this, then debugging has been enabled and you have a lot more information to go through
+```text
+2025-08-14 15:43:46.249Z: Created logger at level debug
+2025-08-14 15:43:46.294Z: Using application name app
+2025-08-14 15:43:46.294Z: METRICS_TRANSPORT is not set, so not sending metrics
+...
+```
+
+As for the issue, 
 
 ...
 
