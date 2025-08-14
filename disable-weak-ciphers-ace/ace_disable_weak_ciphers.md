@@ -1,13 +1,20 @@
 # ACE on Windows — Disable Weak TLS Ciphers and Verify with OpenSSL
 
-## 1. Goal
-Disable insecure TLS ciphers in ACE due to security findings, then verify at runtime that they are blocked.
+Let’s be real: if your App Connect Enterprise (ACE) instance still accepts weak TLS ciphers, you're inviting problems. 
+Here’s how to disable them, verify they’re really gone, and avoid getting roasted in your next security audit.
+
+## The Goal
+Kill insecure TLS ciphers in ACE. Then prove they’re dead.
 
 
-## 2. Prepare a Simple HTTPS Endpoint in ACE
-- Create a trivial **HTTPInput** or **REST API** flow that returns `"hello world"`. I have one available already [HelloWorld_https](https://github.com/matthiasblomme/Ace_test_cases/tree/64d32256864391e330d1d1482fd412c80957998e/HelloWorld_https)
-- I'm deploying it in a standalone integration server, with the default https port 7843
-- Confirm the listener is reachable:
+## Set Up a Test HTTPS Endpoint in ACE
+Just need something dumb and HTTPS-enabled:
+- Use a simple HTTPInput or REST API flow that returns a static response.
+- Example: [HelloWorld_https](https://github.com/matthiasblomme/Ace_test_cases/tree/64d32256864391e330d1d1482fd412c80957998e/HelloWorld_https)
+- Create a standalone Integration Server (default HTTPS port is 7843).
+- Deploy the simple flow to that Integration Server (this actually starts the https listener)
+
+Verify the endpoint is reachable
 ```powershell
 > Test-NetConnection localhost -Port 7843
 
@@ -19,21 +26,26 @@ SourceAddress    : ::1
 TcpTestSucceeded : True
 ```
 
+If that doesn’t work, your setup’s broken. Fix that first.
 
-## 3. Install OpenSSL on Windows
-**Note:** This is OpenSSL, **not** OpenSSH.
-- Install [Win64 OpenSSL v3.5.2 Light](https://slproweb.com/products/Win32OpenSSL.html) or use a portable ZIP package.
-- Choose the "Windows system directory" if you want OpenSSL to be available from any standard command promt.
+
+## Install OpenSSL on Windows
+No, not OpenSSH. OpenSSL.
+- Download [Win64 OpenSSL v3.5.2 Light](https://slproweb.com/products/Win32OpenSSL.html)
+- Or grab the portable ZIP if you're not into installers
+- Choose the "Windows system directory" so you can call it from anywhere
 ![img.png](img.png)
-- Open a new terminal and check if you now have OpenSSL available
+- Open a new terminal and check that you have OpenSSL available
+
 ```powershell
 > openssl version
 OpenSSL 3.5.0 8 Apr 2025 (Library: OpenSSL 3.5.0 8 Apr 2025)
 ```
 
 
-## 4. Baseline Test — Known Good Cipher
-Pick a modern TLS 1.2 AEAD suite that is **not** in your disabled list:
+## Baseline Test 1 — Known Good Cipher
+Before locking stuff down, let's prove that a strong cipher still works
+
 ```powershell
 > $TARGET="localhost:7843"
 > openssl s_client -connect $TARGET -tls1_2 -cipher "ECDHE-RSA-AES256-GCM-SHA384" -servername localhost
@@ -52,11 +64,14 @@ Protocol: TLSv1.2
 ...
 ---
 ```
-Here you can see that the connection succeeded and the agreed cipher is ECDHE-RSA-AES256-GCM-SHA384.
+
+We got `New, TLSv1.2, Cipher is ECDHE-RSA-AES256-GCM-SHA384`, showing we had a successful TLS handshake. This is our "known good".
 
 
-## 5. Baseline Test — Known Weak Cipher
-Test an anonymous suite that should be blocked:
+
+## Baseline Test 2 — Known Weak Cipher
+Now let's try something weaker
+
 ```powershell
 > openssl s_client -connect $TARGET -tls1_2 -cipher "AECDH-AES128-SHA" -servername localhost
 Connecting to ::1
@@ -92,24 +107,27 @@ Extended master secret: no
 ---
 ```
 
-This is a completely different output then before, and it tells us two thing
+This is a completely different output then before, and it tells us two things
 - No matching cipher was AECDH-AES128-SHA, indicated by `no ciphers available` and `New, (NONE), Cipher is (NONE)`
 - The SSL handshake did not complete, indicated by `no peer certificate available` and `Cipher    : 0000`
 
+Conclusion: the handshake failed and cipher was rejected, as it should.
 
 
-## 6. Harden ACE by Editing `java.security`
-Edit the ACE JRE security policy file used by your Integration Server. You can find it here:
+## Harden ACE by Editing `java.security`
+Now that we got all that foreplay out of the way, let's be serious
+
+Locate your ACE JRE java.security file. The default location is
 ```
 <ACE_INSTALL_DIR>\common\jdk\jre\lib\security\java.security
 ```
 
-For example: 
+If you used the default ACE install options (like I did), that translates to
 ```
 C:\Program Files\IBM\ACE\13.0.4.0\common\jdk\jre\lib\security\java.security
 ```
 
-Search for the property jdk.tls.disabledAlgorithms and update it with the ciphers you don't want to support anymore.
+Find the line starting with jdk.tls.disabledAlgorithms. And add your disallowed ciphers here.
 
 The original property (from ACE 13.0.4.0)
 ```properties
@@ -118,7 +136,7 @@ jdk.tls.disabledAlgorithms=SSLv3, TLSv1, TLSv1.1, RC4, DES, MD5withRSA, DH keySi
     include jdk.disabled.namedCurves
 ```
 
-After adding the disallowed Ciphers
+Modified
 ```properties
 jdk.tls.disabledAlgorithms=SSLv3, TLSv1, TLSv1.1, RC4, DES, MD5withRSA, DH keySize < 1024, DESede, \
     EC keySize < 224, 3DES_EDE_CBC, anon, NULL, ECDH, \
@@ -129,13 +147,15 @@ jdk.tls.disabledAlgorithms=SSLv3, TLSv1, TLSv1.1, RC4, DES, MD5withRSA, DH keySi
     ECDH_ECDSA_WITH_AES_256_GCM_SHA384, ECDH_RSA_WITH_AES_256_GCM_SHA384
 ```
 
-**Notes:**
-- Keep it in one logical line or use backslashes for continuation.
-- Restart the Integration Server or Integration Node after changes.
+Tips:
+- Keep it one logical line or use backslashes for continuation.
+- Restart the Integration Server (or Integration Node, if you are using a Node based setup) after changes.
 
 
 
-## 7. Verify Blocked and Allowed Ciphers After Change
+## Verify Ciphers Post-Hardening
+Time to check if our changes are working
+
 **Blocked examples:**
 ```powershell
 # RC4 - blocked by openssl itself
@@ -178,7 +198,7 @@ SSL-Session:
 ---
 ```
 
-**Allowed example (control):**
+**Allowed example (for control):**
 ```powershell
 > openssl s_client -connect $TARGET -tls1_2 -cipher "ECDHE-RSA-AES256-GCM-SHA384" -servername localhost
 Connecting to ::1
@@ -215,15 +235,21 @@ Protocol: TLSv1.3
 
 
 
-## 9. Manage `java.security` in Source Control
-- Store the `java.security` or at least the changed parameters in a version control system.
-- Track changes via pull requests.
-- Use **Ansible**, **DSC**, or other config management to enforce and verify the file on each ACE server.
-- After changes:
-  - Restart the Integration Server
-  - Verify one of the disabled ciphers
+## Keep `java.security` Under Control
+Don't harden one server and forget about the rest. Also think about disaster recovery and replayability. Or simply automate your server installs.
+What do these have in common? They all have the need to have a single source of truth for your `java.security` file.
+So, simply put:
+- Store the `java.security` (or at least the diffs) in version control
+- Use pull requests for changes, think Infrastructure as Code (IaaC) and treat this like code.
+- enforce config with Ansible, DSC, ...
+
+And don't forget, after each update
+- Restart the Integration Server
+- Verify one of the disabled ciphers
  
 
+
+Harden it, test it, version it, automate it. Then sleep better, knowing your runtime environment isn’t the weakest link.
 
 ---
 
@@ -235,6 +261,7 @@ For more integration tips and tricks, visit [Integration Designers](https://inte
 
 * [ACE Test Cases Repo](https://github.com/matthiasblomme/Ace_test_cases)
 * [Download OpenSSL for Windows](https://slproweb.com/products/Win32OpenSSL.html)
+* [ACE default cipher list](https://www.ibm.com/docs/en/sdk-java-technology/8?topic=suites-cipher)
 
 ---
 
