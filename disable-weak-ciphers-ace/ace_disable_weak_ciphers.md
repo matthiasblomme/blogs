@@ -1,7 +1,7 @@
-# ACE on Windows — Disable Weak TLS Ciphers and Verify with OpenSSL
+﻿# ACE on Windows — Disable Weak TLS Ciphers and Verify with OpenSSL
 
 Let’s be real: if your App Connect Enterprise (ACE) instance still accepts weak TLS ciphers, you're inviting problems. 
-Here’s how to disable them, verify they’re really gone, and avoid getting roasted in your next security audit.
+Here’s how to disable them, verify they’re gone, and avoid getting roasted in your next security audit.
 
 ## The Goal
 Kill insecure TLS ciphers in ACE. Then prove they’re dead.
@@ -12,9 +12,9 @@ Just need something dumb and HTTPS-enabled:
 - Use a simple HTTPInput or REST API flow that returns a static response.
 - Example: [HelloWorld_https](https://github.com/matthiasblomme/Ace_test_cases/tree/64d32256864391e330d1d1482fd412c80957998e/HelloWorld_https)
 - Create a standalone Integration Server (default HTTPS port is 7843).
-- Deploy the simple flow to that Integration Server (this actually starts the https listener)
+- Deploy the simple flow to that Integration Server (this starts the https listener)
 
-Verify the endpoint is reachable
+Verify the endpoint is reachable.
 ```powershell
 > Test-NetConnection localhost -Port 7843
 
@@ -107,15 +107,15 @@ Extended master secret: no
 ---
 ```
 
-This is a completely different output then before, and it tells us two things
+This is a completely different output than before, and it tells us two things
 - No matching cipher was AECDH-AES128-SHA, indicated by `no ciphers available` and `New, (NONE), Cipher is (NONE)`
 - The SSL handshake did not complete, indicated by `no peer certificate available` and `Cipher    : 0000`
 
-Conclusion: the handshake failed and cipher was rejected, as it should.
+Conclusion: the handshake failed, and cipher was rejected, as it should.
 
 
 ## Harden ACE by Editing `java.security`
-Now that we got all that foreplay out of the way, let's be serious
+Now that we've got all that foreplay out of the way, let's be serious
 
 Locate your ACE JRE java.security file. The default location is
 ```
@@ -127,7 +127,7 @@ If you used the default ACE install options (like I did), that translates to
 C:\Program Files\IBM\ACE\13.0.4.0\common\jdk\jre\lib\security\java.security
 ```
 
-Find the line starting with jdk.tls.disabledAlgorithms. And add your disallowed ciphers here.
+Find the line starting with jdk.tls.disabledAlgorithms, and add your disallowed ciphers there.
 
 The original property (from ACE 13.0.4.0)
 ```properties
@@ -236,12 +236,13 @@ Protocol: TLSv1.3
 
 
 ## Keep `java.security` Under Control
-Don't harden one server and forget about the rest. Also think about disaster recovery and replayability. Or simply automate your server installs.
-What do these have in common? They all have the need to have a single source of truth for your `java.security` file.
+Don't harden one server and forget about the rest. Think disaster recovery. Think rebuilds. Think repeatability. 
+Or simply automate your server installs.
+What do these have in common? They all need to have a single source of truth for your `java.security` file.
 So, simply put:
-- Store the `java.security` (or at least the diffs) in version control
+- Store the `java.security` file, or at least the diffs, in version control
 - Use pull requests for changes, think Infrastructure as Code (IaaC) and treat this like code.
-- enforce config with Ansible, DSC, ...
+- Enforce config with Ansible, DSC, ..., or whatever keeps your setup sane
 
 And don't forget, after each update
 - Restart the Integration Server
