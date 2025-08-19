@@ -1,4 +1,4 @@
-﻿# ACE on Windows — Disable Weak TLS Ciphers and Verify with OpenSSL
+﻿# ACE on Windows:  Disable Weak TLS Ciphers and Verify with OpenSSL
 
 Let’s be real: if your App Connect Enterprise (ACE) instance still accepts weak TLS ciphers, you're inviting problems. 
 Here’s how to disable them, verify they’re gone, and avoid getting roasted in your next security audit.
@@ -6,6 +6,9 @@ Here’s how to disable them, verify they’re gone, and avoid getting roasted i
 ## The Goal
 Kill insecure TLS ciphers in ACE. Then prove they’re dead.
 
+This walkthrough uses ACE in the server role, handling inbound TLS traffic. But the `java.security` config applies just as 
+much when ACE acts as a client making outbound HTTPS calls. So if ACE is calling external APIs, brokers, or cloud endpoints—weak 
+ciphers still get blocked. That’s exactly what you want.
 
 ## Set Up a Test HTTPS Endpoint in ACE
 Just need something dumb and HTTPS-enabled:
@@ -65,7 +68,7 @@ Protocol: TLSv1.2
 ---
 ```
 
-We got `New, TLSv1.2, Cipher is ECDHE-RSA-AES256-GCM-SHA384`, showing we had a successful TLS handshake. This is our "known good".
+WAs you can see from the output, the command gives us `New, TLSv1.2, Cipher is ECDHE-RSA-AES256-GCM-SHA384`, showing we had a successful TLS handshake. This is our "known good".
 
 
 
@@ -112,6 +115,15 @@ This is a completely different output than before, and it tells us two things
 - The SSL handshake did not complete, indicated by `no peer certificate available` and `Cipher    : 0000`
 
 Conclusion: the handshake failed, and cipher was rejected, as it should.
+
+
+## Why This Still Matters Behind a Firewall
+
+Before you skip the next step, I get it. ACE might be behind SSL-terminating firewalls or proxies, that’s not only normal, 
+but should be the standard. However, relying on a single upstream component is a risk. If something manages to bypass 
+those layers, ACE still needs to shut these weaknesses. Not all threats come from outside. They can originate from inside 
+your network too. Think compromised internal servers, misconfigured apps, or legacy systems...
+Your security is only as strong as it's weakest link. Don't let that be ACE!
 
 
 ## Harden ACE by Editing `java.security`
