@@ -32,7 +32,7 @@ If we then compare the input vs the output message:
 ![img_2.png](img_2.png)
 
 The token has been added (to the message, for visibility inside the flow exerciser), but you can see that the items array 
-has collapsed into an single field containing the last array element.
+has collapsed into a single field containing the last array element.
 
 Want to know more about those troubling JSON Arrays? Have a look at another blog of mine
 [Create JSON Arrays in ESQL and Java](https://community.ibm.com/community/user/blogs/matthias-blomme/2025/08/18/create-json-arrays-in-esql-and-java-without-losing)
