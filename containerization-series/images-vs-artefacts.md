@@ -20,6 +20,8 @@ The **bake** approach is about building a custom image that already has your BAR
 
 Baking is putting everything together, mixing it well and throwing it into the oven. Once done, you can enjoy it immediately or save it for later.
 
+If you are really serious about baking (bake-off serious), and you want to do a 100% clean bake — meaning not even injecting pillar configuration at runtime — you’d need to rebuild the full image to bake the config in. This might be a purist view, but that’s what baking actually implies. Of course, it comes at the cost of reusability, sometimes severely.
+
 ### Fry
 
 The **fry** method is the opposite. Here you start with a clean ACE runtime image (possibly supplied by IBM), and only add your BAR files and configurations at deployment time.
@@ -84,17 +86,18 @@ Here's what I've learned so far
 * Use *fry* when you want a bit more flexibility
 * Use *bake* when you need more predictability or special setups.
 * Always keep security in mind: smaller base images, multi-stage builds, and regular scanning are your friends.
+* Pure baking (runtime + BAR + config all in the image) is possible, but limits reusability.
 
 ### Quick Comparison
 
-| Aspect             | Bake                               | Fry                                      |
-| ------------------ | ---------------------------------- | ---------------------------------------- |
-| What it contains   | Runtime + BARs bundled together    | Bars and Config as separate deliverables |
-| Startup time       | Fast, self-contained image         | Slower (needs BAR injection)             |
-| Flexibility        | Low – changes require rebuild      | High – one runtime reused with many BARs |
-| Artifact size      | Large (Docker images)              | Small (BAR files and/or config)          |
-| Consistency        | Same image across all environments | Same artifact across environments        |
-| Maintenance effort | Higher (rebuild for every change)  | Lower (fewer image rebuilds)             |
+| Aspect             | Bake                                                                                        | Fry                                      |
+| ------------------ |---------------------------------------------------------------------------------------------| ---------------------------------------- |
+| What it contains   | Runtime + BARs bundled together                                                             | Bars and Config as separate deliverables |
+| Startup time       | Fast, self-contained image                                                                  | Slower (needs BAR injection)             |
+| Flexibility        | Low – changes require rebuild                                                               | High – one runtime reused with many BARs |
+| Artifact size      | Large (Docker images)                                                                       | Small (BAR files and/or config)          |
+| Consistency        | Same image across all environments                                                          | Same artifact across environments        |
+| Maintenance effort | Higher (rebuild for every change; full clean bakes require config baked in, limiting reuse) | Lower (fewer image rebuilds)             |
 
 ## Conclusion
 
