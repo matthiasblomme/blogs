@@ -61,12 +61,6 @@ The push toward containerization isn’t just hype, it’s driven by real needs.
 Reports show container adoption is skyrocketing, with enterprises shifting more workloads into containerized environments every year. It’s not hard to see why.
 
 
-## Have you heard the phrase "pets vs cattle"
-
-In this context, your pet, aka your ... 
-And then there is your cattle ...
-
-
 ## How Does ACE Fit Into All This?
 
 ACE and containers work so well together because ACE is already designed for flexibility. Whether you’re handling APIs, message flows, or event-driven systems, ACE fits neatly into containerized workflows.
