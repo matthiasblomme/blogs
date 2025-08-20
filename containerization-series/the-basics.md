@@ -7,7 +7,6 @@
 >
 > Every setup is different, so what works in one environment might not make sense in another. Take this as input, not carved in stone, something to help you think through your own decisions.
 
----
 
 ## Why containers?
 
@@ -17,7 +16,6 @@ It simplifies deployments, makes applications portable, lets you scale up (or do
 
 For IBM App Connect Enterprise (ACE) users, containerization is more than just a buzzword. It’s a practical way to get more out of your integration solutions, especially in complex setups like hybrid cloud or API-driven architectures. Even if none of that applies to you, it removes the dependency on a manually managed Integration Node and makes staged upgrades easier. At the end of the day, it makes your deployments faster, easier, and more reliable.
 
----
 
 ## What’s Containerization, Anyway?
 
@@ -29,7 +27,6 @@ At its core, containerization is all about bundling your application along with 
 - **Portability**: Move it between environments (your laptop, a test server, or the cloud) and it just works.
 - **Efficiency**: Use fewer resources by running multiple containers on the same system without stepping on each other’s toes.
 
----
 
 ## Why Should ACE Users Care?
 
@@ -39,7 +36,6 @@ With containers, you can pre-package everything—ACE runtimes, configurations, 
 
 For integration-heavy use cases, this is a game changer. Whether you’re managing APIs, processing high volumes of messages, or connecting cloud and on-prem systems, containers let you deploy ACE in a way that’s consistent and scalable.
 
----
 
 ## Why Is Everyone Talking About Containers?
 
@@ -51,7 +47,12 @@ The push toward containerization isn’t just hype, it’s driven by real needs.
 
 Reports show container adoption is skyrocketing, with enterprises shifting more workloads into containerized environments every year. It’s not hard to see why.
 
----
+
+## Have you heard the phrase "pets vs cattle"
+
+In this context, your pet, aka your ... 
+And then there is your cattle ...
+
 
 ## How Does ACE Fit Into All This?
 
@@ -63,7 +64,6 @@ Here are a few scenarios where this pairing shines:
 - **API Management**: Containerized ACE lets you scale API processing dynamically.
 - **Event-Driven Flows**: Containers enable rapid scaling for spikes in event workloads.
 
----
 
 ## What’s Next?
 
