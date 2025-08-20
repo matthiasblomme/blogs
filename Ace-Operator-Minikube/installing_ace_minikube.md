@@ -291,7 +291,6 @@ ace-dashboard     13.0.4.1-r1       1          false          Ready             
 ```bash
 > kubectl get svc
 NAME                              TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)                      AGE
-ace-dashboard-2-dash              ClusterIP   10.109.116.80   <none>        3443/TCP,8300/TCP,8400/TCP   57m
 ace-dashboard-dash                ClusterIP   10.109.39.252   <none>        3443/TCP,8300/TCP,8400/TCP   2d3h
 
 > kubectl get svc ace-dashboard-dash
@@ -384,18 +383,204 @@ This brings you to an empty page where you import your very first BAR file
 
 ![img_2.png](img_2.png)
 
-Click on the big blue button _Import BAR file_
+Click on the big blue button _Import BAR file_. A new window slides open from the right.
 
 ![img_3.png](img_3.png)
 
 Find the bar file you want to import, and click on _Import_ in the bottom left
 
+![img_4.png](img_4.png)
 
-...
+All upload bar files will be listed on this page
+
+![img_5.png](img_5.png)
 
 ## Step 7: Creating a runtime
+Go back to the main dash
+![img_6.png](img_6.png)
+
+Click on deploy integrations
+![img_7.png](img_7.png)
+
+Select the quick start integration
+![img_8.png](img_8.png)
+
+Select the previously uploaded bar file
+
+We don't have any pre-made configurations, so we can skip this
+![img_9.png](img_9.png)
+
+Just use the default values, those should be fine for most situations. Then hit Create
+![img_10.png](img_10.png)
+
+And your integration server is starting. If you check your minikube cluster at this point, you will see the following 
+object create
+- integrationruntime: ir-01-quickstart
+- service: ir-01-quickstart-ir
+- pod: ir-01-quickstart-ir-f5d5df68c-kpxcx (the pod name can be different, ofcourse)
+- 
+```powershell
+> k get integrationruntime
+NAME               RESOLVEDVERSION   STATUS   REPLICAS   AVAILABLEREPLICAS   URL                                                          AGE     CUSTOMIMAGES
+ir-01-quickstart   13.0.4.1-r1       Ready    1          1                   http://ir-01-quickstart-ir.ace-demo.svc.cluster.local:7800   2m35s   false
+```
+
+```powershell
+> k get svc -l app.kubernetes.io/managed-by=ibm-appconnect
+NAME                              TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)                      AGE
+ace-dashboard-dash                ClusterIP   10.109.67.101   <none>        3443/TCP,8300/TCP,8400/TCP   135m
+ibm-appconnect-webhook-ace-demo   ClusterIP   10.100.65.199   <none>        443/TCP                      3d1h
+ir-01-quickstart-ir               ClusterIP   10.106.17.219   <none>        7800/TCP,7843/TCP,7600/TCP   4m18s
+```
+
+```powershell
+> k get pod -l app.kubernetes.io/managed-by=ibm-appconnect
+NAME                                  READY   STATUS    RESTARTS   AGE
+ace-dashboard-dash-9668bd46f-8tjfp    2/2     Running   0          136m
+ir-01-quickstart-ir-f5d5df68c-kpxcx   1/1     Running   0          5m3s
+```
+
+### Dashboard issue: runtime not visible
+If you have created the runtime, and the kubernetes artifacts are all up and running, but the dashboard is not showing you 
+the runtime. But everything else looks fine.
+
+![img_12.png](img_12.png)
+
+The bar file shows that it's deployed
+
+![img_13.png](img_13.png)
+
+The runtime works and is accessible
+
+![img_14.png](img_14.png)
+
+First, it's always a good idea to enable some logging. You can turn up the log level to debug, by patching the dashboard.
+
+```yaml
+spec:
+  logLevel: debug
+```
+
+```powershell
+> k patch dashboard ace-dashboard --patch-file .\ace\debug-log.yaml --type merge
+dashboard.appconnect.ibm.com/ace-dashboard patched
+```
+
+Next, wait for the dashboard patch to complete the rollout
+```powershell
+> kubectl -n ace-demo rollout status deployment/ace-dashboard-dash
+deployment "ace-dashboard-dash" successfully rolled out
+```
+
+Next check the log files for the dashboard pod, this will generate a log of logging, so it is handy to redirect the output to 
+a log file
+```powershell
+> kubectl get pods -l release=ace-dashboard
+NAME                                 READY   STATUS    RESTARTS   AGE
+ace-dashboard-dash-9668bd46f-fprh9   2/2     Running   0          95m
+
+> k logs ace-dashboard-dash-5d99db548d-7sr5c -c control-ui > .\ace\dashboard-debug.log
+```
+
+If the log begins like this, then debugging has been enabled and you have a lot more information to go through
+```text
+2025-08-14 15:43:46.249Z: Created logger at level debug
+2025-08-14 15:43:46.294Z: Using application name app
+2025-08-14 15:43:46.294Z: METRICS_TRANSPORT is not set, so not sending metrics
+...
+```
+
+As for the issue, 
 
 ...
+
+## Step 8: Accessing the runtime
+
+### Quick port forward
+The deployed RESTApi is listening on port 7800 (inside the cluster), without https enabled (just to keep it simple). 
+Let's start a new kubectl port forward session to make it accessible from my local host. 
+```powershell
+> k port-forward svc/ir-01-quickstart-ir 17800:7800
+Forwarding from 127.0.0.1:17800 -> 7800
+Forwarding from [::1]:17800 -> 7800
+```
+
+And let's thest this by calling the API via cli
+
+```powershell
+> Invoke-WebRequest "http://127.0.0.1:17800/world/hello" -UseBasicParsing
+
+
+StatusCode        : 200
+StatusDescription : OK
+Content           : {"message":"Hello, Foo Bar!"}
+RawContent        : HTTP/1.1 200 OK
+X-IBM-ACE-Message-Id: (00000097-689DAF54-00000001)
+Content-Length: 29
+Content-Type: application/json
+Date: Thu, 14 Aug 2025 09:41:40 GMT
+Server: IBM App Connect Enterprise
+
+{"me...
+Forms             :
+Headers           : {[X-IBM-ACE-Message-Id, (00000097-689DAF54-00000001)], [Content-Length, 29], [Content-Type, application/json], [Date, Thu, 14 Aug 2025 09:41:40 GMT]...}
+Images            : {}
+InputFields       : {}
+Links             : {}
+ParsedHtml        :
+RawContentLength  : 29
+```
+
+And whaddayaknow, it works!
+
+
+### API ingress
+If you are not happy with calling your localhost, you can also create an extra Ingress to integration runtime
+
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ir01-ing
+  namespace: ace-demo
+  annotations:
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTP"   # use "HTTPS" if you point to 7843 instead
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: ir01.local
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: ir-01-quickstart-ir
+            port:
+              number: 7800            # or 7843 if you want HTTPS to the pod
+```
+
+Apply it
+```powershell
+> kubectl apply -f .\ace\ir01-ingress.yaml
+```
+
+Add the hostname to your windows hosts file (from elevated prompt)
+```powershell
+> Add-Content "$env:SystemRoot\System32\drivers\etc\hosts" "`n127.0.0.1`tir01.local"
+```
+
+Let's expose port 443 locally on 12122
+```powershell
+> kubectl -n ingress-nginx port-forward svc/ingress-nginx-controller 12122:443
+Forwarding from 127.0.0.1:12122 -> 443
+Forwarding from [::1]:12122 -> 443
+```
+
+And finally, thest the entire setup by pointing our browser to https://ir01.local:12122/world/hello
+![img_11.png](img_11.png)
+
+Success!
 
 ---
 
