@@ -1,4 +1,4 @@
-# Installing ACE 13.x on VKS (and Minikube): Filling in the Blanks
+# Installing ACE 13.x on Minikube: Filling in the Blanks
 
 Even though we hardly ever see it, IBM App Connect Enterprise (ACE) is perfectly capable of running on plain Kubernetes. But let’s be honest, it looks much fancier on OpenShift 😉. If you're not using OpenShift or a Cloud Pak install, getting it all up and running becomes a much more hands-on operation.
 
