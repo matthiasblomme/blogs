@@ -20,15 +20,15 @@ For IBM App Connect Enterprise (ACE) users, containerization is more than just a
 ## Pets vs. Cattle: A Container Mindset
 
 One of the easiest ways to explain why containers matter is with the old “pets vs cattle” analogy. It sounds a bit odd at 
-first, but stick with me.
+first, but stick with me, it will make sense, pinky promise.
 
-In traditional IT setups, servers are treated like pets. You give them names (like "hummingbird", or "Spock", or simple a semi-random name), you feed and care for them, and when they get sick you nurse them back to health. That’s fine when you only have a few, but it doesn’t scale. And if Spock has a really bad day, you’re in trouble.
+In traditional IT setups, servers are treated like pets. You give them names (like "hummingbird", or "Spock", or simply a semi-random name). You feed and care for them, and when they get sick you nurse them back to health. That’s fine when you only have a few, but it doesn’t scale. And if Spock is throwing a tantrum, you’re in trouble.
 
-With containers, runtimes are treated more like cattle. They don’t get special names; they get numbers. If one goes down, it's culled. You don’t spend hours fixing it — you replace it with a new one. The herd keeps moving, and no single container is indispensable.
+With containers, runtimes are treated more like cattle. They don’t get special names, they get numbered ear tags. If one becomes poorly, it's culled. You don’t spend hours fixing it, you replace it with a new one. The herd keeps moving, and no single container is indispensable.
 
-For IBM ACE, this shift is important. In the old model, you might carefully manage a single Integration Node for years, tweaking and patching as needed. In the container world, you design things so that integration servers are disposable. If something breaks, you spin up a new one. If you need more capacity, you scale out horizontally.
+For IBM ACE, this shift is important. In the old model, you might carefully manage a single Integration Node for years, tweaking and patching as needed. In the container world, you design things so that independant Integration Servers are disposable. If something breaks, you spin up a new one. If you need more capacity, you scale out horizontally.
 
-This doesn’t mean you should forget about good monitoring, logging, or configuration management. But the mindset changes: instead of nurturing a pet, you’re managing a herd. Containers are ephemeral by design, and that’s a good thing. It forces you to build resilient, automated deployments rather than relying on manual care and attention.
+This doesn’t mean you should forget about good monitoring, logging, or configuration management. But the mindset changes: instead of nurturing a pet, you’re managing cattle. Containers are ephemeral by design, and that’s a good thing. It forces you to build resilient, automated deployments rather than relying on manual care and attention.
 
 ## What’s Containerization, Anyway?
 
@@ -83,3 +83,25 @@ Now that we’ve covered the basics of containerization, the next posts in this 
 - Managing builds, BAR files, and eventually CI/CD pipelines
 
 I’m not going to hand you the “right” answer for each of these. Instead, I’ll share the considerations, trade-offs, and questions that I think are worth asking. The idea is to give you input you can use in your own context, not a recipe to follow step by step.  
+
+
+---
+
+For more integration tips and tricks, visit [Integration Designers](https://integrationdesigners.com/blog/) and check out our other blog posts.
+
+---
+
+## Other blogs from the Containerizing IBM ACE series 
+
+* Containerizing IBM ACE: A Blog Series - Images vs Artifacts
+* My Containerizing IBM ACE: A Blog Series – Things to Consider in Containers
+* 
+
+---
+
+Written by [Matthias Blomme](https://www.linkedin.com/in/matthiasblomme/)
+
+\#IBMChampion \
+\#AppConnectEnterprise(ACE)
+
+

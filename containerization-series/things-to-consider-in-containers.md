@@ -65,3 +65,22 @@ Chances are slim that if you are developing applications you’re also maintaini
 ## Closing Note
 
 None of these points are meant to scare you away from containers. They’re meant to spark the right questions before something blows up in production. Containers give you speed and flexibility, but ACE still has real-world needs like persistence, security, and predictable scaling. Think of this list as a set of road signs: you don’t have to stop at all of them, but you should at least know they’re coming up.
+
+---
+
+For more integration tips and tricks, visit [Integration Designers](https://integrationdesigners.com/blog/) and check out our other blog posts.
+
+---
+
+## Other blogs from the Containerizing IBM ACE series
+
+* Containerizing IBM ACE: A Blog Series – The Basics
+* Containerizing IBM ACE: A Blog Series - Images vs Artifacts
+*
+
+---
+
+Written by [Matthias Blomme](https://www.linkedin.com/in/matthiasblomme/)
+
+\#IBMChampion \
+\#AppConnectEnterprise(ACE)
