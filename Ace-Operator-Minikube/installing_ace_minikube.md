@@ -363,11 +363,9 @@ https://ace-dashboard.local:12121/
 
 
 ### Securing your Ingress
-The current setup performs a security passthrough. The TLS handling is passed onto the dashboard itself while NginX is basically
-just a passthrough proxy.
-
-If you want a more secure setup, you can also configure your Ingress to perform TLS termination. This also takes the certificate
-rotation away from the dashboard and moves it to the Ingress itself.
+Right now, the setup just proxies traffic straight through—TLS is handled by the dashboard itself, and NGINX is acting as 
+a simple passthrough. For a stronger security model, you can flip that around and let the Ingress terminate TLS. That way, 
+certificate management and rotation happen at the Ingress layer instead of inside the dashboard.
 
 Add the spec.tls section to your Dashboard Ingress
 
