@@ -106,4 +106,22 @@ This is a highly debatable topic, and everyone has their own view of what the be
 Both approaches can work and work well. The important thing is to pick the one that fits your context best.
 
 Personally, I keep switching between the two depending on what I’m building and who I’m building it for — and that’s fine. Hopefully this gives you some ideas to chew on for your own setup.
-****
+
+---
+
+For more integration tips and tricks, visit [Integration Designers](https://integrationdesigners.com/blog/) and check out our other blog posts.
+
+---
+
+## Other blogs from the Containerizing IBM ACE series
+
+* Containerizing IBM ACE: A Blog Series – The Basics
+* My Containerizing IBM ACE: A Blog Series – Things to Consider in Containers
+*
+
+---
+
+Written by [Matthias Blomme](https://www.linkedin.com/in/matthiasblomme/)
+
+\#IBMChampion \
+\#AppConnectEnterprise(ACE)
