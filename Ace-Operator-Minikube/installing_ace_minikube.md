@@ -361,6 +361,155 @@ https://ace-dashboard.local:12121/
 ![img.png](img.png)
 
 
+
+### Securing your Ingress
+The current setup performs a security passthrough. The TLS handling is passed onto the dashboard itself while NginX is basically
+just a passthrough proxy.
+
+If you want a more secure setup, you can also configure your Ingress to perform TLS termination. This also takes the certificate
+rotation away from the dashboard and moves it to the Ingress itself.
+
+Add the spec.tls section to your Dashboard Ingress
+
+```yaml
+  tls:
+  - hosts:
+    - ace-dashboard.local
+    secretName: ace-dashboard-tls    # cert-manager creates this Secret
+  rules:
+```
+
+But start by creating your own certificate
+
+```yaml
+#dashboard-pod-cert.yaml
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: ace-dashboard-tls
+  namespace: ace-demo
+spec:
+  secretName: ace-dashboard-tls
+  issuerRef:
+    kind: ClusterIssuer
+    name: selfsigned-issuer   # or your CA
+  dnsNames:
+  - ace-dashboard.local
+```
+
+```bash
+> k apply -f .\dashboard-pod-cert.yaml
+certificate.cert-manager.io/ace-dashboard-tls created
+```
+
+Check to see if you actually have the selfsigned-issuer in you cluster. If you are running an empty new cluster, you probably
+wont' have. If not, create it
+
+```yaml
+#clusterissuer.yaml
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: selfsigned-issuer
+spec:
+  selfSigned: {}
+```
+
+```bash
+> kubectl get clusterissuer selfsigned-issuer
+Error from server (NotFound): clusterissuers.cert-manager.io "selfsigned-issuer" not found
+> k apply -f .\clusterissuer.yaml
+clusterissuer.cert-manager.io/selfsigned-issuer created
+```
+
+
+Your fully updated ingress will ook like this
+```yaml
+# ace-dashboard-ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ace-dashboard-ingress
+  namespace: ace-demo
+  annotations:
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    nginx.ingress.kubernetes.io/proxy-ssl-verify: "false"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+      - ace-dashboard.local
+    secretName: ace-dashboard-tls    # cert-manager creates this Secret
+  rules:
+  - host: ace-dashboard.local
+    http:
+      paths:
+      - path: /apiv2
+        pathType: Prefix
+        backend:
+          service:
+            name: ace-dashboard-dash
+            port:
+              number: 8300   # UI port; UI proxies /apiv2 to API
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: ace-dashboard-dash
+            port:
+              number: 8300   # UI port
+```
+
+Apply it 
+```bash
+> k apply -f .\ace-dashboard-ingress.yaml
+ingress.networking.k8s.io/ace-dashboard-ingress configured
+```
+
+Add the hostname to your windows hosts file (from elevated prompt)
+```powershell
+> Add-Content "$env:SystemRoot\System32\drivers\etc\hosts" "`n127.0.0.1`ace-dashboard.local"
+```
+
+Let's expose the Minikube ingress (in stead of port-forwarding)
+```powershell
+PS C:\Users\Bmatt> minikube addons enable ingress
+💡  ingress is an addon maintained by Kubernetes. For any concerns contact minikube on GitHub.
+You can view the list of minikube maintainers at: https://github.com/kubernetes/minikube/blob/master/OWNERS
+❗  Executing "docker container inspect minikube --format={{.State.Status}}" took an unusually long time: 3.3220798s
+💡  Restarting the docker service may improve performance.
+💡  After the addon is enabled, please run "minikube tunnel" and your ingress resources would be available at "127.0.0.1"
+▪ Using image registry.k8s.io/ingress-nginx/controller:v1.12.2
+▪ Using image registry.k8s.io/ingress-nginx/kube-webhook-certgen:v1.5.3
+▪ Using image registry.k8s.io/ingress-nginx/kube-webhook-certgen:v1.5.3
+🔎  Verifying ingress addon...
+🌟  The 'ingress' addon is enabled
+PS C:\Users\Bmatt> minikube tunnel
+✅  Tunnel successfully started
+
+📌  NOTE: Please do not close this terminal as this process must stay alive for the tunnel to be accessible ...
+
+❗  Access to ports below 1024 may fail on Windows with OpenSSH clients older than v8.1. For more information, see: https://minikube.sigs.k8s.io/docs/handbook/accessing/#access-to-ports-1024-on-windows-requires-root-permission
+❗  Access to ports below 1024 may fail on Windows with OpenSSH clients older than v8.1. For more information, see: https://minikube.sigs.k8s.io/docs/handbook/accessing/#access-to-ports-1024-on-windows-requires-root-permission
+❗  Access to ports below 1024 may fail on Windows with OpenSSH clients older than v8.1. For more information, see: https://minikube.sigs.k8s.io/docs/handbook/accessing/#access-to-ports-1024-on-windows-requires-root-permission
+🏃  Starting tunnel for service ace-dashboard-ingress.
+❗  Access to ports below 1024 may fail on Windows with OpenSSH clients older than v8.1. For more information, see: https://minikube.sigs.k8s.io/docs/handbook/accessing/#access-to-ports-1024-on-windows-requires-root-permission
+🏃  Starting tunnel for service demo.
+🏃  Starting tunnel for service ir01-ing.
+🏃  Starting tunnel for service ingress-tls.
+```
+
+And then go to https://ace-dashboard.local/home
+
+![img_15.png](img_15.png)
+
+And have a look at the certificate, there you can clearly see the DNS Name provided by the Ingress.
+
+![img_16.png](img_16.png)
+
+
+
 ### Ingress issue: No Ingress Controller in Minikube
 
 If Minikube has no ingress controller, simply enable it:
@@ -559,6 +708,7 @@ spec:
             port:
               number: 7800            # or 7843 if you want HTTPS to the pod
 ```
+
 
 Apply it
 ```powershell
