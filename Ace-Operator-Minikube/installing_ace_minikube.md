@@ -40,7 +40,7 @@ If you don't want to set them each time you open a new session, make them persis
 
 Paste both alias lines into the file and save.
 
-```
+```powershell
 Set-Alias -Name k -Value kubectl
 Set-Alias -Name m -Value minikube
 
@@ -377,7 +377,7 @@ Add the spec.tls section to your Dashboard Ingress
   rules:
 ```
 
-But start by creating your own certificate
+And start by creating your own certificate first, you can't use what you don't have.
 
 ```yaml
 #dashboard-pod-cert.yaml
@@ -400,8 +400,18 @@ spec:
 certificate.cert-manager.io/ace-dashboard-tls created
 ```
 
-Check to see if you actually have the selfsigned-issuer in you cluster. If you are running an empty new cluster, you probably
-wont' have. If not, create it
+Check if your certificate is actually getting created
+
+```bash
+> k get cert
+NAME                              READY   SECRET                            AGE
+ace-dashboard-tls                 False   ace-dashboard-tls                 10s
+ace-dashboardui-cert              True    ace-dashboardui-cert              7d5h
+ibm-appconnect-webhook-ace-demo   True    ibm-appconnect-webhook-ace-demo   10d
+```
+
+If the ready state is stuck on _False_, check to see if you actually have the selfsigned-issuer in you cluster. If you are running an empty new cluster, you probably
+wont' have. So let's create (if needed).
 
 ```yaml
 #clusterissuer.yaml
@@ -420,8 +430,8 @@ Error from server (NotFound): clusterissuers.cert-manager.io "selfsigned-issuer"
 clusterissuer.cert-manager.io/selfsigned-issuer created
 ```
 
-
 Your fully updated ingress will ook like this
+
 ```yaml
 # ace-dashboard-ingress.yaml
 apiVersion: networking.k8s.io/v1
@@ -460,17 +470,20 @@ spec:
 ```
 
 Apply it 
+
 ```bash
 > k apply -f .\ace-dashboard-ingress.yaml
 ingress.networking.k8s.io/ace-dashboard-ingress configured
 ```
 
 Add the hostname to your windows hosts file (from elevated prompt)
+
 ```powershell
 > Add-Content "$env:SystemRoot\System32\drivers\etc\hosts" "`n127.0.0.1`ace-dashboard.local"
 ```
 
 Let's expose the Minikube ingress (in stead of port-forwarding)
+
 ```powershell
 PS C:\Users\Bmatt> minikube addons enable ingress
 💡  ingress is an addon maintained by Kubernetes. For any concerns contact minikube on GitHub.
@@ -685,6 +698,7 @@ And whaddayaknow, it works!
 If you are not happy with calling your localhost, you can also create an extra Ingress to integration runtime
 
 ```yaml
+#ir01-ingress.yaml
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
