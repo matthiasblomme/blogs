@@ -49,7 +49,6 @@ Set-Alias -Name m -Value minikube
 
 ```
 
-
 Create a dedicated namespace, ace-demo, for our setup and make that namespace the default one (saves you from typing -n ace-demo each time):
 
 ```bash
@@ -60,18 +59,74 @@ k config set-context --current --namespace=ace-demo
 ```
 
 
-
 ## Step 1: Add the IBM Helm Chart Repo
 
 Before we can install the Operator, we need the source. Adding IBM’s Helm repo ensures we’re pulling the official charts and latest versions.
 
 ```bash
-helm repo add ibm-helm https://icr.io/helm/ibm-charts
+helm repo add ibm-helm  https://raw.githubusercontent.com/IBM/charts/master/repo/ibm-helm
 ```
 ```bash
 helm repo update
 ```
 
+Before we can install the Operator, we need the source. Adding IBM’s Helm repo ensures we’re pulling the official charts and latest versions.
+
+```bash
+helm repo add ibm-helm  https://raw.githubusercontent.com/IBM/charts/master/repo/ibm-helm
+```
+```bash
+helm repo update
+```
+
+
+## Step 2: Install the k8s cert-manager
+If you have a clean cluster without a cert-manager installed, begin by installing it, you will need it later. Check if 
+they are installed (if you are not sure about your cluster setup). 
+
+Check the the cert-manager namespace
+
+```bash
+k -n cert-manager get pods
+No resources found in cert-manager namespace.
+```
+
+Or try to list all cert-manager instance pods
+
+```bash
+k get pods -A -l instance=cert-manager
+No resources found
+```
+
+If these return nothing, install the official cert-manager
+```bash
+k apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.17.2/cert-manager.yaml
+```
+
+Wait for the pods to run:
+
+```bash
+k -n cert-manager get pods -w
+NAME                                      READY   STATUS    RESTARTS   AGE
+cert-manager-6468fc8f56-t4l8t             1/1     Running   0          2d4h
+cert-manager-cainjector-7fd85dcc7-xfghw   1/1     Running   0          2d4h
+cert-manager-webhook-57df45f686-8fchm     1/1     Running   0          2d4h
+```
+
+Verify the curstom resource definitions:
+
+```bash
+k get crd issuers.cert-manager.io clusterissuers.cert-manager.io certificates.cert-manager.io
+NAME                             CREATED AT
+issuers.cert-manager.io          2025-08-11T07:55:17Z
+clusterissuers.cert-manager.io   2025-08-11T07:55:16Z
+certificates.cert-manager.io     2025-08-11T07:55:16Z
+```
+
+If you don't install the cert-manger, your Operator pod fails to start with the below error:
+```
+no matches for kind "Issuer" in version "cert-manager.io/v1"
+```
 
 ## Step 2: Install the ACE Operator
 
@@ -123,37 +178,6 @@ operator:
     - ibm-entitlement-key            # Secret for pulling IBM entitled images
 ```
 
-### Startup Issue: Operator Fails Without cert-manager
-
-If your Operator pod fails to start with the below error:
-```
-no matches for kind "Issuer" in version "cert-manager.io/v1"
-```
-
-It means that the means cert-manager is missing. Install it with:
-```bash
-k apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.17.2/cert-manager.yaml
-```
-
-Wait for the pods to run:
-
-```bash
-k -n cert-manager get pods -w
-NAME                                      READY   STATUS    RESTARTS   AGE
-cert-manager-6468fc8f56-t4l8t             1/1     Running   0          2d4h
-cert-manager-cainjector-7fd85dcc7-xfghw   1/1     Running   0          2d4h
-cert-manager-webhook-57df45f686-8fchm     1/1     Running   0          2d4h
-```
-
-Verify the curstom resource definitions:
-
-```bash
-k get crd issuers.cert-manager.io clusterissuers.cert-manager.io certificates.cert-manager.io
-NAME                             CREATED AT
-issuers.cert-manager.io          2025-08-11T07:55:17Z
-clusterissuers.cert-manager.io   2025-08-11T07:55:16Z
-certificates.cert-manager.io     2025-08-11T07:55:16Z
-```
 
 ## Step 3: Create Persistent Volume Claim for Dashboard
 
@@ -215,18 +239,45 @@ version '14.12.0'. The licence and use will determine if you are going to pay an
 apiVersion: appconnect.ibm.com/v1beta1
 kind: Dashboard
 metadata:
-  name: ace-dashboard                # Dashboard CR name
-  namespace: ace-demo                # Namespace for dashboard
+  name: ace-dashboard
+  namespace: ace-demo
 spec:
   license:
-    accept: true                     # Must accept license terms
-    license: L-KPRV-AUG9NC            # License ID
-    use: AppConnectEnterpriseNonProductionFREE # License type
+    accept: true
+    license: L-KPRV-AUG9NC
+    use: AppConnectEnterpriseNonProductionFREE
+  pod:
+    containers:
+      content-server:
+        resources:
+          limits:
+            memory: 512Mi
+          requests:
+            cpu: 50m
+            memory: 50Mi
+      control-ui:
+        resources:
+          limits:
+            memory: 512Mi
+          requests:
+            cpu: 50m
+            memory: 125Mi
+  switchServer:
+    name: default
+  authentication:
+    integrationKeycloak:
+      enabled: false
+  authorization:
+    integrationKeycloak:
+      enabled: false
+  api:
+    enabled: true
   storage:
-    type: persistent-claim           # Use existing PVC
-    claimName: ace-dashboard-content  # PVC name from Step 3
-  replicas: 1                         # Dashboard pod count
-  version: '13.0'                     # Dashboard version
+    type: persistent-claim
+    claimName: ace-dashboard-content
+  displayMode: IntegrationRuntimes
+  replicas: 1
+  version: '13.0'
 ```
 
 Create the dashboard:
