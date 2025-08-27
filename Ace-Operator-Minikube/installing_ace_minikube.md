@@ -1,9 +1,13 @@
 # Installing ACE 13.x on Minikube: Filling in the Blanks
 
-Even though we hardly ever see it, IBM App Connect Enterprise (ACE) is perfectly capable of running on plain Kubernetes. But let’s be honest, it looks much fancier on OpenShift 😉. If you're not using OpenShift or a Cloud Pak install, getting it all up and running becomes a much more hands-on operation.
+Even though we hardly ever see it, IBM App Connect Enterprise (ACE) is perfectly capable of running on plain Kubernetes. 
+But let’s be honest, it looks much fancier on OpenShift 😉. If you're not using OpenShift or a Cloud Pak install, getting 
+it all up and running becomes a much more hands-on operation.
 
-In this blog, I’ll be deploying ACE 13.x manually on Minikube, including the Operator, Dashboard, and a runtime. Along the way, I’ll share the practical steps, issues I ran into, and the patches or tweaks I made to get it working. If you’re running outside the officially supported clusters or on NOKS (that is Non-OpenShift Kubernetes), this should help you dodge a few potholes.
-
+In this blog, I’ll be deploying ACE 13.x manually on Minikube, including the Operator, Dashboard, and a runtime. Along 
+the way, I’ll share the practical steps, issues I ran into, and the patches or tweaks I made to get it working. If you’re 
+running outside the officially supported clusters or on NOKS (that is Non-OpenShift Kubernetes), this should help you 
+dodge a few potholes.
 
 
 ## Assumptions
@@ -14,8 +18,8 @@ This post assumes:
 * You’re working with a functional cluster (Minikube or alternative)
 * You know your way around `kubectl`, YAML, and k8s cluster basics
 
-Getting started with Minikube? Or simply don't have Kubernetes or Helm installed, I’ve dropped a couple of reference links at the bottom.
-
+Getting started with Minikube? Or simply don't have Kubernetes or Helm installed, I’ve dropped a couple of reference 
+links at the bottom.
 
 
 ## Step 0: Optimizing My Local Setup
@@ -33,7 +37,8 @@ Set-Alias -Name k -Value kubectl
 Set-Alias -Name m -Value minikube
 ```
 
-If you don't want to set them each time you open a new session, make them persistent. Open up the powershell profile file (or create it if it doesn't exist yet):
+If you don't want to set them each time you open a new session, make them persistent. Open up the powershell profile 
+file (or create it if it doesn't exist yet):
 
 ```powershell
 notepad $PROFILE
@@ -49,7 +54,8 @@ Set-Alias -Name m -Value minikube
 
 ```
 
-Create a dedicated namespace, ace-demo, for our setup and make that namespace the default one (saves you from typing -n ace-demo each time):
+Create a dedicated namespace, ace-demo, for our setup and make that namespace the default one (saves you from typing -n 
+ace-demo each time):
 
 ```bash
 k create namespace ace-demo
@@ -61,7 +67,8 @@ k config set-context --current --namespace=ace-demo
 
 ## Step 1: Add the IBM Helm Chart Repo
 
-Before we can install the Operator, we need the source. Adding IBM’s Helm repo ensures we’re pulling the official charts and latest versions.
+Before we can install the Operator, we need the source. Adding IBM’s Helm repo ensures we’re pulling the official charts 
+and latest versions.
 
 ```bash
 helm repo add ibm-helm  https://raw.githubusercontent.com/IBM/charts/master/repo/ibm-helm
@@ -70,7 +77,8 @@ helm repo add ibm-helm  https://raw.githubusercontent.com/IBM/charts/master/repo
 helm repo update
 ```
 
-Before we can install the Operator, we need the source. Adding IBM’s Helm repo ensures we’re pulling the official charts and latest versions.
+Before we can install the Operator, we need the source. Adding IBM’s Helm repo ensures we’re pulling the official charts 
+and latest versions.
 
 ```bash
 helm repo add ibm-helm  https://raw.githubusercontent.com/IBM/charts/master/repo/ibm-helm
@@ -130,8 +138,11 @@ no matches for kind "Issuer" in version "cert-manager.io/v1"
 
 ## Step 2: Install the ACE Operator
 
-The operator is a Kubernetes controller that watches ACE custom resources (Dashboard, IntegrationRuntime/IntegrationServer, DesignerAuthoring, SwitchServer, Configuration, Trace) and reconciles the corresponding Deployments, Services, and PVCs.
-The ace-operator-values.yaml file contains some basic values, nothing special. The most important one (for our setup), is the version tag.
+The operator is a Kubernetes controller that watches ACE custom resources (Dashboard, IntegrationRuntime/IntegrationServer, 
+DesignerAuthoring, SwitchServer, Configuration, Trace) and reconciles the corresponding Deployments, Services, and PVCs.
+The ace-operator-values.yaml file contains some basic values, nothing special. The most important one (for our setup), 
+is the version tag.
+
 ```bash
 helm install ibm-appconnect ibm-helm/ibm-appconnect-operator -f ./ace-operator-values.yaml
 NAME: ibm-appconnect
@@ -181,10 +192,11 @@ operator:
 
 ## Step 3: Create Persistent Volume Claim for Dashboard
 
-The Dashboard stores configuration and runtime data in persistent storage. Without a PVC, it has nowhere to keep BAR files or settings. 
-ACE can automatically create a matching PVC for your dashboard, if you have a RWX (Read Write Many) storage class available.
-My local setup did not have one that supports RWX, but if you plan to run a single instance of your dashboard (which I plan to do)
-you can get away with manually creating a RWO (Read Write Once) PVC and manually assign it to the dashboard.
+The Dashboard stores configuration and runtime data in persistent storage. Without a PVC, it has nowhere to keep BAR files 
+or settings. ACE can automatically create a matching PVC for your dashboard, if you have a RWX (Read Write Many) storage 
+class available. My local setup did not have one that supports RWX, but if you plan to run a single instance of your 
+dashboard (which I plan to do) you can get away with manually creating a RWO (Read Write Once) PVC and manually assign 
+it to the dashboard.
 
 Example `ace-dashboard-pvc.yaml`:
 
@@ -213,8 +225,8 @@ persistentvolumeclaim/ace-dashboard-content created
 
 ### Image pull issue: Entitlement key
 
-From this point onwards, you need an entitlement key in place. The entitlement key is what grants you access to the IBM Container images.  
-Ensure your that your entitlement includes container access. If this is not the case, request it.
+From this point onwards, you need an entitlement key in place. The entitlement key is what grants you access to the IBM 
+Container images. Ensure your that your entitlement includes container access. If this is not the case, request it.
 
 Creating the k8s secret for the entitlement key (typically called ibm-entitlement-key).
 ```bash
@@ -231,8 +243,8 @@ This is a manual action, not a versioned yaml. Don't put your secrets in source 
 ## Step 4: Deploy the ACE Dashboard
 
 The dashboard is the main UI for ACE. It can be used to store bar files you want to use in your Integration Runtimes.
-Below you see a yaml file with a minimal setup. Note the version is set to '13.0', important if you want it to work with the operator
-version '14.12.0'. The licence and use will determine if you are going to pay any license costs, so choose wisely.
+Below you see a yaml file with a minimal setup. Note the version is set to '13.0', important if you want it to work with 
+the operator version '14.12.0'. The licence and use will determine if you are going to pay any license costs, so choose wisely.
 
 ```yaml
 # ace-dashboard.yaml
@@ -305,15 +317,18 @@ In a more recent version of the dashboard, the original appconnect-resources con
 - appconnect-resources-ir-crd
 - appconnect-resources-is-crd
 
-Combining operator version '12.14.0' with dashboard '13.0' did work. The default settings for the operator point you to a sha version of the image, but you can work with a tag as well (less sensitive to typo's).
-By adding the tag to the ace-operator-values.yaml file (as we did in the beginning of the blog) should prevent this error all together.
+Combining operator version '12.14.0' with dashboard '13.0' did work. The default settings for the operator point you to 
+a sha version of the image, but you can work with a tag as well (less sensitive to typo's). By adding the tag to the 
+ace-operator-values.yaml file (as we did in the beginning of the blog) should prevent this error all together.
 
 
 ### Init Conatiner issue: content-server-init CrashLoop
 
 IBM states:
 
-> The App Connect Dashboard requires a file-based storage class with ReadWriteMany (RWX) capability. If using IBM Cloud, use the `ibmc-file-gold-gid` storage class. The file system must not be root-owned and must allow read/write access for the user that the Dashboard runs as.
+> The App Connect Dashboard requires a file-based storage class with ReadWriteMany (RWX) capability. If using IBM Cloud, 
+> use the `ibmc-file-gold-gid` storage class. The file system must not be root-owned and must allow read/write access for 
+> the user that the Dashboard runs as.
 
 If these requirements aren’t met, the init container may fail with permission denied errors and get stuk in a restart loop.
 Diagnosing this problem:
@@ -343,7 +358,8 @@ spec:
         fsGroup: 1001
 ```
 
-Applying the patch, scale the deployment down first, since we are running on a RWO PVC, we can't have the dashboard spin up a new version first to do a rolling update. Don't forget to scale it back up after applying the patch.
+Applying the patch, scale the deployment down first, since we are running on a RWO PVC, we can't have the dashboard spin 
+up a new version first to do a rolling update. Don't forget to scale it back up after applying the patch.
 
 ```bash
 kubectl scale deployment ace-dashboard-dash --replicas=0
@@ -358,11 +374,12 @@ kubectl scale deployment ace-dashboard-dash --replicas=1
 
 ## Step 5: Expose the Dashboard
 
-Service vs Ingress (quick primer): the Service provides a stable, internal endpoint for pods inside the cluster; 
-the Ingress (plus an ingress controller like NGINX) exposes HTTP(S) routes from outside the cluster to that Service and lets you use hostnames and TLS.
+Service vs Ingress (quick primer): the Service provides a stable, internal endpoint for pods inside the cluster; the 
+Ingress (plus an ingress controller like NGINX) exposes HTTP(S) routes from outside the cluster to that Service and 
+lets you use hostnames and TLS.
 
-Upon the dashboard creation, you also get a dashboard service called ace-dashboard-dash. It exposes ports 3443 (content server), 8300 (ui) and 8400 (api). 
-Check dashboard status:
+Upon the dashboard creation, you also get a dashboard service called ace-dashboard-dash. It exposes ports 3443 
+(content server), 8300 (ui) and 8400 (api). To quickly check the dashboard status:
 
 ```bash
 k get dashboards
@@ -493,8 +510,8 @@ ace-dashboardui-cert              True    ace-dashboardui-cert              7d5h
 ibm-appconnect-webhook-ace-demo   True    ibm-appconnect-webhook-ace-demo   10d
 ```
 
-If the ready state is stuck on _False_, check to see if you actually have the selfsigned-issuer in you cluster. If you are running an empty new cluster, you probably
-wont' have. So let's create (if needed).
+If the ready state is stuck on _False_, check to see if you actually have the self signed issuer in you cluster. If you 
+are running an empty new cluster, chances are you probably won't have it available. So let's create it:
 
 ```yaml
 #clusterissuer.yaml
@@ -615,8 +632,10 @@ If Minikube has no ingress controller, simply enable it:
 
 
 ## Step 6: Uploadind a bar file
-You could upload a bar file via the build in API, as described in this blog [Introducing the API for IBM App Connect in containers](https://community.ibm.com/community/user/blogs/matthew-bailey/2024/06/03/app-connect-containers-api) 
-by [Matt Bailey](https://community.ibm.com/community/user/people/matthew-bailey), but we've been doing so much with the cli, that I'm going to switch it up and use the web UI.
+You could upload a bar file via the build in API, as described in this blog 
+[Introducing the API for IBM App Connect in containers](https://community.ibm.com/community/user/blogs/matthew-bailey/2024/06/03/app-connect-containers-api) 
+by [Matt Bailey](https://community.ibm.com/community/user/people/matthew-bailey), but we've been doing so much with the 
+cli, that I'm going to switch it up and use the web UI.
 
 In the dashboard, open up the left hand menu and click on _Bar files_
 
@@ -754,7 +773,7 @@ Forwarding from 127.0.0.1:17800 -> 7800
 Forwarding from [::1]:17800 -> 7800
 ```
 
-And let's thest this by calling the API via cli
+And let's test this by calling the API via cli
 
 ```powershell
 > Invoke-WebRequest "http://127.0.0.1:17800/world/hello" -UseBasicParsing
