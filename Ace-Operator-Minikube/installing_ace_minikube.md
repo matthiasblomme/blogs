@@ -89,10 +89,10 @@ helm repo update
 
 
 ## Step 2: Install the k8s cert-manager
-If you have a clean cluster without a cert-manager installed, begin by installing it, you will need it later. Check if 
-they are installed (if you are not sure about your cluster setup). 
 
-Check the the cert-manager namespace
+If you have a clean cluster without a cert-manager installed, begin by installing it, you will need it later. If you are 
+not sure about your cluster setup, check if the cert-manager manager is available by listing the pods in the the cert-manager 
+namespace
 
 ```bash
 k -n cert-manager get pods
@@ -121,7 +121,7 @@ cert-manager-cainjector-7fd85dcc7-xfghw   1/1     Running   0          2d4h
 cert-manager-webhook-57df45f686-8fchm     1/1     Running   0          2d4h
 ```
 
-Verify the curstom resource definitions:
+Verify the Custom Resource Definitions:
 
 ```bash
 k get crd issuers.cert-manager.io clusterissuers.cert-manager.io certificates.cert-manager.io
@@ -136,7 +136,16 @@ If you don't install the cert-manger, your Operator pod fails to start with the 
 no matches for kind "Issuer" in version "cert-manager.io/v1"
 ```
 
-## Step 2: Install the ACE Operator
+### Setup Automatic Cleanup
+
+By default, deleting a Certificate won’t delete the Secret it issued. For throwaway/dev clusters you can enable owner-refs 
+so Secrets are GC’d with their Certificate. I highly recomment to NOT do this on a production system
+
+```bash
+k -n cert-manager patch deployment cert-manager --type='json' -p='[{"op":"add","path":"/spec/template/spec/containers/0/args/-","value":"--enable-certificate-owner-ref"}]'
+```
+
+## Step 3: Install the ACE Operator
 
 The operator is a Kubernetes controller that watches ACE custom resources (Dashboard, IntegrationRuntime/IntegrationServer, 
 DesignerAuthoring, SwitchServer, Configuration, Trace) and reconciles the corresponding Deployments, Services, and PVCs.
@@ -190,7 +199,7 @@ operator:
 ```
 
 
-## Step 3: Create Persistent Volume Claim for Dashboard
+## Step 4: Create Persistent Volume Claim for Dashboard
 
 The Dashboard stores configuration and runtime data in persistent storage. Without a PVC, it has nowhere to keep BAR files 
 or settings. ACE can automatically create a matching PVC for your dashboard, if you have a RWX (Read Write Many) storage 
@@ -240,7 +249,7 @@ k create secret docker-registry ibm-entitlement-key \
 This is a manual action, not a versioned yaml. Don't put your secrets in source control ;).
 
 
-## Step 4: Deploy the ACE Dashboard
+## Step 5: Deploy the ACE Dashboard
 
 The dashboard is the main UI for ACE. It can be used to store bar files you want to use in your Integration Runtimes.
 Below you see a yaml file with a minimal setup. Note the version is set to '13.0', important if you want it to work with 
@@ -372,7 +381,7 @@ kubectl scale deployment ace-dashboard-dash --replicas=1
 ```
 
 
-## Step 5: Expose the Dashboard
+## Step 6: Expose the Dashboard
 
 Service vs Ingress (quick primer): the Service provides a stable, internal endpoint for pods inside the cluster; the 
 Ingress (plus an ingress controller like NGINX) exposes HTTP(S) routes from outside the cluster to that Service and 
@@ -442,7 +451,7 @@ ingress.networking.k8s.io/ace-dashboard-ingress created
 We want to access the dashboard by using the hostname, so we'll need to add hostname to our Windows hosts file:
 
 ```powershell
-> Add-Content "$env:SystemRoot\System32\drivers\etc\hosts" "`n127.0.0.1`tace-dashboard.local"
+Add-Content "$env:SystemRoot\System32\drivers\etc\hosts" "`n127.0.0.1`tace-dashboard.local"
 ```
 
 Enable port forwarding from your local system to your k8s cluster ingress
@@ -579,7 +588,7 @@ ingress.networking.k8s.io/ace-dashboard-ingress configured
 Add the hostname to your windows hosts file (from elevated prompt)
 
 ```powershell
-> Add-Content "$env:SystemRoot\System32\drivers\etc\hosts" "`n127.0.0.1`ace-dashboard.local"
+Add-Content "$env:SystemRoot\System32\drivers\etc\hosts" "`n127.0.0.1`ace-dashboard.local"
 ```
 
 Let's expose the Minikube ingress (in stead of port-forwarding)
@@ -631,7 +640,7 @@ If Minikube has no ingress controller, simply enable it:
 ```
 
 
-## Step 6: Uploadind a bar file
+## Step 7: Uploadind a bar file
 You could upload a bar file via the build in API, as described in this blog 
 [Introducing the API for IBM App Connect in containers](https://community.ibm.com/community/user/blogs/matthew-bailey/2024/06/03/app-connect-containers-api) 
 by [Matt Bailey](https://community.ibm.com/community/user/people/matthew-bailey), but we've been doing so much with the 
@@ -657,7 +666,7 @@ All upload bar files will be listed on this page
 
 ![img_5.png](img_5.png)
 
-## Step 7: Creating a runtime
+## Step 8: Creating a runtime
 Go back to the main dash
 ![img_6.png](img_6.png)
 
@@ -762,7 +771,7 @@ As for the issue,
 
 ...
 
-## Step 8: Accessing the runtime
+## Step 9: Accessing the runtime
 
 ### Quick port forward
 The deployed RESTApi is listening on port 7800 (inside the cluster), without https enabled (just to keep it simple). 
@@ -776,7 +785,7 @@ Forwarding from [::1]:17800 -> 7800
 And let's test this by calling the API via cli
 
 ```powershell
-> Invoke-WebRequest "http://127.0.0.1:17800/world/hello" -UseBasicParsing
+Invoke-WebRequest "http://127.0.0.1:17800/world/hello" -UseBasicParsing
 
 
 StatusCode        : 200
@@ -789,7 +798,8 @@ Content-Type: application/json
 Date: Thu, 14 Aug 2025 09:41:40 GMT
 Server: IBM App Connect Enterprise
 
-{"me...
+...
+
 Forms             :
 Headers           : {[X-IBM-ACE-Message-Id, (00000097-689DAF54-00000001)], [Content-Length, 29], [Content-Type, application/json], [Date, Thu, 14 Aug 2025 09:41:40 GMT]...}
 Images            : {}
@@ -837,7 +847,7 @@ k apply -f .\ace\ir01-ingress.yaml
 
 Add the hostname to your windows hosts file (from elevated prompt)
 ```powershell
-> Add-Content "$env:SystemRoot\System32\drivers\etc\hosts" "`n127.0.0.1`tir01.local"
+Add-Content "$env:SystemRoot\System32\drivers\etc\hosts" "`n127.0.0.1`tir01.local"
 ```
 
 Let's expose port 443 locally on 12122
@@ -853,7 +863,7 @@ And finally, thest the entire setup by pointing our browser to https://ir01.loca
 
 Success!
 
-## Step 9: Cleanup
+## Step 10: Cleanup
 
 We'll clean everthing up in reverse order, and do a check nothing is left. You can start randomly deleting object. But deleting
 pods before you delete a set or a deployment will just trigger a new one to be spun up. So let's do it proper.
@@ -1005,6 +1015,214 @@ NAME                                              CLASS   HOSTS                 
 ingress.networking.k8s.io/demo                    nginx   demo.local            192.168.49.2   80        11d
 ```
 No more ACE.
+
+
+## What about OLM?
+
+### What is OLM
+
+Operator Lifecycle Manager (OLM) is Kubernetes’ “package manager” for Operators. Instead of installing with Helm, you can 
+use OLM to pull Operators from catalogs and keep them updated through Subscriptions. In this guide we stick to Helm for 
+simplicity, but if you prefer OLM you’ll need the extra bits: a CatalogSource, OperatorGroup, and Subscription.
+
+### Setting up the extra bits
+
+Enabling
+
+Install OLM in your minikube environment (cluster-wide):
+
+```bash
+k apply --server-side -f https://github.com/operator-framework/operator-lifecycle-manager/releases/download/v0.33.0/crds.yaml
+customresourcedefinition.apiextensions.k8s.io/catalogsources.operators.coreos.com serverside-applied
+customresourcedefinition.apiextensions.k8s.io/clusterserviceversions.operators.coreos.com serverside-applied
+customresourcedefinition.apiextensions.k8s.io/installplans.operators.coreos.com serverside-applied
+customresourcedefinition.apiextensions.k8s.io/olmconfigs.operators.coreos.com serverside-applied
+customresourcedefinition.apiextensions.k8s.io/operatorconditions.operators.coreos.com serverside-applied
+customresourcedefinition.apiextensions.k8s.io/operatorgroups.operators.coreos.com serverside-applied
+customresourcedefinition.apiextensions.k8s.io/operators.operators.coreos.com serverside-applied
+customresourcedefinition.apiextensions.k8s.io/subscriptions.operators.coreos.com serverside-applied
+```
+
+```bash
+k apply --server-side -f https://github.com/operator-framework/operator-lifecycle-manager/releases/download/v0.33.0/olm.yaml
+namespace/olm serverside-applied
+namespace/operators serverside-applied
+networkpolicy.networking.k8s.io/default-deny-all-traffic serverside-applied
+networkpolicy.networking.k8s.io/olm-operator serverside-applied
+networkpolicy.networking.k8s.io/catalog-operator serverside-applied
+networkpolicy.networking.k8s.io/packageserver serverside-applied
+networkpolicy.networking.k8s.io/default-allow-all serverside-applied
+serviceaccount/olm-operator-serviceaccount serverside-applied
+clusterrole.rbac.authorization.k8s.io/system:controller:operator-lifecycle-manager serverside-applied
+clusterrolebinding.rbac.authorization.k8s.io/olm-operator-binding-olm serverside-applied
+olmconfig.operators.coreos.com/cluster serverside-applied
+deployment.apps/olm-operator serverside-applied
+deployment.apps/catalog-operator serverside-applied
+clusterrole.rbac.authorization.k8s.io/aggregate-olm-edit serverside-applied
+clusterrole.rbac.authorization.k8s.io/aggregate-olm-view serverside-applied
+operatorgroup.operators.coreos.com/global-operators serverside-applied
+operatorgroup.operators.coreos.com/olm-operators serverside-applied
+clusterserviceversion.operators.coreos.com/packageserver serverside-applied
+catalogsource.operators.coreos.com/operatorhubio-catalog serverside-applied
+```
+
+I'm using a server-side apply because normal kubectl apply returned a `metadata.annotations: Too long` error.
+
+Create a CatalogSource at cluster level:
+
+```yaml
+# catalogsource.yaml
+apiVersion: operators.coreos.com/v1alpha1
+kind: CatalogSource
+metadata:
+  name: ibm-operator-catalog
+  namespace: olm
+spec:
+  displayName: IBM Operator Catalog
+  publisher: IBM
+  sourceType: grpc
+  image: icr.io/cpopen/ibm-operator-catalog:latest  # public, no entitlement needed
+  updateStrategy:
+    registryPoll:
+      interval: 30m
+```
+
+Apply the CatalogSource and check that it is set up:
+
+```bash
+k apply -f catalogsource.yaml
+catalogsource.operators.coreos.com/ibm-operator-catalog created
+
+k -n olm get catalogsource ibm-operator-catalog -o wide
+NAME                   DISPLAY                TYPE   PUBLISHER   AGE
+ibm-operator-catalog   IBM Operator Catalog   grpc   IBM         9s
+```
+
+Create an Entitlement secret (like we did before, but in this specific namespace, I'm skipping that bit here) and an 
+OperatorGroup in your target namespace. If you already did a Helm setup, use a fresh namespace for the following steps. 
+Mixing Helm and OLM might give you some weird errors and/or behaviour. 
+
+```bash
+k create namespace ace-demo-olm
+namespace/ace-demo-olm created
+```
+
+```yaml
+# operatorgroup.yaml
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: ace-operator-group
+  namespace: ace-demo-olm
+spec:
+  targetNamespaces:
+    - ace-demo-olm
+```
+
+```bash
+k apply -f operatorgroup.yaml
+operatorgroup.operators.coreos.com/ace-operator-group created
+```
+
+Setting up the Subscription to install the operator requires 4 key properties
+- source: CatalogSource name
+- sourceNameSpace: the namespace you want to use
+- channel: the channel of the OLM package to use
+- name: the name of the OLM package to install
+
+For us, the package is ibm-appconnect and the channel is cd (continuous delivery). If you are not sure about these values, 
+you can verify them by listing the available packages and channels:
+
+```bash
+k get packagemanifests -A | select-string appconnect
+
+olm         ibm-appconnect                                    IBM Operator Catalog   8m2s
+```
+
+```bash
+k get packagemanifests ibm-appconnect -n olm -o jsonpath='{.status.channels[*].name}'
+cd v1.0 v1.1-eus v1.2 v1.3 v1.4 v1.5 v10.0 v10.1 v11.0 v11.1 v11.2 v11.3 v11.4 v11.5 v11.6 v12.0-sc2 v12.1 v12.10 v12.11 
+v12.12 v12.13 v12.14 v12.2 v12.3 v12.4 v12.5 v12.6 v12.7 v12.8 v12.9 v2.0 v2.1 v3.0 v3.1 v4.0 v4.1 v4.2 v5.0-lts v5.1 v5.2 
+v6.0 v6.1 v6.2 v7.0 v7.1 v7.2 v8.0 v8.1 v8.2 v9.0 v9.1 v9.2
+```
+
+Put these value inside a subscription yaml file:
+
+```yaml
+# subscription.yaml
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: ibm-appconnect-sub
+  namespace: ace-demo-olm
+spec:
+  channel: cd                      # pick from .status.channels (e.g., v13 or stable)
+  name: ibm-appconnect              # package name from the catalog
+  source: ibm-operator-catalog      # must match your CatalogSource.metadata.name
+  sourceNamespace: olm              # namespace where the CatalogSource lives
+  installPlanApproval: Automatic    # or Manual if you want to approve upgrades
+```
+
+And apply it:
+
+```bash
+k apply -f subscription.yaml
+subscription.operators.coreos.com/ibm-appconnect-sub created
+```
+
+Wait for OLM to finish it's install and look at the CSV (ClusterServiceVersion).
+
+```bash
+k -n ace-demo-olm get subscription ibm-appconnect-sub -o jsonpath='{.status.installedCSV}'
+ibm-appconnect.v5.2.0
+```
+
+Let's have a look at the CSV (and wait for it to finish installing):
+
+```bash
+k -n ace-demo-olm get csv -w
+NAME                                   DISPLAY                               VERSION   REPLACES   PHASE
+ibm-appconnect.v5.2.0                  IBM App Connect                       5.2.0                Pending
+ibm-common-service-operator.v3.23.14   IBM Cloud Pak foundational services   3.23.14              Installing
+```
+
+```bash
+k -n ace-demo-olm describe csv ibm-appconnect.v5.2.0
+```
+
+And here is where it started failing for me 🙂. When trying to figure out the issue, I ended up with a cluster issue:
+
+```bashs
+k -n ace-demo-olm get csv
+NAME                                   DISPLAY                               VERSION   REPLACES   PHASE
+ibm-appconnect.v5.2.0                  IBM App Connect                       5.2.0                Pending
+ibm-common-service-operator.v3.23.14   IBM Cloud Pak foundational services   3.23.14              Failed
+
+k get deployments -n ace-demo-olm
+NAME                          READY   UP-TO-DATE   AVAILABLE   AGE
+ibm-common-service-operator   0/1     1            0           32m
+
+k logs deployment/ibm-common-service-operator -n ace-demo-olm
+I0829 08:08:45.985563       1 init.go:1669] Cluster type is OCP: false
+E0829 08:08:45.987649       1 init.go:1678] Configmap ibm-common-services/ibm-cpp-config is required
+E0829 08:08:45.987675       1 main.go:140] Cluster type specificed in the ibm-cpp-config isn't correct
+```
+
+I decided to not look into this further, as this was supposed to be a side track to give some additional information. If I 
+find the issue, I'll blog about it.
+
+### How ILM wires things up
+
+OLM works by chaining three objects together:
+- CatalogSource – tells OLM where to look for Operators (basically the repo).
+- OperatorGroup – tells OLM where the Operator should be installed and which namespaces it should watch.
+- Subscription – tells OLM which Operator (and which channel/version) you want to install from that CatalogSource.
+
+Once the Subscription is created, OLM pulls down the Operator bundle and installs a ClusterServiceVersion (CSV) behind 
+the scenes. That CSV is the “running release” of the Operator.
+
+And because App Connect images are entitled, you also need the ibm-entitlement-key secret in the same namespace as your 
+Subscription (so the Operator can actually pull its images).
 
 ---
 
