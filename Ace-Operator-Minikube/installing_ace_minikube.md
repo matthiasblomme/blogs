@@ -668,20 +668,25 @@ All upload bar files will be listed on this page
 
 ## Step 8: Creating a runtime
 Go back to the main dash
+
 ![img_6.png](img_6.png)
 
 Click on deploy integrations
+
 ![img_7.png](img_7.png)
 
 Select the quick start integration
+
 ![img_8.png](img_8.png)
 
 Select the previously uploaded bar file
 
 We don't have any pre-made configurations, so we can skip this
+
 ![img_9.png](img_9.png)
 
 Just use the default values, those should be fine for most situations. Then hit Create
+
 ![img_10.png](img_10.png)
 
 And your integration server is starting. If you check your minikube cluster at this point, you will see the following 
@@ -712,8 +717,8 @@ ir-01-quickstart-ir-f5d5df68c-kpxcx   1/1     Running   0          5m3s
 ```
 
 Once everything is running, you should see the runtime inside the dashboard
-![img_17.png](img_17.png)
 
+![img_17.png](img_17.png)
 ![img_18.png](img_18.png)
 
 
