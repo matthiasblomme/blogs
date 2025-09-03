@@ -15,7 +15,11 @@ dodge a few potholes.
 This post assumes:
 
 * You already have Kubernetes and Helm installed
-* You’re working with a functional cluster (Minikube or alternative)
+* You’re working with a functional cluster (Minikube or alternative), minimally also enable the following on your minikube cluster
+    * minikube addons enable dashboard
+    * minikube addons enable registry
+    * minikube addons enable metrics-server
+    * minikube addons enable ingress
 * You know your way around `kubectl`, YAML, and k8s cluster basics
 
 Getting started with Minikube? Or simply don't have Kubernetes or Helm installed, I’ve dropped a couple of reference 
@@ -109,6 +113,13 @@ No resources found
 If these return nothing, install the official cert-manager
 ```bash
 k apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.17.2/cert-manager.yaml
+namespace/cert-manager created
+customresourcedefinition.apiextensions.k8s.io/certificaterequests.cert-manager.io created
+customresourcedefinition.apiextensions.k8s.io/certificates.cert-manager.io created
+customresourcedefinition.apiextensions.k8s.io/challenges.acme.cert-manager.io created
+customresourcedefinition.apiextensions.k8s.io/clusterissuers.cert-manager.io created
+customresourcedefinition.apiextensions.k8s.io/issuers.cert-manager.io created
+...
 ```
 
 Wait for the pods to run:
@@ -138,11 +149,26 @@ no matches for kind "Issuer" in version "cert-manager.io/v1"
 
 ### Setup Automatic Cleanup
 
-By default, deleting a Certificate won’t delete the Secret it issued. For throwaway/dev clusters you can enable owner-refs 
+By default, deleting a Certificate won’t delete the Secret it issued. For throwaway/dev clusters y2ou can enable owner-refs 
 so Secrets are GC’d with their Certificate. I highly recomment to NOT do this on a production system
 
+The patch file:
+
+```json
+[
+  {
+    "op": "add",
+    "path": "/spec/template/spec/containers/0/args/-",
+    "value": "--enable-certificate-owner-ref"
+  }
+]
+```
+
+Applying it:
+
 ```bash
-k -n cert-manager patch deployment cert-manager --type='json' -p='[{"op":"add","path":"/spec/template/spec/containers/0/args/-","value":"--enable-certificate-owner-ref"}]'
+k -n cert-manager patch deployment cert-manager --type=json --patch-file=patch-owner-ref.json
+deployment.apps/cert-manager patched
 ```
 
 ## Step 3: Install the ACE Operator
@@ -372,12 +398,15 @@ up a new version first to do a rolling update. Don't forget to scale it back up 
 
 ```bash
 kubectl scale deployment ace-dashboard-dash --replicas=0
+deployment.apps/ace-dashboard-dash scaled
 ```
 ```bash
 kubectl patch deployment ace-dashboard-dash --type=merge --patch-file ./ace-dash-deployment-patch.yaml
+deployment.apps/ace-dashboard-dash patched
 ```
 ```bash
 kubectl scale deployment ace-dashboard-dash --replicas=1
+deployment.apps/ace-dashboard-dash scaled
 ```
 
 
@@ -1213,8 +1242,8 @@ E0829 08:08:45.987649       1 init.go:1678] Configmap ibm-common-services/ibm-cp
 E0829 08:08:45.987675       1 main.go:140] Cluster type specificed in the ibm-cpp-config isn't correct
 ```
 
-I decided to not look into this further, as this was supposed to be a side track to give some additional information. If I 
-find the issue, I'll blog about it.
+I decided to not look into this further, as this was supposed to be a side track to give you some additional information. If I 
+find the issue, I'll blog about it at a later date.
 
 ### How ILM wires things up
 
