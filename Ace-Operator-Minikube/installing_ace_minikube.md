@@ -1059,6 +1059,9 @@ Operator Lifecycle Manager (OLM) is Kubernetes’ “package manager” for Oper
 use OLM to pull Operators from catalogs and keep them updated through Subscriptions. In this guide we stick to Helm for 
 simplicity, but if you prefer OLM you’ll need the extra bits: a CatalogSource, OperatorGroup, and Subscription.
 
+>**Disclaimer: don't combine OLM and Helm**. 
+> OLM might install a different version operator so it could impact any other deployment you want to do in your cluster.
+
 ### Setting up the extra bits
 
 Enabling
