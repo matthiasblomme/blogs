@@ -1104,6 +1104,7 @@ simplicity, but if you prefer OLM you’ll need the extra bits: a CatalogSource,
 
 >**Disclaimer: don't combine OLM and Helm**. 
 > OLM might install a different version operator so it could impact any other deployment you want to do in your cluster.
+> I know this because I experienced this, not a pleasant cleanup process, ended up deleting my cluster and starting again.
 
 ### Setting up the extra bits
 
