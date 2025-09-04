@@ -480,7 +480,7 @@ ingress.networking.k8s.io/ace-dashboard-ingress created
 We want to access the dashboard by using the hostname, so we'll need to add hostname to our Windows hosts file:
 
 ```powershell
-Add-Content "$env:SystemRoot\System32\drivers\etc\hosts" "`n127.0.0.1`tace-dashboard.local"
+Add-Content "$env:SystemRoot\System32\drivers\etc\hosts" "`n127.0.0.1`tace-dash.local"
 ```
 
 Enable port forwarding from your local system to your k8s cluster ingress
@@ -783,7 +783,7 @@ k -n ace-demo rollout status deployment/ace-dashboard-dash
 deployment "ace-dashboard-dash" successfully rolled out
 ```
 
-Next check the log files for the dashboard pod, this will generate a log of logging, so it is handy to redirect the output to 
+Check the log files for the dashboard pod, this will generate a log of logging, so it is handy to redirect the output to 
 a log file
 ```powershell
 k get pods -l release=ace-dashboard
@@ -801,9 +801,52 @@ If the log begins like this, then debugging has been enabled and you have a lot 
 ...
 ```
 
-As for the issue, 
+As for the issue, it was actually an issue with how I named my dashboard. The name `ace-dashboard.local` triggers a bug 
+in the internal logic of the dashboard. IBM support helped me out on this issue, and simply renaming my dashboard host to
+ace-dash.local fixed the issue.
 
-...
+The fixed dashboard config:
+```yaml
+# ace-dashboard-ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ace-dashboard-ingress
+  namespace: ace-demo
+  annotations:
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    nginx.ingress.kubernetes.io/proxy-ssl-verify: "false"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+      - ace-dash.local
+    secretName: ace-dashboard-tls    # cert-manager creates this Secret
+  rules:
+  - host: ace-dash.local
+    http:
+      paths:
+      - path: /apiv2
+        pathType: Prefix
+        backend:
+          service:
+            name: ace-dashboard-dash
+            port:
+              number: 8300   # UI port; UI proxies /apiv2 to API
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: ace-dashboard-dash
+            port:
+              number: 8300   # UI port
+```
+
+After applying it, the runtime showed up. 
+
+![img_19.png](img_19.png)
+
 
 ## Step 9: Accessing the runtime
 
