@@ -1,9 +1,13 @@
-# Installing ACE 13.x on VKS (and Minikube): Filling in the Blanks
+# Installing ACE 13.x on Minikube: Filling in the Blanks
 
-Even though we hardly ever see it, IBM App Connect Enterprise (ACE) is perfectly capable of running on plain Kubernetes. But let’s be honest, it looks much fancier on OpenShift 😉. If you're not using OpenShift or a Cloud Pak install, getting it all up and running becomes a much more hands-on operation.
+Even though we hardly ever see it, IBM App Connect Enterprise (ACE) is perfectly capable of running on plain Kubernetes. 
+But let’s be honest, it looks much fancier on OpenShift 😉. If you're not using OpenShift or a Cloud Pak install, getting 
+it all up and running becomes a much more hands-on operation.
 
-In this blog, I’ll be deploying ACE 13.x manually on Minikube, including the Operator, Dashboard, and a runtime. Along the way, I’ll share the practical steps, issues I ran into, and the patches or tweaks I made to get it working. If you’re running outside the officially supported clusters or on NOKS (that is Non-OpenShift Kubernetes), this should help you dodge a few potholes.
-
+In this blog, I’ll be deploying ACE 13.x manually on Minikube, including the Operator, Dashboard, and a runtime. Along 
+the way, I’ll share the practical steps, issues I ran into, and the patches or tweaks I made to get it working. If you’re 
+running outside the officially supported clusters or on NOKS (that is Non-OpenShift Kubernetes), this should help you 
+dodge a few potholes.
 
 
 ## Assumptions
@@ -11,11 +15,15 @@ In this blog, I’ll be deploying ACE 13.x manually on Minikube, including the O
 This post assumes:
 
 * You already have Kubernetes and Helm installed
-* You’re working with a functional cluster (Minikube or alternative)
+* You’re working with a functional cluster (Minikube or alternative), minimally also enable the following on your minikube cluster
+    * minikube addons enable dashboard
+    * minikube addons enable registry
+    * minikube addons enable metrics-server
+    * minikube addons enable ingress
 * You know your way around `kubectl`, YAML, and k8s cluster basics
 
-Getting started with Minikube? Or simply don't have Kubernetes or Helm installed, I’ve dropped a couple of reference links at the bottom.
-
+Getting started with Minikube? Or simply don't have Kubernetes or Helm installed, I’ve dropped a couple of reference 
+links at the bottom.
 
 
 ## Step 0: Optimizing My Local Setup
@@ -26,52 +34,170 @@ Set aliases for my most used commands (I'm doing this in powershell):
 
 ```powershell
 # Alias for kubectl to save keystrokes
-> Set-Alias -Name k -Value kubectl
-
+Set-Alias -Name k -Value kubectl
+```
+```powershell
 # Alias for minikube for quick commands
-> Set-Alias -Name m -Value minikube
+Set-Alias -Name m -Value minikube
 ```
 
-If you don't want to set them each time you open a new session, make them persistent. Open up the powershell profile file (or create it if it doesn't exist yet):
+If you don't want to set them each time you open a new session, make them persistent. Open up the powershell profile 
+file (or create it if it doesn't exist yet):
 
 ```powershell
-> notepad $PROFILE
+notepad $PROFILE
 ```
 
 Paste both alias lines into the file and save.
 
-```
+```powershell
 Set-Alias -Name k -Value kubectl
+```
+```powershell
 Set-Alias -Name m -Value minikube
 
 ```
 
-
-Create a dedicated namespace, ace-demo, for our setup and make that namespace the default one (saves you from typing -n ace-demo each time):
+Create a dedicated namespace, ace-demo, for our setup and make that namespace the default one (saves you from typing -n 
+ace-demo each time):
 
 ```bash
-> kubectl create namespace ace-demo
-> kubectl config set-context --current --namespace=ace-demo
+k create namespace ace-demo
 ```
-
+```bash
+k config set-context --current --namespace=ace-demo
+```
 
 
 ## Step 1: Add the IBM Helm Chart Repo
 
-Before we can install the Operator, we need the source. Adding IBM’s Helm repo ensures we’re pulling the official charts and latest versions.
+Before we can install the Operator, we need the source. Adding IBM’s Helm repo ensures we’re pulling the official charts 
+and latest versions.
 
 ```bash
-> helm repo add ibm-helm https://icr.io/helm/ibm-charts
-> helm repo update
+helm repo add ibm-helm  https://raw.githubusercontent.com/IBM/charts/master/repo/ibm-helm
+```
+```bash
+helm repo update
+```
+
+Before we can install the Operator, we need the source. Adding IBM’s Helm repo ensures we’re pulling the official charts 
+and latest versions.
+
+```bash
+helm repo add ibm-helm  https://raw.githubusercontent.com/IBM/charts/master/repo/ibm-helm
+```
+```bash
+helm repo update
 ```
 
 
-## Step 2: Install the ACE Operator
+## Step 2: Install the k8s cert-manager
 
-The operator is a Kubernetes controller that watches ACE custom resources (Dashboard, IntegrationRuntime/IntegrationServer, DesignerAuthoring, SwitchServer, Configuration, Trace) and reconciles the corresponding Deployments, Services, and PVCs.
-The ace-operator-values.yaml file contains some basic values, nothing special. The most important one (for our setup), is the version tag.
+If you have a clean cluster without a cert-manager installed, begin by installing it, you will need it later. If you are 
+not sure about your cluster setup, check if the cert-manager manager is available by listing the pods in the the cert-manager 
+namespace
+
 ```bash
-helm install ibm-appconnect ibm-helm/ibm-appconnect-operator -f ./ace/ace-operator-values.yaml
+k -n cert-manager get pods
+No resources found in cert-manager namespace.
+```
+
+Or try to list all cert-manager instance pods
+
+```bash
+k get pods -A -l instance=cert-manager
+No resources found
+```
+
+If these return nothing, install the official cert-manager
+```bash
+k apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.17.2/cert-manager.yaml
+namespace/cert-manager created
+customresourcedefinition.apiextensions.k8s.io/certificaterequests.cert-manager.io created
+customresourcedefinition.apiextensions.k8s.io/certificates.cert-manager.io created
+customresourcedefinition.apiextensions.k8s.io/challenges.acme.cert-manager.io created
+customresourcedefinition.apiextensions.k8s.io/clusterissuers.cert-manager.io created
+customresourcedefinition.apiextensions.k8s.io/issuers.cert-manager.io created
+...
+```
+
+Wait for the pods to run:
+
+```bash
+k -n cert-manager get pods -w
+NAME                                      READY   STATUS    RESTARTS   AGE
+cert-manager-6468fc8f56-t4l8t             1/1     Running   0          2d4h
+cert-manager-cainjector-7fd85dcc7-xfghw   1/1     Running   0          2d4h
+cert-manager-webhook-57df45f686-8fchm     1/1     Running   0          2d4h
+```
+
+Verify the Custom Resource Definitions:
+
+```bash
+k get crd issuers.cert-manager.io clusterissuers.cert-manager.io certificates.cert-manager.io
+NAME                             CREATED AT
+issuers.cert-manager.io          2025-08-11T07:55:17Z
+clusterissuers.cert-manager.io   2025-08-11T07:55:16Z
+certificates.cert-manager.io     2025-08-11T07:55:16Z
+```
+
+If you don't install the cert-manger, your Operator pod fails to start with the below error:
+```
+no matches for kind "Issuer" in version "cert-manager.io/v1"
+```
+
+### Setup Automatic Cleanup
+
+By default, deleting a Certificate won’t delete the Secret it issued. For throwaway/dev clusters y2ou can enable owner-refs 
+so Secrets are GC’d with their Certificate. I highly recomment to NOT do this on a production system
+
+The patch file:
+
+```json
+[
+  {
+    "op": "add",
+    "path": "/spec/template/spec/containers/0/args/-",
+    "value": "--enable-certificate-owner-ref"
+  }
+]
+```
+
+Applying it:
+
+```bash
+k -n cert-manager patch deployment cert-manager --type=json --patch-file=patch-owner-ref.json
+deployment.apps/cert-manager patched
+```
+
+## Step 3: Install the ACE Operator
+
+The operator is a Kubernetes controller that watches ACE custom resources (Dashboard, IntegrationRuntime/IntegrationServer, 
+DesignerAuthoring, SwitchServer, Configuration, Trace) and reconciles the corresponding Deployments, Services, and PVCs.
+The ace-operator-values.yaml file contains some basic values, nothing special. The most important one (for our setup), 
+is the version tag.
+
+```bash
+helm install ibm-appconnect ibm-helm/ibm-appconnect-operator -f ./ace-operator-values.yaml
+NAME: ibm-appconnect
+LAST DEPLOYED: Fri Aug 22 14:16:35 2025
+NAMESPACE: ace-demo
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+NOTES:
+The AppConnect Operator has been deployed!
+
+To verify your install, look for:
+- Operator pod:                     kubectl get pod | grep 'ibm-appconnect-ibm-appconnect-operator'
+- MutatingWebhookConfigurations:    kubectl get mutatingwebhookconfigurations | grep 'ace-demo'
+- ValidatingWebhookConfigurations:  kubectl get validatingwebhookconfigurations | grep 'ace-demo'
+- Cluster Role:                     kubectl get clusterrole | grep 'ibm-appconnect-ace-demo-ibm-appconnect-operator'
+- Cluster Role Binding:             kubectl get clusterrolebinding | grep 'ibm-appconnect-ace-demo-ibm-appconnect-operator'
+- Role:                             kubectl get role | grep 'ibm-appconnect-ace-demo-ibm-appconnect-operator'
+- Role Binding:                     kubectl get rolebinding | grep 'ibm-appconnect-ace-demo-ibm-appconnect-operator'
+- Service Account:                  kubectl get serviceaccount | grep 'ibm-appconnect'
 ```
 
 Example `ace-operator-values.yaml`:
@@ -98,44 +224,14 @@ operator:
     - ibm-entitlement-key            # Secret for pulling IBM entitled images
 ```
 
-### Startup Issue: Operator Fails Without cert-manager
 
-If your Operator pod fails to start with the below error:
-```
-no matches for kind "Issuer" in version "cert-manager.io/v1"
-```
+## Step 4: Create Persistent Volume Claim for Dashboard
 
-It means that the means cert-manager is missing. Install it with:
-```bash
-> kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.17.2/cert-manager.yaml
-```
-
-Wait for the pods to run:
-
-```bash
-> kubectl -n cert-manager get pods -w
-NAME                                      READY   STATUS    RESTARTS   AGE
-cert-manager-6468fc8f56-t4l8t             1/1     Running   0          2d4h
-cert-manager-cainjector-7fd85dcc7-xfghw   1/1     Running   0          2d4h
-cert-manager-webhook-57df45f686-8fchm     1/1     Running   0          2d4h
-```
-
-Verify the curstom resource definitions:
-
-```bash
-> kubectl get crd issuers.cert-manager.io clusterissuers.cert-manager.io certificates.cert-manager.io
-NAME                             CREATED AT
-issuers.cert-manager.io          2025-08-11T07:55:17Z
-clusterissuers.cert-manager.io   2025-08-11T07:55:16Z
-certificates.cert-manager.io     2025-08-11T07:55:16Z
-```
-
-## Step 3: Create Persistent Volume Claim for Dashboard
-
-The Dashboard stores configuration and runtime data in persistent storage. Without a PVC, it has nowhere to keep BAR files or settings. 
-ACE can automatically create a matching PVC for your dashboard, if you have a RWX (Read Write Many) storage class available.
-My local setup did not have one that supports RWX, but if you plan to run a single instance of your dashboard (which I plan to do)
-you can get away with manually creating a RWO (Read Write Once) PVC and manually assign it to the dashboard.
+The Dashboard stores configuration and runtime data in persistent storage. Without a PVC, it has nowhere to keep BAR files 
+or settings. ACE can automatically create a matching PVC for your dashboard, if you have a RWX (Read Write Many) storage 
+class available. My local setup did not have one that supports RWX, but if you plan to run a single instance of your 
+dashboard (which I plan to do) you can get away with manually creating a RWO (Read Write Once) PVC and manually assign 
+it to the dashboard.
 
 Example `ace-dashboard-pvc.yaml`:
 
@@ -158,17 +254,18 @@ spec:
 Apply the PVC
 
 ```bash
-> kubectl apply -f ./ace/ace-dashboard-pvc.yaml
+k apply -f ./ace-dashboard-pvc.yaml
+persistentvolumeclaim/ace-dashboard-content created
 ```
 
 ### Image pull issue: Entitlement key
 
-From this point onwards, you need an entitlement key in place. The entitlement key is what grants you access to the IBM Container images.  
-Ensure your that your entitlement includes container access. If this is not the case, request it.
+From this point onwards, you need an entitlement key in place. The entitlement key is what grants you access to the IBM 
+Container images. Ensure your that your entitlement includes container access. If this is not the case, request it.
 
 Creating the k8s secret for the entitlement key (typically called ibm-entitlement-key).
 ```bash
-> kubectl create secret docker-registry ibm-entitlement-key \
+k create secret docker-registry ibm-entitlement-key \
   --docker-username=cp \
   --docker-password=<your-entitlement-key> \
   --docker-server=cp.icr.io \
@@ -178,35 +275,63 @@ Creating the k8s secret for the entitlement key (typically called ibm-entitlemen
 This is a manual action, not a versioned yaml. Don't put your secrets in source control ;).
 
 
-## Step 4: Deploy the ACE Dashboard
+## Step 5: Deploy the ACE Dashboard
 
 The dashboard is the main UI for ACE. It can be used to store bar files you want to use in your Integration Runtimes.
-Below you see a yaml file with a minimal setup. Note the version is set to '13.0', important if you want it to work with the operator
-version '14.12.0'. The licence and use will determine if you are going to pay any license costs, so choose wisely.
+Below you see a yaml file with a minimal setup. Note the version is set to '13.0', important if you want it to work with 
+the operator version '14.12.0'. The licence and use will determine if you are going to pay any license costs, so choose wisely.
 
 ```yaml
 # ace-dashboard.yaml
 apiVersion: appconnect.ibm.com/v1beta1
 kind: Dashboard
 metadata:
-  name: ace-dashboard                # Dashboard CR name
-  namespace: ace-demo                # Namespace for dashboard
+  name: ace-dashboard
+  namespace: ace-demo
 spec:
   license:
-    accept: true                     # Must accept license terms
-    license: L-KPRV-AUG9NC            # License ID
-    use: AppConnectEnterpriseNonProductionFREE # License type
+    accept: true
+    license: L-KPRV-AUG9NC
+    use: AppConnectEnterpriseNonProductionFREE
+  pod:
+    containers:
+      content-server:
+        resources:
+          limits:
+            memory: 512Mi
+          requests:
+            cpu: 50m
+            memory: 50Mi
+      control-ui:
+        resources:
+          limits:
+            memory: 512Mi
+          requests:
+            cpu: 50m
+            memory: 125Mi
+  switchServer:
+    name: default
+  authentication:
+    integrationKeycloak:
+      enabled: false
+  authorization:
+    integrationKeycloak:
+      enabled: false
+  api:
+    enabled: true
   storage:
-    type: persistent-claim           # Use existing PVC
-    claimName: ace-dashboard-content  # PVC name from Step 3
-  replicas: 1                         # Dashboard pod count
-  version: '13.0'                     # Dashboard version
+    type: persistent-claim
+    claimName: ace-dashboard-content
+  displayMode: IntegrationRuntimes
+  replicas: 1
+  version: '13.0'
 ```
 
 Create the dashboard:
 
 ```bash
-> kubectl apply -f ./ace/ace-dashboard.yaml
+k apply -f ./ace-dashboard.yaml
+dashboard.appconnect.ibm.com/ace-dashboard created
 ```
 
 ### Configuration issue: using the proper version combination
@@ -214,7 +339,7 @@ Because I was looking at v12 documentation of the dashboard (we are curently run
 with version 12.0, not really giving it much thought, just following the ibm documentation. This led me to the following error
 
 ```bash
-> kubectl get events
+k get events
 LAST SEEN   TYPE      REASON               OBJECT                                     MESSAGE
 12m         Warning   FailedMount          pod/ace-dashboard-dash-569fc47469-5bp56    MountVolume.SetUp failed for volume "resources" : configmap "appconnect-resources" not found
 ```
@@ -227,24 +352,27 @@ In a more recent version of the dashboard, the original appconnect-resources con
 - appconnect-resources-ir-crd
 - appconnect-resources-is-crd
 
-Combining operator version '12.14.0' with dashboard '13.0' did work. The default settings for the operator point you to a sha version of the image, but you can work with a tag as well (less sensitive to typo's).
-By adding the tag to the ace-operator-values.yaml file (as we did in the beginning of the blog) should prevent this error all together.
+Combining operator version '12.14.0' with dashboard '13.0' did work. The default settings for the operator point you to 
+a sha version of the image, but you can work with a tag as well (less sensitive to typo's). By adding the tag to the 
+ace-operator-values.yaml file (as we did in the beginning of the blog) should prevent this error all together.
 
 
 ### Init Conatiner issue: content-server-init CrashLoop
 
 IBM states:
 
-> The App Connect Dashboard requires a file-based storage class with ReadWriteMany (RWX) capability. If using IBM Cloud, use the `ibmc-file-gold-gid` storage class. The file system must not be root-owned and must allow read/write access for the user that the Dashboard runs as.
+> The App Connect Dashboard requires a file-based storage class with ReadWriteMany (RWX) capability. If using IBM Cloud, 
+> use the `ibmc-file-gold-gid` storage class. The file system must not be root-owned and must allow read/write access for 
+> the user that the Dashboard runs as.
 
 If these requirements aren’t met, the init container may fail with permission denied errors and get stuk in a restart loop.
 Diagnosing this problem:
 ```bash 
-> kubectl get pods 
+k get pods 
 NAME                                     READY   STATUS      RESTARTS         AGE
 ace-dashboard-dash-5b58fcc746-dtsqf      0/2     Restarting  5                10m
 
-> kubectl ace-dashboard-dash-5b58fcc746-dtsqf -c content-server-init -f
+k ace-dashboard-dash-5b58fcc746-dtsqf -c content-server-init -f
 mkdir: cannot create directory '/mnt/data/content': Permission denied
 chmod: cannot access '/mnt/data/content': No such file or directory
 ```
@@ -265,35 +393,44 @@ spec:
         fsGroup: 1001
 ```
 
-Applying the patch, scale the deployment down first, since we are running on a RWO PVC, we can't have the dashboard spin up a new version first to do a rolling update. Don't forget to scale it back up after applying the patch.
+Applying the patch, scale the deployment down first, since we are running on a RWO PVC, we can't have the dashboard spin 
+up a new version first to do a rolling update. Don't forget to scale it back up after applying the patch.
 
 ```bash
 kubectl scale deployment ace-dashboard-dash --replicas=0
-kubectl patch deployment ace-dashboard-dash --type=merge --patch-file ./ace/ace-dash-deployment-patch.yaml
+deployment.apps/ace-dashboard-dash scaled
+```
+```bash
+kubectl patch deployment ace-dashboard-dash --type=merge --patch-file ./ace-dash-deployment-patch.yaml
+deployment.apps/ace-dashboard-dash patched
+```
+```bash
 kubectl scale deployment ace-dashboard-dash --replicas=1
+deployment.apps/ace-dashboard-dash scaled
 ```
 
 
-## Step 5: Expose the Dashboard
+## Step 6: Expose the Dashboard
 
-Service vs Ingress (quick primer): the Service provides a stable, internal endpoint for pods inside the cluster; 
-the Ingress (plus an ingress controller like NGINX) exposes HTTP(S) routes from outside the cluster to that Service and lets you use hostnames and TLS.
+Service vs Ingress (quick primer): the Service provides a stable, internal endpoint for pods inside the cluster; the 
+Ingress (plus an ingress controller like NGINX) exposes HTTP(S) routes from outside the cluster to that Service and 
+lets you use hostnames and TLS.
 
-Upon the dashboard creation, you also get a dashboard service called ace-dashboard-dash. It exposes ports 3443 (content server), 8300 (ui) and 8400 (api). 
-Check dashboard status:
+Upon the dashboard creation, you also get a dashboard service called ace-dashboard-dash. It exposes ports 3443 
+(content server), 8300 (ui) and 8400 (api). To quickly check the dashboard status:
 
 ```bash
-> kubectl get dashboards
+k get dashboards
 NAME              RESOLVEDVERSION   REPLICAS   CUSTOMIMAGES   STATUS   UI URL   API URL   KEYCLOAK URL   AGE
 ace-dashboard     13.0.4.1-r1       1          false          Ready                                      2d3h
 ```
 
 ```bash
-> kubectl get svc
+k get svc
 NAME                              TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)                      AGE
 ace-dashboard-dash                ClusterIP   10.109.39.252   <none>        3443/TCP,8300/TCP,8400/TCP   2d3h
 
-> kubectl get svc ace-dashboard-dash
+k get svc ace-dashboard-dash
 NAME                 TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)                      AGE
 ace-dashboard-dash   ClusterIP   10.109.39.252   <none>        3443/TCP,8300/TCP,8400/TCP   2d3h
 ```
@@ -336,19 +473,20 @@ spec:
 
 Create the ingress
 ```bash
-> kubectl apply -f ./ace/ace-dashboard-ingress.yaml
+k apply -f ./ace-dashboard-ingress.yaml
+ingress.networking.k8s.io/ace-dashboard-ingress created
 ```
 
 We want to access the dashboard by using the hostname, so we'll need to add hostname to our Windows hosts file:
 
 ```powershell
-> Add-Content "$env:SystemRoot\System32\drivers\etc\hosts" "`n127.0.0.1`tace-dashboard.local"
+Add-Content "$env:SystemRoot\System32\drivers\etc\hosts" "`n127.0.0.1`tace-dash.local"
 ```
 
 Enable port forwarding from your local system to your k8s cluster ingress
 
 ```bash
-> kubectl -n ingress-nginx port-forward svc/ingress-nginx-controller 12121:443
+k -n ingress-nginx port-forward svc/ingress-nginx-controller 12121:443
 Forwarding from 127.0.0.1:12121 -> 443
 Forwarding from [::1]:12121 -> 443
 ```
@@ -361,6 +499,166 @@ https://ace-dashboard.local:12121/
 ![img.png](img.png)
 
 
+
+### Securing your Ingress
+Right now, the setup just proxies traffic straight through—TLS is handled by the dashboard itself, and NGINX is acting as 
+a simple passthrough. For a stronger security model, you can flip that around and let the Ingress terminate TLS. That way, 
+certificate management and rotation happen at the Ingress layer instead of inside the dashboard.
+
+Add the spec.tls section to your Dashboard Ingress
+
+```yaml
+  tls:
+  - hosts:
+    - ace-dashboard.local
+    secretName: ace-dashboard-tls    # cert-manager creates this Secret
+  rules:
+```
+
+And start by creating your own certificate first, you can't use what you don't have.
+
+```yaml
+#dashboard-pod-cert.yaml
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: ace-dashboard-tls
+  namespace: ace-demo
+spec:
+  secretName: ace-dashboard-tls
+  issuerRef:
+    kind: ClusterIssuer
+    name: selfsigned-issuer   # or your CA
+  dnsNames:
+  - ace-dashboard.local
+```
+
+```bash
+k apply -f .\dashboard-pod-cert.yaml
+certificate.cert-manager.io/ace-dashboard-tls created
+```
+
+Check if your certificate is actually getting created
+
+```bash
+k get cert
+NAME                              READY   SECRET                            AGE
+ace-dashboard-tls                 False   ace-dashboard-tls                 10s
+ace-dashboardui-cert              True    ace-dashboardui-cert              7d5h
+ibm-appconnect-webhook-ace-demo   True    ibm-appconnect-webhook-ace-demo   10d
+```
+
+If the ready state is stuck on _False_, check to see if you actually have the self signed issuer in you cluster. If you 
+are running an empty new cluster, chances are you probably won't have it available. So let's create it:
+
+```yaml
+#clusterissuer.yaml
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: selfsigned-issuer
+spec:
+  selfSigned: {}
+```
+
+```bash
+k get clusterissuer selfsigned-issuer
+Error from server (NotFound): clusterissuers.cert-manager.io "selfsigned-issuer" not found
+k apply -f .\clusterissuer.yaml
+clusterissuer.cert-manager.io/selfsigned-issuer created
+```
+
+Your fully updated ingress will ook like this
+
+```yaml
+# ace-dashboard-ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ace-dashboard-ingress
+  namespace: ace-demo
+  annotations:
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    nginx.ingress.kubernetes.io/proxy-ssl-verify: "false"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+      - ace-dashboard.local
+    secretName: ace-dashboard-tls    # cert-manager creates this Secret
+  rules:
+  - host: ace-dashboard.local
+    http:
+      paths:
+      - path: /apiv2
+        pathType: Prefix
+        backend:
+          service:
+            name: ace-dashboard-dash
+            port:
+              number: 8300   # UI port; UI proxies /apiv2 to API
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: ace-dashboard-dash
+            port:
+              number: 8300   # UI port
+```
+
+Apply it 
+
+```bash
+k apply -f .\ace-dashboard-ingress.yaml
+ingress.networking.k8s.io/ace-dashboard-ingress configured
+```
+
+Add the hostname to your windows hosts file (from elevated prompt)
+
+```powershell
+Add-Content "$env:SystemRoot\System32\drivers\etc\hosts" "`n127.0.0.1`ace-dashboard.local"
+```
+
+Let's expose the Minikube ingress (in stead of port-forwarding)
+
+```powershell
+PS C:\Users\Bmatt> minikube addons enable ingress
+💡  ingress is an addon maintained by Kubernetes. For any concerns contact minikube on GitHub.
+You can view the list of minikube maintainers at: https://github.com/kubernetes/minikube/blob/master/OWNERS
+❗  Executing "docker container inspect minikube --format={{.State.Status}}" took an unusually long time: 3.3220798s
+💡  Restarting the docker service may improve performance.
+💡  After the addon is enabled, please run "minikube tunnel" and your ingress resources would be available at "127.0.0.1"
+▪ Using image registry.k8s.io/ingress-nginx/controller:v1.12.2
+▪ Using image registry.k8s.io/ingress-nginx/kube-webhook-certgen:v1.5.3
+▪ Using image registry.k8s.io/ingress-nginx/kube-webhook-certgen:v1.5.3
+🔎  Verifying ingress addon...
+🌟  The 'ingress' addon is enabled
+PS C:\Users\Bmatt> minikube tunnel
+✅  Tunnel successfully started
+
+📌  NOTE: Please do not close this terminal as this process must stay alive for the tunnel to be accessible ...
+
+❗  Access to ports below 1024 may fail on Windows with OpenSSH clients older than v8.1. For more information, see: https://minikube.sigs.k8s.io/docs/handbook/accessing/#access-to-ports-1024-on-windows-requires-root-permission
+❗  Access to ports below 1024 may fail on Windows with OpenSSH clients older than v8.1. For more information, see: https://minikube.sigs.k8s.io/docs/handbook/accessing/#access-to-ports-1024-on-windows-requires-root-permission
+❗  Access to ports below 1024 may fail on Windows with OpenSSH clients older than v8.1. For more information, see: https://minikube.sigs.k8s.io/docs/handbook/accessing/#access-to-ports-1024-on-windows-requires-root-permission
+🏃  Starting tunnel for service ace-dashboard-ingress.
+❗  Access to ports below 1024 may fail on Windows with OpenSSH clients older than v8.1. For more information, see: https://minikube.sigs.k8s.io/docs/handbook/accessing/#access-to-ports-1024-on-windows-requires-root-permission
+🏃  Starting tunnel for service demo.
+🏃  Starting tunnel for service ir01-ing.
+🏃  Starting tunnel for service ingress-tls.
+```
+
+And then go to https://ace-dashboard.local/home
+
+![img_15.png](img_15.png)
+
+And have a look at the certificate, there you can clearly see the DNS Name provided by the Ingress.
+
+![img_16.png](img_16.png)
+
+
+
 ### Ingress issue: No Ingress Controller in Minikube
 
 If Minikube has no ingress controller, simply enable it:
@@ -371,9 +669,11 @@ If Minikube has no ingress controller, simply enable it:
 ```
 
 
-## Step 6: Uploadind a bar file
-You could upload a bar file via the build in API, as described in this blog [Introducing the API for IBM App Connect in containers](https://community.ibm.com/community/user/blogs/matthew-bailey/2024/06/03/app-connect-containers-api) 
-by [Matt Bailey](https://community.ibm.com/community/user/people/matthew-bailey), but we've been doing so much with the cli, that I'm going to switch it up and use the web UI.
+## Step 7: Uploadind a bar file
+You could upload a bar file via the build in API, as described in this blog 
+[Introducing the API for IBM App Connect in containers](https://community.ibm.com/community/user/blogs/matthew-bailey/2024/06/03/app-connect-containers-api) 
+by [Matt Bailey](https://community.ibm.com/community/user/people/matthew-bailey), but we've been doing so much with the 
+cli, that I'm going to switch it up and use the web UI.
 
 In the dashboard, open up the left hand menu and click on _Bar files_
 
@@ -395,22 +695,27 @@ All upload bar files will be listed on this page
 
 ![img_5.png](img_5.png)
 
-## Step 7: Creating a runtime
+## Step 8: Creating a runtime
 Go back to the main dash
+
 ![img_6.png](img_6.png)
 
 Click on deploy integrations
+
 ![img_7.png](img_7.png)
 
 Select the quick start integration
+
 ![img_8.png](img_8.png)
 
 Select the previously uploaded bar file
 
 We don't have any pre-made configurations, so we can skip this
+
 ![img_9.png](img_9.png)
 
 Just use the default values, those should be fine for most situations. Then hit Create
+
 ![img_10.png](img_10.png)
 
 And your integration server is starting. If you check your minikube cluster at this point, you will see the following 
@@ -418,15 +723,15 @@ object create
 - integrationruntime: ir-01-quickstart
 - service: ir-01-quickstart-ir
 - pod: ir-01-quickstart-ir-f5d5df68c-kpxcx (the pod name can be different, ofcourse)
-- 
+
 ```powershell
-> k get integrationruntime
+k get integrationruntime
 NAME               RESOLVEDVERSION   STATUS   REPLICAS   AVAILABLEREPLICAS   URL                                                          AGE     CUSTOMIMAGES
 ir-01-quickstart   13.0.4.1-r1       Ready    1          1                   http://ir-01-quickstart-ir.ace-demo.svc.cluster.local:7800   2m35s   false
 ```
 
 ```powershell
-> k get svc -l app.kubernetes.io/managed-by=ibm-appconnect
+k get svc -l app.kubernetes.io/managed-by=ibm-appconnect
 NAME                              TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)                      AGE
 ace-dashboard-dash                ClusterIP   10.109.67.101   <none>        3443/TCP,8300/TCP,8400/TCP   135m
 ibm-appconnect-webhook-ace-demo   ClusterIP   10.100.65.199   <none>        443/TCP                      3d1h
@@ -434,11 +739,17 @@ ir-01-quickstart-ir               ClusterIP   10.106.17.219   <none>        7800
 ```
 
 ```powershell
-> k get pod -l app.kubernetes.io/managed-by=ibm-appconnect
+k get pod -l app.kubernetes.io/managed-by=ibm-appconnect
 NAME                                  READY   STATUS    RESTARTS   AGE
 ace-dashboard-dash-9668bd46f-8tjfp    2/2     Running   0          136m
 ir-01-quickstart-ir-f5d5df68c-kpxcx   1/1     Running   0          5m3s
 ```
+
+Once everything is running, you should see the runtime inside the dashboard
+
+![img_17.png](img_17.png)
+![img_18.png](img_18.png)
+
 
 ### Dashboard issue: runtime not visible
 If you have created the runtime, and the kubernetes artifacts are all up and running, but the dashboard is not showing you 
@@ -462,24 +773,24 @@ spec:
 ```
 
 ```powershell
-> k patch dashboard ace-dashboard --patch-file .\ace\debug-log.yaml --type merge
+k patch dashboard ace-dashboard --patch-file .\ace\debug-log.yaml --type merge
 dashboard.appconnect.ibm.com/ace-dashboard patched
 ```
 
 Next, wait for the dashboard patch to complete the rollout
 ```powershell
-> kubectl -n ace-demo rollout status deployment/ace-dashboard-dash
+k -n ace-demo rollout status deployment/ace-dashboard-dash
 deployment "ace-dashboard-dash" successfully rolled out
 ```
 
-Next check the log files for the dashboard pod, this will generate a log of logging, so it is handy to redirect the output to 
+Check the log files for the dashboard pod, this will generate a log of logging, so it is handy to redirect the output to 
 a log file
 ```powershell
-> kubectl get pods -l release=ace-dashboard
+k get pods -l release=ace-dashboard
 NAME                                 READY   STATUS    RESTARTS   AGE
 ace-dashboard-dash-9668bd46f-fprh9   2/2     Running   0          95m
 
-> k logs ace-dashboard-dash-5d99db548d-7sr5c -c control-ui > .\ace\dashboard-debug.log
+k logs ace-dashboard-dash-5d99db548d-7sr5c -c control-ui > .\ace\dashboard-debug.log
 ```
 
 If the log begins like this, then debugging has been enabled and you have a lot more information to go through
@@ -490,25 +801,68 @@ If the log begins like this, then debugging has been enabled and you have a lot 
 ...
 ```
 
-As for the issue, 
+As for the issue, it was actually an issue with how I named my dashboard. The name `ace-dashboard.local` triggers a bug 
+in the internal logic of the dashboard. IBM support helped me out on this issue, and simply renaming my dashboard host to
+ace-dash.local fixed the issue.
 
-...
+The fixed dashboard config:
+```yaml
+# ace-dashboard-ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ace-dashboard-ingress
+  namespace: ace-demo
+  annotations:
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    nginx.ingress.kubernetes.io/proxy-ssl-verify: "false"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+      - ace-dash.local
+    secretName: ace-dashboard-tls    # cert-manager creates this Secret
+  rules:
+  - host: ace-dash.local
+    http:
+      paths:
+      - path: /apiv2
+        pathType: Prefix
+        backend:
+          service:
+            name: ace-dashboard-dash
+            port:
+              number: 8300   # UI port; UI proxies /apiv2 to API
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: ace-dashboard-dash
+            port:
+              number: 8300   # UI port
+```
 
-## Step 8: Accessing the runtime
+After applying it, the runtime showed up. 
+
+![img_19.png](img_19.png)
+
+
+## Step 9: Accessing the runtime
 
 ### Quick port forward
 The deployed RESTApi is listening on port 7800 (inside the cluster), without https enabled (just to keep it simple). 
 Let's start a new kubectl port forward session to make it accessible from my local host. 
 ```powershell
-> k port-forward svc/ir-01-quickstart-ir 17800:7800
+k port-forward svc/ir-01-quickstart-ir 17800:7800
 Forwarding from 127.0.0.1:17800 -> 7800
 Forwarding from [::1]:17800 -> 7800
 ```
 
-And let's thest this by calling the API via cli
+And let's test this by calling the API via cli
 
 ```powershell
-> Invoke-WebRequest "http://127.0.0.1:17800/world/hello" -UseBasicParsing
+Invoke-WebRequest "http://127.0.0.1:17800/world/hello" -UseBasicParsing
 
 
 StatusCode        : 200
@@ -521,7 +875,8 @@ Content-Type: application/json
 Date: Thu, 14 Aug 2025 09:41:40 GMT
 Server: IBM App Connect Enterprise
 
-{"me...
+...
+
 Forms             :
 Headers           : {[X-IBM-ACE-Message-Id, (00000097-689DAF54-00000001)], [Content-Length, 29], [Content-Type, application/json], [Date, Thu, 14 Aug 2025 09:41:40 GMT]...}
 Images            : {}
@@ -538,6 +893,7 @@ And whaddayaknow, it works!
 If you are not happy with calling your localhost, you can also create an extra Ingress to integration runtime
 
 ```yaml
+#ir01-ingress.yaml
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -560,27 +916,393 @@ spec:
               number: 7800            # or 7843 if you want HTTPS to the pod
 ```
 
+
 Apply it
 ```powershell
-> kubectl apply -f .\ace\ir01-ingress.yaml
+k apply -f .\ace\ir01-ingress.yaml
 ```
 
 Add the hostname to your windows hosts file (from elevated prompt)
 ```powershell
-> Add-Content "$env:SystemRoot\System32\drivers\etc\hosts" "`n127.0.0.1`tir01.local"
+Add-Content "$env:SystemRoot\System32\drivers\etc\hosts" "`n127.0.0.1`tir01.local"
 ```
 
 Let's expose port 443 locally on 12122
 ```powershell
-> kubectl -n ingress-nginx port-forward svc/ingress-nginx-controller 12122:443
+k -n ingress-nginx port-forward svc/ingress-nginx-controller 12122:443
 Forwarding from 127.0.0.1:12122 -> 443
 Forwarding from [::1]:12122 -> 443
 ```
 
 And finally, thest the entire setup by pointing our browser to https://ir01.local:12122/world/hello
+
 ![img_11.png](img_11.png)
 
 Success!
+
+## Step 10: Cleanup
+
+We'll clean everthing up in reverse order, and do a check nothing is left. You can start randomly deleting object. But deleting
+pods before you delete a set or a deployment will just trigger a new one to be spun up. So let's do it proper.
+
+### Before we begin
+First let's have a look at what we do have running, so you can notice the difference after. If you don't care about a proper
+cleanup, feel free to delete the entire namespace in one go, nice quick and dirty.
+
+```bash
+k delete namespace ace-demo
+
+```
+
+
+```bash
+k get all,ingress,certificates,pvc
+Warning: integrationserver.appconnect.ibm.com/v1beta1 is deprecated. Use IntegrationRuntimes
+NAME                                      READY   STATUS    RESTARTS        AGE
+pod/ace-dashboard-dash-9668bd46f-fprh9    2/2     Running   21 (174m ago)   7d20h
+pod/demo-7d8f7758b-7t59j                  1/1     Running   1 (8d ago)      11d
+pod/ibm-appconnect-5bc6b7f6b5-96fjb       1/1     Running   663 (8d ago)    13d
+pod/ir-01-quickstart-ir-f5d5df68c-kpxcx   1/1     Running   16 (3h ago)     8d
+
+NAME                                      TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)                      AGE
+service/ace-dashboard-dash                ClusterIP   10.109.67.101   <none>        3443/TCP,8300/TCP,8400/TCP   8d
+service/demo                              ClusterIP   10.108.185.89   <none>        80/TCP                       11d
+service/ibm-appconnect-webhook-ace-demo   ClusterIP   10.100.65.199   <none>        443/TCP                      11d
+service/ir-01-quickstart-ir               ClusterIP   10.106.17.219   <none>        7800/TCP,7843/TCP,7600/TCP   8d
+
+NAME                                  READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/ace-dashboard-dash    1/1     1            1           8d
+deployment.apps/demo                  1/1     1            1           11d
+deployment.apps/ibm-appconnect        1/1     1            1           13d
+deployment.apps/ir-01-quickstart-ir   1/1     1            1           8d
+
+NAME                                            DESIRED   CURRENT   READY   AGE
+replicaset.apps/ace-dashboard-dash-5d99db548d   0         0         0       7d20h
+replicaset.apps/ace-dashboard-dash-9668bd46f    1         1         1       8d
+replicaset.apps/demo-7d8f7758b                  1         1         1       11d
+replicaset.apps/ibm-appconnect-5bc6b7f6b5       1         1         1       13d
+replicaset.apps/ir-01-quickstart-ir-f5d5df68c   1         1         1       8d
+
+NAME                                                            AGE
+configuration.appconnect.ibm.com/ir-01-quickstart-ir-adminssl   8d
+
+NAME                                         RESOLVEDVERSION   REPLICAS   CUSTOMIMAGES   STATUS   UI URL   API URL   KEYCLOAK URL   AGE
+dashboard.appconnect.ibm.com/ace-dashboard   13.0.4.1-r1       1          false          Ready                                      8d
+
+NAME                                                     RESOLVEDVERSION   STATUS   REPLICAS   AVAILABLEREPLICAS   URL                                                          AGE   CUSTOMIMAGES
+integrationruntime.appconnect.ibm.com/ir-01-quickstart   13.0.4.1-r1       Ready    1          1                   http://ir-01-quickstart-ir.ace-demo.svc.cluster.local:7800   8d    false
+
+NAME                                              CLASS   HOSTS                 ADDRESS        PORTS     AGE
+ingress.networking.k8s.io/ace-dashboard-ingress   nginx   ace-dashboard.local   192.168.49.2   80, 443   11d
+ingress.networking.k8s.io/demo                    nginx   demo.local            192.168.49.2   80        11d
+ingress.networking.k8s.io/ir01-ing                nginx   ir01.local            192.168.49.2   80        8d
+
+NAME                                                          READY   SECRET                            AGE
+certificate.cert-manager.io/ace-dashboard-tls                 True    ace-dashboard-tls                 23h
+certificate.cert-manager.io/ace-dashboardui-cert              True    ace-dashboardui-cert              8d
+certificate.cert-manager.io/ibm-appconnect-webhook-ace-demo   True    ibm-appconnect-webhook-ace-demo   11d
+
+NAME                                          STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+persistentvolumeclaim/ace-dashboard-content   Bound    pvc-12c7d64e-2dba-46b2-8993-f736fad99e36   5Gi        RWO            standard       <unset>                 8d
+```
+
+### Connections
+
+If you have any port-forwarding or `minikube tunnel` running, stop those (ctrl + c).
+Check your hosts file and remove the entries for the Dashboard and the Integration Runtime
+
+```properties
+# K8S ace
+
+127.0.0.1	ace-dashboard.local
+
+127.0.0.1	ir01.local
+
+# End of section
+```
+
+### Ingress
+
+We've defined 2 Ingress objects, one for the Dashboard and one for the Integration Runtime, delete those
+```bash
+k delete ingress ir01-ing 
+ingress.networking.k8s.io "ir01-ing" deleted
+
+k delete ingress ace-dashboard-ingress
+ingress.networking.k8s.io "ace-dashboard-ingress" deleted
+```
+
+### Runtimes and Dashboard
+
+Deleting the Integration Runtimes and Dashboard will also trigger the Operator to cleanup the related Deployment and Service.
+
+```bash
+kubectl delete integrationruntime --all --wait=true
+integrationruntime.appconnect.ibm.com "ir-01-quickstart" deleted
+```
+
+```bash
+kubectl delete dashboard ace-dashboard --wait=true
+dashboard.appconnect.ibm.com "ace-dashboard" deleted
+```
+
+### Certificates
+
+For a full cleanup, you might also want to delete the certificate we setup.
+
+```bash
+kubectl delete certificate --all
+```
+
+### Storage
+
+Delete our volume claim
+
+```bash
+k delete pvc ace-dashboard-content
+persistentvolumeclaim "ace-dashboard-content" deleted
+```
+
+
+### Operator
+
+And finally, the only thing that's left, the Operator itself
+
+```bash
+> helm uninstall ibm-appconnect --wait
+release "ibm-appconnect" uninstalled
+```
+
+Which brings the content of my namespace down to
+```bash
+k get all,ingress,certificates,pvc
+NAME                                  READY   STATUS    RESTARTS       AGE
+pod/demo-7d8f7758b-7t59j              1/1     Running   1 (8d ago)     11d
+
+NAME                                      TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE
+service/demo                              ClusterIP   10.108.185.89   <none>        80/TCP    11d
+
+NAME                             READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/demo             1/1     1            1           11d
+
+NAME                                        DESIRED   CURRENT   READY   AGE
+replicaset.apps/demo-7d8f7758b              1         1         1       11d
+
+NAME                                              CLASS   HOSTS                 ADDRESS        PORTS     AGE
+ingress.networking.k8s.io/demo                    nginx   demo.local            192.168.49.2   80        11d
+```
+No more ACE.
+
+
+## What about OLM?
+
+### What is OLM
+
+Operator Lifecycle Manager (OLM) is Kubernetes’ “package manager” for Operators. Instead of installing with Helm, you can 
+use OLM to pull Operators from catalogs and keep them updated through Subscriptions. In this guide we stick to Helm for 
+simplicity, but if you prefer OLM you’ll need the extra bits: a CatalogSource, OperatorGroup, and Subscription.
+
+>**Disclaimer: don't combine OLM and Helm**. 
+> OLM might install a different version operator so it could impact any other deployment you want to do in your cluster.
+
+### Setting up the extra bits
+
+Enabling
+
+Install OLM in your minikube environment (cluster-wide):
+
+```bash
+k apply --server-side -f https://github.com/operator-framework/operator-lifecycle-manager/releases/download/v0.33.0/crds.yaml
+customresourcedefinition.apiextensions.k8s.io/catalogsources.operators.coreos.com serverside-applied
+customresourcedefinition.apiextensions.k8s.io/clusterserviceversions.operators.coreos.com serverside-applied
+customresourcedefinition.apiextensions.k8s.io/installplans.operators.coreos.com serverside-applied
+customresourcedefinition.apiextensions.k8s.io/olmconfigs.operators.coreos.com serverside-applied
+customresourcedefinition.apiextensions.k8s.io/operatorconditions.operators.coreos.com serverside-applied
+customresourcedefinition.apiextensions.k8s.io/operatorgroups.operators.coreos.com serverside-applied
+customresourcedefinition.apiextensions.k8s.io/operators.operators.coreos.com serverside-applied
+customresourcedefinition.apiextensions.k8s.io/subscriptions.operators.coreos.com serverside-applied
+```
+
+```bash
+k apply --server-side -f https://github.com/operator-framework/operator-lifecycle-manager/releases/download/v0.33.0/olm.yaml
+namespace/olm serverside-applied
+namespace/operators serverside-applied
+networkpolicy.networking.k8s.io/default-deny-all-traffic serverside-applied
+networkpolicy.networking.k8s.io/olm-operator serverside-applied
+networkpolicy.networking.k8s.io/catalog-operator serverside-applied
+networkpolicy.networking.k8s.io/packageserver serverside-applied
+networkpolicy.networking.k8s.io/default-allow-all serverside-applied
+serviceaccount/olm-operator-serviceaccount serverside-applied
+clusterrole.rbac.authorization.k8s.io/system:controller:operator-lifecycle-manager serverside-applied
+clusterrolebinding.rbac.authorization.k8s.io/olm-operator-binding-olm serverside-applied
+olmconfig.operators.coreos.com/cluster serverside-applied
+deployment.apps/olm-operator serverside-applied
+deployment.apps/catalog-operator serverside-applied
+clusterrole.rbac.authorization.k8s.io/aggregate-olm-edit serverside-applied
+clusterrole.rbac.authorization.k8s.io/aggregate-olm-view serverside-applied
+operatorgroup.operators.coreos.com/global-operators serverside-applied
+operatorgroup.operators.coreos.com/olm-operators serverside-applied
+clusterserviceversion.operators.coreos.com/packageserver serverside-applied
+catalogsource.operators.coreos.com/operatorhubio-catalog serverside-applied
+```
+
+I'm using a server-side apply because normal kubectl apply returned a `metadata.annotations: Too long` error.
+
+Create a CatalogSource at cluster level:
+
+```yaml
+# catalogsource.yaml
+apiVersion: operators.coreos.com/v1alpha1
+kind: CatalogSource
+metadata:
+  name: ibm-operator-catalog
+  namespace: olm
+spec:
+  displayName: IBM Operator Catalog
+  publisher: IBM
+  sourceType: grpc
+  image: icr.io/cpopen/ibm-operator-catalog:latest  # public, no entitlement needed
+  updateStrategy:
+    registryPoll:
+      interval: 30m
+```
+
+Apply the CatalogSource and check that it is set up:
+
+```bash
+k apply -f catalogsource.yaml
+catalogsource.operators.coreos.com/ibm-operator-catalog created
+
+k -n olm get catalogsource ibm-operator-catalog -o wide
+NAME                   DISPLAY                TYPE   PUBLISHER   AGE
+ibm-operator-catalog   IBM Operator Catalog   grpc   IBM         9s
+```
+
+Create an Entitlement secret (like we did before, but in this specific namespace, I'm skipping that bit here) and an 
+OperatorGroup in your target namespace. If you already did a Helm setup, use a fresh namespace for the following steps. 
+Mixing Helm and OLM might give you some weird errors and/or behaviour. 
+
+```bash
+k create namespace ace-demo-olm
+namespace/ace-demo-olm created
+```
+
+```yaml
+# operatorgroup.yaml
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: ace-operator-group
+  namespace: ace-demo-olm
+spec:
+  targetNamespaces:
+    - ace-demo-olm
+```
+
+```bash
+k apply -f operatorgroup.yaml
+operatorgroup.operators.coreos.com/ace-operator-group created
+```
+
+Setting up the Subscription to install the operator requires 4 key properties
+- source: CatalogSource name
+- sourceNameSpace: the namespace you want to use
+- channel: the channel of the OLM package to use
+- name: the name of the OLM package to install
+
+For us, the package is ibm-appconnect and the channel is cd (continuous delivery). If you are not sure about these values, 
+you can verify them by listing the available packages and channels:
+
+```bash
+k get packagemanifests -A | select-string appconnect
+
+olm         ibm-appconnect                                    IBM Operator Catalog   8m2s
+```
+
+```bash
+k get packagemanifests ibm-appconnect -n olm -o jsonpath='{.status.channels[*].name}'
+cd v1.0 v1.1-eus v1.2 v1.3 v1.4 v1.5 v10.0 v10.1 v11.0 v11.1 v11.2 v11.3 v11.4 v11.5 v11.6 v12.0-sc2 v12.1 v12.10 v12.11 
+v12.12 v12.13 v12.14 v12.2 v12.3 v12.4 v12.5 v12.6 v12.7 v12.8 v12.9 v2.0 v2.1 v3.0 v3.1 v4.0 v4.1 v4.2 v5.0-lts v5.1 v5.2 
+v6.0 v6.1 v6.2 v7.0 v7.1 v7.2 v8.0 v8.1 v8.2 v9.0 v9.1 v9.2
+```
+
+Put these value inside a subscription yaml file:
+
+```yaml
+# subscription.yaml
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: ibm-appconnect-sub
+  namespace: ace-demo-olm
+spec:
+  channel: cd                      # pick from .status.channels (e.g., v13 or stable)
+  name: ibm-appconnect              # package name from the catalog
+  source: ibm-operator-catalog      # must match your CatalogSource.metadata.name
+  sourceNamespace: olm              # namespace where the CatalogSource lives
+  installPlanApproval: Automatic    # or Manual if you want to approve upgrades
+```
+
+And apply it:
+
+```bash
+k apply -f subscription.yaml
+subscription.operators.coreos.com/ibm-appconnect-sub created
+```
+
+Wait for OLM to finish it's install and look at the CSV (ClusterServiceVersion).
+
+```bash
+k -n ace-demo-olm get subscription ibm-appconnect-sub -o jsonpath='{.status.installedCSV}'
+ibm-appconnect.v5.2.0
+```
+
+Let's have a look at the CSV (and wait for it to finish installing):
+
+```bash
+k -n ace-demo-olm get csv -w
+NAME                                   DISPLAY                               VERSION   REPLACES   PHASE
+ibm-appconnect.v5.2.0                  IBM App Connect                       5.2.0                Pending
+ibm-common-service-operator.v3.23.14   IBM Cloud Pak foundational services   3.23.14              Installing
+```
+
+```bash
+k -n ace-demo-olm describe csv ibm-appconnect.v5.2.0
+```
+
+And here is where it started failing for me 🙂. When trying to figure out the issue, I ended up with a cluster issue:
+
+```bashs
+k -n ace-demo-olm get csv
+NAME                                   DISPLAY                               VERSION   REPLACES   PHASE
+ibm-appconnect.v5.2.0                  IBM App Connect                       5.2.0                Pending
+ibm-common-service-operator.v3.23.14   IBM Cloud Pak foundational services   3.23.14              Failed
+
+k get deployments -n ace-demo-olm
+NAME                          READY   UP-TO-DATE   AVAILABLE   AGE
+ibm-common-service-operator   0/1     1            0           32m
+
+k logs deployment/ibm-common-service-operator -n ace-demo-olm
+I0829 08:08:45.985563       1 init.go:1669] Cluster type is OCP: false
+E0829 08:08:45.987649       1 init.go:1678] Configmap ibm-common-services/ibm-cpp-config is required
+E0829 08:08:45.987675       1 main.go:140] Cluster type specificed in the ibm-cpp-config isn't correct
+```
+
+I decided to not look into this further, as this was supposed to be a side track to give you some additional information. If I 
+find the issue, I'll blog about it at a later date.
+
+### How ILM wires things up
+
+OLM works by chaining three objects together:
+- CatalogSource – tells OLM where to look for Operators (basically the repo).
+- OperatorGroup – tells OLM where the Operator should be installed and which namespaces it should watch.
+- Subscription – tells OLM which Operator (and which channel/version) you want to install from that CatalogSource.
+
+Once the Subscription is created, OLM pulls down the Operator bundle and installs a ClusterServiceVersion (CSV) behind 
+the scenes. That CSV is the “running release” of the Operator.
+
+And because App Connect images are entitled, you also need the ibm-entitlement-key secret in the same namespace as your 
+Subscription (so the Operator can actually pull its images).
 
 ---
 
