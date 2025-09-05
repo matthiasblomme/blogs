@@ -1318,6 +1318,7 @@ For more integration tips and tricks, visit Integration Designers and check out 
 * [Getting started with Minikube](https://minikube.sigs.k8s.io/docs/start/)
 * [Configuration properties in the values.yaml file for deploying the IBM App Connect Operator](https://www.ibm.com/docs/en/app-connect/13.0.x?topic=operator-configuration-properties-in-valuesyaml-file)
 * [Introducing the API for IBM App Connect in containers](https://community.ibm.com/community/user/blogs/matthew-bailey/2024/06/03/app-connect-containers-api)
+* [All the files used is this blog](https://github.com/matthiasblomme/ace-minikube)
 
 ---
 
