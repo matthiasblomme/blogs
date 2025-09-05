@@ -84,13 +84,16 @@ handling in one branch, the original message untouched in the other, with a simp
 
 ## Flow Setup 3: Using Context Trees
 
-Let's give you some context (pun intended) first. The Context tree is a read-only logical tree structure (similar to the 
-LocalEnvironment) that keeps a copy of information about the message flow and its nodes. There is a lot of information 
-available in the context tree, but the one that is relevant to this blog has to do with the incoming message. Part of the 
-information stored in the Context Tree is the Message Payload that enters an Input Node.
+FlowOrder works, but ACE 13.0.4.0 introduced something cleaner: the Context tree. It was originally designed to support 
+discovery connectors, but it also gives you a sharp way to handle message data in classic ACE flows.
 
-In our situation, instead of using the FlowOrder Node or copying the data to the environment, we could simply copy the 
-correct payload from the Context tree to the OutputRoot. The flow looks very much like the one we started with:
+Let's give you some context (pun intended) first. The Context tree is a read-only logical structure that grows as your message passes through the flow. At the start it
+only knows about the input node, but each node adds its own payload and metadata. By the end you have a complete picture,
+parser context included. The important bit for us: the original payload is always available.
+
+In practice, you don’t need to configure or enable anything special. As soon as you reference the Context tree in ESQL, 
+ACE populates it at runtime. That means you can simply grab the payload from the input node and copy it back into OutputRoot, 
+then add your token. The flow looks very much like the one we started with:
 
 ![img_9.png](img_9.png)
 
@@ -102,16 +105,34 @@ The `RestoreMsg Node` is the one that calls upon the `Context Tree`.
 
 ![img_11.png](img_11.png)
 
-The Context tree is there for the taking. There is no need to include it in somewhere, or enable the feature somehow. Just
-by calling it in your ESQL code, you activate it at runtime. The key point for our use case is that the context tree keeps 
-the parser information, so there is no need to do anything but copy the payload back to the OutputRoot.
-
 Finally, let's compare the input and the output message:
 
 ![img_14.png](img_14.png)
 ![img_15.png](img_15.png)
 
 Proper JSON with the added token.
+
+To show how the Context tree builds up, I added a trace node. I wired it to the Input and last Compute Nodes to capture 
+the tree at different stages.
+
+![img_16.png](img_16.png)
+
+The Trace Node configuration:
+
+![img_17.png](img_17.png)
+
+Immediately after the HTTP Input node, the Context tree only contains information about the Input Node
+
+![img_18.png](img_18.png)
+
+Further down the flow, you can see the tree filling up with each node:
+
+![img_19.png](img_19.png)
+
+The green blocks show the nodes you passed with their metadata. The blue Payload blocks show the messages the RestRequest 
+node received. The Context tree keeps on building until processing in your flow stops, giving you context about all the nodes 
+that came before.
+
 
 That’s it. No detours, no reparsing, no lost metadata. It gives you the original payload exactly as it came in, parser 
 context included. Instead of juggling copies and fighting the toolkit, you just point at the Context tree and move on. 
