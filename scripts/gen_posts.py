@@ -1,11 +1,13 @@
-import subprocess, pathlib, time, re
+import subprocess, pathlib, time, re, calendar
+from collections import defaultdict
 
-DOCS_DIR     = pathlib.Path("docs")
-POSTS_DIR    = DOCS_DIR / "posts"
-OUTPUT       = POSTS_DIR / "index.md"
-HOMEPAGE     = DOCS_DIR / "index.md"
-BLOCK_START  = "<!--LATEST_POST:START-->"
-BLOCK_END    = "<!--LATEST_POST:END-->"
+DOCS_DIR      = pathlib.Path("docs")
+POSTS_DIR     = DOCS_DIR / "posts"
+INDEX_OUT     = POSTS_DIR / "index.md"
+ARCHIVE_OUT   = POSTS_DIR / "archive.md"
+HOMEPAGE      = DOCS_DIR / "index.md"
+BLOCK_START   = "<!--LATEST_POST:START-->"
+BLOCK_END     = "<!--LATEST_POST:END-->"
 
 
 def git_timestamp(p: pathlib.Path) -> int:
@@ -65,30 +67,56 @@ def link_from_home(p: pathlib.Path) -> str:
 
 
 def link_from_posts_index(p: pathlib.Path) -> str:
-    """Link path relative to docs/posts (used on posts index)."""
+    """Link path relative to docs/posts (used on posts index + archive)."""
     return p.relative_to(POSTS_DIR).as_posix()
 
 
-# Collect all posts (support subfolders), ignore posts/index.md
-posts = [p for p in POSTS_DIR.rglob("*.md") if p.name.lower() != "index.md"]
+# Collect all posts (support subfolders), ignore posts/index.md & posts/archive.md
+posts = [
+    p for p in POSTS_DIR.rglob("*.md")
+    if p.name.lower() not in ("index.md", "archive.md")
+]
 
 # Sort newest-first by last git commit
 scored = sorted(((git_timestamp(p), p) for p in posts), key=lambda x: x[0], reverse=True)
 
-# ---------- Generate posts landing page ----------
-lines = ["# Posts", ""]
+# ---------- Generate posts landing page (flat list) ----------
+index_lines = ["# Posts", ""]
 for ts, p in scored:
     date = time.strftime("%Y-%m-%d", time.localtime(ts))
     title = extract_title(p)
-    lines.append(f"- **{date}** — [{title}]({link_from_posts_index(p)})")
-lines.append("")  # trailing newline
+    index_lines.append(f"- **{date}** — [{title}]({link_from_posts_index(p)})")
+index_lines.append("")  # trailing newline
 
-OUTPUT.parent.mkdir(parents=True, exist_ok=True)
-OUTPUT.write_text("\n".join(lines), encoding="utf-8")
+INDEX_OUT.parent.mkdir(parents=True, exist_ok=True)
+INDEX_OUT.write_text("\n".join(index_lines), encoding="utf-8")
+
+# ---------- Generate archive (Year -> Month) ----------
+# build grouping: {year: {month: [(ts, path, title), ...]}}
+archive_map: dict[int, dict[int, list[tuple]]] = defaultdict(lambda: defaultdict(list))
+for ts, p in scored:
+    t = time.localtime(ts)
+    archive_map[t.tm_year][t.tm_mon].append((ts, p, extract_title(p)))
+
+archive_lines = ["# Archive", ""]
+# iterate years newest-first
+for year in sorted(archive_map.keys(), reverse=True):
+    archive_lines.append(f"## {year}")
+    archive_lines.append("")
+    # months newest-first
+    for mon in sorted(archive_map[year].keys(), reverse=True):
+        month_name = calendar.month_name[mon]
+        archive_lines.append(f"### {month_name}")
+        for ts, p, title in archive_map[year][mon]:
+            date = time.strftime("%Y-%m-%d", time.localtime(ts))
+            archive_lines.append(f"- **{date}** — [{title}]({link_from_posts_index(p)})")
+        archive_lines.append("")  # blank line after month
+    archive_lines.append("")      # blank line after year
+
+ARCHIVE_OUT.write_text("\n".join(archive_lines).rstrip() + "\n", encoding="utf-8")
 
 # ---------- Inject Latest Post block on homepage ----------
 home = HOMEPAGE.read_text(encoding="utf-8-sig")
-
 if scored:
     _, latest_path = scored[0]
     latest_title = extract_title(latest_path)
@@ -96,15 +124,11 @@ if scored:
 else:
     latest_link  = "_No posts yet._"
 
-pattern = re.compile(
-    re.escape(BLOCK_START) + r".*?" + re.escape(BLOCK_END),
-    flags=re.DOTALL
-)
+pattern = re.compile(re.escape(BLOCK_START) + r".*?" + re.escape(BLOCK_END), flags=re.DOTALL)
 replacement = f"{BLOCK_START}\n{latest_link}\n{BLOCK_END}"
 if pattern.search(home):
     home = pattern.sub(replacement, home)
 else:
-    # fallback: append block if markers not found
     home = home.rstrip() + "\n\n" + replacement + "\n"
 
 HOMEPAGE.write_text(home, encoding="utf-8")
