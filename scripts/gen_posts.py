@@ -1,11 +1,11 @@
 import subprocess, pathlib, time, re
 
-DOCS_DIR    = pathlib.Path("docs")
-POSTS_DIR   = DOCS_DIR / "posts"
-OUTPUT      = POSTS_DIR / "index.md"
-HOMEPAGE    = DOCS_DIR / "index.md"
-BLOCK_START = "<!--LATEST_POST:START-->"
-BLOCK_END   = "<!--LATEST_POST:END-->"
+DOCS_DIR     = pathlib.Path("docs")
+POSTS_DIR    = DOCS_DIR / "posts"
+OUTPUT       = POSTS_DIR / "index.md"
+HOMEPAGE     = DOCS_DIR / "index.md"
+BLOCK_START  = "<!--LATEST_POST:START-->"
+BLOCK_END    = "<!--LATEST_POST:END-->"
 
 
 def git_timestamp(p: pathlib.Path) -> int:
@@ -20,16 +20,43 @@ def git_timestamp(p: pathlib.Path) -> int:
         return int(p.stat().st_mtime)
 
 
-def first_h1(p: pathlib.Path) -> str:
-    """Return first '# ' heading as title; fallback to filename."""
-    title = p.stem.replace("-", " ")
-    with p.open("r", encoding="utf-8") as f:
-        for line in f:
-            s = line.strip()
-            if s.startswith("# "):
-                title = s[2:].strip()
-                break
-    return title
+def extract_title(p: pathlib.Path) -> str:
+    """
+    Title resolution order:
+      1) YAML front-matter 'title:'
+      2) first H1 (# )
+      3) first H2 (## )
+      4) first heading any level
+      5) filename fallback
+    Handles UTF-8 BOM via 'utf-8-sig'.
+    """
+    text = p.read_text(encoding="utf-8-sig")
+
+    # 1) front-matter
+    m = re.match(r"^---\s*\n(.*?)\n---\s*\n", text, flags=re.DOTALL)
+    if m:
+        fm = m.group(1)
+        mt = re.search(r"(?m)^title:\s*(.+?)\s*$", fm)
+        if mt:
+            return mt.group(1).strip()
+
+    # 2) first H1
+    mh1 = re.search(r"(?m)^\#\s+(.*\S)\s*$", text)
+    if mh1:
+        return mh1.group(1).strip()
+
+    # 3) first H2
+    mh2 = re.search(r"(?m)^\#\#\s+(.*\S)\s*$", text)
+    if mh2:
+        return mh2.group(1).strip()
+
+    # 4) any heading
+    many = re.search(r"(?m)^\#{1,6}\s+(.*\S)\s*$", text)
+    if many:
+        return many.group(1).strip()
+
+    # 5) fallback
+    return p.stem.replace("-", " ")
 
 
 def link_from_home(p: pathlib.Path) -> str:
@@ -52,7 +79,7 @@ scored = sorted(((git_timestamp(p), p) for p in posts), key=lambda x: x[0], reve
 lines = ["# Posts", ""]
 for ts, p in scored:
     date = time.strftime("%Y-%m-%d", time.localtime(ts))
-    title = first_h1(p)
+    title = extract_title(p)
     lines.append(f"- **{date}** — [{title}]({link_from_posts_index(p)})")
 lines.append("")  # trailing newline
 
@@ -60,11 +87,11 @@ OUTPUT.parent.mkdir(parents=True, exist_ok=True)
 OUTPUT.write_text("\n".join(lines), encoding="utf-8")
 
 # ---------- Inject Latest Post block on homepage ----------
-home = HOMEPAGE.read_text(encoding="utf-8")
+home = HOMEPAGE.read_text(encoding="utf-8-sig")
 
 if scored:
     _, latest_path = scored[0]
-    latest_title = first_h1(latest_path)
+    latest_title = extract_title(latest_path)
     latest_link  = f"- [{latest_title}]({link_from_home(latest_path)})"
 else:
     latest_link  = "_No posts yet._"
