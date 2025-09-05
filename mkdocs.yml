@@ -4,7 +4,7 @@ repo_url: https://github.com/matthiasblomme/blogs
 use_directory_urls: true
 
 theme:
-  name: material
+  name: mkdocs
 
 plugins:
   - search
@@ -13,4 +13,5 @@ nav:
   - Home: index.md
   - Posts:
       - Welcome: posts/welcome.md
+      - "ACE on Windows: Disable Weak TLS Ciphers and Verify with OpenSSL" : posts/disable-weak-ciphers-ace/ace_disable_weak_ciphers.md
   - About: about.md
