@@ -1,4 +1,4 @@
-﻿# eMBee Integration Blogs ☕
+# eMBee Integration Blogs ☕
 
 Welcome to my corner of the web.  
 I write about **IBM Integration (ACE, MQ, DevOps)**, but also about the real, hands-on work of making tech run smoothly 
@@ -19,7 +19,9 @@ Expect walkthroughs, sharp opinions, and experiments straight out of my lab (som
 ---
 
 ## ✍️ Latest Post
-<!--LATEST_POST-->
+<!--LATEST_POST:START-->
+- [ACE on Windows:  Disable Weak TLS Ciphers and Verify with OpenSSL](posts/disable-weak-ciphers-ace/ace_disable_weak_ciphers.md)
+<!--LATEST_POST:END-->
 
 ---
 
