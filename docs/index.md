@@ -19,7 +19,8 @@ Expect walkthroughs, sharp opinions, and experiments straight out of my lab (som
 ---
 
 ## ✍️ Latest Post
-<!--LATEST_POST-->
+<!--LATEST_POST:START-->
+<!--LATEST_POST:END-->
 
 ---
 

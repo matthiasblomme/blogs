@@ -11,7 +11,7 @@ plugins:
 
 nav:
   - Home: index.md
-  - Posts:
-      - Welcome: posts/welcome.md
-      - "ACE on Windows: Disable Weak TLS Ciphers and Verify with OpenSSL" : posts/disable-weak-ciphers-ace/ace_disable_weak_ciphers.md
+  - Posts: posts/index.md
   - About: about.md
+
+
