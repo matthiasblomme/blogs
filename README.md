@@ -1,1 +1,1 @@
-# A List of blogs written by yours truley
+# A List of blogs written by yours truly
