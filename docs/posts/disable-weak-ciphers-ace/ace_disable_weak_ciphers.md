@@ -45,7 +45,6 @@ No, not OpenSSH. OpenSSL.
 OpenSSL 3.5.0 8 Apr 2025 (Library: OpenSSL 3.5.0 8 Apr 2025)
 ```
 
-
 ## Baseline Test 1 — Known Good Cipher
 Before locking stuff down, let's prove that a strong cipher still works
 
