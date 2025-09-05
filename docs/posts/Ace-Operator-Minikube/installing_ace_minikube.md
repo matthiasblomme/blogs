@@ -95,7 +95,7 @@ helm repo update
 ## Step 2: Install the k8s cert-manager
 
 If you have a clean cluster without a cert-manager installed, begin by installing it, you will need it later. If you are 
-not sure about your cluster setup, check if the cert-manager manager is available by listing the pods in the the cert-manager 
+not sure about your cluster setup, check if the cert-manager manager is available by listing the pods in the cert-manager 
 namespace
 
 ```bash
