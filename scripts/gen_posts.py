@@ -8,6 +8,7 @@ ARCHIVE_OUT   = POSTS_DIR / "archive.md"
 HOMEPAGE      = DOCS_DIR / "index.md"
 BLOCK_START   = "<!--LATEST_POST:START-->"
 BLOCK_END     = "<!--LATEST_POST:END-->"
+LATEST_COUNT  = 5   # number of posts to show on homepage
 
 
 def git_timestamp(p: pathlib.Path) -> int:
@@ -92,40 +93,42 @@ INDEX_OUT.parent.mkdir(parents=True, exist_ok=True)
 INDEX_OUT.write_text("\n".join(index_lines), encoding="utf-8")
 
 # ---------- Generate archive (Year -> Month) ----------
-# build grouping: {year: {month: [(ts, path, title), ...]}}
 archive_map: dict[int, dict[int, list[tuple]]] = defaultdict(lambda: defaultdict(list))
 for ts, p in scored:
     t = time.localtime(ts)
     archive_map[t.tm_year][t.tm_mon].append((ts, p, extract_title(p)))
 
 archive_lines = ["# Archive", ""]
-# iterate years newest-first
 for year in sorted(archive_map.keys(), reverse=True):
     archive_lines.append(f"## {year}")
     archive_lines.append("")
-    # months newest-first
     for mon in sorted(archive_map[year].keys(), reverse=True):
         month_name = calendar.month_name[mon]
         archive_lines.append(f"### {month_name}")
         for ts, p, title in archive_map[year][mon]:
             date = time.strftime("%Y-%m-%d", time.localtime(ts))
             archive_lines.append(f"- **{date}** — [{title}]({link_from_posts_index(p)})")
-        archive_lines.append("")  # blank line after month
-    archive_lines.append("")      # blank line after year
+        archive_lines.append("")
+    archive_lines.append("")
 
 ARCHIVE_OUT.write_text("\n".join(archive_lines).rstrip() + "\n", encoding="utf-8")
 
-# ---------- Inject Latest Post block on homepage ----------
+# ---------- Inject Latest Posts block on homepage ----------
 home = HOMEPAGE.read_text(encoding="utf-8-sig")
+
 if scored:
-    _, latest_path = scored[0]
-    latest_title = extract_title(latest_path)
-    latest_link  = f"- [{latest_title}]({link_from_home(latest_path)})"
+    latest_posts = scored[:LATEST_COUNT]
+    latest_links = []
+    for ts, p in latest_posts:
+        title = extract_title(p)
+        date = time.strftime("%Y-%m-%d", time.localtime(ts))
+        latest_links.append(f"- **{date}** — [{title}]({link_from_home(p)})")
+    latest_block = "\n".join(latest_links)
 else:
-    latest_link  = "_No posts yet._"
+    latest_block = "_No posts yet._"
 
 pattern = re.compile(re.escape(BLOCK_START) + r".*?" + re.escape(BLOCK_END), flags=re.DOTALL)
-replacement = f"{BLOCK_START}\n{latest_link}\n{BLOCK_END}"
+replacement = f"{BLOCK_START}\n{latest_block}\n{BLOCK_END}"
 if pattern.search(home):
     home = pattern.sub(replacement, home)
 else:
