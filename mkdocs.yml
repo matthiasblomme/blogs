@@ -1,0 +1,19 @@
+﻿site_name: eMBee Integration Blogs
+site_url: https://matthiasblomme.github.io/blogs/
+
+use_directory_urls: true
+
+theme:
+  name: mkdocs
+
+plugins:
+  - search
+
+nav:
+  - Home: index.md
+  - Posts:
+      - All posts: posts/index.md
+      - Archive: posts/archive.md
+  - About: about.md
+
+
