@@ -1,6 +1,6 @@
 ﻿site_name: eMBee Integration Blogs
 site_url: https://matthiasblomme.github.io/blogs/
-repo_url: https://github.com/matthiasblomme/blogs
+
 use_directory_urls: true
 
 theme:
