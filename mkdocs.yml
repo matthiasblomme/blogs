@@ -11,7 +11,9 @@ plugins:
 
 nav:
   - Home: index.md
-  - Posts: posts/index.md
+  - Posts:
+      - All posts: posts/index.md
+      - Archive: posts/archive.md
   - About: about.md
 
 
