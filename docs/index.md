@@ -20,7 +20,11 @@ Expect walkthroughs, sharp opinions, and experiments straight out of my lab (som
 
 ## ✍️ Latest Post
 <!--LATEST_POST:START-->
-- [ACE on Windows:  Disable Weak TLS Ciphers and Verify with OpenSSL](posts/disable-weak-ciphers-ace/ace_disable_weak_ciphers.md)
+- **2025-09-08** — [Bar Build Commands: Unraveling the Differences](posts/create-vs-package-bar/create-vs-pacakage-bar.md)
+- **2025-09-05** — [Logging ACE's ExceptionList Inserts (in the Activity log with the Log node)](posts/logging-ace-exceptionlist/logging-ace-exceptionlist.md)
+- **2025-09-05** — [Running Unit Tests in IBM App Connect Toolkit Using a Custom Integration Server Setup](posts/toolkit-unit-testing-custom-runtime/toolkit-unit-testing-custom-runtime.md)
+- **2025-09-05** — [Ignoring fields in ACE integration testing: a guide](posts/unit-test-ignore/unit-test-ignore.md)
+- **2025-09-05** — [Transformation Advisor: helpful sidekick or noisy backseat driver?](posts/tad/tad.md)
 <!--LATEST_POST:END-->
 
 ---
