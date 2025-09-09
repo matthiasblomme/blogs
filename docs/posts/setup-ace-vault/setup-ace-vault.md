@@ -18,7 +18,14 @@ There are 3 types of vault
  - Integration server vaults: only used by one integration server and stored inside the work directory
  - External vaults: these are vaults that are stored externally from the node or server and, unfortunately, are not yet supported by the loud operator.
 
-The Luminus ACE environment only uses integration server vaults, so we'll only focus on those in this document
+Depending on your environment, you might need one or the other (if you run Node based or only with Standalone Integration server)
+Let's assume we are running on a cloud setup and only focus on the Integration server vaults.
+
+
+
+
+
+
 
 
 Setup
