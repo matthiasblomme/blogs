@@ -95,7 +95,7 @@ helm repo update
 ## Step 2: Install the k8s cert-manager
 
 If you have a clean cluster without a cert-manager installed, begin by installing it, you will need it later. If you are 
-not sure about your cluster setup, check if the cert-manager manager is available by listing the pods in the the cert-manager 
+not sure about your cluster setup, check if the cert-manager manager is available by listing the pods in the cert-manager 
 namespace
 
 ```bash
@@ -1104,6 +1104,7 @@ simplicity, but if you prefer OLM you’ll need the extra bits: a CatalogSource,
 
 >**Disclaimer: don't combine OLM and Helm**. 
 > OLM might install a different version operator so it could impact any other deployment you want to do in your cluster.
+> I know this because I experienced this, not a pleasant cleanup process, ended up deleting my cluster and starting again.
 
 ### Setting up the extra bits
 
@@ -1317,6 +1318,7 @@ For more integration tips and tricks, visit Integration Designers and check out 
 * [Getting started with Minikube](https://minikube.sigs.k8s.io/docs/start/)
 * [Configuration properties in the values.yaml file for deploying the IBM App Connect Operator](https://www.ibm.com/docs/en/app-connect/13.0.x?topic=operator-configuration-properties-in-valuesyaml-file)
 * [Introducing the API for IBM App Connect in containers](https://community.ibm.com/community/user/blogs/matthew-bailey/2024/06/03/app-connect-containers-api)
+* [All the files used is this blog](https://github.com/matthiasblomme/ace-minikube)
 
 ---
 
