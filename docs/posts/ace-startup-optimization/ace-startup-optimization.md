@@ -1,7 +1,8 @@
 # ACE Startup Optimization
 
-I've been wondering how we can optimize ACE containers at startup. Seeing as the actual startup process of ACE is a lot more resource intensive
-then actually running the integration server, I wanted to create a scenario to use as little additional resources as possible.
+I've been wondering how we can optimize ACE containers at startup. Seeing as the actual startup process of ACE is a lot 
+more resource intensive than actually running the integration server, I wanted to create a scenario to use as little 
+additional resources as possible.
 
 I've gone for three approaches.
 
@@ -12,11 +13,12 @@ I've gone for three approaches.
 cold-start = first start from a new integration server work directory
 warm-start = second start from an already previously uses integration server work directory.
 
-I only ran the first two in Docker because that was less setup then using minikube. But there is no reason not to also try all three on a Minikube
-cluster.
+I only ran the first two in Docker because that was less setup then using minikube. But there is no reason not to also 
+try all three on a Minikube cluster.
 
 > Disclaimer
-> I've used the ACE 13.0.4.0 image in the entire setup. If you don't have access to that specific image, you can always use the free developer image that
+> I've used the ACE 13.0.4.0 image in the entire setup. If you don't have access to that specific image, you can always 
+> use the free developer image that
 > you can download from here: [IBM App Connect Enterprise Evaluation Edition free product download](https://www.ibm.com/resources/mrs/assets/mrs_landing_page?source=swg-wmbfd&lang=en_US)
 
 ## Standalone Integration Server
@@ -34,8 +36,9 @@ This should give you some big speed increased already.
 
 ## Base image
 
-For this setup I've created a base image with ACE installed where nothing happens automatically. After spinning up the runtime, you need to open a terminal,
-deploy, optimize and start the Integration Server. To make this easier, I put those actions in a script, `start.sh`
+For this setup I've created a base image with ACE installed where nothing happens automatically. After spinning up the 
+runtime, you need to open a terminal, deploy, optimize and start the Integration Server. To make this easier, I put those 
+actions in a script, `start.sh`
 
 **Files referenced**
 - `Dockerfile`: your ACE v13 base image.
@@ -65,8 +68,8 @@ MQSI 13.0.4.0
 [aceuser@09b8e93505ae ace-server]$ 
 ```
 
-3. **Start manually**
-   From inside the still open terminal
+3. **Start runtime**
+From inside the still open terminal
 ```powershell
 [aceuser@09b8e93505ae ace-server]$ /scripts/start.sh 
 [2025-09-14 15:21:14] Starting deployments
@@ -301,13 +304,16 @@ And point your favourite browser to https://localhost:7600/
 ## Results
 Now, let's compare the results.
 
-
 |setup|time|remark|
-|---|---|
+|---|---|--|
 |ace-base| 5.5s | from deploy until 'finished initialization'|
 |ace-baked| 3.2s | from starting the IS until 'finished initialization' |
 |ace-init-prep| 6s | from deploy until stop IS |
 |ace-init-runtime| 2.9s | from starting the IS until 'finished initialization' |
+
+You see a clear difference between the ace-base and the other two images. I can't pick a clear winner here, but that was
+never the point. These are 2 rather extreme ways of optimizing your runtimes and my main goal was just to see how to set
+that up.
 
 ## But why
 
@@ -328,10 +334,16 @@ In this setup you could even use ACE Certified Container images if you wanted to
 
 ## Remarks
 
-I have made some assumptions and taken some shortcuts here and there, just for the sake of making this easier for me (since I'm the one testing and writing, it seems
-only fair that I take a few shortcuts).
-- I have baked all bar files inside my images. You don't have to, you can still mount them when spinning up your container for the base and init-container setup.
-- I'm using a very simple library and application. If you use more or more complex libs/apps, you results should even be more drastic.
+There are a number of ways to optimize your code and build process that also impact the performance of you runtime. I've
+talked about these before in another blog, so I encourage you to go look at that one. For now I just wanted to have a look
+what I could do at the runtime level itself to minimize the startup resource requirement of the actual runtime container.
+
+I have made some assumptions and taken some shortcuts here and there, just for the sake of making this easier for me 
+(since I'm the one testing and writing, it seems only fair that I take a few shortcuts).
+- I have baked all bar files inside my images. You don't have to, you can still mount them when spinning up your container 
+for the base and init-container setup.
+- I'm using a very simple library and application. If you use more or more complex libs/apps, you results should even be 
+more drastic.
   ...
 
 
