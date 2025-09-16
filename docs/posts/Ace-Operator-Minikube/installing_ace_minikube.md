@@ -1307,10 +1307,6 @@ Subscription (so the Operator can actually pull its images).
 
 ---
 
-For more integration tips and tricks, visit Integration Designers and check out our other blog posts.
-
----
-
 ## References
 
 * [IBM ACE Docs](https://www.ibm.com/docs/en/app-connect/13.0.x)

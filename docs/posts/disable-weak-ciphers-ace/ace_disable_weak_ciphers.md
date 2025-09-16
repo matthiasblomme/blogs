@@ -265,10 +265,6 @@ Harden it, test it, version it, automate it. Then sleep better, knowing your run
 
 ---
 
-For more integration tips and tricks, visit [Integration Designers](https://integrationdesigners.com/blog/) and check out our other blog posts.
-
----
-
 ## References
 
 * [ACE Test Cases Repo](https://github.com/matthiasblomme/Ace_test_cases)
