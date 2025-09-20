@@ -1,0 +1,32 @@
+=== startup optimization ===
+
+Ever sat waiting for an ACE container to wake up? Painful.
+
+I wanted to see how far I could push startup times without touching the build. Turns out you’ve got options. Some are rigid, some are flexible, all come with quirks.
+
+In the blog I break down three approaches:
+- base image (the slow baseline)
+- prebaked image (fast but fixed at build)
+- init container (flexible, runtime warm start)
+
+The numbers speak for themselves.
+
+Full write-up here: [link]
+
+#IBMChampion #IBMTechXchange
+
+=== ===
+
+=== Scopeing your runtimes ===
+
+How do you decide what goes into a container?
+Hopefully not “whatever fits.”
+
+This post doesn’t give you rules. It gives you questions. And the occasional opinionated take on how I scope ACE runtimes without making a mess.
+
+Scoping your ACE runtimes
+➡️ [link to blog]
+
+#IBMChampion #IBMTechXchange
+
+=== ===
