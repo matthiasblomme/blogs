@@ -643,8 +643,6 @@ I recommend you give it a try and play around with some of these array assignmen
 
 Drop a note on GitHub if you run into another weird array quirk—I’ve probably tripped on it, too.
 
-For more integration tips and tricks, visit Integration Designers and check out our other blog posts.
-
 ---
 
 ## Resources

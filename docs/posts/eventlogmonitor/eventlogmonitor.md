@@ -66,10 +66,6 @@ or build it directly from the source code, if you so desire.
 
 ---
 
-For more integration tips and tricks, visit **Integration Designers** and check out our other blog posts.
-
----
-
 ## Resources
 
 - [GitHub: EventLogMonitor](https://github.com/m-g-k/EventLogMonitor)
