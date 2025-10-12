@@ -13,23 +13,31 @@ to the next thing. And boy, did we need the caffeine.
 
 Not into the tech stuff? Feel free to skip ahead to the fun bits. Your loss, obviously.
 
-## Tech, Partners, Community and Champions
-
-Without using the obvious 2 letter acronym (which I will, later), these were the 4 main topics here. Aside from the fun
-
-(but again, more on that later). 
-
 ### Tech
 
 Meet bob
 
 ### Partners
-
+there
 Monday special partner sessions
 
 ### Community 
 
-Live community user groups
+Monday was officially “Community Day,” but all week long the community presence was real. Not just a few panels. Over 90 
+community‑related sessions. MQ Global. Instanauts Global. IHWI, pronounced “Eye-H-Why” to avoid it sounding like “wee” 
+in English. And the Assistants & Agents User Group Event. Just to name a few that spring to mind.
+
+Most rooms were busy. Some had more people than seats. People weren’t there to kill time between keynotes. They were 
+engaged, asking good questions, and showing actual interest. You could feel the buzzword version of it, engagement, 
+but without the cringe.
+
+I joined an integration breakout that led to some solid conversations. Met a few new people. Talked shop. Covered a bunch 
+of ground on the integration stack, from pain points to patterns that actually work. Direct, useful, no time-wasting.
+
+I’m not going to list all 90 of those sessions (we’d still be here tomorrow) but the sheer volume meant there was 
+something for every flavor. Whether you were deep in APIs, creaking older tech, or trying to catch up on the latest, 
+there was a place to belong rather than just spectate. And a lot of love for Z, showcased by the huge crowd for the live 
+unboxing of the Z17.
 
 ### Champions
 
