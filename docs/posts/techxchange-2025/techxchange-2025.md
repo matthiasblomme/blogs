@@ -4,7 +4,8 @@
 
 What can we say other than: amazing. There, that’s all you needed to know. Moving on.
 
-Just kidding. There's way more to say, probably too much. So let me stick to the highlights.
+Just kidding. There's way more to say, probably too much. To keep things focused, I’ll stick to the highlights, and we’ll 
+kick off with the tech side of things
 
 My colleague [Jef](https://www.linkedin.com/in/jef-jansen/) and I were this year’s delegates for [Integration Designers](https://www.linkedin.com/company/integrationdesigners/). 
 We came, we saw, we got absolutely steamrolled by the scale of it all.
@@ -35,7 +36,7 @@ packed, and rightly so. It doesn’t feel like vaporware or vibe-coding. Looking
 ![img_4.png](img_4.png)
 > Meet Bob
 
-Cloud wasn’t in the spotlight, not directly at least. Everything runs on cloud now, so in a way, it was everywhere. But 
+Cloud wasn’t in the spotlight, not directly at least. Everything runs on the cloud now, so in a way, it was everywhere. But 
 attention has clearly shifted toward AI. That being said, there were still plenty of focused sessions: CP4I updates, 
 serverless, IaC, hybrid cloud patterns, you name it.
 
@@ -54,13 +55,16 @@ were deep in APIs, creaking older tech, or catching up on the latest, there was 
 spectate. You could stay in your niche, jump across tracks, or just sit somewhere quiet and let it all absorb.
 
 ![img_3.png](img_3.png)
-> Me with a quantum computer 
+> Selfie with a quantum computer 
 
 ## Community 
 
 Monday was officially “Community Day,” but all week long the community presence was real. Not just a few panels. Over 90 
-community‑related sessions. MQ Global. Instanauts Global. IHWI, pronounced “Eye-H-Why” to avoid it sounding like “wee” 
-in English. And the Assistants & Agents User Group Event. Just to name a few that spring to mind.
+community‑related sessions. MQ Global. Instanauts Global. IWHI (IBM webMethods Hybrid Integration), pronounced “Eye-Wye” 
+to avoid it sounding like “wee” in English. And the Assistants & Agents User Group Event. Just to name a few that spring 
+to mind.
+
+![img_17.png](img_17.png)
 
 Most rooms were busy. Some had more people than seats. People weren’t there to kill time between keynotes. They were 
 engaged, asking good questions, and showing actual interest. You could feel the buzzword version of it, engagement, 
@@ -69,7 +73,7 @@ but without the cringe.
 I joined an integration breakout that led to some solid conversations. Met a few new people. Talked shop. Covered a bunch 
 of ground on the integration stack, from pain points to patterns that actually work. Direct, useful, no time-wasting.
 
-I’m not going to list all 90 of those sessions (we’d still be here tomorrow) but the sheer volume meant there was 
+I’m not going to list all 90 of those sessions (we’d still be here tomorrow), but the sheer volume meant there was 
 something for every flavor. Whether you were deep in APIs, creaking older tech, or trying to catch up on the latest, 
 there was a place to belong rather than just spectate. And a lot of love for Z, showcased by the huge crowd for the live 
 unboxing of the Z17.
@@ -77,9 +81,9 @@ unboxing of the Z17.
 ## Champions
 
 ![img_1.png](img_1.png)
-> I found my name among all the other champions
+> I found my name among all the other champions.
 
-Sunday afternoon was Champions welcome day. And yes, I finally got my coveted blue jacket. That alone made the trip worth 
+Sunday afternoon was Champions' welcome day. And yes, I finally got my coveted blue jacket. That alone made the trip worth 
 it. But more than that, it was a moment where Champions were genuinely put center stage. Not in a “here’s a badge” kind 
 of way, but in the sense that IBM made time and space to thank people for the work they put in throughout the year.
 
@@ -99,9 +103,9 @@ on you.
 
 Universal was a standout. Champions got fast pass wristbands, which turned networking into ride, scream, repeat. The 
 main event at The Pointe on Wednesday evening at 7 PM wrapped it all up. Food, drinks, karaoke, and a mechanical bull. 
-Because why not. 
+Because why not?
 
-It wasn’t just perks though. A good chunk of us were also speaking, running sessions, or helping out with community 
+It wasn’t just perks, though. A good chunk of us were also speaking, running sessions, or helping out with community 
 activities. Being a Champion isn’t a spectator role. You earn the jacket, and then you keep earning it.
 
 ![img_11.png](img_11.png)
@@ -113,12 +117,12 @@ as far as I know.
 ## Fun
 
 Now, on to the fun bit, because you can't survive on work alone. And yes, community matters. You could feel it everywhere:
-in the sandbox, at the block party, in the scavenger hunt chaos. Unless you’ve got fast track passes for a theme park,
+in the sandbox, at the block party, in the scavenger hunt chaos. Unless you’ve got fast-track passes for a theme park,
 then priorities tend to shift.
 
 Let’s start with the sandbox. Easily one of the best parts of the event. Hands-on, slightly chaotic, and full of things
 you didn’t plan to do but somehow ended up doing anyway. Playing around with tech, poking at AI-driven demos, classic
-pinball, MarioKart on a giant screen, labs everywhere, certifications happening in the background, and food and drinks
+pinball, Mario Kart on a giant screen, labs everywhere, certifications happening in the background, and food and drinks
 always nearby. There was even a version of Space Invaders where your spaceship was generated by AI based on your prompt.
 That one went off the rails fast, with some surprisingly clever results. Not as simple as it looked.
 
@@ -126,17 +130,17 @@ That one went off the rails fast, with some surprisingly clever results. Not as 
 > Speaks for itself
 
 The opening night block party? DJ, food, lights, and a lot of people who had already lost track of what day it was. Day
-one for most. Day two if you were a Champion. I partially blame the jet lag. Solid way to kick things off.
+one for most. Day two, if you were a Champion. I partially blame the jet lag. Solid way to kick things off.
 
 Then the sticker scavenger hunt. Sounds harmless until you see grown adults power-walking across the venue in search of
 that one missing sticker. Some took it very seriously. I may or may not have been one of them. There was a prize
 involved. Enough said.
 
 ![img_5.png](img_5.png)
-> Who doesn't like a sticker
+> Who doesn't like a sticker?
 
 And finally, Universal Islands of Adventure. IBM booked the whole park just for attendees. Rides, food, and drinks were all
-included. Champions got fast track passes. Yes, skip the line fast track passes. No queues. Just walk on, ride, repeat.
+included. Champions got fast-track passes. Yes, skip the line fast track passes. No queues. Just walk on, ride, repeat.
 The mood went from “whoo, Champions” to “boo, Champions” real quick once the skipping started. All in good fun, allegedly.
 
 ![img_14.png](img_14.png)
@@ -144,9 +148,9 @@ The mood went from “whoo, Champions” to “boo, Champions” real quick once
 ![img_16.png](img_16.png)
 > Islands of Adventure
 
-## The people who made it work
+## The people who made it work``
 
-Let’s not forget all the people behind the event. All the IBM experts who were probably asked the same questions a 
+Let’s not forget all the people behind the event. All the IBM experts were probably asked the same questions a 
 hundred times. Still answered them. Patiently. While giving presentations, getting interrupted by people walking in or 
 out, and somehow staying focused the whole time.
 
