@@ -372,7 +372,7 @@ k get pods
 NAME                                     READY   STATUS      RESTARTS         AGE
 ace-dashboard-dash-5b58fcc746-dtsqf      0/2     Restarting  5                10m
 
-k ace-dashboard-dash-5b58fcc746-dtsqf -c content-server-init -f
+k logs ace-dashboard-dash-5b58fcc746-dtsqf -c content-server-init -f
 mkdir: cannot create directory '/mnt/data/content': Permission denied
 chmod: cannot access '/mnt/data/content': No such file or directory
 ```
