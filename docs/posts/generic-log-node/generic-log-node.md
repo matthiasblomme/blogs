@@ -175,8 +175,8 @@ It’s simple. It’s reusable. And it gives you proper logs with clean structur
 
 > Sidenote:
 > Although you can get the information of the main flow this way, if you also want to log the previous nodes from the
-> subflow, you would need parse the subflwo Context tree as well.
-> 
+> subflow, you would need parse the subflow Context tree as well.
+> Putting the log node in a subflow still worked for me, but in my solution you only get the main flow nodes in the MSG_PATH. 
 
 ## The Demo
 Let's put it all together. I've created a demo flow that takes an HTTP Input message, routes the message over 2 different
