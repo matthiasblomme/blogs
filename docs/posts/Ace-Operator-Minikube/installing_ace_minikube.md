@@ -452,7 +452,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: ace-dashboard.local
+  - host: ace-dash.local
     http:
       paths:
       - path: /apiv2
@@ -494,7 +494,7 @@ Forwarding from [::1]:12121 -> 443
 Open:
 
 ```
-https://ace-dashboard.local:12121/
+https://ace-dash.local:12121/
 ```
 ![img.png](img.png)
 
@@ -510,7 +510,7 @@ Add the spec.tls section to your Dashboard Ingress
 ```yaml
   tls:
   - hosts:
-    - ace-dashboard.local
+    - ace-dash.local
     secretName: ace-dashboard-tls    # cert-manager creates this Secret
   rules:
 ```
@@ -530,7 +530,7 @@ spec:
     kind: ClusterIssuer
     name: selfsigned-issuer   # or your CA
   dnsNames:
-  - ace-dashboard.local
+  - ace-dash.local
 ```
 
 ```bash
@@ -585,10 +585,10 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-      - ace-dashboard.local
+      - ace-dash.local
     secretName: ace-dashboard-tls    # cert-manager creates this Secret
   rules:
-  - host: ace-dashboard.local
+  - host: ace-dash.local
     http:
       paths:
       - path: /apiv2
@@ -617,7 +617,7 @@ ingress.networking.k8s.io/ace-dashboard-ingress configured
 Add the hostname to your windows hosts file (from elevated prompt)
 
 ```powershell
-Add-Content "$env:SystemRoot\System32\drivers\etc\hosts" "`n127.0.0.1`ace-dashboard.local"
+Add-Content "$env:SystemRoot\System32\drivers\etc\hosts" "`n127.0.0.1`ace-dash.local"
 ```
 
 Let's expose the Minikube ingress (in stead of port-forwarding)
@@ -649,7 +649,7 @@ PS C:\Users\Bmatt> minikube tunnel
 🏃  Starting tunnel for service ingress-tls.
 ```
 
-And then go to https://ace-dashboard.local/home
+And then go to https://ace-dash.local/home
 
 ![img_15.png](img_15.png)
 
