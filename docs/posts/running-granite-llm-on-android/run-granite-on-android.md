@@ -96,7 +96,7 @@ https://huggingface.co/ibm-granite/granite-4.0-1b-GGUF
 
 Once the model is downloaded and copied over, the PC is out of the picture entirely.
 
----
+
 
 ## Step 1: Install Termux
 
@@ -116,7 +116,7 @@ You’ll be prompted to grant storage permissions. Accept them. There’s no wor
 
 After this completes, you should have a clean, up-to-date Termux environment ready to build native code.
 
----
+
 
 ## Step 2: Install build tools
 
@@ -136,7 +136,7 @@ clang --version
 
 If any of these commands fail, stop here and fix that first. The build step won’t succeed otherwise.
 
----
+
 
 ## Step 3: Build llama.cpp
 
@@ -169,7 +169,7 @@ You should see `llama-cli` and `llama-server` in the output. If you don’t see 
 
 This build uses the CPU backend only. No GPU, no Vulkan, no NNAPI. Nothing else is required for this setup.
 
----
+
 
 ## Step 4: Select and download the Granite model
 
@@ -233,7 +233,7 @@ https://huggingface.co/ibm-granite/granite-4.0-1b-GGUF
 
 Once the file is downloaded, you’re done with the PC. The next step is moving the model onto the phone.
 
----
+
 
 ## Step 5: Copy the model to Android
 
@@ -257,7 +257,7 @@ ls -lh /storage/emulated/0/models/granite-4.0-1b-Q5_K_M.gguf
 
 You should see the file listed with a size of roughly 1.2 GB. If it’s there, Termux can access it and you’re ready to move on.
 
----
+
 
 ## Step 6: Manual validation run
 
@@ -303,7 +303,7 @@ or, if needed:
 
 If this works, the hard part is over (not that hard really).
 
----
+
 
 ## Step 7: Startup script (server + CLI)
 
@@ -359,7 +359,7 @@ Run it:
 
 When you exit the CLI, the HTTP server keeps running.
 
----
+
 
 ## Step 8: Web UI
 
@@ -381,7 +381,7 @@ Because the server binds to `127.0.0.1`, it’s only accessible locally.
 
 At this point, you can close the terminal if you like. As long as the server process is still running, the web UI will keep working.
 
----
+
 
 ## Step 9: Auto-start on Termux launch
 
@@ -418,7 +418,7 @@ pkill llama-server
 
 That’s it. From here on out, opening Termux is enough to bring Granite back online.
 
----
+
 
 ## Notes
 
@@ -432,7 +432,7 @@ A few practical things worth keeping in mind after setting this up:
 - Performance, thermals, and battery impact vary by device. Newer phones handle this comfortably, older ones may need more conservative settings.
 - This setup is not optimized for background execution or long-running battery use. It’s meant to be practical, not invisible.
 
----
+
 
 ## References
 
@@ -447,7 +447,7 @@ A few practical things worth keeping in mind after setting this up:
 - Granite 4.0-1B GGUF repository on Hugging Face  
   https://huggingface.co/ibm-granite/granite-4.0-1b-GGUF
 
----
+
 
 ### Closing
 
