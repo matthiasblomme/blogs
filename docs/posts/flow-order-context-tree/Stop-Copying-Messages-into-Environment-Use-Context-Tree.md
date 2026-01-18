@@ -1,8 +1,8 @@
 ---
+date: 2025-08-29
 title: Stop Copying Messages into the Environment: Use Context Tree in ACE 13.0.4.0+
 description: Imagine this: it's Friday afternoon, and you need to build a flow that forwards JSON messages to an OAuth-protected REST API. You think, "I'll need to build the.
 reading_time: 7 min
-date: 2025-08-29
 ---
 
 # Stop Copying Messages into the Environment: Use Context Tree in ACE 13.0.4.0+

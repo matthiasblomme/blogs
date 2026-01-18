@@ -1,9 +1,9 @@
 ---
+date: 2025-10-30
 title: Installing ACE 13.x on Minikube: Filling in the Blanks
 image: cover.png
 description: Even though we hardly ever see it, IBM App Connect Enterprise (ACE) is perfectly capable of running on plain Kubernetes. But let’s be honest, it looks much fanc.
 reading_time: 35 min
-date: 2025-10-30
 ---
 
 ![cover](cover.png){ .md-banner }

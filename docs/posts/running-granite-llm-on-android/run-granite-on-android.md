@@ -1,9 +1,9 @@
 ---
+date: 2026-01-16
 title: Running Granite 4.0-1B locally on Android
 image: cover.png
 description: This started the way these things usually do. Watching a podcast instead of doing something productive (I ended up writing this blog, so maybe it was productive.
 reading_time: 15 min
-date: 2026-01-16
 ---
 
 ![cover](cover.png){ .md-banner }

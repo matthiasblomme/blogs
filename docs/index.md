@@ -20,11 +20,11 @@ Expect walkthroughs, sharp opinions, and experiments straight out of my lab (som
 
 ## ✍️ Latest Post
 <!--LATEST_POST:START-->
+- **2026-01-18** — [Creating a generic log node using context trees](posts/generic-log-node/generic-log-node.md) · _10 min_
 - **2026-01-16** — [Running Granite 4.0-1B locally on Android](posts/running-granite-llm-on-android/run-granite-on-android.md) · _15 min_
-- **2025-11-04** — [Installing ACE 13.x on Minikube: Filling in the Blanks](posts/Ace-Operator-Minikube/installing_ace_minikube.md) · _35 min_
-- **2025-11-03** — [Creating a generic log node using context trees](posts/generic-log-node/generic-log-node.md) · _10 min_
-- **2025-11-03** — [ACE on Windows:  Disable Weak TLS Ciphers and Verify with OpenSSL](posts/disable-weak-ciphers-ace/ace_disable_weak_ciphers.md) · _9 min_
+- **2025-10-30** — [Installing ACE 13.x on Minikube: Filling in the Blanks](posts/Ace-Operator-Minikube/installing_ace_minikube.md) · _35 min_
 - **2025-10-20** — [IBM TechXchange 2025, Orlando. Overwhelming in all the right ways.](posts/techxchange-2025/techxchange-2025.md) · _8 min_
+- **2025-09-26** — [Containerizing IBM ACE: A Blog Series - Container Startup Optimization](posts/containerization-series/05.ace-startup-optimization.md) · _23 min_
 <!--LATEST_POST:END-->
 
 ---
