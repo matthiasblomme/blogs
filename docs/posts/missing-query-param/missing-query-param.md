@@ -1,3 +1,9 @@
+---
+title: The Case of the Missing Query Parameters
+description: Aka “The Blog That Reads like an Agatha Christie Story” or “The Overly Dramatic Description of a Simple Problem“.
+reading_time: 7 min
+---
+
 # The Case of the Missing Query Parameters
 
 Aka “The Blog That Reads like an Agatha Christie Story” or “The Overly Dramatic Description of a Simple Problem“.

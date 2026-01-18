@@ -1,3 +1,8 @@
+---
+title: Ignoring fields in ACE integration testing: a guide
+description: Many users are well-acquainted with the basic integration testing capabilities of the ACE framework, but its features for ignoring specific fields during testin.
+reading_time: 4 min
+---
 
 # Ignoring fields in ACE integration testing: a guide
 

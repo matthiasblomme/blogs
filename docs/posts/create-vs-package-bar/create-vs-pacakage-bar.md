@@ -1,3 +1,9 @@
+---
+title: Bar Build Commands: Unraveling the Differences
+description: Today automated builds and deployments are a must to support business demands. IBM App Connect Enterprise (ace) offers strong capabilities to automate build and.
+reading_time: 12 min
+---
+
 # Bar Build Commands: Unraveling the Differences
 
 ## Introduction
