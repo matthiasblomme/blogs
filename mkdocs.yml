@@ -9,6 +9,10 @@ theme:
 plugins:
   - search
 
+markdown_extensions:
+  - meta
+  - attr_list
+
 nav:
   - Home: index.md
   - Posts:

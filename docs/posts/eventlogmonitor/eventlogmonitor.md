@@ -1,3 +1,9 @@
+---
+title: The EventLogMonitor
+description: Ever stared at the Windows Event Viewer, waiting for errors to show up? It shouldn’t feel like searching for a needle in a haystack. It should be smooth, effort.
+reading_time: 2 min
+---
+
 # The EventLogMonitor
 
 Ever stared at the Windows Event Viewer, waiting for errors to show up?  

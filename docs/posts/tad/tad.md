@@ -1,3 +1,9 @@
+---
+title: Transformation Advisor: helpful sidekick or noisy backseat driver?
+description: Let’s be real—migrating from IIB v10 to ACE isn’t exactly a weekend hobby. You’ve got config files, message flows, policies, and legacy quirks buried deep in pl.
+reading_time: 4 min
+---
+
 # Transformation Advisor: helpful sidekick or noisy backseat driver?
 
 Let’s be real—migrating from IIB v10 to ACE isn’t exactly a weekend hobby. You’ve got config files, message flows, policies, and legacy quirks buried deep in places you’d rather not look. So IBM gives us the **Transformation Advisor tool (TA)**, bundled with ACE v11 and v12, to help sort through the mess.

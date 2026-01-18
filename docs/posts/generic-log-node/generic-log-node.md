@@ -1,3 +1,12 @@
+---
+title: Creating a generic log node using context trees
+image: cover.png
+description: [Craig Briscoe](https://community.ibm.com/community/user/profile?UserKey=5d96b50d-de84-4367-828a-16b172c483fe) dropped a comment on my last [blog](https://commu.
+reading_time: 10 min
+---
+
+![cover](cover.png){ .md-banner }
+
 # Creating a generic log node using context trees
 [Craig Briscoe](https://community.ibm.com/community/user/profile?UserKey=5d96b50d-de84-4367-828a-16b172c483fe) 
 dropped a comment on my last [blog](https://community.ibm.com/community/user/blogs/matthias-blomme/2025/08/29/stop-copying-messages-into-the-environment-use-con)
@@ -212,16 +221,18 @@ If I send data to use the second flow path, you will see _ReplyLogPath2_ in the 
 ```
 
 ## The Conclusion
-The Context tree is a very usefull addition to the set of logical trees. Not only for handling payloads (as I've addressed
-in one of my previous blogs), but also for capturing/tracking information about your flow execution.
+The context tree is more than just a new toy for payload handling. It gives you structured, introspectable flow data without cluttering the Environment tree or hacking things together.
 
-It might be worth revisiting some integration solutions you have running for ages and see if they can't benefit from
-using the Context tree, in one way or another.
+This logging pattern won’t fix bad flow design, but it will give you visibility without extra noise. You define the message, drop in the subflow, and the context tree does the rest.
 
-Have a look, run my demo and feel free to update my logging subflow. Maybe we can make it a community supported log
-solution ;)
+Now, it’s not perfect.
 
----
+If you’re using nested subflows, there’s a catch. The context reference skips the layers in between. You’ll see the main flow and the deepest subflow, but not the ones stacked in between. So if you're expecting a full breadcrumb trail through every subflow layer, forget it. That’s not how it works.
+
+Still, for most practical use cases, this gets you 90 percent of the way with almost no overhead.
+
+Try the demo. Break it. Rebuild it. Or plug it into something real. And if you end up improving it, throw it back to the community.
+
 
 ## References
 
@@ -230,7 +241,7 @@ solution ;)
 * [Explore the new features in App Connect Enterprise 13.0.5.0](https://community.ibm.com/community/user/blogs/ben-thompson1/2025/09/25/ace-13-0-5-0)
 * [CONTEXTREFERENCE](https://www.ibm.com/docs/en/app-connect/13.0.x?topic=functions-contextreference-function)
 * [Context tree](https://www.ibm.com/docs/en/app-connect/13.0.x?topic=assembly-context-tree)
-
+  https://github.com/matthiasblomme/Ace_test_cases/tree/d5ba67137576f55af2fe4846cf1232e4ed775346/ContextLogNode
 ---
 
 For more integration tips and tricks, visit [Integration Designers](https://integrationdesigners.com/blog/) and check out our other blog posts.
