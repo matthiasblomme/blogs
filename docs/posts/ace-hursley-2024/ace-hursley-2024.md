@@ -1,3 +1,9 @@
+---
+title: A Week at IBM TechXchange Early eXperience Program in Hursley
+description: Last week, I had the opportunity to attend the IBM TechXchange early eXperience program for IBM App Connect Enterprise (ACE) at the historic Hursley House in En.
+reading_time: 3 min
+---
+
 # A Week at IBM TechXchange Early eXperience Program in Hursley
 
 ## Introduction

@@ -1,3 +1,9 @@
+---
+title: Logging ACE's ExceptionList Inserts (in the Activity log with the Log node)
+description: In the world of IBM App Connect Enterprise (ACE), effective logging is crucial for monitoring and troubleshooting. With the introduction of the Log node, it's n.
+reading_time: 5 min
+---
+
 # Logging ACE's ExceptionList Inserts (in the Activity log with the Log node)
 
 In the world of IBM App Connect Enterprise (ACE), effective logging is crucial for monitoring and troubleshooting. With the introduction of the Log node, it's now easier than ever to log ExceptionList inserts directly into the activity log, which can be viewed from the WebUI. This blog will guide you through the process of using the Log node to log these inserts, helping you streamline your debugging and monitoring processes.

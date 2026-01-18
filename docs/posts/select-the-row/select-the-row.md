@@ -1,3 +1,9 @@
+---
+title: Select The Row
+description: Let’s talk about SELECT in ESQL — and I don’t mean database queries (although they are rather similar). I mean using SELECT to slice and dice message data insid.
+reading_time: 10 min
+---
+
 # Select The Row
 
 ## Exploring the IBM ACE SELECT, ROW and THE functions in ESQL
