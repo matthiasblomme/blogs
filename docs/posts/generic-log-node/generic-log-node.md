@@ -3,6 +3,7 @@ title: Creating a generic log node using context trees
 image: cover.png
 description: [Craig Briscoe](https://community.ibm.com/community/user/profile?UserKey=5d96b50d-de84-4367-828a-16b172c483fe) dropped a comment on my last [blog](https://commu.
 reading_time: 10 min
+date: 2026-01-18
 ---
 
 ![cover](cover.png){ .md-banner }

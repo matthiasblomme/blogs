@@ -2,6 +2,7 @@
 title: Create JSON Arrays in ESQL and Java (Without Losing Your Sanity)
 description: A quick (well, maybe not quick-quick) overview of why creating JSON arrays in ESQL and Java isn’t always as intuitive as it should be, especially with the myste.
 reading_time: 16 min
+date: 2025-08-18
 ---
 
 # Create JSON Arrays in ESQL and Java (Without Losing Your Sanity)
