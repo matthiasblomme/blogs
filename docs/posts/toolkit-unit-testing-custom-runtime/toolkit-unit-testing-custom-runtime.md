@@ -1,8 +1,8 @@
 ---
+date: 2024-10-04
 title: Running Unit Tests in IBM App Connect Toolkit Using a Custom Integration Server Setup
 description: When working with IBM App Connect Toolkit, running unit tests on integration flows with custom configurations can be quite challenging. This is especially true.
 reading_time: 6 min
-date: 2024-10-04
 ---
 
 # Running Unit Tests in IBM App Connect Toolkit Using a Custom Integration Server Setup

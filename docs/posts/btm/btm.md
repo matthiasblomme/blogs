@@ -1,8 +1,8 @@
 ---
+date: 2023-05-23
 title: Business Transaction Monitoring
 description: I wanted to try the new (re-introduced in 12.0.2.0) ACE Business Transaction Monitoring to see what the added value could be for a company/team/environment that.
 reading_time: 12 min
-date: 2023-05-23
 ---
 
 # Business Transaction Monitoring
