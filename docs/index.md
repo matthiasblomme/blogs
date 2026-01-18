@@ -20,11 +20,11 @@ Expect walkthroughs, sharp opinions, and experiments straight out of my lab (som
 
 ## ✍️ Latest Post
 <!--LATEST_POST:START-->
-- **2025-09-08** — [Bar Build Commands: Unraveling the Differences](posts/create-vs-package-bar/create-vs-pacakage-bar.md)
-- **2025-09-05** — [Logging ACE's ExceptionList Inserts (in the Activity log with the Log node)](posts/logging-ace-exceptionlist/logging-ace-exceptionlist.md)
-- **2025-09-05** — [Running Unit Tests in IBM App Connect Toolkit Using a Custom Integration Server Setup](posts/toolkit-unit-testing-custom-runtime/toolkit-unit-testing-custom-runtime.md)
-- **2025-09-05** — [Ignoring fields in ACE integration testing: a guide](posts/unit-test-ignore/unit-test-ignore.md)
-- **2025-09-05** — [Transformation Advisor: helpful sidekick or noisy backseat driver?](posts/tad/tad.md)
+- **2026-01-16** — [Running Granite 4.0-1B locally on Android](posts/running-granite-llm-on-android/run-granite-on-android.md) · _15 min_
+- **2025-11-04** — [Installing ACE 13.x on Minikube: Filling in the Blanks](posts/Ace-Operator-Minikube/installing_ace_minikube.md) · _35 min_
+- **2025-11-03** — [Creating a generic log node using context trees](posts/generic-log-node/generic-log-node.md) · _10 min_
+- **2025-11-03** — [ACE on Windows:  Disable Weak TLS Ciphers and Verify with OpenSSL](posts/disable-weak-ciphers-ace/ace_disable_weak_ciphers.md) · _9 min_
+- **2025-10-20** — [IBM TechXchange 2025, Orlando. Overwhelming in all the right ways.](posts/techxchange-2025/techxchange-2025.md) · _8 min_
 <!--LATEST_POST:END-->
 
 ---

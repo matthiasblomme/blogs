@@ -1,4 +1,13 @@
-﻿# ACE on Windows:  Disable Weak TLS Ciphers and Verify with OpenSSL
+---
+title: ACE on Windows:  Disable Weak TLS Ciphers and Verify with OpenSSL
+image: cover.png
+description: Let’s be real: if your App Connect Enterprise (ACE) instance still accepts weak TLS ciphers, you're inviting problems. Here’s how to disable them, verify they’r.
+reading_time: 9 min
+---
+
+![cover](cover.png){ .md-banner }
+
+# ACE on Windows:  Disable Weak TLS Ciphers and Verify with OpenSSL
 
 Let’s be real: if your App Connect Enterprise (ACE) instance still accepts weak TLS ciphers, you're inviting problems. 
 Here’s how to disable them, verify they’re gone, and avoid getting roasted in your next security audit.

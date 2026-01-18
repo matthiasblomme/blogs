@@ -1,8 +1,17 @@
+---
+title: Running Granite 4.0-1B locally on Android
+image: cover.png
+description: This started the way these things usually do. Watching a podcast instead of doing something productive (I ended up writing this blog, so maybe it was productive.
+reading_time: 15 min
+---
+
+![cover](cover.png){ .md-banner }
+
 # Running Granite 4.0-1B locally on Android
 
 This started the way these things usually do. Watching a podcast instead of doing something productive (I ended up writing this blog, so maybe it was productive after all).
 
-I was listening to a Neuron AI episode about IBM’s new Granite 4 model family, with IBM Research’s [David Cox](linkedin.com/in/daviddanielcox) as the guest. During the discussion on model sizes and deployment targets, they talked about Granite 4 Nano, models designed specifically for edge and on-device use cases. At a certain moment the discussion turned to running these models on your phone.
+I was listening to a Neuron AI episode about IBM’s new Granite 4 model family, with IBM Research’s [David Cox](https://www.linkedin.com/in/daviddanielcox) as the guest. During the discussion on model sizes and deployment targets, they talked about Granite 4 Nano, models designed specifically for edge and on-device use cases. At a certain moment the discussion turned to running these models on your phone.
 
 Not as a hypothetical. Not as a demo. Just as a thing you could do.
 

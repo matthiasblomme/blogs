@@ -1,4 +1,4 @@
-import subprocess, pathlib, time, re, calendar
+import subprocess, pathlib, time, re, calendar, math
 from collections import defaultdict
 
 DOCS_DIR      = pathlib.Path("docs")
@@ -6,13 +6,18 @@ POSTS_DIR     = DOCS_DIR / "posts"
 INDEX_OUT     = POSTS_DIR / "index.md"
 ARCHIVE_OUT   = POSTS_DIR / "archive.md"
 HOMEPAGE      = DOCS_DIR / "index.md"
+
 BLOCK_START   = "<!--LATEST_POST:START-->"
 BLOCK_END     = "<!--LATEST_POST:END-->"
-LATEST_COUNT  = 5   # number of posts to show on homepage
+LATEST_COUNT  = 5
 
+VALID_EXTS = {".md", ".markdown", ".mkd", ".mdown"}
+WORDS_PER_MINUTE = 200
+
+
+# ---------------- Git timestamp ----------------
 
 def git_timestamp(p: pathlib.Path) -> int:
-    """Last commit time for file (fallback to mtime)."""
     try:
         ts = subprocess.check_output(
             ["git", "log", "-1", "--format=%ct", "--", str(p)],
@@ -23,115 +28,202 @@ def git_timestamp(p: pathlib.Path) -> int:
         return int(p.stat().st_mtime)
 
 
-def extract_title(p: pathlib.Path) -> str:
-    """
-    Title resolution order:
-      1) YAML front-matter 'title:'
-      2) first H1 (# )
-      3) first H2 (## )
-      4) first heading any level
-      5) filename fallback
-    Handles UTF-8 BOM via 'utf-8-sig'.
-    """
-    text = p.read_text(encoding="utf-8-sig")
+# ---------------- Text extraction helpers ----------------
 
-    # 1) front-matter
+def strip_front_matter(text: str) -> tuple[str, str | None]:
+    """Return (body, front_matter_text or None)."""
     m = re.match(r"^---\s*\n(.*?)\n---\s*\n", text, flags=re.DOTALL)
     if m:
-        fm = m.group(1)
-        mt = re.search(r"(?m)^title:\s*(.+?)\s*$", fm)
-        if mt:
-            return mt.group(1).strip()
+        return text[m.end():], m.group(1)
+    return text, None
 
-    # 2) first H1
-    mh1 = re.search(r"(?m)^\#\s+(.*\S)\s*$", text)
-    if mh1:
-        return mh1.group(1).strip()
 
-    # 3) first H2
-    mh2 = re.search(r"(?m)^\#\#\s+(.*\S)\s*$", text)
-    if mh2:
-        return mh2.group(1).strip()
+def extract_title(text: str, fallback: str) -> str:
+    if text:
+        fm_match = re.search(r"(?m)^title:\s*(.+?)\s*$", text)
+        if fm_match:
+            return fm_match.group(1).strip()
 
-    # 4) any heading
-    many = re.search(r"(?m)^\#{1,6}\s+(.*\S)\s*$", text)
-    if many:
-        return many.group(1).strip()
+    for pat in [
+        r"(?m)^\#\s+(.*\S)\s*$",
+        r"(?m)^\#\#\s+(.*\S)\s*$",
+        r"(?m)^\#{1,6}\s+(.*\S)\s*$"
+    ]:
+        m = re.search(pat, text)
+        if m:
+            return m.group(1).strip()
 
-    # 5) fallback
-    return p.stem.replace("-", " ")
+    return fallback
 
+
+def extract_description(body: str) -> str:
+    """
+    First real paragraph:
+    - skip headings
+    - skip code blocks
+    - skip lists
+    """
+    lines = body.splitlines()
+    in_code = False
+    para = []
+
+    for line in lines:
+        l = line.strip()
+
+        if l.startswith("```"):
+            in_code = not in_code
+            continue
+        if in_code:
+            continue
+        if not l:
+            if para:
+                break
+            continue
+        if l.startswith(("#", "-", "*", ">")):
+            continue
+
+        para.append(l)
+
+    desc = " ".join(para)
+    desc = re.sub(r"\s+", " ", desc)
+    return desc[:160].rstrip(". ") + "." if desc else ""
+
+
+def calculate_reading_time(body: str) -> str:
+    words = re.findall(r"\b\w+\b", body)
+    minutes = max(1, math.ceil(len(words) / WORDS_PER_MINUTE))
+    return f"{minutes} min"
+
+
+# ---------------- Front-matter injection ----------------
+
+def ensure_front_matter(p: pathlib.Path) -> tuple[str, str]:
+    raw = p.read_text(encoding="utf-8-sig")
+    body, fm = strip_front_matter(raw)
+
+    title = extract_title(raw, p.stem.replace("-", " "))
+    description = extract_description(body)
+    reading_time = calculate_reading_time(body)
+
+    cover = p.parent / "cover.png"
+    image_line = "image: cover.png" if cover.exists() else None
+
+    fm_lines = []
+    if fm:
+        fm_lines = [l for l in fm.splitlines() if l.strip()]
+    else:
+        fm_lines = []
+
+    def has(key): return any(l.startswith(f"{key}:") for l in fm_lines)
+
+    if not has("title"):
+        fm_lines.insert(0, f"title: {title}")
+    if image_line and not has("image"):
+        fm_lines.append(image_line)
+    if description and not has("description"):
+        fm_lines.append(f"description: {description}")
+    if not has("reading_time"):
+        fm_lines.append(f"reading_time: {reading_time}")
+
+    # Banner injection (idempotent)
+    banner = ""
+    banner_marker = "![cover](cover.png){ .md-banner }"
+
+    if cover.exists():
+        # Only inject banner if it's not already there
+        if not body.lstrip().startswith(banner_marker):
+            banner = banner_marker + "\n\n"
+
+    new_text = (
+            "---\n"
+            + "\n".join(fm_lines)
+            + "\n---\n\n"
+            + banner
+            + body.lstrip()
+    )
+    p.write_text(new_text, encoding="utf-8")
+
+    return title, reading_time
+
+
+# ---------------- Link helpers ----------------
 
 def link_from_home(p: pathlib.Path) -> str:
-    """Link path relative to docs/ (used on homepage)."""
     return p.as_posix().replace("docs/", "", 1)
 
 
 def link_from_posts_index(p: pathlib.Path) -> str:
-    """Link path relative to docs/posts (used on posts index + archive)."""
     return p.relative_to(POSTS_DIR).as_posix()
 
 
-# Collect all posts (support subfolders), ignore posts/index.md & posts/archive.md
+# ---------------- Collect posts ----------------
+
 posts = [
-    p for p in POSTS_DIR.rglob("*.md")
-    if p.name.lower() not in ("index.md", "archive.md")
+    p for p in POSTS_DIR.rglob("*")
+    if p.is_file()
+       and p.suffix.lower() in VALID_EXTS
+       and p.name.lower() not in ("index.md", "archive.md")
 ]
 
-# Sort newest-first by last git commit
-scored = sorted(((git_timestamp(p), p) for p in posts), key=lambda x: x[0], reverse=True)
+scored = []
+for p in posts:
+    title, reading_time = ensure_front_matter(p)
+    scored.append((git_timestamp(p), p, title, reading_time))
 
-# ---------- Generate posts landing page (flat list) ----------
+scored.sort(key=lambda x: x[0], reverse=True)
+
+
+# ---------------- Posts index ----------------
+
 index_lines = ["# Posts", ""]
-for ts, p in scored:
+for ts, p, title, rt in scored:
     date = time.strftime("%Y-%m-%d", time.localtime(ts))
-    title = extract_title(p)
-    index_lines.append(f"- **{date}** — [{title}]({link_from_posts_index(p)})")
-index_lines.append("")  # trailing newline
-
-INDEX_OUT.parent.mkdir(parents=True, exist_ok=True)
+    index_lines.append(
+        f"- **{date}** — [{title}]({link_from_posts_index(p)}) · _{rt}_"
+    )
+index_lines.append("")
 INDEX_OUT.write_text("\n".join(index_lines), encoding="utf-8")
 
-# ---------- Generate archive (Year -> Month) ----------
-archive_map: dict[int, dict[int, list[tuple]]] = defaultdict(lambda: defaultdict(list))
-for ts, p in scored:
+
+# ---------------- Archive ----------------
+
+archive = defaultdict(lambda: defaultdict(list))
+for ts, p, title, rt in scored:
     t = time.localtime(ts)
-    archive_map[t.tm_year][t.tm_mon].append((ts, p, extract_title(p)))
+    archive[t.tm_year][t.tm_mon].append((ts, p, title, rt))
 
 archive_lines = ["# Archive", ""]
-for year in sorted(archive_map.keys(), reverse=True):
+for year in sorted(archive.keys(), reverse=True):
     archive_lines.append(f"## {year}")
-    archive_lines.append("")
-    for mon in sorted(archive_map[year].keys(), reverse=True):
-        month_name = calendar.month_name[mon]
-        archive_lines.append(f"### {month_name}")
-        for ts, p, title in archive_map[year][mon]:
+    for mon in sorted(archive[year].keys(), reverse=True):
+        archive_lines.append(f"### {calendar.month_name[mon]}")
+        for ts, p, title, rt in archive[year][mon]:
             date = time.strftime("%Y-%m-%d", time.localtime(ts))
-            archive_lines.append(f"- **{date}** — [{title}]({link_from_posts_index(p)})")
+            archive_lines.append(
+                f"- **{date}** — [{title}]({link_from_posts_index(p)}) · _{rt}_"
+            )
         archive_lines.append("")
     archive_lines.append("")
 
 ARCHIVE_OUT.write_text("\n".join(archive_lines).rstrip() + "\n", encoding="utf-8")
 
-# ---------- Inject Latest Posts block on homepage ----------
+
+# ---------------- Homepage latest ----------------
+
 home = HOMEPAGE.read_text(encoding="utf-8-sig")
 
-if scored:
-    latest_posts = scored[:LATEST_COUNT]
-    latest_links = []
-    for ts, p in latest_posts:
-        title = extract_title(p)
-        date = time.strftime("%Y-%m-%d", time.localtime(ts))
-        latest_links.append(f"- **{date}** — [{title}]({link_from_home(p)})")
-    latest_block = "\n".join(latest_links)
+latest = scored[:LATEST_COUNT]
+if latest:
+    block = "\n".join(
+        f"- **{time.strftime('%Y-%m-%d', time.localtime(ts))}** — "
+        f"[{title}]({link_from_home(p)}) · _{rt}_"
+        for ts, p, title, rt in latest
+    )
 else:
-    latest_block = "_No posts yet._"
+    block = "_No posts yet._"
 
-pattern = re.compile(re.escape(BLOCK_START) + r".*?" + re.escape(BLOCK_END), flags=re.DOTALL)
-replacement = f"{BLOCK_START}\n{latest_block}\n{BLOCK_END}"
-if pattern.search(home):
-    home = pattern.sub(replacement, home)
-else:
-    home = home.rstrip() + "\n\n" + replacement + "\n"
+pattern = re.compile(re.escape(BLOCK_START) + r".*?" + re.escape(BLOCK_END), re.DOTALL)
+replacement = f"{BLOCK_START}\n{block}\n{BLOCK_END}"
+home = pattern.sub(replacement, home) if pattern.search(home) else home + "\n\n" + replacement
 
 HOMEPAGE.write_text(home, encoding="utf-8")
