@@ -1,4 +1,5 @@
 ---
+date: 2025-10-20
 title: IBM TechXchange 2025, Orlando. Overwhelming in all the right ways.
 description: ![img.png](img.png).
 reading_time: 8 min

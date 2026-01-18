@@ -1,4 +1,5 @@
 ---
+date: 2024-11-21
 title: Automating and Standardizing IBM ACE Installation with PowerShell
 description: If you've worked with IBM App Connect Enterprise (ACE) for any length of time, you’re probably familiar with the repetitive nature of installations. Each setup.
 reading_time: 7 min

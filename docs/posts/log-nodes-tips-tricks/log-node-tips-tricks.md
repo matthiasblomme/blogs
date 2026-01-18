@@ -1,4 +1,5 @@
 ---
+date: 2024-07-22
 title: ACE Log Node tips and tricks – default values
 description: Effective logging is crucial for creating and managing integrations, ensuring that troubleshooting is as efficient as possible. The Log Node can be especially v.
 reading_time: 4 min
