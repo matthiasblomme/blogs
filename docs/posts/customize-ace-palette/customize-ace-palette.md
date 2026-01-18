@@ -1,4 +1,5 @@
 ---
+date: 2024-08-06
 title: How to Customize the IBM App Connect Enterprise Palette: A Quick Guide
 description: With all the new discovery connectors in the toolkit, it can be tricky to maintain an clear view on the nodes you actually use. Luckily the palette is customiza.
 reading_time: 3 min
