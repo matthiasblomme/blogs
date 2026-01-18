@@ -2,6 +2,7 @@
 title: ACE, AI, and Why You Should’ve Been in Hursley
 description: IBM TechXchange Early eXperience 2025.
 reading_time: 5 min
+date: 2025-09-05
 ---
 
 # ACE, AI, and Why You Should’ve Been in Hursley
