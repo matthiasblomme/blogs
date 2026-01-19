@@ -33,7 +33,6 @@ The context tree holds that info already. It knows how the flow was triggered an
 the message.
 
 Combine the two and you’ve got something pretty damn useful.
-
 ## The PoC
 For the context tree to be useful in a generic log node, the info I wanted had to actually be accessible. The ESQL 
 `Context` correlation name is just a reference to the context tree of the flow or subflow. Inside a subflow, the default 
@@ -52,7 +51,7 @@ Try that in a subflow, send in a JSON payload, and the debugger shows you the in
 
 ![img_1.png](img_1.png)
 
-Handy, right? Small catch—you need to know the node name. Luckily (and I’m guessing this is by design), the input node 
+Handy, right? Small catch, you need to know the node name. Luckily (and I’m guessing this is by design), the input node 
 is part of the context reference even from within a subflow.
 
 Which means this works:
@@ -87,12 +86,13 @@ group. It had everything I wanted.
 
 ## The Log Subflow
 Using `CONTEXTREFERENCE`, I built a generic logging subflow. For testing, it just writes to a local file. In a real setup, 
-you’d send this to an HTTP endpoint or a log collector—but this demo is local, quick, and dirty.
+you’d send this to an HTTP endpoint or a log collector, but this demo is local, quick, and dirty.
 
 And yes, it’s a basic flow. You could expand it with transaction handling or proper file output error logic. Go wild if 
 you want. This is just the skeleton to get my point across.
 
 Here’s what’s in the subflow:
+
 - Flow Order node: keeps the input message untouched with minimal code
 - Try Catch node: makes sure logging failures don’t interfere with flow execution
 - CreateLogMsg compute node: grabs context info and builds the log payload
@@ -200,7 +200,7 @@ Putting a basic message through Path1
 
 Gives me the following 3 log entries
 
-```json lines
+```json
 {"path":{"PREVIOUS_NODE_NAME":"HTTP Input","PREVIOUS_NODE_TYPE":"ComIbmWSInputNode","PREVIOUS_NODE_COUNT":1,"MSG_PATH":"HTTP Input"},"STATUS":"INFO","MESSAGE":"Message Received","UUID":"abc1234","meta":{"TIME":"2025-11-03 10:51:23.538","NODE":"integration_server","SERVER":"TEST_SERVER","APP":"AppWithLogging","FLOW":"FlowWithLogging","TYPE":"ComIbmWSInputNode"},"PAYLOAD":{"some":"data","path":1,"uuid":"abc1234"}}
 {"path":{"PREVIOUS_NODE_NAME":"BuildReply","PREVIOUS_NODE_TYPE":"ComIbmComputeNode","PREVIOUS_NODE_COUNT":3,"MSG_PATH":"HTTP Input - InputLog - BuildReply"},"STATUS":"INFO","MESSAGE":"Reply build","UUID":"abc1234","meta":{"TIME":"2025-11-03 10:51:23.538","NODE":"integration_server","SERVER":"TEST_SERVER","APP":"AppWithLogging","FLOW":"FlowWithLogging","TYPE":"ComIbmWSInputNode"},"PAYLOAD":{"message":"accepted","code":"<=5"}}
 {"path":{"PREVIOUS_NODE_NAME":"HTTP Reply","PREVIOUS_NODE_TYPE":"ComIbmWSReplyNode","PREVIOUS_NODE_COUNT":5,"MSG_PATH":"HTTP Input - InputLog - BuildReply - ReplyLogPath1 - HTTP Reply"},"STATUS":"INFO","MESSAGE":"Reply send","UUID":"abc1234","meta":{"TIME":"2025-11-03 10:51:23.538","NODE":"integration_server","SERVER":"TEST_SERVER","APP":"AppWithLogging","FLOW":"FlowWithLogging","TYPE":"ComIbmWSInputNode"},"PAYLOAD":{"message":"accepted","code":"<=5"}}
@@ -215,7 +215,7 @@ If I send data to use the second flow path, you will see _ReplyLogPath2_ in the 
 
 ![img_8.png](img_8.png)
 
-```json lines
+```json
 {"path":{"PREVIOUS_NODE_NAME":"HTTP Input","PREVIOUS_NODE_TYPE":"ComIbmWSInputNode","PREVIOUS_NODE_COUNT":1,"MSG_PATH":"HTTP Input"},"STATUS":"INFO","MESSAGE":"Message Received","UUID":"abc1234","meta":{"TIME":"2025-11-03 10:53:41.316002","NODE":"integration_server","SERVER":"TEST_SERVER","APP":"AppWithLogging","FLOW":"FlowWithLogging","TYPE":"ComIbmWSInputNode"},"PAYLOAD":{"some":"data","path":10,"uuid":"abc1234"}}
 {"path":{"PREVIOUS_NODE_NAME":"BuildReply","PREVIOUS_NODE_TYPE":"ComIbmComputeNode","PREVIOUS_NODE_COUNT":3,"MSG_PATH":"HTTP Input - InputLog - BuildReply"},"STATUS":"INFO","MESSAGE":"Reply build","UUID":"abc1234","meta":{"TIME":"2025-11-03 10:53:41.316002","NODE":"integration_server","SERVER":"TEST_SERVER","APP":"AppWithLogging","FLOW":"FlowWithLogging","TYPE":"ComIbmWSInputNode"},"PAYLOAD":{"message":"accepted","code":">5"}}
 {"path":{"PREVIOUS_NODE_NAME":"HTTP Reply","PREVIOUS_NODE_TYPE":"ComIbmWSReplyNode","PREVIOUS_NODE_COUNT":5,"MSG_PATH":"HTTP Input - InputLog - BuildReply - ReplyLogPath2 - HTTP Reply"},"STATUS":"INFO","MESSAGE":"Reply send","UUID":"abc1234","meta":{"TIME":"2025-11-03 10:53:41.316002","NODE":"integration_server","SERVER":"TEST_SERVER","APP":"AppWithLogging","FLOW":"FlowWithLogging","TYPE":"ComIbmWSInputNode"},"PAYLOAD":{"message":"accepted","code":">5"}}
@@ -242,7 +242,7 @@ Try the demo. Break it. Rebuild it. Or plug it into something real. And if you e
 * [Explore the new features in App Connect Enterprise 13.0.5.0](https://community.ibm.com/community/user/blogs/ben-thompson1/2025/09/25/ace-13-0-5-0)
 * [CONTEXTREFERENCE](https://www.ibm.com/docs/en/app-connect/13.0.x?topic=functions-contextreference-function)
 * [Context tree](https://www.ibm.com/docs/en/app-connect/13.0.x?topic=assembly-context-tree)
-  https://github.com/matthiasblomme/Ace_test_cases/tree/d5ba67137576f55af2fe4846cf1232e4ed775346/ContextLogNode
+* [Demo code Github](https://github.com/matthiasblomme/Ace_test_cases/tree/d5ba67137576f55af2fe4846cf1232e4ed775346/ContextLogNode)
 ---
 
 For more integration tips and tricks, visit [Integration Designers](https://integrationdesigners.com/blog/) and check out our other blog posts.
