@@ -1,20 +1,24 @@
 # eMBee Integration Blogs ☕
 
+Hi, I’m **Matthias Blomme**
+I’m an **IBM Champion**, an **integration specialist**, and a bit of an **IT nerd**.
+
 Welcome to my corner of the web.  
+
 I write about **IBM Integration (ACE, MQ, DevOps)**, but also about the real, hands-on work of making tech run smoothly 
-in modern environments.
+in modern environments. I'm trying to bring some AI in here as well
 
 This blog is **not** marketing fluff.  
-Expect walkthroughs, sharp opinions, and experiments straight out of my lab (sometimes successful, sometimes… less so).
+Expect walkthroughs, sharp opinions, and experiments straight out of my homelab (sometimes successful, sometimes… less so).
 
 ---
 
 ## 🚀 What You’ll Find Here
 
-- **Deep-dives** into IBM ACE, MQ, Kubernetes & DevOps pipelines
+- **Deep-dives** into IBM ACE, MQ, Kubernetes, CI/CD, AI, ... whatever interests me
 - **Security focus** ciphers, CVEs, audits, the gritty details
 - **How-to blogs** with working code, configs, and scripts
-- **Personal projects**: like this aut generated site from markdown blogs
+- **Personal projects**: like this automatically generated site from markdown blogs
 
 ---
 
