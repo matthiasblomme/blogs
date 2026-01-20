@@ -16,6 +16,8 @@ HOMEPAGE     = DOCS_DIR / "index.md"
 
 BLOCK_START  = "<!--LATEST_POST:START-->"
 BLOCK_END    = "<!--LATEST_POST:END-->"
+META_MARKER = "<!--POST_META-->"
+TAGS_MARKER = "<!--POST_TAGS-->"
 LATEST_COUNT = 5
 
 VALID_EXTS = {".md", ".markdown", ".mkd", ".mdown"}
@@ -90,6 +92,35 @@ def link_from_home(p: pathlib.Path) -> str:
 def link_from_posts_index(p: pathlib.Path) -> str:
     return p.relative_to(POSTS_DIR).as_posix()
 
+def extract_tags(fm_lines):
+    """
+    Supports:
+      tags:
+        - ace
+        - logging
+    and:
+      tags: ace, logging
+    """
+    tags = []
+    in_tags = False
+
+    for line in fm_lines:
+        if line.startswith("tags:"):
+            value = line.split(":", 1)[1].strip()
+            if value:
+                tags.extend([t.strip() for t in value.split(",") if t.strip()])
+            else:
+                in_tags = True
+            continue
+
+        if in_tags:
+            if line.startswith("  - "):
+                tags.append(line[4:].strip())
+            else:
+                break
+
+    return tags
+
 
 # ---------------- Front-matter + Banner ----------------
 
@@ -126,6 +157,26 @@ def ensure_front_matter(p: pathlib.Path):
     # merge with existing (preserve manual fields)
     merged = new_fm + [l for l in fm_lines if not any(l.startswith(k.split(":")[0] + ":") for k in new_fm)]
 
+    # ---- Extract tags ----
+    tags = extract_tags(merged)
+
+    # ---- Build meta line ----
+    meta_line = f"<p class=\"md-post-meta\">{post_date} · {reading_time}</p>\n\n"
+
+    tags_block = ""
+    if tags:
+        tag_items = "\n".join(f"<li>{t}</li>" for t in tags)
+        tags_block = (
+            "<ul class=\"md-tag-list\">\n"
+            f"{tag_items}\n"
+            "</ul>\n\n"
+        )
+
+    inject = ""
+    if META_MARKER not in body:
+        inject = META_MARKER + "\n" + meta_line + tags_block
+
+    # ---- Banner ----
     banner = ""
     if cover.exists() and not body.lstrip().startswith(BANNER_MARKER):
         banner = BANNER_MARKER + "\n\n"
@@ -135,8 +186,11 @@ def ensure_front_matter(p: pathlib.Path):
             + "\n".join(merged)
             + "\n---\n\n"
             + banner
+            + inject
             + body.lstrip()
     )
+
+
 
     p.write_text(new_text, encoding="utf-8")
 
