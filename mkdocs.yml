@@ -4,7 +4,11 @@ site_url: https://matthiasblomme.github.io/blogs/
 use_directory_urls: true
 
 theme:
-  name: mkdocs
+  name: material
+  logo: assets/logo.jpg
+  favicon: assets/logo.jpg
+  features:
+    - content.code.copy
 
 plugins:
   - search
