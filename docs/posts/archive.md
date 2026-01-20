@@ -2,7 +2,7 @@
 
 ## 2026
 ### January
-- **2026-01-20** — [using project bob to create ace app](bob-ace-development/using-project-bob-to-create-ace-app.md) · _1 min_
+- **2026-01-20** — [using project bob to create ace app](../misc/fasttrack-snack-bob/using-project-bob-to-create-ace-app.md) · _1 min_
 - **2026-01-18** — [Creating a generic log node using context trees](generic-log-node/generic-log-node.md) · _10 min_
 - **2026-01-16** — ["Running Granite 4.0-1B locally on Android"](running-granite-llm-on-android/run-granite-on-android.md) · _15 min_
 
