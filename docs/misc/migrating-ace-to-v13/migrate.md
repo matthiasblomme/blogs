@@ -1,0 +1,5 @@
+As existing users will be very aware, IBM App Connect Enterprise has always taken the topic of migration as a high priority. We want to protect your existing investments in our platform and enable you to bring forward your resources from previous releases of the product in a process that we're keen to make as frictionless as possible. ACE 12 and ACE 13 are architecturally very, very similar. Both major versions have integration nodes and servers which are structured the same way, and the storage formats used on disk are the same This means that migrating between ACE versions is becoming easier with each release and is very much simpler than going from IIB to ACE. In this latest release we have modernized the mqsiextractcomponents command, replacing it with a new command but with similar options in the ibmint command family. Here's a quick example:
+
+ibmint extract node --backup-file C:\temp\MigrationDemo\MyNode_240927_150001.zip --input-integration-node MyNode 
+
+![img_3.png](img_3.png)
