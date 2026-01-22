@@ -1,0 +1,159 @@
+/* =====================================================
+   CONTENT WIDTH (SAFE)
+   ===================================================== */
+
+.md-content__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* =====================================================
+   BANNER
+   ===================================================== */
+
+.md-banner {
+  width: 100%;
+  border-radius: 6px;
+  margin: 0.5rem 0 0.8rem 0;
+}
+
+/* =====================================================
+   META LINE
+   ===================================================== */
+
+.md-post-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0.6rem 0 0.4rem 0;
+  font-size: 0.8rem;
+  line-height: 1.3;
+  color: var(--md-default-fg-color--light);
+}
+
+.md-post-meta-left {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.md-post-meta-right {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Divider */
+.md-post-divider {
+  width: 100%;
+  height: 2px;
+  background-color: var(--md-primary-fg-color);
+  margin: 0.4rem 0 1rem 0;
+}
+
+/* =====================================================
+   SHARE: [in] — EXACTLY AS REQUESTED
+   ===================================================== */
+
+.post-share-label {
+  color: var(--md-default-fg-color--light);
+}
+
+/* Base link */
+.post-share-linkedin {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #0a66c2;          /* LinkedIn blue */
+  text-decoration: none;
+  line-height: 1;
+  position: relative;
+}
+
+/* Add square brackets */
+.post-share-linkedin::before {
+  content: "[";
+  color: var(--md-default-fg-color--light);
+  margin-right: 1px;
+}
+
+.post-share-linkedin::after {
+  content: "]";
+  color: var(--md-default-fg-color--light);
+  margin-left: 1px;
+}
+
+/* Hover */
+.post-share-linkedin:hover {
+  text-decoration: underline;
+}
+
+/* HARD STOP: hide any icon junk */
+.post-share-linkedin svg,
+.post-share-linkedin i,
+.post-share-linkedin span[class*="icon"],
+.post-share-linkedin span[class*="twemoji"] {
+  display: none !important;
+}
+
+/* =====================================================
+   TAGS
+   ===================================================== */
+
+.md-post-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.5rem 0 1rem 0;
+}
+
+.md-post-tags .md-tag {
+  background: var(--md-default-bg-color--lighter);
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+/* =====================================================
+   TOC
+   ===================================================== */
+
+.md-sidebar--secondary .md-nav__title {
+  font-weight: 600;
+  padding-bottom: 0.3rem;
+  border-bottom: 2px solid var(--md-primary-fg-color);
+}
+
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
+@media screen and (max-width: 76em) {
+  .md-post-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+  }
+}
+
+/* =====================================================
+   MOBILE: KEEP SHARE ON THE RIGHT
+   ===================================================== */
+
+@media screen and (max-width: 76em) {
+
+  .md-post-meta {
+    flex-direction: row;          /* stop stacking */
+    flex-wrap: wrap;
+  }
+
+  .md-post-meta-left {
+    flex: 1 1 auto;
+  }
+
+  .md-post-meta-right {
+    flex: 0 0 auto;
+    margin-left: auto;            /* push to the right */
+    white-space: nowrap;
+  }
+}

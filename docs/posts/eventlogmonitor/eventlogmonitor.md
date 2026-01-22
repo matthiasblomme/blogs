@@ -1,9 +1,18 @@
 ---
 date: 2025-07-31
 title: The EventLogMonitor
-description: Ever stared at the Windows Event Viewer, waiting for errors to show up? It shouldn’t feel like searching for a needle in a haystack. It should be smooth, effort.
+description: Hyping the EventLogMonitor tool
 reading_time: 2 min
 ---
+
+<!--MD_POST_META:START-->
+<div class="md-post-meta">
+  <div class="md-post-meta-left">2025-07-31 · ⏱ 2 min</div>
+  <div class="md-post-meta-right"><span class="post-share-label">Share:</span><a class="post-share post-share-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fmatthiasblomme.github.io%2Fblogs%2Fposts%2Feventlogmonitor%2Feventlogmonitor%2F" target="_blank" rel="noopener" title="Share on LinkedIn">in</a></div>
+</div>
+<hr class="md-post-divider"/>
+
+<!--MD_POST_META:END-->
 
 # The EventLogMonitor
 
