@@ -1,264 +1,184 @@
-import pathlib
+from pathlib import Path
 import re
-import time
-import math
-import calendar
-from collections import defaultdict
-from datetime import date as sysdate
+import yaml
+from datetime import datetime, date
+from urllib.parse import quote_plus
 
-# ---------------- Configuration ----------------
+ROOT = Path(__file__).resolve().parents[1]
+DOCS_DIR = ROOT / "docs"
+POSTS_DIR = DOCS_DIR / "posts"
+MKDOCS_YML = ROOT / "mkdocs.yml"
 
-DOCS_DIR     = pathlib.Path("docs")
-POSTS_DIR    = DOCS_DIR / "posts"
-INDEX_OUT    = POSTS_DIR / "index.md"
-ARCHIVE_OUT  = POSTS_DIR / "archive.md"
-HOMEPAGE     = DOCS_DIR / "index.md"
-
-BLOCK_START  = "<!--LATEST_POST:START-->"
-BLOCK_END    = "<!--LATEST_POST:END-->"
-META_MARKER = "<!--POST_META-->"
-TAGS_MARKER = "<!--POST_TAGS-->"
-LATEST_COUNT = 5
-
-VALID_EXTS = {".md", ".markdown", ".mkd", ".mdown"}
-WORDS_PER_MINUTE = 200
-BANNER_MARKER = "![cover](cover.png){ .md-banner }"
+META_START = "<!--MD_POST_META:START-->"
+META_END = "<!--MD_POST_META:END-->"
 
 
-# ---------------- Helpers ----------------
-
-def strip_front_matter(text: str):
-    m = re.match(r"^---\s*\n(.*?)\n---\s*\n", text, flags=re.DOTALL)
-    if m:
-        return text[m.end():], m.group(1).splitlines()
-    return text, []
+def load_site_url() -> str:
+    if not MKDOCS_YML.exists():
+        return ""
+    data = yaml.safe_load(MKDOCS_YML.read_text(encoding="utf-8")) or {}
+    return str(data.get("site_url", "")).rstrip("/")
 
 
-def extract_title(text: str, fallback: str) -> str:
-    for pat in [
-        r"(?m)^title:\s*(.+)$",
-        r"(?m)^\#\s+(.*)$",
-        r"(?m)^\#\#\s+(.*)$",
-        r"(?m)^\#{1,6}\s+(.*)$"
-    ]:
-        m = re.search(pat, text)
-        if m:
-            return m.group(1).strip()
-    return fallback
+SITE_URL = load_site_url()
 
 
-def extract_date(fm_lines):
-    for line in fm_lines:
-        if line.startswith("date:"):
-            return line.split(":", 1)[1].strip()
-    return None
-
-
-def extract_description(body: str) -> str:
-    lines = body.splitlines()
-    in_code = False
-    para = []
-
-    for line in lines:
-        l = line.strip()
-
-        if l.startswith("```"):
-            in_code = not in_code
-            continue
-        if in_code or not l:
-            if para:
-                break
-            continue
-        if l.startswith(("#", "-", "*", ">")):
-            continue
-
-        para.append(l)
-
-    desc = " ".join(para)
-    desc = re.sub(r"\s+", " ", desc)
-    return (desc[:160].rstrip(". ") + ".") if desc else ""
-
-
-def calculate_reading_time(body: str) -> str:
-    words = re.findall(r"\b\w+\b", body)
-    minutes = max(1, math.ceil(len(words) / WORDS_PER_MINUTE))
-    return f"{minutes} min"
-
-
-def link_from_home(p: pathlib.Path) -> str:
-    return p.as_posix().replace("docs/", "", 1)
-
-
-def link_from_posts_index(p: pathlib.Path) -> str:
-    return p.relative_to(POSTS_DIR).as_posix()
-
-def extract_tags(fm_lines):
+def sanitize_front_matter_text(fm_text: str) -> str:
     """
-    Supports:
-      tags:
-        - ace
-        - logging
-    and:
-      tags: ace, logging
+    Auto-quote title/description when they contain ':' and are unquoted.
+    Keeps your existing markdown valid without manual edits.
     """
-    tags = []
-    in_tags = False
-
-    for line in fm_lines:
-        if line.startswith("tags:"):
-            value = line.split(":", 1)[1].strip()
-            if value:
-                tags.extend([t.strip() for t in value.split(",") if t.strip()])
-            else:
-                in_tags = True
-            continue
-
-        if in_tags:
-            if line.startswith("  - "):
-                tags.append(line[4:].strip())
-            else:
+    fixed_lines = []
+    for line in fm_text.splitlines():
+        stripped = line.strip()
+        for key in ("title", "description"):
+            prefix = f"{key}:"
+            if stripped.startswith(prefix):
+                value = line.split(":", 1)[1].strip()
+                if ":" in value and not (value.startswith('"') or value.startswith("'")):
+                    line = f'{key}: "{value}"'
                 break
+        fixed_lines.append(line)
+    return "\n".join(fixed_lines)
 
-    return tags
+
+def parse_front_matter(text: str):
+    if not text.startswith("---"):
+        return {}, text
+
+    _, fm_text, body = text.split("---", 2)
+    fm_text = sanitize_front_matter_text(fm_text)
+    data = yaml.safe_load(fm_text) or {}
+    return data, body.lstrip()
 
 
-# ---------------- Front-matter + Banner ----------------
+def normalize_date(value) -> str:
+    if isinstance(value, datetime):
+        return value.date().isoformat()
+    if isinstance(value, date):
+        return value.isoformat()
+    if value is None:
+        return ""
+    return str(value)
 
-def ensure_front_matter(p: pathlib.Path):
-    raw = p.read_text(encoding="utf-8-sig")
-    body, fm_lines = strip_front_matter(raw)
 
-    title = extract_title(raw, p.stem.replace("-", " "))
-    description = extract_description(body)
-    reading_time = calculate_reading_time(body)
+def build_meta_block(fm: dict, page_url: str) -> str:
+    author = fm.get("author")
+    date_value = normalize_date(fm.get("date"))
+    reading_time = fm.get("reading_time")
+    tags = fm.get("tags") or []
 
-    existing_date = extract_date(fm_lines)
-    post_date = existing_date or sysdate.today().isoformat()
+    left_parts = []
+    if author:
+        left_parts.append(str(author))
+    if date_value:
+        left_parts.append(date_value)
+    if reading_time:
+        left_parts.append(f"⏱ {reading_time}")
 
-    def has(key):
-        return any(l.startswith(f"{key}:") for l in fm_lines)
+    left_text = " · ".join(left_parts)
 
-    new_fm = []
-
-    if not has("title"):
-        new_fm.append(f"title: {title}")
-    new_fm.append(f"date: {post_date}")
-
-    cover = p.parent / "cover.png"
-    if cover.exists() and not has("image"):
-        new_fm.append("image: cover.png")
-
-    if description and not has("description"):
-        new_fm.append(f"description: {description}")
-
-    if not has("reading_time"):
-        new_fm.append(f"reading_time: {reading_time}")
-
-    # merge with existing (preserve manual fields)
-    merged = new_fm + [l for l in fm_lines if not any(l.startswith(k.split(":")[0] + ":") for k in new_fm)]
-
-    # ---- Extract tags ----
-    tags = extract_tags(merged)
-
-    # ---- Build meta line ----
-    meta_line = f"<p class=\"md-post-meta\">{post_date} · {reading_time}</p>\n\n"
-
-    tags_block = ""
-    if tags:
-        tag_items = "\n".join(f"<li>{t}</li>" for t in tags)
-        tags_block = (
-            "<ul class=\"md-tag-list\">\n"
-            f"{tag_items}\n"
-            "</ul>\n\n"
+    right_html = ""
+    if page_url:
+        share_url = "https://www.linkedin.com/sharing/share-offsite/?url=" + quote_plus(page_url)
+        right_html = (
+            '<span class="post-share-label">Share:</span>'
+            f'<a class="post-share post-share-linkedin" '
+            f'href="{share_url}" target="_blank" rel="noopener" '
+            f'title="Share on LinkedIn">'
+            f'in'
+            f'</a>'
         )
 
-    inject = ""
-    if META_MARKER not in body:
-        inject = META_MARKER + "\n" + meta_line + tags_block
 
-    # ---- Banner ----
-    banner = ""
-    if cover.exists() and not body.lstrip().startswith(BANNER_MARKER):
-        banner = BANNER_MARKER + "\n\n"
 
+    tags_html = ""
+    if isinstance(tags, (list, tuple)) and tags:
+        # show in the same order as in front-matter
+        tag_items = " ".join(f'<span class="md-tag">{str(t)}</span>' for t in tags)
+        tags_html = f'<div class="md-tags">{tag_items}</div>'
+
+    return (
+        f"{META_START}\n"
+        f'<div class="md-post-meta">\n'
+        f'  <div class="md-post-meta-left">{left_text}</div>\n'
+        f'  <div class="md-post-meta-right">{right_html}</div>\n'
+        f"</div>\n"
+        f'<hr class="md-post-divider"/>\n'
+        f"{tags_html}\n"
+        f"{META_END}"
+    )
+
+
+def remove_existing_meta_block(body: str) -> str:
+    # Remove any previous injected block between markers (single or multiple occurrences).
+    pattern = re.compile(rf"{re.escape(META_START)}.*?{re.escape(META_END)}\s*", re.DOTALL)
+    return re.sub(pattern, "", body).lstrip()
+
+
+def compute_page_url(md_path: Path) -> str:
+    if not SITE_URL:
+        return ""
+    rel_path = md_path.resolve().relative_to(DOCS_DIR.resolve())
+    page_path = rel_path.with_suffix("").as_posix()
+    # use_directory_urls: true → trailing slash
+    return f"{SITE_URL}/{page_path}/"
+
+
+def inject_after_banner(body: str, meta_block: str) -> str:
+    lines = body.splitlines()
+    out = []
+    inserted = False
+
+    for line in lines:
+        out.append(line)
+        # banner line looks like: ![cover](cover.png){ .md-banner }
+        if (not inserted) and line.strip().startswith("![cover]") and ".md-banner" in line:
+            out.append("")
+            out.append(meta_block)
+            out.append("")
+            inserted = True
+
+    if not inserted:
+        # No banner found: put meta at top
+        out.insert(0, meta_block)
+        out.insert(1, "")
+
+    return "\n".join(out).strip() + "\n"
+
+
+def process_post(md_path: Path):
+    raw = md_path.read_text(encoding="utf-8")
+    fm, body = parse_front_matter(raw)
+    if not fm:
+        return
+
+    body = remove_existing_meta_block(body)
+
+    page_url = compute_page_url(md_path)
+    meta_block = build_meta_block(fm, page_url)
+
+    new_body = inject_after_banner(body, meta_block)
+
+    # Preserve your YAML front-matter (but dump safely)
     new_text = (
             "---\n"
-            + "\n".join(merged)
+            + yaml.safe_dump(fm, sort_keys=False, allow_unicode=True).strip()
             + "\n---\n\n"
-            + banner
-            + inject
-            + body.lstrip()
+            + new_body
     )
 
+    md_path.write_text(new_text, encoding="utf-8")
 
 
-    p.write_text(new_text, encoding="utf-8")
+def main():
+    for md in POSTS_DIR.rglob("*.md"):
+        if md.name.lower() == "index.md":
+            continue
+        process_post(md)
 
-    return post_date, title, reading_time
-
-
-# ---------------- Collect Posts ----------------
-
-posts = [
-    p for p in POSTS_DIR.rglob("*")
-    if p.is_file()
-       and p.suffix.lower() in VALID_EXTS
-       and p.name.lower() not in ("index.md", "archive.md")
-]
-
-entries = []
-for p in posts:
-    post_date, title, rt = ensure_front_matter(p)
-    entries.append((post_date, p, title, rt))
-
-entries.sort(key=lambda x: x[0], reverse=True)
+    print("Post meta generation complete.")
 
 
-# ---------------- Posts Index ----------------
-
-index_lines = ["# Posts", ""]
-for d, p, title, rt in entries:
-    index_lines.append(f"- **{d}** — [{title}]({link_from_posts_index(p)}) · _{rt}_")
-index_lines.append("")
-
-INDEX_OUT.write_text("\n".join(index_lines), encoding="utf-8")
-
-
-# ---------------- Archive ----------------
-
-archive = defaultdict(lambda: defaultdict(list))
-for d, p, title, rt in entries:
-    y, m, _ = d.split("-")
-    archive[int(y)][int(m)].append((d, p, title, rt))
-
-archive_lines = ["# Archive", ""]
-for year in sorted(archive.keys(), reverse=True):
-    archive_lines.append(f"## {year}")
-    for month in sorted(archive[year].keys(), reverse=True):
-        archive_lines.append(f"### {calendar.month_name[month]}")
-        for d, p, title, rt in archive[year][month]:
-            archive_lines.append(f"- **{d}** — [{title}]({link_from_posts_index(p)}) · _{rt}_")
-        archive_lines.append("")
-    archive_lines.append("")
-
-ARCHIVE_OUT.write_text("\n".join(archive_lines).rstrip() + "\n", encoding="utf-8")
-
-
-# ---------------- Homepage Latest ----------------
-
-home = HOMEPAGE.read_text(encoding="utf-8-sig")
-
-latest = entries[:LATEST_COUNT]
-if latest:
-    block = "\n".join(
-        f"- **{d}** — [{title}]({link_from_home(p)}) · _{rt}_"
-        for d, p, title, rt in latest
-    )
-else:
-    block = "_No posts yet._"
-
-pattern = re.compile(re.escape(BLOCK_START) + r".*?" + re.escape(BLOCK_END), re.DOTALL)
-replacement = f"{BLOCK_START}\n{block}\n{BLOCK_END}"
-
-home = pattern.sub(replacement, home) if pattern.search(home) else home + "\n\n" + replacement
-HOMEPAGE.write_text(home, encoding="utf-8")
+if __name__ == "__main__":
+    main()
