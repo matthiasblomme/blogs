@@ -30,6 +30,9 @@ found interesting and that are relevant, in one way or another
 With each new release, I'll try to keep this page up to date, but no promises on the time line. Feel free to reach out if
 it takes to long ;)
 
+It's sometimes difficult to place certain topics in one catagory as they span multiple product features, but I just choose
+what felt right to me. Feel free to disagree, as long as you continue reading this blog.
+
 ## The features
 
 ### Release cycle
@@ -67,56 +70,11 @@ The Designer also comes with it's own set of templates
 
 ![img_6.png](img_6.png)
 
-### Discovery Request Nodes
+#### Kafka nodes
 
-Each new release brings new Discovery Requests Nodes along. There are so many by now, that I'll just limit myself to
-list them all out
+Kafka input and output nodes can be used directly from the Designer
 
-| 13.0.1.0                       | 13.0.2.0 | 13.0.3.0 | 13.0.4.0 | 13.0.5.0 | 13.0.6.0 |
-|--------------------------------|----------|----------|----------|----------|----------|
-| Businessmap Request node       |
-| ClickSend Request node         |
-| Crystal Ball Request node      |
-| Factorial HR Request node      |
-| Front Request node             |
-| Hunter Request node            |
-| IBM Targetprocess Request node |
-| IBM watsonx.ai Request node    |
-| Infobip Request node           |
-| Toggl Track Request node       |
-| Wrike Request node             |
-| Zoho Books Request node        |
-| Zoho CRM Request node          |
-| Zoho Inventory Request node    |
-| Zoho Recruit Request node      |
-
-
-
-### Discovery Input Nodes
-
-Each new release brings new Discovery Input Nodes along. There are so many by now, that I'll just limit myself to
-list them all out
-
-| 13.0.1.0                       | 13.0.2.0 | 13.0.3.0 | 13.0.4.0 | 13.0.5.0 | 13.0.6.0 |
-|--------------------------------|----------|----------|----------|----------|----------|
-| Businessmap Input node |
-| ClickSend Input node |
-| Eventbrite Input node |
-| Front Input node |
-| Greenhouse Input node |
-| IBM Maximo Input node |
-| IBM Targetprocess Input node |
-| Magento Input node |
-| Marketo Input node |
-| Slack Input node |
-| Toggl Track Input node |
-| Wrike Input node |
-| Zoho Books Input node |
-| Zoho CRM Input node |
-| Zoho Recruit Input node |
-
-
-### Patterns    
+#### Patterns    
 
 Aside from the well known Tutorials Gallery that has been around for many years, ACE v13 comes with a new restyled
 Patterns Gallery. Patterns are helpful because they:
@@ -138,18 +96,82 @@ Currently there are roughly 100 available patterns (and no, I did not count them
 - Scatter-Gather Patterns
 - Messaging Patterns
 
-Some patterns (about 17) are marked "coming soon!", so keep your eyes pealed.
+Some patterns (about 17) are marked "coming soon!" (in 13.0.6.0), so keep your eyes pealed.
 
-### New Nodes (and updates)
+#### AI Mapping
 
-#### JSONata Mapping Node
+The Designer contains Mapping Assist and Data Assit features. Both are based on AI algorithms to help you with mapping 
+suggestions. 
+
+Mapping Assist runs locally, together with the designer, so you don't need any cloud connections or subscriptions to use 
+it. You will need to download and run a single IBM-provided container which hosts the LLM, this can be done with Podman, 
+Docker, or any other container orchestrator. Just configure the endpoint in the `designer.conf.yaml`
+
+![img_21.png](img_21.png)
+
+The Data Assist uses the same technoligy and setup, but it helps users construct JSONata expressions that can be used within
+a graphical mapping (if that's your thing, not a fan myself). 
+
+### Toolkit Enhancements
+
+#### New Nodes (and updates)
+
+##### Discovery Request Nodes
+
+Each new release brings new Discovery Requests Nodes along. There are so many by now, that I'll just limit myself to
+list them all out
+
+| 13.0.1.0                       | 13.0.3.0                           | 13.0.4.0                             | 13.0.5.0                   | 13.0.6.0 |
+|--------------------------------|------------------------------------|--------------------------------------|----------------------------|----------|
+| Businessmap Request node       | Azure Cosmos DB Request node       | Azure Service Bus Request node       | Microsoft Azure Event Hubs |          |
+| ClickSend Request node         | Milvus Request node                | IBM Planning Analytics Request node  | Google Gemini              |          |
+| Crystal Ball Request node      | Pinecone Vector Database Request   |                                      | IBM Aspera                 |          |
+| Factorial HR Request node      | Workday Request                    |                                      | Redis                      |          |
+| Front Request node             |                                    |                                      | Splunk                     |          |
+| Hunter Request node            |                                    |                                      | Vespa                      |          |
+| IBM Targetprocess Request node |                                    |                                      |                            |          |
+| IBM watsonx.ai Request node    |                                    |                                      |                            |          |
+| Infobip Request node           |                                    |                                      |                            |          |
+| Toggl Track Request node       |                                    |                                      |                            |          |
+| Wrike Request node             |                                    |                                      |                            |          |
+| Zoho Books Request node        |                                    |                                      |                            |          |
+| Zoho CRM Request node          |                                    |                                      |                            |          |
+| Zoho Inventory Request node    |                                    |                                      |                            |          |
+| Zoho Recruit Request node      |                                    |                                      |                            |          |
+
+
+
+##### Discovery Input Nodes
+
+Each new release brings new Discovery Input Nodes along. There are so many by now, that I'll just limit myself to
+list them all out
+
+| 13.0.1.0                     | 13.0.4.0                       | 13.0.5.0                   | 13.0.6.0 |
+|------------------------------|--------------------------------|----------------------------|----------|
+| Businessmap Input node       | Amazon Event Bridge Input node | Microsoft Azure Event Hubs |          |
+| ClickSend Input node         | Azure Service Bus Input node   |                            |          |
+| Eventbrite Input node        |                                |                            |          |
+| Front Input node             |                                |                            |          |
+| Greenhouse Input node        |                                |                            |          |
+| IBM Maximo Input node        |                                |                            |          |
+| IBM Targetprocess Input node |                                |                            |          |
+| Magento Input node           |                                |                            |          |
+| Marketo Input node           |                                |                            |          |
+| Slack Input node             |                                |                            |          |
+| Toggl Track Input node       |                                |                            |          |
+| Wrike Input node             |                                |                            |          |
+| Zoho Books Input node        |                                |                            |          |
+| Zoho CRM Input node          |                                |                            |          |
+| Zoho Recruit Input node      |                                |                            |          |
+
+##### JSONata Mapping Node
 
 ![img_1.png](img_1.png)
 
-JSONata is a lightweight query and transformation language specifically designed for interacting with JSON data. You can 
+JSONata is a lightweight query and transformation language specifically designed for interacting with JSON data. You can
 compare it to XSLT for XML.
 
-#### Kafka Nodes
+##### Kafka Nodes
 
 The KafkaProducer, KafkaConsumer and KafkaRead nodes support Avro and Schema Registries. I
 
@@ -160,27 +182,129 @@ Schema Registry Policy.
 
 ![img_5.png](img_5.png)
 
-#### TCPIP Nodes
+##### TCPIP Nodes
 
 ![img_7.png](img_7.png)
 
 TCPIP nodes now support timeout values expressed as fractions of a second, up to 3 decimal places, expressed as `0.250`.
 `0.100` is the shortes supported timeout.
 
-#### Couchbase Request Node
+##### Couchbase Request Node
 
 ![img_8.png](img_8.png)
 
-You can use the Couchbase Request node to connect to Couchbase and issue requests to perform actions on objects such as 
+You can use the Couchbase Request node to connect to Couchbase and issue requests to perform actions on objects such as
 buckets, collections, custom SQL, documents, and scopes. It comes with a matching policy as well.
 
-### Toolkit Enhancements
+
+##### Salesforce Nodes
+
+Salesforce nodes now can be configured to use an HTTP proxy by setting a policy with the proxy details
+
+![img_14.png](img_14.png)
+
+![img_15.png](img_15.png)
+
+
+##### HTTPRequest Node
+
+The HTTPRequest node support Retry capability directly from the node confi.
+
+- Retry Mechanism: no or short
+- Retry Threshold: numer of retires
+- Short Retry Interval: time intervall between retries in seconds
+- Retry Condition: the errors on which to retry
+
+![img_18.png](img_18.png)
+
+![img_19.png](img_19.png)
+
+Oauth2.0 support has also been made available in the HTTP Request nodes. The HTTP Request node is associated with 
+credentials of type `http`.
+
+Supported Authentication types and options:
+- apiKey
+- basic
+- basicApiKey
+- bearerToken
+- client
+- oauth
+- oauthPassword
+
+To communicate with HTTP endpoints that are secured using OAuth 2.0, there are 6 new properties to the HTTP policy 
+which are shown in the picture below:
+
+![img_24.png](img_24.png)
+
+##### RestRequest Node
+
+Oauth2.0 support has also been made available in the REST Request nodes. The REST Request node is associated with
+credentials of type `rest`.
+
+Supported Authentication types and options:
+- apiKey
+- basic
+- basicApiKey
+- bearerToken
+- client
+- oauth
+- oauthPassword
+The security scheme configuration can be provided by the Open API document associated with the node
+
+##### Callable Flow Nodes
+
+Has been enhanced with Supported Domains. These are new properties on the CallableInput and CallableReply nodes. It shows
+the supported message domains and models and can be configured to check the messages against the domains.
+
+##### Salesforce Input Node
+
+The Salesforce input node supports a state presitence policy to enable robust data handling and minimize downtime. This 
+helps processing messages even if the flow is not running but Salesforce events are still being generated.
+This does require an external persitence provider, which can be either FILE or REDIS.
+
+![img_22.png](img_22.png)
+
+![img_23.png](img_23.png)
+
+##### MQTT Nodes
+
+MQTT version 5 is supported. This is reflected in the MQTT policies
+
+![img_25.png](img_25.png)
+
+#### Build in console
+The toolkit allows you to run ACE commands straight from within the toolkit.
+
+![img_10.png](img_10.png)
 
 #### External Directory Vault explorer
 
 Managing an external directory vault is now possible from within the toolkit: create, connect and manage credentials.
 
 ![img_2.png](img_2.png)
+
+#### Container Explorer view
+
+You can now add and manage ACE CC containers deployed on a k8s platform directly from within the toolkit. Just add the 
+dashboard link to the toolkit.
+
+![img_16.png](img_16.png)
+
+![img_17.png](img_17.png)
+
+#### Context Trees
+
+I might be biased (it's my blog, so I'm allowed to be), but Context Trees is a big one. If I'm aloud to steal a description
+from another one of my blogs (again, my blog, so I am allowed):
+
+_It was originally designed to support discovery connectors, but it also gives you a sharp way to handle message data in 
+classic ACE flows. Let's give you some context (pun intended) first. The Context tree is a read-only logical structure 
+that grows as your message passes through the flow. At the start it only knows about the input node, but each node adds 
+its own payload and metadata. By the end you have a complete picture, parser context included. The important bit for us: 
+the original payload is always available. In practice, you don’t need to configure or enable anything special. As soon 
+s you reference the Context tree in ESQL, ACE populates it at runtime._
+
+Couldn't have said it better myself (hm, maybe I need to stop writing in the evenings).
 
 ### CLI Enhancements
 
@@ -196,13 +320,31 @@ ibmint deploy supports additional ssl options
  - `--insecure` Specifies that the certificate that is returned by the integration node or server will not be verified.
 
 #### Auto-complete
+
 ibmint commands on Linux and Unix support auto-complete.
+
+#### ibmint remote connections
+
+Add ssl connections settings for (see ibmint deploy for the params)
+
+- ibmint create server command
+- ibmint delete server command
+- ibmint start server command
+- ibmint stop server command
+- ibmint display credentials command
+- ibmint set credential command
+- ibmint unset credential command
+
 
 ### Runtime Enhancements
 
 #### Open Telemetry 
 OTel suppoert a basic auth security identity in the header of the OTel message taht is propagated to an extern OTel 
-collector.
+collector. 
+
+These are available in the `server.conf.yaml`
+
+![img_9.png](img_9.png)
 
 #### IPv6
 
@@ -220,10 +362,41 @@ HTTPConnector:
     #ListenerAddress: '192.168.0.1'  # Set the IP address for the listener to listen on a specific IPv4 address
 ```
 
+#### Embedded Global Cache
+
+The In-memory Embedded Global Cache allows for caching data between separate ACE integration servers. Each server 
+involved in  replication both reads and writes to the cache has to be explicitly nominated via the `server.conf.yaml`
+
+Upsert is availabe for use within the JavaCompute nodes
+
+![img_26.png](img_26.png)
+
+![img_11.png](img_11.png)
+
+#### External Redis Global Cache
+
+If you want to use an external cache that you can share with other applications or want to replace a WXS grid solution, 
+Redis global cache is availble. ACE offers limited support for correct usage of the Redis API. A Redis Connection policy
+and crendential type are available:
+
+![img_12.png](img_12.png)
+
+![img_13.png](img_13.png)
+
+#### Open Telemetry
+
+The current nodes that can send OTel traces
+- MQInput, MQOutput, MQReply, MQGet, MQPublication
+- HTTPInput, HTTPReply, HTTPRequest, HTTPAsyncRequest, HTTPAsyncResponse
+- RESTRequest, RESTAsyncRequest, RESTAsyncResponse
+- SOAPInput, SOAPReply, SOAPRequest, SOAPAsyncRequest, SOAPAsyncResponse
+- CallableInput, CallableReply, CallableFlowInvoke, CallableFlowAsyncInvoke, CallableFlowAsyncResponse
+- KafkaConsumer, Kafka Read, KakfaProducer
+
 ### Java
 
-You migt think that this should be part of a runtime or the Toolkit chapter, but seeing as the java upgrade is a pretty
-big deal, it gets it's own chapter.
+You might think that this should be part of a runtime or the Toolkit chapter, but seeing as the java upgrade is a pretty
+big deal, it gets its own chapter.
 
 IBM Semeru Java 17 is now the default for both the Toolkit and the ACE Runtimes. Java 1.8 is still shipped, and you can 
 select it if you need it. Initially some features were not supported under Java 17, but each consecutive release brought
@@ -326,6 +499,20 @@ Since 13.0.2.0, PostgreSQL is extended to support stored procedures that return 
 slight difference in the syntax we are promoting for PostgreSQL. For PostgreSQL, a dummy cursor value must be supplied 
 in the ESQL CALL statement for each intended results set.
 
+### AI
+
+Watsonx Code Assistant chat is embedded in the ACE Toolkit. You do need an additional subscription to use this feature.
+It is designed for
+
+- Asking generalized questions
+- Providing explanations for existing code
+- Generating instance data to match a schema
+- Generating a schema by providing example instance data
+- Generating Java code snippets through natural language
+- Generating ESQL code snippets through natural language
+- Generation of Unit tests
+- 
+![img_20.png](img_20.png)
 
 ## Migration
 
