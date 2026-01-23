@@ -2,7 +2,7 @@
 date: 2026-01-16
 title: ACE v13 new features (when coming from v12)
 image: cover.png
-description: A summery of all the new features for ACE v13 up to 13.0.6.0
+description: A summary of all the new features for ACE v13 up to 13.0.6.0
 
 ---
 
@@ -11,72 +11,72 @@ description: A summery of all the new features for ACE v13 up to 13.0.6.0
 # ACE v13 new features (when coming from v12)
 
 > **DISCLAIMER:**
-> All the information below is provided by IBM end digested/interpreted by me. It's meant to help and inform but should 
-> in no way be interpreted as ... 
+> All the information below is provided by IBM and digested/interpreted by me. It's meant to help and inform but should
+> in no way be interpreted as ...
 
 ## Why I'm doing this
 
-[Ben Thompson](https://community.ibm.com/community/user/people/ben-thompson1) does a splendid job in clearly and cleanly 
-explaining all the new ACE features for each release. However, sometimes it can be handy to have them all in one overview.
+[Ben Thompson](https://community.ibm.com/community/user/people/ben-thompson1) does a splendid job in clearly and cleanly
+explaining all the new ACE features for each release. However, sometimes it's handy to have them all in one overview, 
+grouped by main product features.
 
-That is exactly what I'm going to do here, list all changes (and group similar ones) for anyone looking to migrate from 
-v12 and in need of a simple overview. I was looking into everything that changed with regards to ACE v12, so 2 birds one 
-stone.
+That is exactly what I'm going to do here: list all changes (and group similar ones) for anyone looking to migrate from
+v12 and in need of a simple overview. I was looking into everything that changed regarding ACE v12, so it's 2 birds with one stone.
 
-I'll try not to go into to much detail on all the topics, the main focus is to give you a straight overview. So make sure 
-to have a look at the referenced material as well. I'll put all of Ben's post in there along with some other ones that I 
+I'll try not to go into too much detail on all the topics, the main focus is to give you a straight overview. So make sure
+to have a look at the referenced material as well. I'll put all of Ben's posts in there, along with some other ones that I
 found interesting and that are relevant, in one way or another
 
 With each new release, I'll try to keep this page up to date, but no promises on the time line. Feel free to reach out if
-it takes to long ;)
+it takes too long ;)
 
-It's sometimes difficult to place certain topics in one catagory as they span multiple product features, but I just choose
+It's sometimes difficult to place certain topics in one category as they span multiple product features, but I just choose
 what felt right to me. Feel free to disagree, as long as you continue reading this blog.
 
 ## The features
 
 ### Release cycle
 
-This is not really a feature, but since I'm bundling information, I might tackle this one as well
+This is not really a feature, but since I'm bundling information, I might tackle this one as well.
 
 General availability: 27 September 2024
-Support cycle: 5+1+3 
-- 5 years of standard support 
+Support cycle: 5+1+3
+- 5 years of standard support
 - 1 year of extended support for new defects
 - 3 years of extended support for usage and known defects
-End of support: 2029
-End of extended support: 2033 
+  End of support: 2029
+  End of extended support: 2033
 
 ### Product editions
 
-There is a slight change in the name of the product verions. The below table gives a clear overview.
+There is a slight change in the name of the product versions. The below table gives a clear overview.
 ![img.png](img.png)
 
-If you haven't used ACE before and/or if you have no paied entitlements, you can start with the free [Developer edition](https://www.ibm.com/resources/mrs/assets?source=swg-wmbfd).
-(you will need to register for an IBM account).
+If you haven't used ACE before and/or if you have no paid entitlements, you can start with the free [Developer edition](https://www.ibm.com/resources/mrs/assets?source=swg-wmbfd).
+(You will need to register for an IBM account).
 
 ### App Connect Enterprise Designer
 
-The APP Connect Enterprise Designer is a new, low threshold, alternative tool for flow authoring.  It's not as feature 
-rich as the toolkit (still the strategic IDE for ACE), but it alligns more with Cloud Development Platforms. I was already
-a part of the iPaaS offering of ACE, but with v13 it has been added to your local installation as well.
+The APP Connect Enterprise Designer is a new, low threshold, alternative tool for flow authoring.  It's not as feature
+rich as the toolkit (still the strategic IDE for ACE), but it aligns more with Cloud Development Platforms. I was already
+a part of the iPaaS offering of ACE, but with v13, it has been added to your local installation as well.
 
 The most common use case is to start a Connector development project in the Designer and switch over to the toolkit for
 the more detailed work.
 
 #### Templates
 
-The Designer also comes with it's own set of templates
+The Designer also comes with its own set of templates.
 
 ![img_6.png](img_6.png)
 
 #### Kafka nodes
 
-Kafka input and output nodes can be used directly from the Designer
+Kafka input and output nodes can be used directly from the Designer.
 
-#### Patterns    
+#### Patterns
 
-Aside from the well known Tutorials Gallery that has been around for many years, ACE v13 comes with a new restyled
+Aside from the well-known Tutorials Gallery that has been around for many years, ACE v13 comes with a new restyled
 Patterns Gallery. Patterns are helpful because they:
 
 - Generate customized solutions to a recurring integration problem in an efficient way
@@ -84,11 +84,10 @@ Patterns Gallery. Patterns are helpful because they:
 - Help guide developers who are new to the product
 - Provide consistency in the generated resources
 
-They offer you a quick start based on a couple of choices, without the fixed set of resources and instructions that a 
+They offer you a quick start based on a couple of choices, without the fixed set of resources and instructions that a
 tutorial offers.
 
-**TODO**
-Currently there are roughly 100 available patterns (and no, I did not count them by hand) categorized in 6 topics:
+Currently, there are roughly 100 available patterns (and no, I did not count them by hand) categorized in 6 topics:
 - Protocol Transformation Patterns
 - Format Transformation Patterns
 - AI Patterns
@@ -96,21 +95,33 @@ Currently there are roughly 100 available patterns (and no, I did not count them
 - Scatter-Gather Patterns
 - Messaging Patterns
 
-Some patterns (about 17) are marked "coming soon!" (in 13.0.6.0), so keep your eyes pealed.
+Some patterns (about 17) are marked "coming soon!" (in 13.0.6.0), so keep your eyes peeled.
+
+##### RAG Pattern
+
+The RAG pattern is the first addition to the AI Patterns category.
+
+![img_33.png](img_33.png)
+
 
 #### AI Mapping
 
-The Designer contains Mapping Assist and Data Assit features. Both are based on AI algorithms to help you with mapping 
-suggestions. 
+The Designer contains Mapping Assist and Data Assist features. Both are based on AI algorithms to help you with mapping.
+suggestions.
 
-Mapping Assist runs locally, together with the designer, so you don't need any cloud connections or subscriptions to use 
-it. You will need to download and run a single IBM-provided container which hosts the LLM, this can be done with Podman, 
+Mapping Assist runs locally, together with the designer, so you don't need any cloud connections or subscriptions to use
+it. You will need to download and run a single IBM-provided container which hosts the LLM, this can be done with Podman,
 Docker, or any other container orchestrator. Just configure the endpoint in the `designer.conf.yaml`
 
 ![img_21.png](img_21.png)
 
-The Data Assist uses the same technoligy and setup, but it helps users construct JSONata expressions that can be used within
-a graphical mapping (if that's your thing, not a fan myself). 
+The Data Assist uses the same technology and setup, but it helps users construct JSONata expressions that can be used within
+a graphical mapping (if that's your thing, not a fan myself).
+
+#### Designer Account Managing
+
+The Designer allows you to (since 13.0.5.0) choose an alternative name for the account information name you use during
+the discovery process.
 
 ### Toolkit Enhancements
 
@@ -118,26 +129,26 @@ a graphical mapping (if that's your thing, not a fan myself).
 
 ##### Discovery Request Nodes
 
-Each new release brings new Discovery Requests Nodes along. There are so many by now, that I'll just limit myself to
+Each new release brings new Discovery Request Nodes along. There are so many by now, that I'll just limit myself to
 list them all out
 
-| 13.0.1.0                       | 13.0.3.0                           | 13.0.4.0                             | 13.0.5.0                   | 13.0.6.0 |
-|--------------------------------|------------------------------------|--------------------------------------|----------------------------|----------|
-| Businessmap Request node       | Azure Cosmos DB Request node       | Azure Service Bus Request node       | Microsoft Azure Event Hubs |          |
-| ClickSend Request node         | Milvus Request node                | IBM Planning Analytics Request node  | Google Gemini              |          |
-| Crystal Ball Request node      | Pinecone Vector Database Request   |                                      | IBM Aspera                 |          |
-| Factorial HR Request node      | Workday Request                    |                                      | Redis                      |          |
-| Front Request node             |                                    |                                      | Splunk                     |          |
-| Hunter Request node            |                                    |                                      | Vespa                      |          |
-| IBM Targetprocess Request node |                                    |                                      |                            |          |
-| IBM watsonx.ai Request node    |                                    |                                      |                            |          |
-| Infobip Request node           |                                    |                                      |                            |          |
-| Toggl Track Request node       |                                    |                                      |                            |          |
-| Wrike Request node             |                                    |                                      |                            |          |
-| Zoho Books Request node        |                                    |                                      |                            |          |
-| Zoho CRM Request node          |                                    |                                      |                            |          |
-| Zoho Inventory Request node    |                                    |                                      |                            |          |
-| Zoho Recruit Request node      |                                    |                                      |                            |          |
+| 13.0.1.0                       | 13.0.3.0                           | 13.0.4.0                             | 13.0.5.0                   | 13.0.6.0      |
+|--------------------------------|------------------------------------|--------------------------------------|----------------------------|---------------|
+| Businessmap Request node       | Azure Cosmos DB Request node       | Azure Service Bus Request node       | Microsoft Azure Event Hubs | Apache Pulsar |
+| ClickSend Request node         | Milvus Request node                | IBM Planning Analytics Request node  | Google Gemini              | AstraDB       |
+| Crystal Ball Request node      | Pinecone Vector Database Request   |                                      | IBM Aspera                 | Databricks    |
+| Factorial HR Request node      | Workday Request                    |                                      | Redis                      |               |
+| Front Request node             |                                    |                                      | Splunk                     |               |
+| Hunter Request node            |                                    |                                      | Vespa                      |               |
+| IBM Targetprocess Request node |                                    |                                      |                            |               |
+| IBM watsonx.ai Request node    |                                    |                                      |                            |               |
+| Infobip Request node           |                                    |                                      |                            |               |
+| Toggl Track Request node       |                                    |                                      |                            |               |
+| Wrike Request node             |                                    |                                      |                            |               |
+| Zoho Books Request node        |                                    |                                      |                            |               |
+| Zoho CRM Request node          |                                    |                                      |                            |               |
+| Zoho Inventory Request node    |                                    |                                      |                            |               |
+| Zoho Recruit Request node      |                                    |                                      |                            |               |
 
 
 
@@ -146,23 +157,23 @@ list them all out
 Each new release brings new Discovery Input Nodes along. There are so many by now, that I'll just limit myself to
 list them all out
 
-| 13.0.1.0                     | 13.0.4.0                       | 13.0.5.0                   | 13.0.6.0 |
-|------------------------------|--------------------------------|----------------------------|----------|
-| Businessmap Input node       | Amazon Event Bridge Input node | Microsoft Azure Event Hubs |          |
-| ClickSend Input node         | Azure Service Bus Input node   |                            |          |
-| Eventbrite Input node        |                                |                            |          |
-| Front Input node             |                                |                            |          |
-| Greenhouse Input node        |                                |                            |          |
-| IBM Maximo Input node        |                                |                            |          |
-| IBM Targetprocess Input node |                                |                            |          |
-| Magento Input node           |                                |                            |          |
-| Marketo Input node           |                                |                            |          |
-| Slack Input node             |                                |                            |          |
-| Toggl Track Input node       |                                |                            |          |
-| Wrike Input node             |                                |                            |          |
-| Zoho Books Input node        |                                |                            |          |
-| Zoho CRM Input node          |                                |                            |          |
-| Zoho Recruit Input node      |                                |                            |          |
+| 13.0.1.0                     | 13.0.4.0                       | 13.0.5.0                   | 13.0.6.0            |
+|------------------------------|--------------------------------|----------------------------|---------------------|
+| Businessmap Input node       | Amazon Event Bridge Input node | Microsoft Azure Event Hubs | Apache Pulsar,      |
+| ClickSend Input node         | Azure Service Bus Input node   |                            | AstraDB             |
+| Eventbrite Input node        |                                |                            | Databricks          |
+| Front Input node             |                                |                            | SAP SuccessFactors  |
+| Greenhouse Input node        |                                |                            |                     |
+| IBM Maximo Input node        |                                |                            |                     |
+| IBM Targetprocess Input node |                                |                            |                     |
+| Magento Input node           |                                |                            |                     |
+| Marketo Input node           |                                |                            |                     |
+| Slack Input node             |                                |                            |                     |
+| Toggl Track Input node       |                                |                            |                     |
+| Wrike Input node             |                                |                            |                     |
+| Zoho Books Input node        |                                |                            |                     |
+| Zoho CRM Input node          |                                |                            |                     |
+| Zoho Recruit Input node      |                                |                            |                     |
 
 ##### JSONata Mapping Node
 
@@ -173,21 +184,34 @@ compare it to XSLT for XML.
 
 ##### Kafka Nodes
 
-The KafkaProducer, KafkaConsumer and KafkaRead nodes support Avro and Schema Registries. I
+The KafkaProducer, KafkaConsumer and KafkaRead nodes support Avro and Schema Registries.
 
 ![img_4.png](img_4.png)
 
-t does require you to use a
-Schema Registry Policy.
+It does require you to use a Schema Registry Policy.
 
 ![img_5.png](img_5.png)
+
+The KafkaProducer and KafkaConsumer nodes now support transactionality in writing and reading messages. This can be
+configured via a set of new properties.
+
+![img_27.png](img_27.png)
+
+![img_28.png](img_28.png)
+
+Kafka nodes support scaling via
+- setting additional instances (process messages in parallel)
+- deploying multiple message flows with the same consumer group ID and subscribed to the same Topic name
+- enabling multiple kafka connections (pull more messages concurrently)
+
+![img_29.png](img_29.png)
 
 ##### TCPIP Nodes
 
 ![img_7.png](img_7.png)
 
 TCPIP nodes now support timeout values expressed as fractions of a second, up to 3 decimal places, expressed as `0.250`.
-`0.100` is the shortes supported timeout.
+`0.100` is the shortest supported timeout.
 
 ##### Couchbase Request Node
 
@@ -208,18 +232,18 @@ Salesforce nodes now can be configured to use an HTTP proxy by setting a policy 
 
 ##### HTTPRequest Node
 
-The HTTPRequest node support Retry capability directly from the node confi.
+The HTTPRequest node support Retry capability directly from the node config.
 
 - Retry Mechanism: no or short
-- Retry Threshold: numer of retires
-- Short Retry Interval: time intervall between retries in seconds
+- Retry Threshold: number of retries
+- Short Retry Interval: time interval between retries in seconds
 - Retry Condition: the errors on which to retry
 
 ![img_18.png](img_18.png)
 
 ![img_19.png](img_19.png)
 
-Oauth2.0 support has also been made available in the HTTP Request nodes. The HTTP Request node is associated with 
+Oauth2.0 support has also been made available in the HTTP Request nodes. The HTTP Request node is associated with
 credentials of type `http`.
 
 Supported Authentication types and options:
@@ -231,7 +255,7 @@ Supported Authentication types and options:
 - oauth
 - oauthPassword
 
-To communicate with HTTP endpoints that are secured using OAuth 2.0, there are 6 new properties to the HTTP policy 
+To communicate with HTTP endpoints that are secured using OAuth 2.0, there are 6 new properties to the HTTP policy
 which are shown in the picture below:
 
 ![img_24.png](img_24.png)
@@ -249,7 +273,7 @@ Supported Authentication types and options:
 - client
 - oauth
 - oauthPassword
-The security scheme configuration can be provided by the Open API document associated with the node
+  The security scheme configuration can be provided by the Open API document associated with the node
 
 ##### Callable Flow Nodes
 
@@ -258,7 +282,7 @@ the supported message domains and models and can be configured to check the mess
 
 ##### Salesforce Input Node
 
-The Salesforce input node supports a state presitence policy to enable robust data handling and minimize downtime. This 
+The Salesforce input node supports a state presitence policy to enable robust data handling and minimize downtime. This
 helps processing messages even if the flow is not running but Salesforce events are still being generated.
 This does require an external persitence provider, which can be either FILE or REDIS.
 
@@ -271,6 +295,14 @@ This does require an external persitence provider, which can be either FILE or R
 MQTT version 5 is supported. This is reflected in the MQTT policies
 
 ![img_25.png](img_25.png)
+
+##### Microsoft Azure Blob Storage Request node
+
+The Microsoft Azure Blob Storage Request node support directly pushing Blob data without having to convert to JSON first.
+
+![img_32.png](img_32.png)
+
+
 
 #### Build in console
 The toolkit allows you to run ACE commands straight from within the toolkit.
@@ -285,7 +317,7 @@ Managing an external directory vault is now possible from within the toolkit: cr
 
 #### Container Explorer view
 
-You can now add and manage ACE CC containers deployed on a k8s platform directly from within the toolkit. Just add the 
+You can now add and manage ACE CC containers deployed on a k8s platform directly from within the toolkit. Just add the
 dashboard link to the toolkit.
 
 ![img_16.png](img_16.png)
@@ -294,17 +326,35 @@ dashboard link to the toolkit.
 
 #### Context Trees
 
-I might be biased (it's my blog, so I'm allowed to be), but Context Trees is a big one. If I'm aloud to steal a description
+I might be biased (it's my blog, so I'm allowed to be), but Context Trees is a big one. If I'm allowed to steal a description
 from another one of my blogs (again, my blog, so I am allowed):
 
-_It was originally designed to support discovery connectors, but it also gives you a sharp way to handle message data in 
-classic ACE flows. Let's give you some context (pun intended) first. The Context tree is a read-only logical structure 
-that grows as your message passes through the flow. At the start it only knows about the input node, but each node adds 
-its own payload and metadata. By the end you have a complete picture, parser context included. The important bit for us: 
-the original payload is always available. In practice, you don’t need to configure or enable anything special. As soon 
+_It was originally designed to support discovery connectors, but it also gives you a sharp way to handle message data in
+classic ACE flows. Let's give you some context (pun intended) first. The Context tree is a read-only logical structure
+that grows as your message passes through the flow. At the start it only knows about the input node, but each node adds
+its own payload and metadata. By the end you have a complete picture, parser context included. The important bit for us:
+the original payload is always available. In practice, you don’t need to configure or enable anything special. As soon
 s you reference the Context tree in ESQL, ACE populates it at runtime._
 
 Couldn't have said it better myself (hm, maybe I need to stop writing in the evenings).
+
+Context trees are also visible in the Debugger and Flow Exercisers (since 13.0.5.0).
+
+![img_30.png](img_30.png)
+
+![img_31.png](img_31.png)
+
+There are also new ESQL and Java methods to support interacting with the Context Trees
+
+ESQL:
+
+- CONTEXTINVOCATIONNODE
+- CONTEXTREFERENCE
+
+Java:
+
+- MbContextTreeNode
+- MbContextTreeNodePayload
 
 ### CLI Enhancements
 
@@ -312,12 +362,12 @@ Couldn't have said it better myself (hm, maybe I need to stop writing in the eve
 
 ##### ibmint deploy
 ibmint deploy supports additional ssl options
- - `--output-uri URI` URI for a remote integration server in the form tcp://[user[:password]@]host:port or in the form ssl://[user[:password]@]host:port.
- - `--https` specifies that HTTPS will be used for the connection to the integration node or server. 
- - `--no-https` specifies that HTTPS will not be used for the connection to the integration node or server. 
- - `--cacert cacertFile` cpecifies the path to the certificate file (in either PEM, P12, or JKS format) 
- - `--cacert-password cacertPassword` the password for password-protected cacert files.
- - `--insecure` Specifies that the certificate that is returned by the integration node or server will not be verified.
+- `--output-uri URI` URI for a remote integration server in the form tcp://[user[:password]@]host:port or in the form ssl://[user[:password]@]host:port.
+- `--https` specifies that HTTPS will be used for the connection to the integration node or server.
+- `--no-https` specifies that HTTPS will not be used for the connection to the integration node or server.
+- `--cacert cacertFile` specifies the path to the certificate file (in either PEM, P12, or JKS format)
+- `--cacert-password cacertPassword` the password for password-protected cacert files.
+- `--insecure` Specifies that the certificate that is returned by the integration node or server will not be verified.
 
 #### Auto-complete
 
@@ -338,9 +388,9 @@ Add ssl connections settings for (see ibmint deploy for the params)
 
 ### Runtime Enhancements
 
-#### Open Telemetry 
-OTel suppoert a basic auth security identity in the header of the OTel message taht is propagated to an extern OTel 
-collector. 
+#### Open Telemetry
+OTel suppoert a basic auth security identity in the header of the OTel message taht is propagated to an extern OTel
+collector.
 
 These are available in the `server.conf.yaml`
 
@@ -364,7 +414,7 @@ HTTPConnector:
 
 #### Embedded Global Cache
 
-The In-memory Embedded Global Cache allows for caching data between separate ACE integration servers. Each server 
+The In-memory Embedded Global Cache allows for caching data between separate ACE integration servers. Each server
 involved in  replication both reads and writes to the cache has to be explicitly nominated via the `server.conf.yaml`
 
 Upsert is availabe for use within the JavaCompute nodes
@@ -375,7 +425,7 @@ Upsert is availabe for use within the JavaCompute nodes
 
 #### External Redis Global Cache
 
-If you want to use an external cache that you can share with other applications or want to replace a WXS grid solution, 
+If you want to use an external cache that you can share with other applications or want to replace a WXS grid solution,
 Redis global cache is availble. ACE offers limited support for correct usage of the Redis API. A Redis Connection policy
 and crendential type are available:
 
@@ -398,7 +448,7 @@ The current nodes that can send OTel traces
 You might think that this should be part of a runtime or the Toolkit chapter, but seeing as the java upgrade is a pretty
 big deal, it gets its own chapter.
 
-IBM Semeru Java 17 is now the default for both the Toolkit and the ACE Runtimes. Java 1.8 is still shipped, and you can 
+IBM Semeru Java 17 is now the default for both the Toolkit and the ACE Runtimes. Java 1.8 is still shipped, and you can
 select it if you need it. Initially some features were not supported under Java 17, but each consecutive release brought
 more support.
 
@@ -428,66 +478,65 @@ If you have a JavaCompute node and/or custom Java Input or Compute nodes, make s
 
 ### Credentials
 
-With ace choosing for the vault and credentials over mqsisetdbparms (don't worry, it stil works), there are also some 
-additions and improvements in the way ACE interactis with credentials.
-
+With ace choosing for the vault and credentials over mqsisetdbparms (don't worry, it stil works), there are also some
+aadditions and improvements in the way ACE interacts with credentials.
 One of these is dynamic credentials. These are credentials that can be changed and updated without having to restart the
 server.
 
 A list of dynamic credentials (in short, most of them)
 
-| Connector | Connector | Connector | Connector |
-|-----------|-----------|-----------|-----------|
-| amazoncloudwatch (dynamic) | amazondynamodb (dynamic) | amazonec2 (dynamic) | amazoneventbridge (dynamic) |
-| amazonkinesis (dynamic) | amazonlambda (dynamic) | amazonrds (dynamic) | amazonredshift (dynamic) |
-| amazons3 (dynamic) | amazonses (dynamic) | amazonsns (dynamic) | amazonsqs (dynamic) |
-| anaplan (dynamic) | apachepulsar (dynamic) | apptiotargetprocess (dynamic) | asana (dynamic) |
-| astradb (dynamic) | azuread (dynamic) | azureblobstorage (dynamic) | azurecosmosdb (dynamic) |
-| azureeventhub (dynamic) | azureservicebus (dynamic) | bamboohr (dynamic) | box (dynamic) |
-| businessmap (dynamic) | calendly (dynamic) | cd (static) | cdc (dynamic) |
-| cics (static) | clicksend (dynamic) | cloudantdb (dynamic) | cmis (dynamic) |
-| confluence (dynamic) | couchbase (dynamic) | coupa (dynamic) | crystalball (dynamic) |
-| databricks (dynamic) | db2 (dynamic) | docusign (dynamic) | dropbox (dynamic) |
-| eis (dynamic) | elk (static) | email (static) | eventbrite (dynamic) |
-| expensify (dynamic) | factorialhr (dynamic) | filenet (dynamic) | front (dynamic) |
-| ftp (dynamic) | github (dynamic) | gitlab (dynamic) | gmail (dynamic) |
-| googleanalytics (dynamic) | googlebigquery (dynamic) | googlecalendar (dynamic) | googlechat (dynamic) |
-| googlecloudstorage (dynamic) | googlecontacts (dynamic) | googledrive (dynamic) | googlegemini (dynamic) |
-| googlegroups (dynamic) | googlepubsub (dynamic) | googlesheet (dynamic) | googletasks (dynamic) |
-| googletranslate (dynamic) | greenhouse (dynamic) | http (dynamic) | httpproxy (static) |
-| hubspotcrm (dynamic) | hubspotmarketing (dynamic) | hunter (dynamic) | ibmaspera (dynamic) |
-| ibmcoss3 (dynamic) | ibmewm (dynamic) | ibmopenpages (dynamic) | ibmsterlingiv (dynamic) |
-| ibmtwc (dynamic) | ibmwatsonxai (dynamic) | ift (dynamic) | ims (static) |
-| infobip (dynamic) | insightly (dynamic) | jdbc (static) | jenkins (dynamic) |
-| jira (dynamic) | jms (static) | jndi (static) | kafka (static) |
-| kerberos (static) | keystore (static) | keystorekey (static) | kronos (dynamic) |
-| ldap (dynamic) | local (dynamic) | loopback (static) | magento (dynamic) |
-| mailchimp (dynamic) | marketo (dynamic) | maximo (dynamic) | mcp (dynamic) |
-| milvus (dynamic) | mondaydotcom (dynamic) | mq (dynamic) | mqtt (static) |
-| msad (dynamic) | msdynamicscrmrest (dynamic) | msdynamicsfando (dynamic) | msexcel (dynamic) |
-| msexchange (dynamic) | msonedrive (dynamic) | msonenote (dynamic) | mspowerbi (dynamic) |
-| mssharepoint (dynamic) | mssql (dynamic) | msteams (dynamic) | mstodo (dynamic) |
-| mysql (dynamic) | odbc (dynamic) | odm (static) | opentelemetry (dynamic) |
-| oracle (dynamic) | oracleebs (dynamic) | oraclehcm (dynamic) | pineconedb (dynamic) |
-| planninganalytics (dynamic) | postgres (dynamic) | redis (dynamic) | rest (dynamic) |
-| salesforce (dynamic) | salesforceae (dynamic) | salesforcemc (dynamic) | sapariba (dynamic) |
-| sapodata (dynamic) | sapsuccessfactors (dynamic) | schemaregistry (static) | servicenow (dynamic) |
-| sfcommerceclouddata (dynamic) | sftp (dynamic) | shopify (dynamic) | slack (dynamic) |
-| smtp (dynamic) | snowflake (dynamic) | soap (dynamic) | splunk (dynamic) |
-| square (dynamic) | surveymonkey (dynamic) | toggltrack (dynamic) | trello (dynamic) |
-| truststore (static) | truststorekey (static) | twilio (dynamic) | userdefined (dynamic) |
-| vespa (dynamic) | watsondiscovery (dynamic) | wordpress (dynamic) | workday (dynamic) |
-| wrike (dynamic) | wsrr (static) | wufoo (dynamic) | wxs (static) |
-| yammer (dynamic) | yapily (dynamic) | zendeskservice (dynamic) | zohobooks (dynamic) |
-| zohocrm (dynamic) | zohoinventory (dynamic) | zohorecruit (dynamic) | zosconnect (dynamic) |
+| Connector                     | Connector                   | Connector                     | Connector                    |
+|-------------------------------|-----------------------------|-------------------------------|------------------------------|
+| amazoncloudwatch (dynamic)    | amazondynamodb (dynamic)    | amazonec2 (dynamic)           | amazoneventbridge (dynamic)  |
+| amazonkinesis (dynamic)       | amazonlambda (dynamic)      | amazonrds (dynamic)           | amazonredshift (dynamic)     |
+| amazons3 (dynamic)            | amazonses (dynamic)         | amazonsns (dynamic)           | amazonsqs (dynamic)          |
+| anaplan (dynamic)             | apachepulsar (dynamic)      | apptiotargetprocess (dynamic) | asana (dynamic)              |
+| astradb (dynamic)             | azuread (dynamic)           | azureblobstorage (dynamic)    | azurecosmosdb (dynamic)      |
+| azureeventhub (dynamic)       | azureservicebus (dynamic)   | bamboohr (dynamic)            | box (dynamic)                |
+| businessmap (dynamic)         | calendly (dynamic)          | cd (static)                   | cdc (dynamic)                |
+| cics (static)                 | clicksend (dynamic)         | cloudantdb (dynamic)          | cmis (dynamic)               |
+| confluence (dynamic)          | couchbase (dynamic)         | coupa (dynamic)               | crystalball (dynamic)        |
+| databricks (dynamic)          | db2 (dynamic)               | docusign (dynamic)            | dropbox (dynamic)            |
+| eis (dynamic)                 | elk (static)                | email (static)                | eventbrite (dynamic)         |
+| expensify (dynamic)           | factorialhr (dynamic)       | filenet (dynamic)             | front (dynamic)              |
+| ftp (dynamic)                 | github (dynamic)            | gitlab (dynamic)              | gmail (dynamic)              |
+| googleanalytics (dynamic)     | googlebigquery (dynamic)    | googlecalendar (dynamic)      | googlechat (dynamic)         |
+| googlecloudstorage (dynamic)  | googlecontacts (dynamic)    | googledrive (dynamic)         | googlegemini (dynamic)       |
+| googlegroups (dynamic)        | googlepubsub (dynamic)      | googlesheet (dynamic)         | googletasks (dynamic)        |
+| googletranslate (dynamic)     | greenhouse (dynamic)        | http (dynamic)                | httpproxy (static)           |
+| hubspotcrm (dynamic)          | hubspotmarketing (dynamic)  | hunter (dynamic)              | ibmaspera (dynamic)          |
+| ibmcoss3 (dynamic)            | ibmewm (dynamic)            | ibmopenpages (dynamic)        | ibmsterlingiv (dynamic)      |
+| ibmtwc (dynamic)              | ibmwatsonxai (dynamic)      | ift (dynamic)                 | ims (static)                 |
+| infobip (dynamic)             | insightly (dynamic)         | jdbc (static)                 | jenkins (dynamic)            |
+| jira (dynamic)                | jms (static)                | jndi (static)                 | kafka (static)               |
+| kerberos (static)             | keystore (static)           | keystorekey (static)          | kronos (dynamic)             |
+| ldap (dynamic)                | local (dynamic)             | loopback (static)             | magento (dynamic)            |
+| mailchimp (dynamic)           | marketo (dynamic)           | maximo (dynamic)              | mcp (dynamic)                |
+| milvus (dynamic)              | mondaydotcom (dynamic)      | mq (dynamic)                  | mqtt (static)                |
+| msad (dynamic)                | msdynamicscrmrest (dynamic) | msdynamicsfando (dynamic)     | msexcel (dynamic)            |
+| msexchange (dynamic)          | msonedrive (dynamic)        | msonenote (dynamic)           | mspowerbi (dynamic)          |
+| mssharepoint (dynamic)        | mssql (dynamic)             | msteams (dynamic)             | mstodo (dynamic)             |
+| mysql (dynamic)               | odbc (dynamic)              | odm (static)                  | opentelemetry (dynamic)      |
+| oracle (dynamic)              | oracleebs (dynamic)         | oraclehcm (dynamic)           | pineconedb (dynamic)         |
+| planninganalytics (dynamic)   | postgres (dynamic)          | redis (dynamic)               | rest (dynamic)               |
+| salesforce (dynamic)          | salesforceae (dynamic)      | salesforcemc (dynamic)        | sapariba (dynamic)           |
+| sapodata (dynamic)            | sapsuccessfactors (dynamic) | schemaregistry (static)       | servicenow (dynamic)         |
+| sfcommerceclouddata (dynamic) | sftp (dynamic)              | shopify (dynamic)             | slack (dynamic)              |
+| smtp (dynamic)                | snowflake (dynamic)         | soap (dynamic)                | splunk (dynamic)             |
+| square (dynamic)              | surveymonkey (dynamic)      | toggltrack (dynamic)          | trello (dynamic)             |
+| truststore (static)           | truststorekey (static)      | twilio (dynamic)              | userdefined (dynamic)        |
+| vespa (dynamic)               | watsondiscovery (dynamic)   | wordpress (dynamic)           | workday (dynamic)            |
+| wrike (dynamic)               | wsrr (static)               | wufoo (dynamic)               | wxs (static)                 |
+| yammer (dynamic)              | yapily (dynamic)            | zendeskservice (dynamic)      | zohobooks (dynamic)          |
+| zohocrm (dynamic)             | zohoinventory (dynamic)     | zohorecruit (dynamic)         | zosconnect (dynamic)         |
 
 
 ### Business Transaction Monitoring
 
-BTM extends the set of supported databases to include MS SQL Server and PostgreSQL, alongside DB2 and Oracle which were 
+BTM extends the set of supported databases to include MS SQL Server and PostgreSQL, alongside DB2 and Oracle which were
 previously already supported. ACE makes connections to the database using ODBC.
 
-- On Windows, the ODBC driver for MS SQL Server is provided by the operating system. 
+- On Windows, the ODBC driver for MS SQL Server is provided by the operating system.
 - On the other ACE platforms, ACE provides a DataDirect ODBC driver for connecting to MS SQL Server.
 - On Windows and xLinux, ACE provides a DataDirect ODBC driver for connecting to PostgreSQL.
 
@@ -495,8 +544,8 @@ previously already supported. ACE makes connections to the database using ODBC.
 
 #### PostgreSQL
 
-Since 13.0.2.0, PostgreSQL is extended to support stored procedures that return dynamic result sets. you may notice a 
-slight difference in the syntax we are promoting for PostgreSQL. For PostgreSQL, a dummy cursor value must be supplied 
+Since 13.0.2.0, PostgreSQL is extended to support stored procedures that return dynamic result sets. You may notice a
+slight difference in the syntax we are promoting for PostgreSQL. For PostgreSQL, a dummy cursor value must be supplied
 in the ESQL CALL statement for each intended results set.
 
 ### AI
@@ -511,7 +560,7 @@ It is designed for
 - Generating Java code snippets through natural language
 - Generating ESQL code snippets through natural language
 - Generation of Unit tests
-- 
+-
 ![img_20.png](img_20.png)
 
 ## Migration
@@ -520,7 +569,7 @@ I will talk about migration, but that is another article all together.
 
 ## Closing
 
-Hopefully this has been of some value to some of you. Feel free to make positive suggestions or just let me know if you 
+Hopefully this has been of some value to some of you. Feel free to make positive suggestions or just let me know if you
 found it usefull.
 
 # References
