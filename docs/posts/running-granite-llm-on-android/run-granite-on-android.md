@@ -209,17 +209,27 @@ ibm-granite/granite-4.0-1b-GGUF
 
 ### Why GGUF
 
-llama.cpp does not run models in their original training format. It expects weights in **GGUF**, a runtime-friendly format designed specifically for efficient local inference.
+GGUF is a binary file format designed specifically for running large language models locally. It’s not a training format, and it’s not meant to be edited by hand. Its job is to make a model easy and fast to load and execute in a lightweight runtime like `llama.cpp`.
 
-GGUF bundles the model weights together with the metadata llama.cpp needs at runtime: tensor layouts, tokenizer information, and model parameters. That’s why these files can be loaded directly without extra configuration.
+A single GGUF file bundles everything needed to run the model:
+
+- The model weights (already quantized)
+- Tensor shapes and memory layout
+- Tokenizer data and vocabulary
+- Model metadata such as context length and architecture details
+
+This matters (and is rather important) because local setups are meant to stay simple. Some model formats assume a lot of supporting software is available when the model runs. GGUF doesn’t. It’s designed so a small program can load the file and start working immediately.
+
+In practice, that means you can point `llama.cpp` at a single file and start generating text right away. There are no extra conversion steps, no separate tokenizer files, and no guessing about model parameters. Everything needed to run the model is already packaged together, and `llama.cpp` can use it directly.
 
 IBM provides Granite 4 Nano models already converted to GGUF, which removes an entire preparation step. There’s no need to export, quantize, or otherwise preprocess the model just to get it running.
 
-If you want to, you still can.
+If you want to (and feel lucky), you still can.
 
 The original Granite models can be converted to GGUF manually using llama.cpp’s conversion tools, and you can choose your own quantization settings in the process. That’s useful if you’re experimenting or targeting very specific constraints.
 
 For this setup, there’s no real upside. The provided GGUF files are already tested and ready to run. Using them keeps the focus on running the model, not preparing it.
+
 
 ### Quantization choice
 
