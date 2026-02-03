@@ -55,7 +55,14 @@ There is a slight change in the name of the product versions. The below table gi
 If you haven't used ACE before and/or if you have no paid entitlements, you can start with the free [Developer edition](https://www.ibm.com/resources/mrs/assets?source=swg-wmbfd).
 (You will need to register for an IBM account).
 
-### App Connect Enterprise Designer
+| Tool            | Where it lives             | Context awareness                | Primary strength                        | Key limitation in enterprise setups |
+|-----------------|----------------------------|----------------------------------|-----------------------------------------|-------------------------------------|
+| Claude Code     | External chat / web / IDE  | Limited to provided context      | Strong reasoning and explanations       | No native repo or IDE grounding     |
+| GitHub Copilot  | IDE (VS Code, JetBrains)   | File-level and limited repo view | Fast code completion and suggestions    | Weak at cross-cutting reasoning     |
+| Antigravity     | Separate tool/environment  | Depends on ingestion setup       | Deep analysis and transformations       | Steep learning curve, context shift |
+| IBM Project BOB | VS Code                    | Repo, code, config, intent       | Context-aware collaboration in-place    | Early-stage, access still gated     |
+
+### Designer
 
 The APP Connect Enterprise Designer is a new, low threshold, alternative tool for flow authoring.  It's not as feature
 rich as the toolkit (still the strategic IDE for ACE), but it aligns more with Cloud Development Platforms. I was already
