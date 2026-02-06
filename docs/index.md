@@ -24,7 +24,6 @@ Expect walkthroughs, sharp opinions, and experiments straight out of my homelab 
 
 ## ✍️ Latest Post
 <!--LATEST_POST:START-->
-- **2026-01-20** — [using project bob to create ace app](misc/fasttrack-snack-bob/using-project-bob-to-create-ace-app.md) · _1 min_
 - **2026-01-18** — [Creating a generic log node using context trees](posts/generic-log-node/generic-log-node.md) · _10 min_
 - **2026-01-16** — ["Running Granite 4.0-1B locally on Android"](posts/running-granite-llm-on-android/run-granite-on-android.md) · _15 min_
 - **2025-10-30** — ["Installing ACE 13.x on Minikube: Filling in the Blanks"](posts/Ace-Operator-Minikube/installing_ace_minikube.md) · _35 min_
