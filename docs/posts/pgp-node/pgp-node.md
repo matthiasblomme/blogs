@@ -16,7 +16,7 @@ In other words, the lot.
 
 No theory. Just a setup that works.
 
----
+
 
 ## What we’re setting up
 
@@ -39,9 +39,9 @@ Trigger that one. You should get your original content back.
 If the final output matches the original file, the setup is correct.  
 If it doesn’t, something in your configuration is wrong.
 
-[ Screenshot placeholder: encrypt and decrypt flows in Toolkit ]
+![message flows](img.png)
 
----
+
 
 # Part 1: key generation and key stores
 
@@ -51,12 +51,12 @@ PGP in ACE is mostly configuration. If the keys and key stores are correct (and 
 
 We’ll generate both key pairs ourselves and build the key stores ACE expects.
 
----
+
 
 ## Open the ACE command console
 
 Use the ACE command console. Not a generic CMD window.
-
+If you already are in a generic CMD window, just set the ACE environment.
 ```cmd
 cd "C:\Program Files\IBM\ACE\13.0.6.0"
 ace.cmd
@@ -80,7 +80,7 @@ mkdir C:\temp\pgp\output
 
 If they already exist, fine. You clearly have done this before.
 
----
+
 
 ## Generate the key pairs
 
@@ -105,6 +105,8 @@ No, that’s not a recommendation. But, you know, I can't stop you.
 
 By default this generates RSA keys, 1024-bit, ASCII armored. For a functional test setup, that’s fine.
 
+![sender key pair](img_1.png)
+
 ### Generate the receiver key pair
 
 ```cmd
@@ -113,6 +115,8 @@ java pgpkeytool generatePGPKeyPair ^
   -s C:\temp\pgp\keys\receiver-private.asc ^
   -o C:\temp\pgp\keys\receiver-public.asc
 ```
+
+![receiver key pair](img_2.png)
 
 At this point you should have:
 
@@ -123,11 +127,13 @@ At this point you should have:
 
 Next step is building what ACE can actually use, the key stores.
 
----
+
 
 ## Create the key stores
 
 You now have four `.asc` files.
+
+![keys](img_3.png)
 
 The PGP nodes don’t reference them directly, they reference key store files (`.pgp`), so we create those next.
 
@@ -142,6 +148,8 @@ java pgpkeytool importPrivateKey ^
   -sf C:\temp\pgp\keys\sender-private.asc
 ```
 
+![sender private store](img_4.png)
+
 Then import the receiver’s public key into the sender’s public key store:
 
 ```cmd
@@ -151,10 +159,12 @@ java pgpkeytool importPublicKey ^
   -pf C:\temp\pgp\keys\receiver-public.asc
 ```
 
+![sender public store](img_5.png)
+
 The sender encrypts using the receiver’s public key.  
 So that key must exist in the sender’s public store.
 
----
+
 
 ### Receiver side
 
@@ -167,6 +177,8 @@ java pgpkeytool importPrivateKey ^
   -sf C:\temp\pgp\keys\receiver-private.asc
 ```
 
+![receivers private store](img_6.png)
+
 Then import the sender’s public key into the receiver’s public key store:
 
 ```cmd
@@ -175,6 +187,8 @@ java pgpkeytool importPublicKey ^
   -i true ^
   -pf C:\temp\pgp\keys\sender-public.asc
 ```
+
+![receiver public store](img_7.png)
 
 If you’re not that familiar with the difference:
 
@@ -185,7 +199,7 @@ Think “what I own” versus “what I trust.”
 
 If a key isn’t in the expected store, encryption or signature validation won’t work. So make sure you get this right.
 
----
+
 
 ## Verify the key stores
 
@@ -198,9 +212,10 @@ java pgpkeytool listPrivateKeys -sr C:\temp\pgp\keys\receiver-private-store.pgp
 java pgpkeytool listPublicKeys -pr C:\temp\pgp\keys\receiver-public-store.pgp
 ```
 
+![all stores](img_8.png)
+
 If one of those is missing, fix it now. Don’t move into Toolkit and hope it resolves itself.
 
----
 
 # Part 2: flows and policy configuration
 
@@ -212,8 +227,10 @@ Import:
 - `PGP_Policies` policy project
 
 Both need to deploy cleanly. If either fails, fix that first. Don’t troubleshoot encryption while the application isn’t even running.
+I'm assuming that you are familiar with importing projects into the toolkit since you are trying to get this node to work.
 
----
+![imported projects](img_9.png)
+
 
 # Part 3: deployment and runtime setup
 
@@ -228,7 +245,7 @@ Deploy:
 - `PGP_Policies`
 - `TestPGP`
 
----
+![deployed resources](img_10.png)
 
 ## The Bouncy Castle jars
 
@@ -239,9 +256,10 @@ copy "%MQSI_REGISTRY%\shared-classes\bcpg-jdk18on-1.78.1.jar" "C:\temp\pgp\TEST_
 copy "%MQSI_REGISTRY%\shared-classes\bcprov-jdk18on-1.78.1.jar" "C:\temp\pgp\TEST_SERVER_PGP\shared-classes\"
 ```
 
+![shared classes](img_11.png)
+
 Restart the integration server afterwards.
 
----
 
 # Part 4: end-to-end test
 
@@ -257,6 +275,8 @@ echo This is a test file for PGP encryption > C:\temp\pgp\input\plain.txt
 curl -X POST http://localhost:7800/pgp/encrypt
 ```
 
+![encrypted result](img_12.png)
+
 Save the encrypted output. The decrypt flow reads it from disk.
 
 ## Trigger the decrypt flow
@@ -271,7 +291,7 @@ Then:
 curl -X POST http://localhost:7800/pgp/decrypt
 ```
 
----
+![decrypted result](img_13.png)
 
 # Final notes
 
@@ -283,7 +303,7 @@ Nine times out of ten it’s a path, a user ID, a passphrase, or missing jars.
 
 Start there.
 
----
+
 
 Now that you’ve made it to the bottom of this post, you’ve earned the right to know that the [repo](https://github.com/matthiasblomme/PGP-SupportPac-for-IBM-ACE-V12) doesn’t just contain the plugin jars.
 
