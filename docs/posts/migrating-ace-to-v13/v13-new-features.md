@@ -127,8 +127,21 @@ a graphical mapping (if that's your thing, not a fan myself).
 
 #### Designer Account Managing
 
-The Designer allows you to (since 13.0.5.0) choose an alternative name for the account information name you use during
+The Designer allows you (since 13.0.5.0) to choose an alternative name for the account information name you use during
 the discovery process.
+
+![img_34.png](img_34.png)
+
+#### Open API Import
+
+The designer has been enhaced to allow users to import Open API documents that describer REST API interface that they want 
+to invike from a Designer flow.
+
+![img_36.png](img_36.png)
+
+![img_35.png](img_35.png)
+
+
 
 ### Toolkit Enhancements
 
