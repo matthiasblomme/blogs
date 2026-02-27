@@ -1,9 +1,19 @@
 ---
 date: 2024-07-22
 title: Logging ACE's ExceptionList Inserts (in the Activity log with the Log node)
-description: In the world of IBM App Connect Enterprise (ACE), effective logging is crucial for monitoring and troubleshooting. With the introduction of the Log node, it's n.
+description: Properly handing and parsing the ACE Exception list to retreive the most
+  usefull information (with JSONata)
 reading_time: 5 min
 ---
+
+<!--MD_POST_META:START-->
+<div class="md-post-meta">
+  <div class="md-post-meta-left">2024-07-22 · ⏱ 5 min</div>
+  <div class="md-post-meta-right"><span class="post-share-label">Share:</span><a class="post-share post-share-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fmatthiasblomme.github.io%2Fblogs%2Fposts%2Flogging-ace-exceptionlist%2Flogging-ace-exceptionlist%2F" target="_blank" rel="noopener" title="Share on LinkedIn">in</a></div>
+</div>
+<hr class="md-post-divider"/>
+
+<!--MD_POST_META:END-->
 
 # Logging ACE's ExceptionList Inserts (in the Activity log with the Log node)
 

@@ -1,9 +1,19 @@
 ---
 date: 2023-05-23
 title: Business Transaction Monitoring
-description: I wanted to try the new (re-introduced in 12.0.2.0) ACE Business Transaction Monitoring to see what the added value could be for a company/team/environment that.
+description: I wanted to try the new (re-introduced in 12.0.2.0) ACE Business Transaction
+  Monitoring to see what the added value could be for a company/team/environment that.
 reading_time: 12 min
 ---
+
+<!--MD_POST_META:START-->
+<div class="md-post-meta">
+  <div class="md-post-meta-left">2023-05-23 · ⏱ 12 min</div>
+  <div class="md-post-meta-right"><span class="post-share-label">Share:</span><a class="post-share post-share-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fmatthiasblomme.github.io%2Fblogs%2Fposts%2Fbtm%2Fbtm%2F" target="_blank" rel="noopener" title="Share on LinkedIn">in</a></div>
+</div>
+<hr class="md-post-divider"/>
+
+<!--MD_POST_META:END-->
 
 # Business Transaction Monitoring
 

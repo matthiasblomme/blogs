@@ -1,9 +1,18 @@
 ---
 date: 2025-08-18
 title: Create JSON Arrays in ESQL and Java (Without Losing Your Sanity)
-description: A quick (well, maybe not quick-quick) overview of why creating JSON arrays in ESQL and Java isn’t always as intuitive as it should be, especially with the myste.
+description: How can we properly create clean JSON arrays
 reading_time: 16 min
 ---
+
+<!--MD_POST_META:START-->
+<div class="md-post-meta">
+  <div class="md-post-meta-left">2025-08-18 · ⏱ 16 min</div>
+  <div class="md-post-meta-right"><span class="post-share-label">Share:</span><a class="post-share post-share-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fmatthiasblomme.github.io%2Fblogs%2Fposts%2Fcreating-json-arrays%2Fcreating-json-arrays%2F" target="_blank" rel="noopener" title="Share on LinkedIn">in</a></div>
+</div>
+<hr class="md-post-divider"/>
+
+<!--MD_POST_META:END-->
 
 # Create JSON Arrays in ESQL and Java (Without Losing Your Sanity)
 

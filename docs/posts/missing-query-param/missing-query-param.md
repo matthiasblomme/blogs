@@ -1,9 +1,19 @@
 ---
 date: 2025-07-31
 title: The Case of the Missing Query Parameters
-description: Aka “The Blog That Reads like an Agatha Christie Story” or “The Overly Dramatic Description of a Simple Problem“.
+description: Aka “The Blog That Reads like an Agatha Christie Story” or “The Overly
+  Dramatic Description of a Simple Problem“.
 reading_time: 7 min
 ---
+
+<!--MD_POST_META:START-->
+<div class="md-post-meta">
+  <div class="md-post-meta-left">2025-07-31 · ⏱ 7 min</div>
+  <div class="md-post-meta-right"><span class="post-share-label">Share:</span><a class="post-share post-share-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fmatthiasblomme.github.io%2Fblogs%2Fposts%2Fmissing-query-param%2Fmissing-query-param%2F" target="_blank" rel="noopener" title="Share on LinkedIn">in</a></div>
+</div>
+<hr class="md-post-divider"/>
+
+<!--MD_POST_META:END-->
 
 # The Case of the Missing Query Parameters
 

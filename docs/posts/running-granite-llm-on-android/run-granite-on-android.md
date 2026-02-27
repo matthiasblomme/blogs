@@ -1,14 +1,30 @@
 ---
-date: 2026-01-16
 title: Running Granite 4.0-1B locally on Android
+description: An LLM that runs locally on your phone, I've got to give that a try
+date: 2026-01-16
+author: Matthias Blomme
 image: cover.png
-description: This started the way these things usually do. Watching a podcast instead of doing something productive (I ended up writing this blog, so maybe it was productive.
 reading_time: 15 min
+tags:
+- granite
+- IBM
+- llm
+- nano
+- ai
+- android
 ---
 
 ![cover](cover.png){ .md-banner }
 
-# Running Granite 4.0-1B locally on Android
+<!--MD_POST_META:START-->
+<div class="md-post-meta">
+  <div class="md-post-meta-left">Matthias Blomme · 2026-01-16 · ⏱ 15 min</div>
+  <div class="md-post-meta-right"><span class="post-share-label">Share:</span><a class="post-share post-share-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fmatthiasblomme.github.io%2Fblogs%2Fposts%2Frunning-granite-llm-on-android%2Frun-granite-on-android%2F" target="_blank" rel="noopener" title="Share on LinkedIn">in</a></div>
+</div>
+<hr class="md-post-divider"/>
+<div class="md-tags"><span class="md-tag">granite</span> <span class="md-tag">IBM</span> <span class="md-tag">llm</span> <span class="md-tag">nano</span> <span class="md-tag">ai</span> <span class="md-tag">android</span></div>
+<!--MD_POST_META:END-->
+
 
 This started the way these things usually do. Watching a podcast instead of doing something productive (I ended up writing this blog, so maybe it was productive after all).
 
@@ -193,17 +209,27 @@ ibm-granite/granite-4.0-1b-GGUF
 
 ### Why GGUF
 
-llama.cpp does not run models in their original training format. It expects weights in **GGUF**, a runtime-friendly format designed specifically for efficient local inference.
+GGUF is a binary file format designed specifically for running large language models locally. It’s not a training format, and it’s not meant to be edited by hand. Its job is to make a model easy and fast to load and execute in a lightweight runtime like `llama.cpp`.
 
-GGUF bundles the model weights together with the metadata llama.cpp needs at runtime: tensor layouts, tokenizer information, and model parameters. That’s why these files can be loaded directly without extra configuration.
+A single GGUF file bundles everything needed to run the model:
+
+- The model weights (already quantized)
+- Tensor shapes and memory layout
+- Tokenizer data and vocabulary
+- Model metadata such as context length and architecture details
+
+This matters (and is rather important) because local setups are meant to stay simple. Some model formats assume a lot of supporting software is available when the model runs. GGUF doesn’t. It’s designed so a small program can load the file and start working immediately.
+
+In practice, that means you can point `llama.cpp` at a single file and start generating text right away. There are no extra conversion steps, no separate tokenizer files, and no guessing about model parameters. Everything needed to run the model is already packaged together, and `llama.cpp` can use it directly.
 
 IBM provides Granite 4 Nano models already converted to GGUF, which removes an entire preparation step. There’s no need to export, quantize, or otherwise preprocess the model just to get it running.
 
-If you want to, you still can.
+If you want to (and feel lucky), you still can.
 
 The original Granite models can be converted to GGUF manually using llama.cpp’s conversion tools, and you can choose your own quantization settings in the process. That’s useful if you’re experimenting or targeting very specific constraints.
 
 For this setup, there’s no real upside. The provided GGUF files are already tested and ready to run. Using them keeps the focus on running the model, not preparing it.
+
 
 ### Quantization choice
 
