@@ -129,21 +129,9 @@
    ===================================================== */
 
 @media screen and (max-width: 76em) {
-  .md-post-meta {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.3rem;
-  }
-}
-
-/* =====================================================
-   MOBILE: KEEP SHARE ON THE RIGHT
-   ===================================================== */
-
-@media screen and (max-width: 76em) {
 
   .md-post-meta {
-    flex-direction: row;          /* stop stacking */
+    flex-direction: row;
     flex-wrap: wrap;
   }
 
@@ -153,7 +141,126 @@
 
   .md-post-meta-right {
     flex: 0 0 auto;
-    margin-left: auto;            /* push to the right */
+    margin-left: auto;
     white-space: nowrap;
   }
+}
+
+/* =====================================================
+   TYPOGRAPHY
+   ===================================================== */
+
+.md-typeset {
+  line-height: 1.75;
+}
+
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3 {
+  letter-spacing: -0.015em;
+}
+
+/* =====================================================
+   HEADINGS
+   ===================================================== */
+
+/* H2: primary-coloured underline */
+.md-typeset h2 {
+  padding-bottom: 0.35rem;
+  border-bottom: 2px solid var(--md-primary-fg-color);
+}
+
+/* H3: lighter thin rule */
+.md-typeset h3 {
+  padding-bottom: 0.2rem;
+  border-bottom: 1px solid var(--md-default-fg-color--lightest);
+}
+
+/* =====================================================
+   LINKS
+   ===================================================== */
+
+.md-typeset a {
+  transition: color 0.15s ease, opacity 0.15s ease;
+}
+
+.md-typeset a:hover {
+  opacity: 0.8;
+}
+
+/* =====================================================
+   BLOCKQUOTES
+   ===================================================== */
+
+.md-typeset blockquote {
+  border-left: 3px solid var(--md-primary-fg-color);
+  background: var(--md-default-bg-color--light);
+  border-radius: 0 4px 4px 0;
+  padding: 0.6rem 1rem;
+  color: var(--md-default-fg-color);
+}
+
+.md-typeset blockquote p {
+  margin: 0;
+}
+
+/* =====================================================
+   IMAGES
+   ===================================================== */
+
+/* In-post images: subtle shadow + radius (excludes banners) */
+.md-typeset img:not(.md-banner) {
+  border-radius: 4px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  margin: 0.4rem 0;
+}
+
+/* Banner: stronger shadow for depth */
+.md-banner {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+}
+
+/* =====================================================
+   HORIZONTAL RULE
+   ===================================================== */
+
+.md-typeset hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    var(--md-primary-fg-color) 0%,
+    var(--md-default-fg-color--lightest) 60%,
+    transparent 100%
+  );
+  margin: 1.5rem 0;
+}
+
+/* =====================================================
+   CODE BLOCKS
+   ===================================================== */
+
+.md-typeset pre {
+  border-radius: 6px;
+}
+
+.md-typeset :not(pre) > code {
+  border-radius: 3px;
+  padding: 0.1em 0.4em;
+  font-size: 0.875em;
+}
+
+/* =====================================================
+   POST LISTING ROWS
+   ===================================================== */
+
+/* Hover highlight on auto-generated post list items */
+.md-content__inner > ul > li {
+  padding: 0.4rem 0.5rem;
+  border-radius: 4px;
+  transition: background 0.15s ease;
+}
+
+.md-content__inner > ul > li:hover {
+  background: var(--md-default-bg-color--light);
 }
