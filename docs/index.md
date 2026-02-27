@@ -22,13 +22,15 @@ Expect walkthroughs, sharp opinions, and experiments straight out of my homelab 
 
 ---
 
-## ✍️ Latest Post
-<!--LATEST_POST:START-->
-- **2026-01-18** — [Creating a generic log node using context trees](posts/generic-log-node/generic-log-node.md) · _10 min_
-- **2026-01-16** — ["Running Granite 4.0-1B locally on Android"](posts/running-granite-llm-on-android/run-granite-on-android.md) · _15 min_
-- **2025-10-30** — ["Installing ACE 13.x on Minikube: Filling in the Blanks"](posts/Ace-Operator-Minikube/installing_ace_minikube.md) · _35 min_
-- **2025-10-20** — [IBM TechXchange 2025, Orlando. Overwhelming in all the right ways.](posts/techxchange-2025/techxchange-2025.md) · _8 min_
-<!--LATEST_POST:END-->
+## Latest Post
+
+<!--MD_LATEST_POSTS:START-->
+- **2026-02-20** — [Containerizing IBM ACE: A Blog Series - Upgrading in Containers](posts/containerization-series/06.upgrading-in-containers/) · *8 min*
+- **2026-02-17** — [PGP SupportPac on ACE 13.0.6.0: a full end-to-end setup](posts/pgp-node/pgp-node/) · *4 min*
+- **2026-01-18** — [Creating a generic log node using context trees](posts/generic-log-node/generic-log-node/) · *10 min*
+- **2026-01-16** — [ACE v13 new features (when coming from v12)](posts/migrating-ace-to-v13/v13-new-features/) · *16 min*
+- **2026-01-16** — [Running Granite 4.0-1B locally on Android](posts/running-granite-llm-on-android/run-granite-on-android/) · *15 min*
+<!--MD_LATEST_POSTS:END-->
 
 ---
 

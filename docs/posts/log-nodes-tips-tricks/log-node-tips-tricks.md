@@ -8,7 +8,7 @@ reading_time: 4 min
 <!--MD_POST_META:START-->
 <div class="md-post-meta">
   <div class="md-post-meta-left">2024-07-22 · ⏱ 4 min</div>
-  <div class="md-post-meta-right"><span class="post-share-label">Share:</span><a class="post-share post-share-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fmatthiasblomme.github.io%2Fblogs%2Fposts%2Flog-nodes-tips-tricks%2Flog-node-tips-tricks%2F" target="_blank" rel="noopener" title="Share on LinkedIn">in</a></div>
+  <div class="md-post-meta-right"><span class="post-share-label">Share:</span> <a class="post-share post-share-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fmatthiasblomme.github.io%2Fblogs%2Fposts%2Flog-nodes-tips-tricks%2Flog-node-tips-tricks%2F" target="_blank" rel="noopener" title="Share on LinkedIn">[<span class="in">in</span>]</a></div>
 </div>
 <hr class="md-post-divider"/>
 

@@ -1,8 +1,20 @@
 ---
 date: '2026-02-17'
-title: "PGP SupportPac on ACE 13.0.6.0: a full end-to-end setup"
-description: "A practical, field-tested setup of the PGP SupportPac on ACE 13.0.6.0, from key generation to working encryption and decryption flows, including the runtime jar details that tend to get missed."
+title: 'PGP SupportPac on ACE 13.0.6.0: a full end-to-end setup'
+description: A practical, field-tested setup of the PGP SupportPac on ACE 13.0.6.0,
+  from key generation to working encryption and decryption flows, including the runtime
+  jar details that tend to get missed.
+reading_time: 4 min
 ---
+
+<!--MD_POST_META:START-->
+<div class="md-post-meta">
+  <div class="md-post-meta-left">2026-02-17 · ⏱ 4 min</div>
+  <div class="md-post-meta-right"><span class="post-share-label">Share:</span> <a class="post-share post-share-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fmatthiasblomme.github.io%2Fblogs%2Fposts%2Fpgp-node%2Fpgp-node%2F" target="_blank" rel="noopener" title="Share on LinkedIn">[<span class="in">in</span>]</a></div>
+</div>
+<hr class="md-post-divider"/>
+
+<!--MD_POST_META:END-->
 
 # PGP SupportPac on ACE 13.0.6.0: a full end-to-end setup
 

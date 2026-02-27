@@ -19,7 +19,7 @@ tags:
 <!--MD_POST_META:START-->
 <div class="md-post-meta">
   <div class="md-post-meta-left">Matthias Blomme · 2026-01-16 · ⏱ 15 min</div>
-  <div class="md-post-meta-right"><span class="post-share-label">Share:</span><a class="post-share post-share-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fmatthiasblomme.github.io%2Fblogs%2Fposts%2Frunning-granite-llm-on-android%2Frun-granite-on-android%2F" target="_blank" rel="noopener" title="Share on LinkedIn">in</a></div>
+  <div class="md-post-meta-right"><span class="post-share-label">Share:</span> <a class="post-share post-share-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fmatthiasblomme.github.io%2Fblogs%2Fposts%2Frunning-granite-llm-on-android%2Frun-granite-on-android%2F" target="_blank" rel="noopener" title="Share on LinkedIn">[<span class="in">in</span>]</a></div>
 </div>
 <hr class="md-post-divider"/>
 <div class="md-tags"><span class="md-tag">granite</span> <span class="md-tag">IBM</span> <span class="md-tag">llm</span> <span class="md-tag">nano</span> <span class="md-tag">ai</span> <span class="md-tag">android</span></div>
