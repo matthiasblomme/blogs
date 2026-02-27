@@ -7,7 +7,7 @@
 
 <!--MD_ALL_POSTS:START-->
 - **2026-02-20** — [Containerizing IBM ACE: A Blog Series - Upgrading in Containers](posts/containerization-series/06.upgrading-in-containers/) · *8 min*
-- **2026-02-17** — [PGP SupportPac on ACE 13.0.6.0: a full end-to-end setup](posts/pgp-node/pgp-node/) · *4 min*
+- **2026-02-17** — [PGP SupportPac on ACE 13.0.6.0: a full end-to-end setup](posts/pgp-node/pgp-node/) · *15 min*
 - **2026-01-18** — [Creating a generic log node using context trees](posts/generic-log-node/generic-log-node/) · *10 min*
 - **2026-01-16** — [ACE v13 new features (when coming from v12)](posts/migrating-ace-to-v13/v13-new-features/) · *16 min*
 - **2026-01-16** — [Running Granite 4.0-1B locally on Android](posts/running-granite-llm-on-android/run-granite-on-android/) · *15 min*
