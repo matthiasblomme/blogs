@@ -41,7 +41,7 @@ If it doesn’t, something in your configuration is wrong.
 
 ![message flows](img.png)
 
-
+Yes, those are the new icons.
 
 # Part 1: key generation and key stores
 
@@ -135,7 +135,7 @@ You now have four `.asc` files.
 
 ![keys](img_3.png)
 
-The PGP nodes don’t reference them directly, they reference key store files (`.pgp`), so we create those next.
+The PGP nodes don’t reference them directly. They reference key store files (.pgp), so we create those next.
 
 ### Sender side
 
@@ -227,7 +227,7 @@ Import:
 - `PGP_Policies` policy project
 
 Both need to deploy cleanly. If either fails, fix that first. Don’t troubleshoot encryption while the application isn’t even running.
-I'm assuming that you are familiar with importing projects into the toolkit since you are trying to get this node to work.
+I’m assuming you’re familiar with importing projects into the Toolkit if you’re trying to get this node to work.
 
 ![imported projects](img_9.png)
 
@@ -295,7 +295,7 @@ curl -X POST http://localhost:7800/pgp/decrypt
 
 # Final notes
 
-PGP SupportPac runs fine on ACE 13.0.6.0 with this configuration.
+PGP SupportPac runs fine on ACE 13.0.6.0 with this setup.
 
 If your flow fails, assume configuration before you assume cryptography.
 
