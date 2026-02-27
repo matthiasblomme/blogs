@@ -1,4 +1,4 @@
-﻿site_name: eMBee Integration Blogs
+site_name: eMBee Integration Blogs
 site_url: https://matthiasblomme.github.io/blogs/
 
 use_directory_urls: true
@@ -7,21 +7,32 @@ theme:
   name: material
   logo: assets/logo.jpg
   favicon: assets/logo.jpg
+  font:
+    text: Inter
+    code: Roboto Mono
   features:
     - content.code.copy
     - navigation.sections
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.instant
     - navigation.top
     - navigation.path
+    - navigation.footer
     - toc.follow
     - content.tags
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
+      primary: indigo
+      accent: light-blue
       toggle:
         icon: material/weather-night
         name: Switch to dark mode
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
+      primary: indigo
+      accent: light-blue
       toggle:
         icon: material/weather-sunny
         name: Switch to light mode
@@ -33,6 +44,13 @@ plugins:
 markdown_extensions:
   - meta
   - attr_list
+  - admonition
+  - toc:
+      permalink: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
 
 nav:
   - Home: index.md
