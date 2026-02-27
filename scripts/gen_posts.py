@@ -25,8 +25,14 @@ LATEST_END = "<!--MD_LATEST_POSTS:END-->"
 ALLPOSTS_START = "<!--MD_ALL_POSTS:START-->"
 ALLPOSTS_END = "<!--MD_ALL_POSTS:END-->"
 
+ARCHIVE_START = "<!--MD_ARCHIVE:START-->"
+ARCHIVE_END   = "<!--MD_ARCHIVE:END-->"
+
 WORDS_PER_MINUTE = 200
 MIN_READING_MINUTES = 1
+
+# Files in POSTS_DIR that are index/meta pages, not posts
+_SKIP_NAMES = {"index.md", "archive.md"}
 
 
 # -----------------------------------------------------------------------------
@@ -189,7 +195,7 @@ def build_meta_block(fm: dict, page_url: str) -> str:
     tags_html = ""
     if isinstance(tags, (list, tuple)) and tags:
         tag_items = " ".join(f'<span class="md-tag">{str(t)}</span>' for t in tags)
-        tags_html = f'<div class="md-tags">{tag_items}</div>'
+        tags_html = f'<div class="md-post-tags">{tag_items}</div>'
 
     return (
         f"{META_START}\n"
@@ -249,7 +255,7 @@ def collect_posts(site_url: str) -> list[Post]:
     posts: list[Post] = []
 
     for md in POSTS_DIR.rglob("*.md"):
-        if md.name.lower() == "index.md":
+        if md.name.lower() in _SKIP_NAMES:
             continue
 
         raw = md.read_text(encoding="utf-8")
@@ -302,7 +308,6 @@ def replace_between_markers(text: str, start: str, end: str, replacement: str) -
 def render_latest_posts(posts: list[Post], limit: int = 5) -> str:
     lines = []
     for p in posts[:limit]:
-        # format like: - YYYY-MM-DD — [Title](posts/xxx/) · 15 min
         lines.append(f"- **{p.date_display}** — [{p.title}]({p.rel_url}) · *{p.reading_time}*")
     return "\n".join(lines) if lines else "_No posts yet._"
 
@@ -312,6 +317,31 @@ def render_all_posts(posts: list[Post]) -> str:
     for p in posts:
         lines.append(f"- **{p.date_display}** — [{p.title}]({p.rel_url}) · *{p.reading_time}*")
     return "\n".join(lines) if lines else "_No posts yet._"
+
+
+def render_archive(posts: list[Post]) -> str:
+    """
+    Renders posts grouped by year then month, newest first.
+    Uses directory URL format consistent with other index pages.
+    """
+    from collections import defaultdict
+    import calendar
+
+    groups: dict[int, dict[int, list[Post]]] = defaultdict(lambda: defaultdict(list))
+    for p in posts:
+        groups[p.date_sort.year][p.date_sort.month].append(p)
+
+    lines: list[str] = []
+    for year in sorted(groups.keys(), reverse=True):
+        lines.append(f"## {year}")
+        for month in sorted(groups[year].keys(), reverse=True):
+            lines.append(f"### {calendar.month_name[month]}")
+            for p in groups[year][month]:
+                lines.append(
+                    f"- **{p.date_display}** — [{p.title}]({p.rel_url}) · *{p.reading_time}*"
+                )
+            lines.append("")
+    return "\n".join(lines).rstrip()
 
 
 def update_index_pages(posts: list[Post]):
@@ -333,22 +363,41 @@ def update_index_pages(posts: list[Post]):
         posts_overview.write_text(txt, encoding="utf-8")
 
 
+def update_archive_page(posts: list[Post], verbose: bool = False):
+    archive_path = POSTS_DIR / "archive.md"
+    if not archive_path.exists():
+        return
+
+    txt = archive_path.read_text(encoding="utf-8")
+    new_txt = replace_between_markers(txt, ARCHIVE_START, ARCHIVE_END, render_archive(posts))
+
+    if new_txt == txt:
+        if verbose:
+            print("  [skip] archive.md (unchanged)")
+        return
+
+    archive_path.write_text(new_txt, encoding="utf-8")
+    if verbose:
+        print("  [write] archive.md")
+
+
 # -----------------------------------------------------------------------------
 # Per-post processing
 # -----------------------------------------------------------------------------
-def process_post(site_url: str, md_path: Path):
+def process_post(site_url: str, md_path: Path, verbose: bool = False) -> bool:
+    """
+    Processes a single post: ensures reading_time, injects meta block.
+    Returns True if the file was written, False if unchanged (skipped).
+    """
     raw = md_path.read_text(encoding="utf-8")
     fm, body = parse_front_matter(raw)
     if not fm:
-        return
+        return False
 
-    # Ensure reading_time exists (compute if missing)
+    # Ensure reading_time exists (compute if missing; preserve if already set)
     if not fm.get("reading_time"):
         mins = estimate_reading_time_minutes(body)
         fm["reading_time"] = format_reading_time(mins)
-
-    # Ensure title/description remain YAML-safe on dump (dump will quote when needed)
-    # (We already sanitize on read, but dumping is safe too.)
 
     # Remove previously injected meta block and re-inject (idempotent)
     body = remove_existing_meta_block(body)
@@ -358,28 +407,55 @@ def process_post(site_url: str, md_path: Path):
     new_body = inject_after_banner(body, meta_block)
 
     new_text = (
-            "---\n"
-            + yaml.safe_dump(fm, sort_keys=False, allow_unicode=True).strip()
-            + "\n---\n\n"
-            + new_body
+        "---\n"
+        + yaml.safe_dump(fm, sort_keys=False, allow_unicode=True).strip()
+        + "\n---\n\n"
+        + new_body
     )
+
+    if new_text == raw:
+        if verbose:
+            print(f"  [skip] {md_path.name}")
+        return False
+
     md_path.write_text(new_text, encoding="utf-8")
+    if verbose:
+        print(f"  [write] {md_path.name}")
+    return True
 
 
 def main():
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Generate post meta and index pages.")
+    parser.add_argument(
+        "--verbose", "-v",
+        action="store_true",
+        help="Print per-file status (skipped vs written).",
+    )
+    args = parser.parse_args()
+    verbose = args.verbose
+
     site_url = load_mkdocs_site_url()
 
     # 1) Update each post (reading_time + meta block injection)
+    written = skipped = 0
     for md in POSTS_DIR.rglob("*.md"):
-        if md.name.lower() == "index.md":
+        if md.name.lower() in _SKIP_NAMES:
             continue
-        process_post(site_url, md)
+        if process_post(site_url, md, verbose=verbose):
+            written += 1
+        else:
+            skipped += 1
 
     # 2) Rebuild homepage + posts overview lists
     posts = collect_posts(site_url)
     update_index_pages(posts)
 
-    print("Post meta + indexes generation complete.")
+    # 3) Rebuild archive page
+    update_archive_page(posts, verbose=verbose)
+
+    print(f"Done. Posts: {written} written, {skipped} skipped.")
 
 
 if __name__ == "__main__":

@@ -129,21 +129,9 @@
    ===================================================== */
 
 @media screen and (max-width: 76em) {
-  .md-post-meta {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.3rem;
-  }
-}
-
-/* =====================================================
-   MOBILE: KEEP SHARE ON THE RIGHT
-   ===================================================== */
-
-@media screen and (max-width: 76em) {
 
   .md-post-meta {
-    flex-direction: row;          /* stop stacking */
+    flex-direction: row;
     flex-wrap: wrap;
   }
 
@@ -153,7 +141,7 @@
 
   .md-post-meta-right {
     flex: 0 0 auto;
-    margin-left: auto;            /* push to the right */
+    margin-left: auto;
     white-space: nowrap;
   }
 }
