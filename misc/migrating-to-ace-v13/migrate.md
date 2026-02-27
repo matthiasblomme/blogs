@@ -2,4 +2,4 @@ As existing users will be very aware, IBM App Connect Enterprise has always take
 
 ibmint extract node --backup-file C:\temp\MigrationDemo\MyNode_240927_150001.zip --input-integration-node MyNode 
 
-![img_3.png](img_3.png)
+![img_3.png](../../docs/posts/migrating-ace-to-v13/img_3.png)
