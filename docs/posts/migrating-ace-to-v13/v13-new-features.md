@@ -3,10 +3,20 @@ date: 2026-01-16
 title: ACE v13 new features (when coming from v12)
 image: cover.png
 description: A summary of all the new features for ACE v13 up to 13.0.6.0
-
+reading_time: 16 min
 ---
 
 ![cover](cover.png){ .md-banner }
+
+<!--MD_POST_META:START-->
+<div class="md-post-meta">
+  <div class="md-post-meta-left">2026-01-16 · ⏱ 16 min</div>
+  <div class="md-post-meta-right"><span class="post-share-label">Share:</span> <a class="post-share post-share-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fmatthiasblomme.github.io%2Fblogs%2Fposts%2Fmigrating-ace-to-v13%2Fv13-new-features%2F" target="_blank" rel="noopener" title="Share on LinkedIn">[<span class="in">in</span>]</a></div>
+</div>
+<hr class="md-post-divider"/>
+
+<!--MD_POST_META:END-->
+
 
 # ACE v13 new features (when coming from v12)
 
