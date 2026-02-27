@@ -1,13 +1,22 @@
 ---
 date: 2023-09-01
-title: Transformation Advisor: helpful sidekick or noisy backseat driver?
-description: Let’s be real—migrating from IIB v10 to ACE isn’t exactly a weekend hobby. You’ve got config files, message flows, policies, and legacy quirks buried deep in pl.
+title: 'Transformation Advisor: helpful sidekick or noisy backseat driver?'
+description: Prepare your ACE migration
 reading_time: 4 min
 ---
 
+<!--MD_POST_META:START-->
+<div class="md-post-meta">
+  <div class="md-post-meta-left">2023-09-01 · ⏱ 4 min</div>
+  <div class="md-post-meta-right"><span class="post-share-label">Share:</span><a class="post-share post-share-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fmatthiasblomme.github.io%2Fblogs%2Fposts%2Ftad%2Ftad%2F" target="_blank" rel="noopener" title="Share on LinkedIn">in</a></div>
+</div>
+<hr class="md-post-divider"/>
+
+<!--MD_POST_META:END-->
+
 # Transformation Advisor: helpful sidekick or noisy backseat driver?
 
-Let’s be real—migrating from IIB v10 to ACE isn’t exactly a weekend hobby. You’ve got config files, message flows, policies, and legacy quirks buried deep in places you’d rather not look. So IBM gives us the **Transformation Advisor tool (TA)**, bundled with ACE v11 and v12, to help sort through the mess.
+Let’s be real, migrating from IIB v10 to ACE isn’t exactly a weekend hobby. You’ve got config files, message flows, policies, and legacy quirks buried deep in places you’d rather not look. So IBM gives us the **Transformation Advisor tool (TA)**, bundled with ACE v11 and v12, to help sort through the mess.
 
 Sounds useful. But does it deliver?
 

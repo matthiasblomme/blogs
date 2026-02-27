@@ -4,10 +4,18 @@ site_url: https://matthiasblomme.github.io/blogs/
 use_directory_urls: true
 
 theme:
-  name: mkdocs
+  name: material
+  logo: assets/logo.jpg
+  favicon: assets/logo.jpg
+  features:
+    - content.code.copy
+    - naviagtion.sections
+    - toc.follow
+    - content.tags
 
 plugins:
   - search
+
 
 markdown_extensions:
   - meta
@@ -20,4 +28,14 @@ nav:
       - Archive: posts/archive.md
   - About: about.md
 
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/matthiasblomme
+      name: GitHub
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/in/matthiasblomme/
+      name: LinkedIn
 
+extra_css:
+  - assets/extra.css

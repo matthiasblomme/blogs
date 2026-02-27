@@ -1,9 +1,18 @@
 ---
 date: 2024-08-06
-title: Ignoring fields in ACE integration testing: a guide
-description: Many users are well-acquainted with the basic integration testing capabilities of the ACE framework, but its features for ignoring specific fields during testin.
+title: 'Ignoring fields in ACE integration testing: a guide'
+description: Making unit testing work for you, how to ignore specific data
 reading_time: 4 min
 ---
+
+<!--MD_POST_META:START-->
+<div class="md-post-meta">
+  <div class="md-post-meta-left">2024-08-06 · ⏱ 4 min</div>
+  <div class="md-post-meta-right"><span class="post-share-label">Share:</span><a class="post-share post-share-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fmatthiasblomme.github.io%2Fblogs%2Fposts%2Funit-test-ignore%2Funit-test-ignore%2F" target="_blank" rel="noopener" title="Share on LinkedIn">in</a></div>
+</div>
+<hr class="md-post-divider"/>
+
+<!--MD_POST_META:END-->
 
 # Ignoring fields in ACE integration testing: a guide
 

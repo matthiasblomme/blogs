@@ -27,4 +27,11 @@ Bob is an AI software development partner that understands your intent, your rep
 
 In this short demo, I’ll show how BOB analyzes repository content, reasons over existing code and configuration, and helps with managing code changes. The focus is purely practical: what BOB can help with today, how it speeds up development and troubleshooting, and how it fits alongside existing integration tooling.
 
+
+### extra infor
+Not activated in time? If your IBM Bob account isn’t activated by January 29th, we’ll be hosting a second IBM Bob workshop on February 10th at 11:00 AM ET.
+
+Register for the February Workshop
+https://bemyapp.us2.list-manage.com/track/click?u=7605d9f2f2cc8f3d1a43d7f54&id=3ec7ecc2bd&e=074789bb62
+
 ## Demo
