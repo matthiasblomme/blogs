@@ -4,8 +4,10 @@ title: 'PGP SupportPac on ACE 13.0.6.0: a full end-to-end setup'
 description: A practical, field-tested setup of the PGP SupportPac on ACE 13.0.6.0,
   from key generation to working encryption and decryption flows, including the runtime
   jar details that tend to get missed.
-reading_time: 4 min
+reading_time: 15 min
 ---
+
+![cover](cover.png){ .md-banner }
 
 <!--MD_POST_META:START-->
 <div class="md-post-meta">
