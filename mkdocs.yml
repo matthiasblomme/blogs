@@ -9,9 +9,22 @@ theme:
   favicon: assets/logo.jpg
   features:
     - content.code.copy
-    - naviagtion.sections
+    - navigation.sections
+    - navigation.top
+    - navigation.path
     - toc.follow
     - content.tags
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
 
 plugins:
   - search
