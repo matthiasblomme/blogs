@@ -16,7 +16,9 @@ reading_time: 4 min
 
 <!--MD_POST_META:END-->
 
-# PGP SupportPac on ACE 13.0.6.0: a full end-to-end setup
+# PGP SupportPac on ACE: a full end-to-end setup
+
+> **Tested on ACE 13.0.6.0**
 
 Ever spent two hours wiring PGP in ACE only to hit a `NoClassDefFoundError` and question your life choices?  
 I know I have. And I maintain the damn thing.
@@ -115,7 +117,7 @@ You’ll be prompted for a passphrase.
 For this test, I’m using `passw0rd`.  
 No, that’s not a recommendation. But, you know, I can't stop you.
 
-By default this generates RSA keys, 1024-bit, ASCII armored. For a functional test setup, that’s fine.
+By default this generates RSA keys, 1024-bit, ASCII armored. For a functional test setup, that’s fine. Use stronger keys for anything real.
 
 ![sender key pair](img_1.png)
 
@@ -304,6 +306,22 @@ curl -X POST http://localhost:7800/pgp/decrypt
 ```
 
 ![decrypted result](img_13.png)
+
+
+# Compatibility
+
+Validation means the plugin was installed on the specified ACE version and the repository test setup was executed without modification.  
+Full key generation, key store setup, deployment, and round-trip encryption/decryption were verified.
+
+| ACE Version | Status     | Remarks                                   |
+|-------------|------------|-------------------------------------------|
+| 13.0.1.0    | Not tested | —                                         |
+| 13.0.2.0    | Not tested | —                                         |
+| 13.0.3.0    | Not tested | —                                         |
+| 13.0.4.0    | Validated  | Repository setup executed without changes |
+| 13.0.5.0    | Not tested | —                                         |
+| 13.0.6.0    | Validated  | Repository setup executed without changes |
+
 
 # Final notes
 
