@@ -60,7 +60,7 @@ Support cycle: 5+1+3
 ### Product editions
 
 There is a slight change in the name of the product versions. The below table gives a clear overview.
-![img.png](img.png)
+![product version](img.png)
 
 If you haven't used ACE before and/or if you have no paid entitlements, you can start with the free [Developer edition](https://www.ibm.com/resources/mrs/assets?source=swg-wmbfd).
 (You will need to register for an IBM account).
@@ -85,11 +85,28 @@ the more detailed work.
 
 The Designer also comes with its own set of templates.
 
-![img_6.png](img_6.png)
+![designer templates](img_6.png)
 
 #### Kafka nodes
 
 Kafka input and output nodes can be used directly from the Designer.
+
+
+#### Rest Request nodes
+
+Outbound Rest requests now also offer support for OAuth 2.0. This is an addition to the existing list of authorization types
+- Basic
+- Api key
+- Bearer token 
+- Basic OAuth
+
+The OAuth 2.0 password configuration:
+
+![oauth password config](img_37.png)
+
+The OAuth 2.0 credentials configuration:
+
+![oauth credentials config](img_38.png)
 
 #### Patterns
 
@@ -118,7 +135,7 @@ Some patterns (about 17) are marked "coming soon!" (in 13.0.6.0), so keep your e
 
 The RAG pattern is the first addition to the AI Patterns category.
 
-![img_33.png](img_33.png)
+![rag template](img_33.png)
 
 
 #### AI Mapping
@@ -130,7 +147,7 @@ Mapping Assist runs locally, together with the designer, so you don't need any c
 it. You will need to download and run a single IBM-provided container which hosts the LLM, this can be done with Podman,
 Docker, or any other container orchestrator. Just configure the endpoint in the `designer.conf.yaml`
 
-![img_21.png](img_21.png)
+![container config](img_21.png)
 
 The Data Assist uses the same technology and setup, but it helps users construct JSONata expressions that can be used within
 a graphical mapping (if that's your thing, not a fan myself).
@@ -140,16 +157,16 @@ a graphical mapping (if that's your thing, not a fan myself).
 The Designer allows you (since 13.0.5.0) to choose an alternative name for the account information name you use during
 the discovery process.
 
-![img_34.png](img_34.png)
+![designer account](img_34.png)
 
 #### Open API Import
 
 The designer has been enhaced to allow users to import Open API documents that describer REST API interface that they want 
 to invike from a Designer flow.
 
-![img_36.png](img_36.png)
+![api import](img_36.png)
 
-![img_35.png](img_35.png)
+![api import 2](img_35.png)
 
 
 
@@ -207,7 +224,7 @@ list them all out
 
 ##### JSONata Mapping Node
 
-![img_1.png](img_1.png)
+![jsonata node](img_1.png)
 
 JSONata is a lightweight query and transformation language specifically designed for interacting with JSON data. You can
 compare it to XSLT for XML.
@@ -216,7 +233,7 @@ compare it to XSLT for XML.
 
 The KafkaProducer, KafkaConsumer and KafkaRead nodes support Avro and Schema Registries.
 
-![img_4.png](img_4.png)
+![kafka node config](img_4.png)
 
 It does require you to use a Schema Registry Policy.
 
