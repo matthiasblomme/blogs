@@ -5,6 +5,8 @@
 .md-content__inner {
   max-width: 1200px;
   margin: 0 auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 /* =====================================================
@@ -265,14 +267,3 @@
   background: var(--md-default-bg-color--light);
 }
 
-/* =====================================================
-   NARROW / MOBILE LAYOUT
-   ===================================================== */
-
-/* Add breathing room when left nav sidebar is hidden (<= 60em) */
-@media screen and (max-width: 60em) {
-  .md-content__inner {
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-}
