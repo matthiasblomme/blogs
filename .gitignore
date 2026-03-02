@@ -1,3 +1,6 @@
 ﻿site/
 .venv/
 /docs/posts/archive.md
+/.claude/worktrees/xenodochial-lamport/
+/.idea/aws.xml
+/.idea/fastRequest/fastRequestCurrentProjectLocalConfig.xml
