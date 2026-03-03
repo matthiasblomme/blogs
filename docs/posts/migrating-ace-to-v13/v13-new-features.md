@@ -60,7 +60,7 @@ Support cycle: 5+1+3
 ### Product editions
 
 There is a slight change in the name of the product versions. The below table gives a clear overview.
-![img.png](img.png)
+![product version](img.png)
 
 If you haven't used ACE before and/or if you have no paid entitlements, you can start with the free [Developer edition](https://www.ibm.com/resources/mrs/assets?source=swg-wmbfd).
 (You will need to register for an IBM account).
@@ -85,11 +85,28 @@ the more detailed work.
 
 The Designer also comes with its own set of templates.
 
-![img_6.png](img_6.png)
+![designer templates](img_6.png)
 
 #### Kafka nodes
 
 Kafka input and output nodes can be used directly from the Designer.
+
+
+#### Rest Request nodes
+
+Outbound Rest requests now also offer support for OAuth 2.0. This is an addition to the existing list of authorization types
+- Basic
+- Api key
+- Bearer token 
+- Basic OAuth
+
+The OAuth 2.0 password configuration:
+
+![oauth password config](img_37.png)
+
+The OAuth 2.0 credentials configuration:
+
+![oauth credentials config](img_38.png)
 
 #### Patterns
 
@@ -118,7 +135,7 @@ Some patterns (about 17) are marked "coming soon!" (in 13.0.6.0), so keep your e
 
 The RAG pattern is the first addition to the AI Patterns category.
 
-![img_33.png](img_33.png)
+![rag template](img_33.png)
 
 
 #### AI Mapping
@@ -130,7 +147,7 @@ Mapping Assist runs locally, together with the designer, so you don't need any c
 it. You will need to download and run a single IBM-provided container which hosts the LLM, this can be done with Podman,
 Docker, or any other container orchestrator. Just configure the endpoint in the `designer.conf.yaml`
 
-![img_21.png](img_21.png)
+![container config](img_21.png)
 
 The Data Assist uses the same technology and setup, but it helps users construct JSONata expressions that can be used within
 a graphical mapping (if that's your thing, not a fan myself).
@@ -140,18 +157,59 @@ a graphical mapping (if that's your thing, not a fan myself).
 The Designer allows you (since 13.0.5.0) to choose an alternative name for the account information name you use during
 the discovery process.
 
-![img_34.png](img_34.png)
+![designer account](img_34.png)
 
 #### Open API Import
 
 The designer has been enhaced to allow users to import Open API documents that describer REST API interface that they want 
 to invike from a Designer flow.
 
-![img_36.png](img_36.png)
+![api import](img_36.png)
 
-![img_35.png](img_35.png)
+![api import 2](img_35.png)
 
+#### HTTP Proxy 
 
+The designer allows you to define proxy to use during authoring and at runtime.
+
+![designer proxy](img_39.png)
+
+Any proxy defined there can be referenced by a number of message flow nodes (both in Toolkit and in Designer)
+
+ - Amazon DynamoDB
+ - Amazon EC2
+ - Amazon EventBridge
+ - Amazon Kinesis
+ - Amazon RDS
+ - Amazon S3
+ - Amazon SNS
+ - Amazon SQS
+ - Astra DB
+ - AWS Lambda
+ - Confluence
+ - Databricks
+ - DGitHub
+ - DGoogle Chat
+ - DGoogle Drive
+ - DGoogle Gemini
+ - DGoogle Sheets
+ - DIBM DB2
+ - DMicrosoft Azure Blob Storage
+ - DMicrosoft Azure Event Hubs
+ - DMicrosoft Azure Service Bus
+ - DMicrosoft Dynamics 365 for Finance and Operations
+ - DMicrosoft Dynamics 365 for Sales
+ - DMicrosoft Entra ID
+ - DMicrosoft Exchange
+ - DMicrosoft SharePoint
+ - DMicrosoft Teams
+ - DSAP Ariba
+ - DServiceNow
+ - DShopify
+ - DSlack
+ - DSnowflake
+ - DSplunk
+ - DWorkday
 
 ### Toolkit Enhancements
 
@@ -207,7 +265,7 @@ list them all out
 
 ##### JSONata Mapping Node
 
-![img_1.png](img_1.png)
+![jsonata node](img_1.png)
 
 JSONata is a lightweight query and transformation language specifically designed for interacting with JSON data. You can
 compare it to XSLT for XML.
@@ -216,7 +274,7 @@ compare it to XSLT for XML.
 
 The KafkaProducer, KafkaConsumer and KafkaRead nodes support Avro and Schema Registries.
 
-![img_4.png](img_4.png)
+![kafka node config](img_4.png)
 
 It does require you to use a Schema Registry Policy.
 
@@ -269,9 +327,9 @@ The HTTPRequest node support Retry capability directly from the node config.
 - Short Retry Interval: time interval between retries in seconds
 - Retry Condition: the errors on which to retry
 
-![img_18.png](img_18.png)
+![http retry config](img_18.png)
 
-![img_19.png](img_19.png)
+![http retry conditions](img_19.png)
 
 Oauth2.0 support has also been made available in the HTTP Request nodes. The HTTP Request node is associated with
 credentials of type `http`.
@@ -288,7 +346,7 @@ Supported Authentication types and options:
 To communicate with HTTP endpoints that are secured using OAuth 2.0, there are 6 new properties to the HTTP policy
 which are shown in the picture below:
 
-![img_24.png](img_24.png)
+![http request policy](img_24.png)
 
 ##### RestRequest Node
 
@@ -304,6 +362,17 @@ Supported Authentication types and options:
 - oauth
 - oauthPassword
   The security scheme configuration can be provided by the Open API document associated with the node
+
+Just like with the HTTPRequest node, the REST Request node also supports retry capabilities, directly from the node config.
+
+- Retry Mechanism: no or short
+- Retry Threshold: number of retries
+- Short Retry Interval: time interval between retries in seconds
+- Retry Condition: the errors on which to retry
+
+The Retry conditions are limited to a set of request failures
+
+![request failures](img_40.png)
 
 ##### Callable Flow Nodes
 
@@ -333,6 +402,14 @@ The Microsoft Azure Blob Storage Request node support directly pushing Blob data
 ![img_32.png](img_32.png)
 
 
+##### Scheduler node
+
+In IBM ACE 13.0.6.0, the Scheduler node supports a **Missed Event Mode** option when a State Persistence policy is configured, 
+allowing it to control how missed triggers are handled after a restart or outage. The available modes determine whether 
+no missed events are issued, a single catch-up event is emitted (with or without resetting the schedule), or all missed 
+events are replayed before resuming the original schedule. This ensures controlled recovery behavior when the integration 
+server has been stopped or unavailable.
+  
 
 #### Build in console
 The toolkit allows you to run ACE commands straight from within the toolkit.
@@ -386,6 +463,39 @@ Java:
 - MbContextTreeNode
 - MbContextTreeNodePayload
 
+
+#### Policy Editor
+
+The policy editor now offers a more dynamic editing experience for certain policies, with expandable twistie sections for 
+certain property groups.
+
+![mq endpoint policy](img_41.png)
+
+The addition of the description properties allows you to add keywords in those fields that can be viewed in the Toolkit
+properties panel. 
+
+![policy keywords toolkit](img_42.png)
+
+Or via the CLI with `mqsilist`
+
+![policy keywords cli](img_43.png)
+
+
+#### Installation Options
+
+The toolkit comes with a couple of new installation options so you can tailor the isntallation to your needs.
+
+![toolkit installation ui](img_44.png)
+
+For those that want the go all fancy and use the command line:
+
+| Runtime and Development components for installation                                                                | Command line equivalent |
+|--------------------------------------------------------------------------------------------------------------------|-------------------------|
+| • Runtime (including discovery connector nodes)<br/>• Designer                                                     | `ACESetup13.0.n.n.0.exe -installToolkit yes -installElectronApp yes -installCloudConnectors yes` |
+| • Runtime (including discovery connector nodes)<br />• Designer                                                    | `ACESetup13.0.n.n.0.exe -installToolkit no -installElectronApp no -installCloudConnectors yes` |
+| • Runtime (excluding discovery connector nodes)<br />• Toolkit (excluding connector discovery and Open API editor) | `ACESetup13.0.n.n.0.exe -installToolkit yes -installElectronApp no -installCloudConnectors no` |
+| • Runtime (excluding discovery connector nodes)                                                                    | `ACESetup13.0.n.n.0.exe -installToolkit no -installElectronApp no -installCloudConnectors no` |
+
 ### CLI Enhancements
 
 #### ibmint
@@ -414,6 +524,28 @@ Add ssl connections settings for (see ibmint deploy for the params)
 - ibmint display credentials command
 - ibmint set credential command
 - ibmint unset credential command
+
+
+#### Log Analyzer
+
+The latest installation of ACE, comes with a new ACE Log Analyser tool to assist you in problem determination and troubleshooting.
+The tool supports the processing of the following types of logs:
+
+- Service trace or User Trace files
+- Activity Log files in csv format
+- Message Flow Accounting and Statistics files in csv format
+- Parser Manager Logs
+
+You can launch the Log Analyser tool from an ACE Command Console using this command:
+
+```powershell
+java -Xmx2000m -jar ./server/tools/aceloganalyser.jar
+```
+![log analyzer](img_46.png)
+
+The results are written to a static HTML report page, for easy viewing:
+
+![analyser report](img_47.png)
 
 
 ### Runtime Enhancements
@@ -473,6 +605,11 @@ The current nodes that can send OTel traces
 - CallableInput, CallableReply, CallableFlowInvoke, CallableFlowAsyncInvoke, CallableFlowAsyncResponse
 - KafkaConsumer, Kafka Read, KakfaProducer
 
+When OTel tracing is enabled, span-related details are applied to Activity Log entries in the Tags section. These details are
+available in all Activity Log output modes.
+
+![otel in activity log](img_45.png)
+
 ### Java
 
 You might think that this should be part of a runtime or the Toolkit chapter, but seeing as the java upgrade is a pretty
@@ -505,6 +642,8 @@ ResourceManagers:
 ```
 
 If you have a JavaCompute node and/or custom Java Input or Compute nodes, make sure to test each of them.
+
+Also definetly check out the more indept report from Ben: [A Deep-Dive on ACE 13 and its use of Java 17](https://community.ibm.com/community/user/blogs/ben-thompson1/2026/02/12/ace-java17)
 
 ### Credentials
 
@@ -612,3 +751,5 @@ found it usefull.
 - [Explore the new features in App Connect Enterprise 13.0.4.0](https://community.ibm.com/community/user/blogs/ben-thompson1/2025/06/18/ace-13-0-4-0)
 - [Explore the new features in App Connect Enterprise 13.0.5.0](https://community.ibm.com/community/user/blogs/ben-thompson1/2025/09/25/ace-13-0-5-0)
 - [Explore the new features in App Connect Enterprise 13.0.6.0](https://community.ibm.com/community/user/blogs/ben-thompson1/2025/12/11/ace-13-0-6-0)
+- [Improved Observability: Writing OpenTelemetry Metadata to the Activity Log](https://community.ibm.com/community/user/blogs/shalini-r/2025/11/23/writing-otelmetadata-to-activitylog)
+- [A Deep-Dive on ACE 13 and its use of Java 17](https://community.ibm.com/community/user/blogs/ben-thompson1/2026/02/12/ace-java17)

@@ -26,8 +26,4 @@ It’s here to help me think out loud, share what works (and what doesn’t), an
 
 ---
 
-Want to connect? You can usually find me on the [
-**IBM Community**](https://community.ibm.com/community/user/people/matthias-blomme)
-, [**GitHub**](https://github.com/matthiasblomme)
-or [**LinkedIn**](https://www.linkedin.com/in/matthiasblomme) 
-Feel free to drop me a message.
+Want to connect? You can find me on [**IBM Community**](https://community.ibm.com/community/user/people/matthias-blomme), [**GitHub**](https://github.com/matthiasblomme), or [**LinkedIn**](https://www.linkedin.com/in/matthiasblomme). Feel free to drop me a message.
