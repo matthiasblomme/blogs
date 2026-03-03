@@ -2,12 +2,12 @@
 date: 2025-10-20
 title: IBM TechXchange 2025, Orlando. Overwhelming in all the right ways.
 description: TechXchange 2025, what you missed
-reading_time: 8 min
+reading_time: 11 min
 ---
 
 <!--MD_POST_META:START-->
 <div class="md-post-meta">
-  <div class="md-post-meta-left">2025-10-20 · ⏱ 8 min</div>
+  <div class="md-post-meta-left">2025-10-20 · ⏱ 11 min</div>
   <div class="md-post-meta-right"><span class="post-share-label">Share:</span> <a class="post-share post-share-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fmatthiasblomme.github.io%2Fblogs%2Fposts%2Ftechxchange-2025%2Ftechxchange-2025%2F" target="_blank" rel="noopener" title="Share on LinkedIn">[<span class="in">in</span>]</a></div>
 </div>
 <hr class="md-post-divider"/>
