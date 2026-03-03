@@ -28,7 +28,8 @@ ALLPOSTS_END = "<!--MD_ALL_POSTS:END-->"
 ARCHIVE_START = "<!--MD_ARCHIVE:START-->"
 ARCHIVE_END   = "<!--MD_ARCHIVE:END-->"
 
-WORDS_PER_MINUTE = 200
+WORDS_PER_MINUTE = 130
+CODE_WORDS_PER_MINUTE = 75
 MIN_READING_MINUTES = 1
 
 # Files in POSTS_DIR that are index/meta pages, not posts
@@ -141,10 +142,18 @@ def strip_markdown(text: str) -> str:
 
 
 def estimate_reading_time_minutes(md_body: str) -> int:
+    # Extract fenced code block content before stripping
+    code_blocks = re.findall(r"```.*?```", md_body, flags=re.DOTALL)
+    code_words = re.findall(r"\b\w+\b", " ".join(code_blocks))
+
+    # Strip everything (incl. code blocks) for prose word count
     cleaned = strip_markdown(md_body)
-    words = re.findall(r"\b\w+\b", cleaned)
-    minutes = max(MIN_READING_MINUTES, int(round(len(words) / WORDS_PER_MINUTE)))
-    return minutes
+    prose_words = re.findall(r"\b\w+\b", cleaned)
+
+    prose_minutes = len(prose_words) / WORDS_PER_MINUTE
+    code_minutes = len(code_words) / CODE_WORDS_PER_MINUTE
+
+    return max(MIN_READING_MINUTES, int(round(prose_minutes + code_minutes)))
 
 
 def format_reading_time(minutes: int) -> str:
@@ -273,9 +282,11 @@ def collect_posts(site_url: str) -> list[Post]:
             mins = estimate_reading_time_minutes(body)
             rt = format_reading_time(mins)
 
-        # rel_url for mkdocs internal links (use directory urls)
-        rel = md.resolve().relative_to(DOCS_DIR.resolve())
-        rel_url = rel.with_suffix("").as_posix() + "/"
+        # rel_url relative to POSTS_DIR (e.g. "pgp-node/pgp-node.md")
+        # render_latest_posts prefixes "posts/" for the root index;
+        # render_all_posts / render_archive use it as-is (they live in POSTS_DIR)
+        rel = md.resolve().relative_to(POSTS_DIR.resolve())
+        rel_url = rel.as_posix()
 
         posts.append(
             Post(
@@ -306,16 +317,18 @@ def replace_between_markers(text: str, start: str, end: str, replacement: str) -
 
 
 def render_latest_posts(posts: list[Post], limit: int = 5) -> str:
+    # Lives in docs/index.md — links need "posts/" prefix relative to docs root
     lines = []
     for p in posts[:limit]:
-        lines.append(f"- **{p.date_display}** — [{p.title}]({p.rel_url}) · *{p.reading_time}*")
+        lines.append(f"- **{p.date_display}** — [{p.title}](posts/{p.rel_url}) · *{p.reading_time}*")
     return "\n".join(lines) if lines else "_No posts yet._"
 
 
-def render_all_posts(posts: list[Post]) -> str:
+def render_all_posts(posts: list[Post], prefix: str = "") -> str:
+    # prefix="" for docs/posts/index.md; prefix="posts/" if ever used from docs root
     lines = []
     for p in posts:
-        lines.append(f"- **{p.date_display}** — [{p.title}]({p.rel_url}) · *{p.reading_time}*")
+        lines.append(f"- **{p.date_display}** — [{p.title}]({prefix}{p.rel_url}) · *{p.reading_time}*")
     return "\n".join(lines) if lines else "_No posts yet._"
 
 
@@ -358,8 +371,10 @@ def update_index_pages(posts: list[Post]):
         posts_overview = POSTS_DIR / "index.md"
 
     if posts_overview.exists():
+        # If the overview is at docs root level, prefix links with "posts/"
+        prefix = "posts/" if posts_overview.parent == DOCS_DIR else ""
         txt = posts_overview.read_text(encoding="utf-8")
-        txt = replace_between_markers(txt, ALLPOSTS_START, ALLPOSTS_END, render_all_posts(posts))
+        txt = replace_between_markers(txt, ALLPOSTS_START, ALLPOSTS_END, render_all_posts(posts, prefix=prefix))
         posts_overview.write_text(txt, encoding="utf-8")
 
 
@@ -384,7 +399,8 @@ def update_archive_page(posts: list[Post], verbose: bool = False):
 # -----------------------------------------------------------------------------
 # Per-post processing
 # -----------------------------------------------------------------------------
-def process_post(site_url: str, md_path: Path, verbose: bool = False) -> bool:
+def process_post(site_url: str, md_path: Path, verbose: bool = False,
+                 recalculate_reading_time: bool = False) -> bool:
     """
     Processes a single post: ensures reading_time, injects meta block.
     Returns True if the file was written, False if unchanged (skipped).
@@ -395,7 +411,7 @@ def process_post(site_url: str, md_path: Path, verbose: bool = False) -> bool:
         return False
 
     # Ensure reading_time exists (compute if missing; preserve if already set)
-    if not fm.get("reading_time"):
+    if not fm.get("reading_time") or recalculate_reading_time:
         mins = estimate_reading_time_minutes(body)
         fm["reading_time"] = format_reading_time(mins)
 
@@ -433,6 +449,11 @@ def main():
         action="store_true",
         help="Print per-file status (skipped vs written).",
     )
+    parser.add_argument(
+        "--recalculate-reading-time", "-R",
+        action="store_true",
+        help="Force recalculate reading_time for all posts (ignores existing values).",
+    )
     args = parser.parse_args()
     verbose = args.verbose
 
@@ -443,7 +464,8 @@ def main():
     for md in POSTS_DIR.rglob("*.md"):
         if md.name.lower() in _SKIP_NAMES:
             continue
-        if process_post(site_url, md, verbose=verbose):
+        if process_post(site_url, md, verbose=verbose,
+                        recalculate_reading_time=args.recalculate_reading_time):
             written += 1
         else:
             skipped += 1
