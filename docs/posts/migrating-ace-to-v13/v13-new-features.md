@@ -39,34 +39,29 @@ I’ll keep updating this as new 13.x releases drop.
 Some topics span multiple product areas. I placed them where they made the most sense (to me). Feel free to disagree, 
 as long as you keep reading.
 
-## The features
+## The delta from v12
 
 ### Release cycle
 
-This is not really a feature, but since I'm bundling information, I might tackle this one as well.
+Not really a feature, but since this is a consolidated overview, it belongs here.
 
 General availability: 27 September 2024
 Support cycle: 5+1+3
 - 5 years of standard support
 - 1 year of extended support for new defects
 - 3 years of extended support for usage and known defects
-  End of support: 2029
-  End of extended support: 2033
+  
+End of support: 2029
+End of extended support: 2033
 
 ### Product editions
 
-There is a slight change in the name of the product versions. The below table gives a clear overview.
+The naming of product editions has slightly changed in v13. The overview below summarizes the updated terminology.
+
 ![product version](img.png)
 
-If you haven't used ACE before and/or if you have no paid entitlements, you can start with the free [Developer edition](https://www.ibm.com/resources/mrs/assets?source=swg-wmbfd).
-(You will need to register for an IBM account).
-
-| Tool            | Where it lives             | Context awareness                | Primary strength                        | Key limitation in enterprise setups |
-|-----------------|----------------------------|----------------------------------|-----------------------------------------|-------------------------------------|
-| Claude Code     | External chat / web / IDE  | Limited to provided context      | Strong reasoning and explanations       | No native repo or IDE grounding     |
-| GitHub Copilot  | IDE (VS Code, JetBrains)   | File-level and limited repo view | Fast code completion and suggestions    | Weak at cross-cutting reasoning     |
-| Antigravity     | Separate tool/environment  | Depends on ingestion setup       | Deep analysis and transformations       | Steep learning curve, context shift |
-| IBM Project BOB | VS Code                    | Repo, code, config, intent       | Context-aware collaboration in-place    | Early-stage, access still gated     |
+If you do not have paid entitlements, the [Developer edition](https://www.ibm.com/resources/mrs/assets?source=swg-wmbfd)  remains available free of charge after IBM account 
+registration.
 
 ### Designer
 
@@ -93,7 +88,7 @@ event-driven flows.
 
 #### Rest Request nodes
 
-Outbound REST requests support OAuth 2.0 authentication in addition to:
+Outbound RESTRequests support OAuth 2.0 authentication in addition to:
 - Basic
 - Api key
 - Bearer token 
@@ -124,7 +119,7 @@ scenarios and are categorized into:
 - Scatter-Gather Patterns
 - Messaging Patterns
 
-Some patterns (about 17) are marked "coming soon!" (in 13.0.6.0), so keep your eyes peeled.
+Some patterns (approximately 17 in 13.0.6.0) are marked as "coming soon".
 
 
 ##### RAG Pattern
@@ -137,29 +132,29 @@ for building AI-enhanced flows using contextual retrieval.
 
 #### AI Mapping
 
-The Designer contains Mapping Assist and Data Assist features. Both are based on AI algorithms to help you with mapping.
-suggestions.
+Designer includes Mapping Assist and Data Assist features. Mapping Assist runs locally using an IBM-provided containerized 
+LLM and does not require cloud connectivity.
 
-Mapping Assist runs locally, together with the designer, so you don't need any cloud connections or subscriptions to use
-it. You will need to download and run a single IBM-provided container which hosts the LLM, this can be done with Podman,
+You will need to download and run a single IBM-provided container which hosts the LLM, this can be done with Podman,
 Docker, or any other container orchestrator. Just configure the endpoint in the `designer.conf.yaml`
 
 ![container config](img_21.png)
 
-The Data Assist uses the same technology and setup, but it helps users construct JSONata expressions that can be used within
-a graphical mapping (if that's your thing, not a fan myself).
+Data Assist uses the same setup to help generate JSONata expressions within graphical mappings.
+
+Impact when coming from v12:
+AI-assisted mapping is now integrated locally, without external SaaS dependencies.
 
 #### Designer Account Managing
 
-The Designer allows you (since 13.0.5.0) to choose an alternative name for the account information name you use during
-the discovery process.
+Since 13.0.5.0, Designer allows custom naming of account information used during discovery.
 
 ![designer account](img_34.png)
 
 #### Open API Import
 
-The designer has been enhaced to allow users to import Open API documents that describer REST API interface that they want 
-to invike from a Designer flow.
+Designer supports importing OpenAPI documents describing REST APIs to be invoked from a flow. This enables contract-first 
+flow creation.
 
 ![api import](img_36.png)
 
@@ -167,11 +162,11 @@ to invike from a Designer flow.
 
 #### HTTP Proxy 
 
-The designer allows you to define proxy to use during authoring and at runtime.
+Proxy configuration can be defined within Designer for use during authoring and runtime.
 
 ![designer proxy](img_39.png)
 
-Any proxy defined there can be referenced by a number of message flow nodes (both in Toolkit and in Designer)
+Defined proxies can be referenced by multiple connector nodes across Designer and Toolkit environments.
 
  - Amazon DynamoDB
  - Amazon EC2
@@ -208,14 +203,16 @@ Any proxy defined there can be referenced by a number of message flow nodes (bot
  - DSplunk
  - DWorkday
 
+Impact when coming from v12:
+Proxy management is centralized and reusable across supported connectors.
+
 ### Toolkit Enhancements
 
 #### New Nodes (and updates)
 
 ##### Discovery Request Nodes
 
-Each new release brings new Discovery Request Nodes along. There are so many by now, that I'll just limit myself to
-list them all out
+The following Discovery Request nodes were introduced across the 13.x releases:
 
 | 13.0.1.0                       | 13.0.3.0                           | 13.0.4.0                             | 13.0.5.0                   | 13.0.6.0      |
 |--------------------------------|------------------------------------|--------------------------------------|----------------------------|---------------|
@@ -239,8 +236,7 @@ list them all out
 
 ##### Discovery Input Nodes
 
-Each new release brings new Discovery Input Nodes along. There are so many by now, that I'll just limit myself to
-list them all out
+The following Discovery Input nodes were introduced across the 13.x releases:
 
 | 13.0.1.0                     | 13.0.4.0                       | 13.0.5.0                   | 13.0.6.0            |
 |------------------------------|--------------------------------|----------------------------|---------------------|
@@ -264,8 +260,12 @@ list them all out
 
 ![jsonata node](img_1.png)
 
-JSONata is a lightweight query and transformation language specifically designed for interacting with JSON data. You can
-compare it to XSLT for XML.
+A dedicated JSONata Mapping node is now available. JSONata is a lightweight query and transformation language for JSON 
+data, comparable in purpose to XSLT for XML.
+
+Impact when coming from v12:
+JSON transformations can now be encapsulated in a dedicated node instead of embedding JSONata expressions in other 
+processing logic.
 
 ##### Kafka Nodes
 
@@ -335,9 +335,8 @@ The HTTPRequest node now supports built-in retry configuration. You configure:
 
 ![http retry conditions](img_19.png)
 
-For most integrations, this removes a chunk of repetitive error-handling logic. It won’t replace complex recovery 
-strategies, but for straightforward resiliency it does the job. 
-OAuth 2.0 support has also been added directly to the node.
+For most integrations, this reduces repetitive error-handling logic. It won’t replace complex recovery strategies, but 
+for straightforward resiliency it does the job. OAuth 2.0 support has also been added directly to the node.
 
 The node now supports these authentication types:
 - apiKey
@@ -358,8 +357,7 @@ If you built retry wrappers or externalized OAuth handling, you can simplify tho
 
 ##### RestRequest Node
 
-Oauth2.0 support has also been made available in the REST Request nodes. The REST Request node is associated with
-credentials of type `rest`.
+The RESTRequest node now supports OAuth 2.0 authentication and built-in retry configuration.
 
 Supported Authentication types and options:
 - apiKey
@@ -369,46 +367,65 @@ Supported Authentication types and options:
 - client
 - oauth
 - oauthPassword
-  The security scheme configuration can be provided by the Open API document associated with the node
 
-Just like with the HTTPRequest node, the REST Request node also supports retry capabilities, directly from the node config.
+Security scheme configuration can be derived from the associated OpenAPI document.
 
+Retry behavior can be configured directly in the node:
 - Retry Mechanism: no or short
 - Retry Threshold: number of retries
 - Short Retry Interval: time interval between retries in seconds
 - Retry Condition: the errors on which to retry
 
-The Retry conditions are limited to a set of request failures
+Retry conditions are limited to a defined set of request failures.
+
+Impact when coming from v12:
+OAuth-secured REST calls and basic retry handling can now be configured natively, reducing the need for custom 
+error-handling logic in flows.
 
 ![request failures](img_40.png)
 
 ##### Callable Flow Nodes
 
-Has been enhanced with Supported Domains. These are new properties on the CallableInput and CallableReply nodes. It shows
-the supported message domains and models and can be configured to check the messages against the domains.
+CallableInput and CallableReply nodes now support configuration of supported message domains and models. These properties 
+allow validation of incoming and outgoing messages against defined domains.
+
+Impact when coming from v12:
+Callable flows can now enforce domain-level constraints directly at the node level, reducing the need for manual validation logic.
 
 ##### Salesforce Input Node
 
-The Salesforce input node supports a state presitence policy to enable robust data handling and minimize downtime. This
-helps processing messages even if the flow is not running but Salesforce events are still being generated.
-This does require an external persitence provider, which can be either FILE or REDIS.
+The Salesforce Input node now supports a state persistence policy. This allows event processing to resume reliably after 
+downtime. Events generated while the flow is not running can be processed once the integration server is available again.
+
+An external persistence provider is required. Supported options are:
+- FILE
+- REDIS
 
 ![img_22.png](img_22.png)
 
 ![img_23.png](img_23.png)
 
+Impact when coming from v12:
+Event continuity can now be managed explicitly, reducing the risk of missed Salesforce events during outages.
+
 ##### MQTT Nodes
 
-MQTT version 5 is supported. This is reflected in the MQTT policies
+MQTT version 5 is now supported. Configuration changes are reflected in the associated MQTT policies.
 
 ![img_25.png](img_25.png)
 
+Impact when coming from v12:
+MQTT integrations can be aligned with version 5 features and brokers without requiring protocol workarounds.
+
 ##### Microsoft Azure Blob Storage Request node
 
-The Microsoft Azure Blob Storage Request node support directly pushing Blob data without having to convert to JSON first.
+The Microsoft Azure Blob Storage Request node now supports pushing Blob data directly, without requiring prior conversion 
+to JSON.
 
 ![img_32.png](img_32.png)
 
+Impact when coming from v12:
+Binary or large object uploads can be handled more directly, reducing unnecessary transformation steps in the flow.
 
 ##### Scheduler node
 
@@ -606,7 +623,7 @@ individual files.
 
 #### IPv6
 
-The HTTPConnect supports IPv6, but IPv4 remains the default
+The HTTPConnector supports IPv6, but IPv4 remains the default
 
 ```yaml
 HTTPConnector:
@@ -619,6 +636,9 @@ HTTPConnector:
     #ListenerAddress: '2001:DB8::1'  # Set the IP address for the listener to listen on a specific IPv6 address
     #ListenerAddress: '192.168.0.1'  # Set the IP address for the listener to listen on a specific IPv4 address
 ```
+
+Impact when coming from v12:
+Integration servers can now be configured for IPv6 listeners where required, while retaining IPv4 as default.
 
 #### Embedded Global Cache
 
@@ -664,7 +684,7 @@ The following nodes can emit OTel traces:
 - RESTRequest, RESTAsyncRequest, RESTAsyncResponse
 - SOAPInput, SOAPReply, SOAPRequest, SOAPAsyncRequest, SOAPAsyncResponse
 - CallableInput, CallableReply, CallableFlowInvoke, CallableFlowAsyncInvoke, CallableFlowAsyncResponse
-- KafkaConsumer, Kafka Read, KakfaProducer
+- KafkaConsumer, KafkaRead, KafkaProducer
 
 Impact when coming from v12:
 Tracing integration is more complete and better aligned with external collectors. Activity Log entries now contain span 
@@ -681,7 +701,6 @@ support has expanded with subsequent modification packs.
 
 Current restrictions under Java 17:
 
-Currently the follow restrictions are in place
 - Nodes only enabled under Java 17: 
   - CDC Node
 - Nodes not supported under Java 17:
@@ -711,7 +730,7 @@ Impact when coming from v12:
 If you use JavaCompute nodes or custom Java integrations, validate them under Java 17 before switching the runtime. 
 Node support and JVM behavior differ from Java 8.
 
-Also definetly check out the more indept report from Ben: [A Deep-Dive on ACE 13 and its use of Java 17](https://community.ibm.com/community/user/blogs/ben-thompson1/2026/02/12/ace-java17)
+Also definitely check out the more in dept report from Ben: [A Deep-Dive on ACE 13 and its use of Java 17](https://community.ibm.com/community/user/blogs/ben-thompson1/2026/02/12/ace-java17)
 
 ### Credentials
 
@@ -816,12 +835,12 @@ AI-assisted development is now integrated directly into the IDE, reducing contex
 
 ## Migration
 
-I will talk about migration, but that is another article all together.
+Migration considerations will be covered separately.
 
 ## Closing
 
-Hopefully this has been of some value to some of you. Feel free to make positive suggestions or just let me know if you
-found it usefull.
+ACE 13 introduces structural changes across development, runtime, and operations. If you are coming from v12, review 
+the Java compatibility, credential strategy, observability configuration, and connector usage carefully.
 
 # References
 
@@ -836,5 +855,3 @@ found it usefull.
 - [Improved Observability: Writing OpenTelemetry Metadata to the Activity Log](https://community.ibm.com/community/user/blogs/shalini-r/2025/11/23/writing-otelmetadata-to-activitylog)
 - [A Deep-Dive on ACE 13 and its use of Java 17](https://community.ibm.com/community/user/blogs/ben-thompson1/2026/02/12/ace-java17)
 - [Configuring Embedded Global Cache for App Connect Enterprise running in containers](https://community.ibm.com/community/user/blogs/amar-shah1/2025/06/08/configuring-embedded-global-cache)
-
-
