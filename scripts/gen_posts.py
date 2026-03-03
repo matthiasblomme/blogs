@@ -282,9 +282,11 @@ def collect_posts(site_url: str) -> list[Post]:
             mins = estimate_reading_time_minutes(body)
             rt = format_reading_time(mins)
 
-        # rel_url for mkdocs internal links (use directory urls)
-        rel = md.resolve().relative_to(DOCS_DIR.resolve())
-        rel_url = rel.with_suffix("").as_posix() + "/"
+        # rel_url relative to POSTS_DIR (e.g. "pgp-node/pgp-node.md")
+        # render_latest_posts prefixes "posts/" for the root index;
+        # render_all_posts / render_archive use it as-is (they live in POSTS_DIR)
+        rel = md.resolve().relative_to(POSTS_DIR.resolve())
+        rel_url = rel.as_posix()
 
         posts.append(
             Post(
@@ -315,16 +317,18 @@ def replace_between_markers(text: str, start: str, end: str, replacement: str) -
 
 
 def render_latest_posts(posts: list[Post], limit: int = 5) -> str:
+    # Lives in docs/index.md — links need "posts/" prefix relative to docs root
     lines = []
     for p in posts[:limit]:
-        lines.append(f"- **{p.date_display}** — [{p.title}]({p.rel_url}) · *{p.reading_time}*")
+        lines.append(f"- **{p.date_display}** — [{p.title}](posts/{p.rel_url}) · *{p.reading_time}*")
     return "\n".join(lines) if lines else "_No posts yet._"
 
 
-def render_all_posts(posts: list[Post]) -> str:
+def render_all_posts(posts: list[Post], prefix: str = "") -> str:
+    # prefix="" for docs/posts/index.md; prefix="posts/" if ever used from docs root
     lines = []
     for p in posts:
-        lines.append(f"- **{p.date_display}** — [{p.title}]({p.rel_url}) · *{p.reading_time}*")
+        lines.append(f"- **{p.date_display}** — [{p.title}]({prefix}{p.rel_url}) · *{p.reading_time}*")
     return "\n".join(lines) if lines else "_No posts yet._"
 
 
@@ -367,8 +371,10 @@ def update_index_pages(posts: list[Post]):
         posts_overview = POSTS_DIR / "index.md"
 
     if posts_overview.exists():
+        # If the overview is at docs root level, prefix links with "posts/"
+        prefix = "posts/" if posts_overview.parent == DOCS_DIR else ""
         txt = posts_overview.read_text(encoding="utf-8")
-        txt = replace_between_markers(txt, ALLPOSTS_START, ALLPOSTS_END, render_all_posts(posts))
+        txt = replace_between_markers(txt, ALLPOSTS_START, ALLPOSTS_END, render_all_posts(posts, prefix=prefix))
         posts_overview.write_text(txt, encoding="utf-8")
 
 
