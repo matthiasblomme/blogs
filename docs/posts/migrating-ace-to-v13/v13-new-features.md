@@ -21,27 +21,23 @@ reading_time: 16 min
 # ACE v13 new features (when coming from v12)
 
 > **DISCLAIMER:**
-> All the information below is provided by IBM and digested/interpreted by me. It's meant to help and inform but should
-> in no way be interpreted as ...
+> Information based on IBM documentation and release notes. Interpret responsibly.
 
 ## Why I'm doing this
 
-[Ben Thompson](https://community.ibm.com/community/user/people/ben-thompson1) does a splendid job in clearly and cleanly
-explaining all the new ACE features for each release. However, sometimes it's handy to have them all in one overview, 
-grouped by main product features.
+[Ben Thompson](https://community.ibm.com/community/user/people/ben-thompson1) already breaks down every ACE release in detail.
+This isn’t that. 
 
-That is exactly what I'm going to do here: list all changes (and group similar ones) for anyone looking to migrate from
-v12 and in need of a simple overview. I was looking into everything that changed regarding ACE v12, so it's 2 birds with one stone.
+This is the consolidated view. Everything that changed in ACE 13, grouped by product area, for anyone migrating from v12.
+I went through all updates myself anyway, so this became the logical byproduct.
 
-I'll try not to go into too much detail on all the topics, the main focus is to give you a straight overview. So make sure
-to have a look at the referenced material as well. I'll put all of Ben's posts in there, along with some other ones that I
-found interesting and that are relevant, in one way or another
+This isn’t a deep dive. It’s a structured overview. Follow the referenced material if you want the full detail. I’ll link 
+Ben’s posts and a few additional resources that are worth your time.
 
-With each new release, I'll try to keep this page up to date, but no promises on the time line. Feel free to reach out if
-it takes too long ;)
+I’ll keep updating this as new 13.x releases drop.
 
-It's sometimes difficult to place certain topics in one category as they span multiple product features, but I just choose
-what felt right to me. Feel free to disagree, as long as you continue reading this blog.
+Some topics span multiple product areas. I placed them where they made the most sense (to me). Feel free to disagree, 
+as long as you keep reading.
 
 ## The features
 
@@ -74,27 +70,30 @@ If you haven't used ACE before and/or if you have no paid entitlements, you can 
 
 ### Designer
 
-The APP Connect Enterprise Designer is a new, low threshold, alternative tool for flow authoring.  It's not as feature
-rich as the toolkit (still the strategic IDE for ACE), but it aligns more with Cloud Development Platforms. I was already
-a part of the iPaaS offering of ACE, but with v13, it has been added to your local installation as well.
+App Connect Enterprise Designer is a lightweight flow authoring environment that complements the Toolkit. It aligns more 
+with cloud-native development platforms and is now included in local installations as of v13.
+It is not a replacement for the Toolkit. The typical workflow is to start a connector-based flow in Designer and move to 
+the Toolkit for advanced configuration.
 
-The most common use case is to start a Connector development project in the Designer and switch over to the toolkit for
-the more detailed work.
+Impact when coming from v12:
+Designer is now part of the standard local installation, making low-code and connector-based development more accessible 
+without separate environments.
 
 #### Templates
 
-The Designer also comes with its own set of templates.
+Designer includes a set of built-in templates to bootstrap common integration scenarios. These provide starting structures 
+rather than fully guided tutorials.
 
 ![designer templates](img_6.png)
 
 #### Kafka nodes
 
-Kafka input and output nodes can be used directly from the Designer.
-
+Kafka input and output nodes can now be used directly from Designer, reducing the need to switch to the Toolkit for basic 
+event-driven flows.
 
 #### Rest Request nodes
 
-Outbound Rest requests now also offer support for OAuth 2.0. This is an addition to the existing list of authorization types
+Outbound REST requests support OAuth 2.0 authentication in addition to:
 - Basic
 - Api key
 - Bearer token 
@@ -108,20 +107,16 @@ The OAuth 2.0 credentials configuration:
 
 ![oauth credentials config](img_38.png)
 
+Impact when coming from v12:
+OAuth-secured outbound calls can now be configured directly within Designer.
+
 #### Patterns
 
-Aside from the well-known Tutorials Gallery that has been around for many years, ACE v13 comes with a new restyled
-Patterns Gallery. Patterns are helpful because they:
+Patterns provide a faster starting point than manual flow construction but are less prescriptive than tutorials.
 
-- Generate customized solutions to a recurring integration problem in an efficient way
-- Encourage adoption of preferred techniques in message flow design
-- Help guide developers who are new to the product
-- Provide consistency in the generated resources
+A redesigned Patterns Gallery is included in v13. Patterns generate structured solutions for recurring integration 
+scenarios and are categorized into:
 
-They offer you a quick start based on a couple of choices, without the fixed set of resources and instructions that a
-tutorial offers.
-
-Currently, there are roughly 100 available patterns (and no, I did not count them by hand) categorized in 6 topics:
 - Protocol Transformation Patterns
 - Format Transformation Patterns
 - AI Patterns
@@ -131,9 +126,11 @@ Currently, there are roughly 100 available patterns (and no, I did not count the
 
 Some patterns (about 17) are marked "coming soon!" (in 13.0.6.0), so keep your eyes peeled.
 
+
 ##### RAG Pattern
 
-The RAG pattern is the first addition to the AI Patterns category.
+The Retrieval-Augmented Generation pattern is the first entry in the AI category. It provides a structured starting point 
+for building AI-enhanced flows using contextual retrieval.
 
 ![rag template](img_33.png)
 
@@ -272,25 +269,29 @@ compare it to XSLT for XML.
 
 ##### Kafka Nodes
 
-The KafkaProducer, KafkaConsumer and KafkaRead nodes support Avro and Schema Registries.
+The KafkaProducer, KafkaConsumer, and KafkaRead nodes now support Avro serialization with Schema Registry integration.
 
 ![kafka node config](img_4.png)
 
-It does require you to use a Schema Registry Policy.
+This requires a Schema Registry policy.
 
 ![img_5.png](img_5.png)
 
-The KafkaProducer and KafkaConsumer nodes now support transactionality in writing and reading messages. This can be
-configured via a set of new properties.
+Transactional support has also been added for producers and consumers. A set of new node properties allows you to configure 
+transactional message handling.
 
 ![img_27.png](img_27.png)
 
 ![img_28.png](img_28.png)
 
-Kafka nodes support scaling via
-- setting additional instances (process messages in parallel)
-- deploying multiple message flows with the same consumer group ID and subscribed to the same Topic name
-- enabling multiple kafka connections (pull more messages concurrently)
+Kafka scaling options have been extended. You can now:
+- Increase additional instances to process messages in parallel
+- Deploy multiple message flows using the same consumer group ID and topic
+- Enable multiple Kafka connections to increase concurrent message pulls
+
+Impact when coming from v12:
+If you implemented custom Avro handling or external transaction coordination, parts of that logic can now move into 
+native node configuration. Scaling configurations are also more flexible without architectural changes.
 
 ![img_29.png](img_29.png)
 
@@ -298,8 +299,11 @@ Kafka nodes support scaling via
 
 ![img_7.png](img_7.png)
 
-TCPIP nodes now support timeout values expressed as fractions of a second, up to 3 decimal places, expressed as `0.250`.
-`0.100` is the shortest supported timeout.
+TCPIP nodes now support timeout values expressed as fractions of a second. Timeouts can be configured with up to three 
+decimal places, for example 0.250. The shortest supported timeout is 0.100.
+
+Impact when coming from v12:
+You can now fine-tune connection timeouts more precisely without relying on whole-second values.
 
 ##### Couchbase Request Node
 
@@ -320,7 +324,7 @@ Salesforce nodes now can be configured to use an HTTP proxy by setting a policy 
 
 ##### HTTPRequest Node
 
-The HTTPRequest node support Retry capability directly from the node config.
+The HTTPRequest node now supports built-in retry configuration. You configure:
 
 - Retry Mechanism: no or short
 - Retry Threshold: number of retries
@@ -331,10 +335,11 @@ The HTTPRequest node support Retry capability directly from the node config.
 
 ![http retry conditions](img_19.png)
 
-Oauth2.0 support has also been made available in the HTTP Request nodes. The HTTP Request node is associated with
-credentials of type `http`.
+For most integrations, this removes a chunk of repetitive error-handling logic. It won’t replace complex recovery 
+strategies, but for straightforward resiliency it does the job. 
+OAuth 2.0 support has also been added directly to the node.
 
-Supported Authentication types and options:
+The node now supports these authentication types:
 - apiKey
 - basic
 - basicApiKey
@@ -343,8 +348,11 @@ Supported Authentication types and options:
 - oauth
 - oauthPassword
 
-To communicate with HTTP endpoints that are secured using OAuth 2.0, there are 6 new properties to the HTTP policy
-which are shown in the picture below:
+When communicating with OAuth 2.0 secured endpoints, six additional HTTP policy properties are available to handle 
+token acquisition and configuration.
+
+Impact when coming from v12:
+If you built retry wrappers or externalized OAuth handling, you can simplify those flows in v13.
 
 ![http request policy](img_24.png)
 
@@ -404,54 +412,75 @@ The Microsoft Azure Blob Storage Request node support directly pushing Blob data
 
 ##### Scheduler node
 
-In IBM ACE 13.0.6.0, the Scheduler node supports a **Missed Event Mode** option when a State Persistence policy is configured, 
-allowing it to control how missed triggers are handled after a restart or outage. The available modes determine whether 
-no missed events are issued, a single catch-up event is emitted (with or without resetting the schedule), or all missed 
-events are replayed before resuming the original schedule. This ensures controlled recovery behavior when the integration 
-server has been stopped or unavailable.
-  
+Since 13.0.6.0, the Scheduler node supports a Missed Event Mode when a State Persistence policy is configured. This setting 
+determines how missed triggers are handled after a restart or outage.
+
+Available behaviors include:
+- Do not issue missed events
+- Emit a single catch-up event
+- Emit a catch-up event and reset the schedule 
+- Replay all missed events before resuming the schedule
+
+This provides controlled recovery behavior when an integration server has been stopped or unavailable.
+
+Impact when coming from v12:
+You can now define deterministic recovery behavior for scheduled flows instead of relying on default restart timing.
 
 #### Build in console
-The toolkit allows you to run ACE commands straight from within the toolkit.
+
+The Toolkit now allows ACE commands to be executed directly from within the IDE.
 
 ![img_10.png](img_10.png)
 
+This reduces the need to switch to an external command prompt for common administrative or build operations.
+
+Impact when coming from v12:
+Command-line interactions can now be integrated into the development workflow without leaving the Toolkit.
+
 #### External Directory Vault explorer
 
-Managing an external directory vault is now possible from within the toolkit: create, connect and manage credentials.
+The Toolkit now supports managing an external directory vault directly from within the IDE. You can create, connect to, 
+and manage credentials without relying solely on CLI tooling.
 
 ![img_2.png](img_2.png)
 
+Impact when coming from v12:
+Vault-backed credential management can now be handled inside the Toolkit, reducing the need for separate administrative 
+workflows.
+
 #### Container Explorer view
 
-You can now add and manage ACE CC containers deployed on a k8s platform directly from within the toolkit. Just add the
-dashboard link to the toolkit.
+The Toolkit now allows you to add and manage ACE containers deployed on a Kubernetes platform directly from within the 
+IDE. By providing the dashboard link, you can view and interact with deployed ACE Container Edition instances without 
+switching to external tooling.
 
 ![img_16.png](img_16.png)
 
 ![img_17.png](img_17.png)
 
+Impact when coming from v12:
+Container-based deployments can be monitored and managed from the Toolkit, improving visibility for Kubernetes-based 
+environments.
+
 #### Context Trees
 
-I might be biased (it's my blog, so I'm allowed to be), but Context Trees is a big one. If I'm allowed to steal a description
-from another one of my blogs (again, my blog, so I am allowed):
+I might be biased (it's my blog, so I'm allowed to be), but Context Trees are one of the more meaningful additions in 
+ACE 13. 
 
-_It was originally designed to support discovery connectors, but it also gives you a sharp way to handle message data in
-classic ACE flows. Let's give you some context (pun intended) first. The Context tree is a read-only logical structure
-that grows as your message passes through the flow. At the start it only knows about the input node, but each node adds
-its own payload and metadata. By the end you have a complete picture, parser context included. The important bit for us:
-the original payload is always available. In practice, you don’t need to configure or enable anything special. As soon
-s you reference the Context tree in ESQL, ACE populates it at runtime._
+Originally introduced to support discovery connectors, they also provide a structured way to handle message data in 
+classic ACE flows. The Context Tree is a read-only logical structure that grows as a message moves through a flow. At 
+the start it contains information from the input node. Each subsequent node adds its payload and metadata. By the end, 
+it provides a consolidated view of the full invocation path, including parser context. The original payload remains available throughout.
 
-Couldn't have said it better myself (hm, maybe I need to stop writing in the evenings).
+No additional configuration is required. As soon as you reference the Context Tree in ESQL, ACE populates it at runtime.
 
-Context trees are also visible in the Debugger and Flow Exercisers (since 13.0.5.0).
+Context Trees are visible in the Debugger and Flow Exerciser (since 13.0.5.0). 
 
 ![img_30.png](img_30.png)
 
 ![img_31.png](img_31.png)
 
-There are also new ESQL and Java methods to support interacting with the Context Trees
+There are also new ESQL and Java APIs available to support interacting with the Context Trees
 
 ESQL:
 
@@ -466,42 +495,57 @@ Java:
 
 #### Policy Editor
 
-The policy editor now offers a more dynamic editing experience for certain policies, with expandable twistie sections for 
-certain property groups.
+The Policy Editor now provides a more structured editing experience for certain policy types, with expandable sections 
+grouping related properties.
 
 ![mq endpoint policy](img_41.png)
 
-The addition of the description properties allows you to add keywords in those fields that can be viewed in the Toolkit
-properties panel. 
+Description fields have also been enhanced. Keywords added in these fields are visible in the Toolkit properties panel 
+and via the CLI using `mqsilist`.
 
 ![policy keywords toolkit](img_42.png)
 
-Or via the CLI with `mqsilist`
-
 ![policy keywords cli](img_43.png)
+
+Impact when coming from v12:
+Policy configuration is easier to navigate, and policy metadata can now be surfaced consistently in both the Toolkit and 
+CLI output.
 
 
 #### Installation Options
 
-The toolkit comes with a couple of new installation options so you can tailor the isntallation to your needs.
+The Toolkit installer now provides more granular installation choices, allowing you to tailor the setup to your environment.
 
-![toolkit installation ui](img_44.png)
+You can selectively install:
+- Runtime
+- Toolkit
+- Designer (Electron app)
+- Discovery connector nodes
+- Open API editor components
 
-For those that want the go all fancy and use the command line:
+- ![toolkit installation ui](img_44.png)
 
-| Runtime and Development components for installation                                                                | Command line equivalent |
-|--------------------------------------------------------------------------------------------------------------------|-------------------------|
-| • Runtime (including discovery connector nodes)<br/>• Designer                                                     | `ACESetup13.0.n.n.0.exe -installToolkit yes -installElectronApp yes -installCloudConnectors yes` |
-| • Runtime (including discovery connector nodes)<br />• Designer                                                    | `ACESetup13.0.n.n.0.exe -installToolkit no -installElectronApp no -installCloudConnectors yes` |
-| • Runtime (excluding discovery connector nodes)<br />• Toolkit (excluding connector discovery and Open API editor) | `ACESetup13.0.n.n.0.exe -installToolkit yes -installElectronApp no -installCloudConnectors no` |
-| • Runtime (excluding discovery connector nodes)                                                                    | `ACESetup13.0.n.n.0.exe -installToolkit no -installElectronApp no -installCloudConnectors no` |
+Equivalent command-line options are available for scripted installations:
+
+| Components                                        | Command                                                                                          |
+| ------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| Runtime + Toolkit + Designer + Cloud Connectors   | `ACESetup13.0.n.n.0.exe -installToolkit yes -installElectronApp yes -installCloudConnectors yes` |
+| Runtime + Designer                                | `ACESetup13.0.n.n.0.exe -installToolkit no -installElectronApp no -installCloudConnectors yes`   |
+| Runtime + Toolkit (no connectors/Open API editor) | `ACESetup13.0.n.n.0.exe -installToolkit yes -installElectronApp no -installCloudConnectors no`   |
+| Runtime only                                      | `ACESetup13.0.n.n.0.exe -installToolkit no -installElectronApp no -installCloudConnectors no`    |
+
+Impact when coming from v12:
+Installation footprint can now be aligned more precisely with development or runtime-only environments, including fully 
+scripted setups.
 
 ### CLI Enhancements
 
 #### ibmint
 
 ##### ibmint deploy
-ibmint deploy supports additional ssl options
+`ibmint deploy` now supports additional SSL configuration options for remote deployments.
+
+New options include
 - `--output-uri URI` URI for a remote integration server in the form tcp://[user[:password]@]host:port or in the form ssl://[user[:password]@]host:port.
 - `--https` specifies that HTTPS will be used for the connection to the integration node or server.
 - `--no-https` specifies that HTTPS will not be used for the connection to the integration node or server.
@@ -509,13 +553,15 @@ ibmint deploy supports additional ssl options
 - `--cacert-password cacertPassword` the password for password-protected cacert files.
 - `--insecure` Specifies that the certificate that is returned by the integration node or server will not be verified.
 
+These options allow secure deployment to remote integration servers without relying on implicit defaults.
+
 #### Auto-complete
 
 ibmint commands on Linux and Unix support auto-complete.
 
 #### ibmint remote connections
 
-Add ssl connections settings for (see ibmint deploy for the params)
+The same SSL configuration model is now supported by additional `ibmint` commands:
 
 - ibmint create server command
 - ibmint delete server command
@@ -525,38 +571,38 @@ Add ssl connections settings for (see ibmint deploy for the params)
 - ibmint set credential command
 - ibmint unset credential command
 
+Impact when coming from v12:
+Remote server management and deployment over SSL can now be configured consistently across CLI commands, reducing the 
+need for environment-level workarounds.
 
 #### Log Analyzer
 
-The latest installation of ACE, comes with a new ACE Log Analyser tool to assist you in problem determination and troubleshooting.
-The tool supports the processing of the following types of logs:
+ACE now includes a Log Analyzer tool for problem determination and troubleshooting.
+
+It supports processing:
 
 - Service trace or User Trace files
 - Activity Log files in csv format
 - Message Flow Accounting and Statistics files in csv format
 - Parser Manager Logs
 
-You can launch the Log Analyser tool from an ACE Command Console using this command:
+The tool can be launched from an ACE Command Console:
 
 ```powershell
 java -Xmx2000m -jar ./server/tools/aceloganalyser.jar
 ```
+
 ![log analyzer](img_46.png)
 
-The results are written to a static HTML report page, for easy viewing:
+It generates a static HTML report for analysis.
 
 ![analyser report](img_47.png)
 
+Impact when coming from v12:
+Trace and log interpretation can now be consolidated into a single reporting tool instead of manually inspecting 
+individual files.
 
 ### Runtime Enhancements
-
-#### Open Telemetry
-OTel suppoert a basic auth security identity in the header of the OTel message taht is propagated to an extern OTel
-collector.
-
-These are available in the `server.conf.yaml`
-
-![img_9.png](img_9.png)
 
 #### IPv6
 
@@ -576,28 +622,43 @@ HTTPConnector:
 
 #### Embedded Global Cache
 
-The In-memory Embedded Global Cache allows for caching data between separate ACE integration servers. Each server
-involved in  replication both reads and writes to the cache has to be explicitly nominated via the `server.conf.yaml`
+The in-memory Embedded Global Cache allows data sharing between separate ACE integration servers. Servers that participate 
+in replication must be explicitly nominated in server.conf.yaml.
 
-Upsert is availabe for use within the JavaCompute nodes
+Upsert operations are supported in JavaCompute nodes.
 
 ![img_26.png](img_26.png)
 
 ![img_11.png](img_11.png)
 
+Impact when coming from v12:
+Cache replication must be explicitly configured per server. The feature enables controlled in-memory data sharing without 
+external infrastructure.
+
 #### External Redis Global Cache
 
-If you want to use an external cache that you can share with other applications or want to replace a WXS grid solution,
-Redis global cache is availble. ACE offers limited support for correct usage of the Redis API. A Redis Connection policy
-and crendential type are available:
+An external Redis-based Global Cache can be configured if cache data needs to be shared beyond ACE or if replacing an 
+existing WXS grid solution. A Redis Connection policy and credential type are provided. ACE offers limited support for 
+correct Redis API usage within this model.
 
 ![img_12.png](img_12.png)
 
 ![img_13.png](img_13.png)
 
+Impact when coming from v12:
+You can externalize the cache layer and share it across applications, rather than limiting cache scope to ACE integration 
+servers.
+
 #### Open Telemetry
 
-The current nodes that can send OTel traces
+OpenTelemetry support has been extended.
+
+Basic authentication can now be configured for OTel exports. The security identity is propagated in the header of the
+OTel message and can be defined in server.conf.yaml.
+
+![img_9.png](img_9.png)
+
+The following nodes can emit OTel traces:
 - MQInput, MQOutput, MQReply, MQGet, MQPublication
 - HTTPInput, HTTPReply, HTTPRequest, HTTPAsyncRequest, HTTPAsyncResponse
 - RESTRequest, RESTAsyncRequest, RESTAsyncResponse
@@ -605,22 +666,24 @@ The current nodes that can send OTel traces
 - CallableInput, CallableReply, CallableFlowInvoke, CallableFlowAsyncInvoke, CallableFlowAsyncResponse
 - KafkaConsumer, Kafka Read, KakfaProducer
 
-When OTel tracing is enabled, span-related details are applied to Activity Log entries in the Tags section. These details are
-available in all Activity Log output modes.
+Impact when coming from v12:
+Tracing integration is more complete and better aligned with external collectors. Activity Log entries now contain span 
+metadata, improving correlation during troubleshooting.
 
 ![otel in activity log](img_45.png)
 
 ### Java
 
-You might think that this should be part of a runtime or the Toolkit chapter, but seeing as the java upgrade is a pretty
-big deal, it gets its own chapter.
+IBM Semeru Java 17 is now the default for both the Toolkit and the ACE runtime.
 
-IBM Semeru Java 17 is now the default for both the Toolkit and the ACE Runtimes. Java 1.8 is still shipped, and you can
-select it if you need it. Initially some features were not supported under Java 17, but each consecutive release brought
-more support.
+Java 1.8 is still shipped and can be selected if required. Earlier 13.x releases had partial support under Java 17, but 
+support has expanded with subsequent modification packs.
+
+Current restrictions under Java 17:
 
 Currently the follow restrictions are in place
-- Nodes only enabled under Java 17: CDC Node
+- Nodes only enabled under Java 17: 
+  - CDC Node
 - Nodes not supported under Java 17:
   - CORBARequest
   - WRR
@@ -628,8 +691,11 @@ Currently the follow restrictions are in place
   - WS-Security
   - WS-ReliableMessaging
   - TFIM
-- Environment variables
-  - TMPDIR is not observered under Java 17, use _JAVA_OPTIONS or jvmSystemProperty in the *.conf.yaml files
+
+Environment variable behavior has changed. TMPDIR is not observed under Java 17. Instead, use _JAVA_OPTIONS or configure 
+jvmSystemProperty in the *.conf.yaml files.
+
+Example:
 
 ```java
 _JAVA_OPTIONS="-Djava.io.tmpdir=/apps/mqsi/javacache"
@@ -641,18 +707,18 @@ ResourceManagers:
     jvmSystemProperty:
 ```
 
-If you have a JavaCompute node and/or custom Java Input or Compute nodes, make sure to test each of them.
+Impact when coming from v12:
+If you use JavaCompute nodes or custom Java integrations, validate them under Java 17 before switching the runtime. 
+Node support and JVM behavior differ from Java 8.
 
 Also definetly check out the more indept report from Ben: [A Deep-Dive on ACE 13 and its use of Java 17](https://community.ibm.com/community/user/blogs/ben-thompson1/2026/02/12/ace-java17)
 
 ### Credentials
 
-With ace choosing for the vault and credentials over mqsisetdbparms (don't worry, it stil works), there are also some
-aadditions and improvements in the way ACE interacts with credentials.
-One of these is dynamic credentials. These are credentials that can be changed and updated without having to restart the
-server.
+ACE continues the shift toward vault-based credential management, while still supporting `mqsisetdbparms`.
 
-A list of dynamic credentials (in short, most of them)
+One of the more relevant additions is support for dynamic credentials. Dynamic credentials can be updated without 
+restarting the integration server. Most connector types now support dynamic behavior.
 
 | Connector                     | Connector                   | Connector                     | Connector                    |
 |-------------------------------|-----------------------------|-------------------------------|------------------------------|
@@ -699,38 +765,54 @@ A list of dynamic credentials (in short, most of them)
 | yammer (dynamic)              | yapily (dynamic)            | zendeskservice (dynamic)      | zohobooks (dynamic)          |
 | zohocrm (dynamic)             | zohoinventory (dynamic)     | zohorecruit (dynamic)         | zosconnect (dynamic)         |
 
+Impact when coming from v12:
+Credential updates for supported connectors no longer require server restarts, reducing operational disruption during 
+secret rotation or environment changes.
 
 ### Business Transaction Monitoring
 
-BTM extends the set of supported databases to include MS SQL Server and PostgreSQL, alongside DB2 and Oracle which were
-previously already supported. ACE makes connections to the database using ODBC.
+Business Transaction Monitoring now supports Microsoft SQL Server and PostgreSQL, in addition to the previously supported 
+DB2 and Oracle databases.
 
-- On Windows, the ODBC driver for MS SQL Server is provided by the operating system.
-- On the other ACE platforms, ACE provides a DataDirect ODBC driver for connecting to MS SQL Server.
-- On Windows and xLinux, ACE provides a DataDirect ODBC driver for connecting to PostgreSQL.
+ACE connects to these databases using ODBC:
+
+- On Windows, the MS SQL Server ODBC driver is provided by the operating system.
+- On other ACE platforms, a DataDirect ODBC driver is provided for MS SQL Server.
+- On Windows and Linux, a DataDirect ODBC driver is provided for PostgreSQL.
+
+Impact when coming from v12:
+BTM storage is no longer limited to DB2 or Oracle, allowing alignment with existing SQL Server or PostgreSQL environments.
 
 ### Database
 
 #### PostgreSQL
 
-Since 13.0.2.0, PostgreSQL is extended to support stored procedures that return dynamic result sets. You may notice a
-slight difference in the syntax we are promoting for PostgreSQL. For PostgreSQL, a dummy cursor value must be supplied
-in the ESQL CALL statement for each intended results set.
+Since 13.0.2.0, PostgreSQL support has been extended to include stored procedures that return dynamic result sets. When 
+calling such procedures from ESQL, a dummy cursor value must be supplied in the CALL statement for each expected result 
+set.
+
+Impact when coming from v12:
+PostgreSQL stored procedures returning dynamic result sets are now supported natively, but require adjusted ESQL syntax.
 
 ### AI
 
-Watsonx Code Assistant chat is embedded in the ACE Toolkit. You do need an additional subscription to use this feature.
-It is designed for
+Watsonx Code Assistant chat is embedded in the ACE Toolkit. An additional subscription is required to use this feature.
 
-- Asking generalized questions
-- Providing explanations for existing code
-- Generating instance data to match a schema
-- Generating a schema by providing example instance data
-- Generating Java code snippets through natural language
-- Generating ESQL code snippets through natural language
-- Generation of Unit tests
--
-![img_20.png](img_20.png)
+It supports:
+- Asking general product or development questions
+- Explaining existing ESQL or Java code
+- Generating instance data for a given schema
+- Generating a schema from sample instance data
+- Generating Java snippets from natural language
+- Generating ESQL snippets from natural language
+- Generating unit tests
+
+This feature operates inside the Toolkit and is intended to assist development tasks rather than modify runtime behavior.
+
+Impact when coming from v12:
+AI-assisted development is now integrated directly into the IDE, reducing context switching to external tools.
+
+![ai toolkit](img_20.png)
 
 ## Migration
 
@@ -753,3 +835,6 @@ found it usefull.
 - [Explore the new features in App Connect Enterprise 13.0.6.0](https://community.ibm.com/community/user/blogs/ben-thompson1/2025/12/11/ace-13-0-6-0)
 - [Improved Observability: Writing OpenTelemetry Metadata to the Activity Log](https://community.ibm.com/community/user/blogs/shalini-r/2025/11/23/writing-otelmetadata-to-activitylog)
 - [A Deep-Dive on ACE 13 and its use of Java 17](https://community.ibm.com/community/user/blogs/ben-thompson1/2026/02/12/ace-java17)
+- [Configuring Embedded Global Cache for App Connect Enterprise running in containers](https://community.ibm.com/community/user/blogs/amar-shah1/2025/06/08/configuring-embedded-global-cache)
+
+
