@@ -1,9 +1,8 @@
 ---
 date: '2026-02-17'
-title: 'PGP SupportPac on ACE 13.0.6.0: a full end-to-end setup'
-description: A practical, field-tested setup of the PGP SupportPac on ACE 13.0.6.0,
-  from key generation to working encryption and decryption flows, including the runtime
-  jar details that tend to get missed.
+title: 'PGP SupportPac on ACE: a full end-to-end setup'
+description: A practical, field-tested setup of the PGP SupportPac on IBM ACE, from key generation to working encryption 
+  and decryption flows, including the runtime jar details that tend to get missed.
 reading_time: 15 min
 ---
 
@@ -17,6 +16,7 @@ reading_time: 15 min
 <hr class="md-post-divider"/>
 
 <!--MD_POST_META:END-->
+
 
 # PGP SupportPac on ACE: a full end-to-end setup
 
@@ -73,7 +73,8 @@ We’ll generate both key pairs ourselves and build the key stores ACE expects.
 ## Open the ACE command console
 
 Use the ACE command console. Not a generic CMD window.
-If you already are in a generic CMD window, just set the ACE environment.
+If you’re already in a generic CMD window, just set the ACE environment.
+
 ```cmd
 cd "C:\Program Files\IBM\ACE\13.0.6.0"
 ace.cmd
@@ -152,7 +153,7 @@ You now have four `.asc` files.
 
 ![keys](img_3.png)
 
-The PGP nodes don’t reference them directly. They reference key store files (.pgp), so we create those next.
+The PGP nodes don’t reference them directly. They reference key store files (`.pgp`), so we create those next.
 
 ### Sender side
 
@@ -244,7 +245,8 @@ Import:
 - `PGP_Policies` policy project
 
 Both need to deploy cleanly. If either fails, fix that first. Don’t troubleshoot encryption while the application isn’t even running.
-I’m assuming you’re familiar with importing projects into the Toolkit if you’re trying to get this node to work.
+
+I’ll assume you know how to import a project into the Toolkit.
 
 ![imported projects](img_9.png)
 
