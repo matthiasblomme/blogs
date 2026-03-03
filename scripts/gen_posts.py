@@ -28,7 +28,8 @@ ALLPOSTS_END = "<!--MD_ALL_POSTS:END-->"
 ARCHIVE_START = "<!--MD_ARCHIVE:START-->"
 ARCHIVE_END   = "<!--MD_ARCHIVE:END-->"
 
-WORDS_PER_MINUTE = 200
+WORDS_PER_MINUTE = 130
+CODE_WORDS_PER_MINUTE = 75
 MIN_READING_MINUTES = 1
 
 # Files in POSTS_DIR that are index/meta pages, not posts
@@ -141,10 +142,18 @@ def strip_markdown(text: str) -> str:
 
 
 def estimate_reading_time_minutes(md_body: str) -> int:
+    # Extract fenced code block content before stripping
+    code_blocks = re.findall(r"```.*?```", md_body, flags=re.DOTALL)
+    code_words = re.findall(r"\b\w+\b", " ".join(code_blocks))
+
+    # Strip everything (incl. code blocks) for prose word count
     cleaned = strip_markdown(md_body)
-    words = re.findall(r"\b\w+\b", cleaned)
-    minutes = max(MIN_READING_MINUTES, int(round(len(words) / WORDS_PER_MINUTE)))
-    return minutes
+    prose_words = re.findall(r"\b\w+\b", cleaned)
+
+    prose_minutes = len(prose_words) / WORDS_PER_MINUTE
+    code_minutes = len(code_words) / CODE_WORDS_PER_MINUTE
+
+    return max(MIN_READING_MINUTES, int(round(prose_minutes + code_minutes)))
 
 
 def format_reading_time(minutes: int) -> str:
@@ -384,7 +393,8 @@ def update_archive_page(posts: list[Post], verbose: bool = False):
 # -----------------------------------------------------------------------------
 # Per-post processing
 # -----------------------------------------------------------------------------
-def process_post(site_url: str, md_path: Path, verbose: bool = False) -> bool:
+def process_post(site_url: str, md_path: Path, verbose: bool = False,
+                 recalculate_reading_time: bool = False) -> bool:
     """
     Processes a single post: ensures reading_time, injects meta block.
     Returns True if the file was written, False if unchanged (skipped).
@@ -395,7 +405,7 @@ def process_post(site_url: str, md_path: Path, verbose: bool = False) -> bool:
         return False
 
     # Ensure reading_time exists (compute if missing; preserve if already set)
-    if not fm.get("reading_time"):
+    if not fm.get("reading_time") or recalculate_reading_time:
         mins = estimate_reading_time_minutes(body)
         fm["reading_time"] = format_reading_time(mins)
 
@@ -433,6 +443,11 @@ def main():
         action="store_true",
         help="Print per-file status (skipped vs written).",
     )
+    parser.add_argument(
+        "--recalculate-reading-time", "-R",
+        action="store_true",
+        help="Force recalculate reading_time for all posts (ignores existing values).",
+    )
     args = parser.parse_args()
     verbose = args.verbose
 
@@ -443,7 +458,8 @@ def main():
     for md in POSTS_DIR.rglob("*.md"):
         if md.name.lower() in _SKIP_NAMES:
             continue
-        if process_post(site_url, md, verbose=verbose):
+        if process_post(site_url, md, verbose=verbose,
+                        recalculate_reading_time=args.recalculate_reading_time):
             written += 1
         else:
             skipped += 1
