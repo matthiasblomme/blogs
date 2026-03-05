@@ -3,14 +3,14 @@ date: 2026-01-18
 title: Creating a generic log node using context trees
 image: cover.png
 description: Using the Context Tree in a second real life use case, logging
-reading_time: 10 min
+reading_time: 17 min
 ---
 
 ![cover](cover.png){ .md-banner }
 
 <!--MD_POST_META:START-->
 <div class="md-post-meta">
-  <div class="md-post-meta-left">2026-01-18 · ⏱ 10 min</div>
+  <div class="md-post-meta-left">2026-01-18 · ⏱ 17 min</div>
   <div class="md-post-meta-right"><span class="post-share-label">Share:</span> <a class="post-share post-share-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fmatthiasblomme.github.io%2Fblogs%2Fposts%2Fgeneric-log-node%2Fgeneric-log-node%2F" target="_blank" rel="noopener" title="Share on LinkedIn">[<span class="in">in</span>]</a></div>
 </div>
 <hr class="md-post-divider"/>
