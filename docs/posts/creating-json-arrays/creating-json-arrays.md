@@ -2,12 +2,12 @@
 date: 2025-08-18
 title: Create JSON Arrays in ESQL and Java (Without Losing Your Sanity)
 description: How can we properly create clean JSON arrays
-reading_time: 16 min
+reading_time: 29 min
 ---
 
 <!--MD_POST_META:START-->
 <div class="md-post-meta">
-  <div class="md-post-meta-left">2025-08-18 · ⏱ 16 min</div>
+  <div class="md-post-meta-left">2025-08-18 · ⏱ 29 min</div>
   <div class="md-post-meta-right"><span class="post-share-label">Share:</span> <a class="post-share post-share-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fmatthiasblomme.github.io%2Fblogs%2Fposts%2Fcreating-json-arrays%2Fcreating-json-arrays%2F" target="_blank" rel="noopener" title="Share on LinkedIn">[<span class="in">in</span>]</a></div>
 </div>
 <hr class="md-post-divider"/>
