@@ -572,6 +572,36 @@ New options include
 
 These options allow secure deployment to remote integration servers without relying on implicit defaults.
 
+##### ibmint display mode / set mode
+
+ACE 13 introduces `ibmint display mode` and `ibmint set mode` as replacements for the older `mqsimode` command used in 
+ACE 12. These commands allow you to view and configure the installation operation mode directly from the `ibmint` CLI.
+
+Display the current mode:
+
+ibmint display mode
+
+![display mode](img_48.png)
+
+Set the operation mode:
+
+ibmint set mode <mode>
+
+![set mode](img_49.png)
+
+Supported modes include:
+
+- Development
+- Non-Production
+- Production-Standard
+- Production-Advanced
+- Evaluation
+
+This change continues the gradual shift away from the legacy `mqsi*` command family toward the consolidated `ibmint` 
+tooling introduced in recent ACE releases.
+
+If you're coming from ACE 12, this is the direct replacement for `mqsimode`.
+
 #### Auto-complete
 
 ibmint commands on Linux and Unix support auto-complete.
@@ -833,6 +863,32 @@ AI-assisted development is now integrated directly into the IDE, reducing contex
 
 ![ai toolkit](img_20.png)
 
+
+### ACE Agent Preview
+Recent ACE releases include an Agent Preview feature in the App Connect Dashboard. This adds a chat-style interface that 
+lets you query your App Connect environment using natural language.
+
+#### What it does
+
+The agent can query information about your App Connect environment
+
+Typical examples include:
+
+- Listing integration runtimes and their versions
+- Showing deployed integrations and dependencies
+- Highlighting resource usage or topology information
+- Surfacing documentation or troubleshooting guidance
+
+The responses are generated using large language models hosted through watsonx.ai
+
+#### When you’ll see it
+
+The feature is available when running ACE in **container environments** with the App Connect Dashboard.
+
+When enabled, a chat button appears in the Dashboard UI where you can interact with the agent.
+
+Since this feature is currently a **preview**, it’s primarily intended for exploration rather than operational automation.
+
 ## Migration
 
 Migration considerations will be covered separately.
@@ -855,3 +911,5 @@ the Java compatibility, credential strategy, observability configuration, and co
 - [Improved Observability: Writing OpenTelemetry Metadata to the Activity Log](https://community.ibm.com/community/user/blogs/shalini-r/2025/11/23/writing-otelmetadata-to-activitylog)
 - [A Deep-Dive on ACE 13 and its use of Java 17](https://community.ibm.com/community/user/blogs/ben-thompson1/2026/02/12/ace-java17)
 - [Configuring Embedded Global Cache for App Connect Enterprise running in containers](https://community.ibm.com/community/user/blogs/amar-shah1/2025/06/08/configuring-embedded-global-cache)
+- [IBM App Connect Enterprise Agent Preview](https://www.ibm.com/docs/en/app-connect/13.0.x?topic=app-connect-enterprise-agent-preview)
+
