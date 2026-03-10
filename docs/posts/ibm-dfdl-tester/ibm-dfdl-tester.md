@@ -32,19 +32,19 @@ Point `validate.ps1` at your schema and data file, and it runs the parse through
 
 `.\validate.ps1 -Schema "C:\path\to\MySchema.xsd" -Data "C:\path\to\mydata.txt"`
 
-[Screenshot placeholder: terminal showing a successful `validate.ps1` run with schema path, data path, detected root element, and parse success output]
+![success](img.png)
 
 Under the hood, the script takes care of a few details for you. It resolves the Java 17 installation from ACE, checks the schema for a doc-root annotation to auto-detect the root element, and if the schema imports `IBMdefined/RecordSeparatedFieldFormat.xsd` through a relative path, it copies that folder next to the schema so the import resolves cleanly. After that, it compiles the schema with IBM DFDL and parses the data file.
 
 When the parse succeeds, it prints the XML infoset. When it fails, it returns a clear error message and a non-zero exit code, which also makes it usable in a pipeline without extra wrapping around it.
 
-[Screenshot placeholder: terminal showing a failed parse with the final IBM DFDL error message and non-zero result]
+![fail](img_1.png)
 
 If the schema has multiple possible root elements and the auto-detection picks the wrong one, you can pass `-Root` explicitly.
 
 `.\validate.ps1 -Schema "..." -Data "..." -Root "MyRootElement"`
 
-[Screenshot placeholder: terminal showing `-Root` being used to override root selection]
+![root success](img_2.png)
 
 ## When the parse error is not enough
 
@@ -56,11 +56,11 @@ If you want the same kind of detailed parse information you would normally inspe
 
 With `-Trace`, IBM DFDL writes its full service trace to stderr before the summary output. That includes the event level, any error code, the byte offset, and the schema location involved. In practice, it gives you the useful parser diagnostics without forcing you back into the Toolkit just to see what went wrong.
 
-[Screenshot placeholder: terminal showing `-Trace` output with byte offsets, schema element names, and the first relevant `error:` line highlighted]
+![trace](img_4.png)
 
 The `error:` lines are usually the ones worth looking at first. They tell you which schema element failed to match and why, which is usually the fastest route to understanding whether the problem is in the schema or the input data.
 
-[Screenshot placeholder: Toolkit trace or parse diagnostic view showing similar information to the CLI trace, for side-by-side comparison]
+![toolkit](img_5.png)
 
 One minor detail: the switch is called `-Trace` rather than `-Verbose`, because `-Verbose` is already a reserved PowerShell common parameter.
 
