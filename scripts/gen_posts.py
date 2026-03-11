@@ -317,10 +317,10 @@ def replace_between_markers(text: str, start: str, end: str, replacement: str) -
 
 
 def render_latest_posts(posts: list[Post], limit: int = 5) -> str:
-    # Lives in docs/index.md — links need "posts/" prefix relative to docs root
+    # Lives in docs/index.md - links need "posts/" prefix relative to docs root
     lines = []
     for p in posts[:limit]:
-        lines.append(f"- **{p.date_display}** — [{p.title}](posts/{p.rel_url}) · *{p.reading_time}*")
+        lines.append(f"- **{p.date_display}** - [{p.title}](posts/{p.rel_url}) · *{p.reading_time}*")
     return "\n".join(lines) if lines else "_No posts yet._"
 
 
@@ -328,7 +328,7 @@ def render_all_posts(posts: list[Post], prefix: str = "") -> str:
     # prefix="" for docs/posts/index.md; prefix="posts/" if ever used from docs root
     lines = []
     for p in posts:
-        lines.append(f"- **{p.date_display}** — [{p.title}]({prefix}{p.rel_url}) · *{p.reading_time}*")
+        lines.append(f"- **{p.date_display}** - [{p.title}]({prefix}{p.rel_url}) · *{p.reading_time}*")
     return "\n".join(lines) if lines else "_No posts yet._"
 
 
@@ -351,7 +351,7 @@ def render_archive(posts: list[Post]) -> str:
             lines.append(f"### {calendar.month_name[month]}")
             for p in groups[year][month]:
                 lines.append(
-                    f"- **{p.date_display}** — [{p.title}]({p.rel_url}) · *{p.reading_time}*"
+                    f"- **{p.date_display}** - [{p.title}]({p.rel_url}) · *{p.reading_time}*"
                 )
             lines.append("")
     return "\n".join(lines).rstrip()
