@@ -1,3 +1,25 @@
+---
+date: '2026-03-10'
+title: Validate a DFDL schema outside the toolkit
+description: This post shows how to validate a DFDL schema with IBM DFDL outside the
+  Toolkit using a simpler CLI-based flow. It covers the setup and validation scripts
+  I added to ibmDFDLCrossTester, support for ACE 12 and 13, useful trace output for
+  debugging, and a few schema gotchas worth knowing up front.
+reading_time: 7 min
+---
+
+![cover](cover.png){ .md-banner }
+
+<!--MD_POST_META:START-->
+<div class="md-post-meta">
+  <div class="md-post-meta-left">2026-03-10 · ⏱ 7 min</div>
+  <div class="md-post-meta-right"><span class="post-share-label">Share:</span> <a class="post-share post-share-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fmatthiasblomme.github.io%2Fblogs%2Fposts%2Fibm-dfdl-tester%2Fibm-dfdl-tester%2F" target="_blank" rel="noopener" title="Share on LinkedIn">[<span class="in">in</span>]</a></div>
+</div>
+<hr class="md-post-divider"/>
+
+<!--MD_POST_META:END-->
+
+
 # Validate a DFDL schema outside the toolkit
 
 This started with a fairly practical requirement: validate a DFDL schema with IBM DFDL, but outside the Toolkit. That makes local testing easier, and it also makes the same flow easier to reuse in a pipeline later.

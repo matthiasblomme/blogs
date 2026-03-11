@@ -912,4 +912,3 @@ the Java compatibility, credential strategy, observability configuration, and co
 - [A Deep-Dive on ACE 13 and its use of Java 17](https://community.ibm.com/community/user/blogs/ben-thompson1/2026/02/12/ace-java17)
 - [Configuring Embedded Global Cache for App Connect Enterprise running in containers](https://community.ibm.com/community/user/blogs/amar-shah1/2025/06/08/configuring-embedded-global-cache)
 - [IBM App Connect Enterprise Agent Preview](https://www.ibm.com/docs/en/app-connect/13.0.x?topic=app-connect-enterprise-agent-preview)
-
