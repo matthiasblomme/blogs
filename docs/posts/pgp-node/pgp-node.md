@@ -340,7 +340,6 @@ Nine times out of ten it’s a path, a user ID, a passphrase, or missing jars.
 Start there.
 
 
-
 Now that you’ve made it to the bottom of this post, you’ve earned the right to know that the [repo](https://github.com/matthiasblomme/PGP-SupportPac-for-IBM-ACE-V12) doesn’t just contain the plugin jars.
 
 It also includes:
@@ -350,3 +349,10 @@ It also includes:
 - Deployment and test scripts to validate everything automatically across standalone integration servers, node-managed setups, and Docker
 
 So if you don’t feel like typing everything by hand, you don’t have to.
+
+---
+
+## References
+
+- [MyOpenTech-PGP-SupportPac - The Source Code project](https://github.com/matthiasblomme/MyOpenTech-PGP-SupportPac)
+- [PGP-SupportPac-for-IBM-ACE-V12 - The Deliverables project](https://github.com/matthiasblomme/PGP-SupportPac-for-IBM-ACE-V12)

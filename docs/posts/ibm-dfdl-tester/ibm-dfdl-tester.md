@@ -137,3 +137,7 @@ That gives you a simpler local test flow, and it gives you something that can be
 That was the part I was interested in, and the part I ended up improving with the setup and validation scripts.
 
 Happy testing.
+
+## References
+
+- [ibmDFDLCrossTester - The Source Code Repo](https://github.com/matthiasblomme/ibmDFDLCrossTester)
