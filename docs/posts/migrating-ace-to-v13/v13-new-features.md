@@ -753,7 +753,7 @@ _JAVA_OPTIONS="-Djava.io.tmpdir=/apps/mqsi/javacache"
 ```java
 ResourceManagers:
   JVM:
-    jvmSystemProperty:
+    jvmSystemPropertylkl:
 ```
 
 Impact when coming from v12:
