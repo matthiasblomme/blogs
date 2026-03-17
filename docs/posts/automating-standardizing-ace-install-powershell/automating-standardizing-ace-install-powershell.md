@@ -3,6 +3,11 @@ date: 2024-11-21
 title: Automating and Standardizing IBM ACE Installation with PowerShell
 description: Automating windows installations of ACE through scripting
 reading_time: 10 min
+tags:
+- ace
+- powershell
+- automation
+- windows
 ---
 
 <!--MD_POST_META:START-->
@@ -11,7 +16,7 @@ reading_time: 10 min
   <div class="md-post-meta-right"><span class="post-share-label">Share:</span> <a class="post-share post-share-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fmatthiasblomme.github.io%2Fblogs%2Fposts%2Fautomating-standardizing-ace-install-powershell%2Fautomating-standardizing-ace-install-powershell%2F" target="_blank" rel="noopener" title="Share on LinkedIn">[<span class="in">in</span>]</a></div>
 </div>
 <hr class="md-post-divider"/>
-
+<div class="md-post-tags"><span class="md-tag">ace</span> <span class="md-tag">powershell</span> <span class="md-tag">automation</span> <span class="md-tag">windows</span></div>
 <!--MD_POST_META:END-->
 
 # Automating and Standardizing IBM ACE Installation with PowerShell

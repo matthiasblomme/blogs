@@ -1,8 +1,16 @@
 ---
 date: '2025-09-05'
-title: ACE, AI, and Why You Should’ve Been in Hursley
+title: ACE, AI, and Why You Should've Been in Hursley
 description: IBM TechXchange Early eXperience 2025.
 reading_time: 7 min
+tags:
+- ace
+- ibm
+- event
+- techxchange
+- ai
+- hursley
+- ibm labs
 ---
 
 <!--MD_POST_META:START-->
@@ -11,7 +19,7 @@ reading_time: 7 min
   <div class="md-post-meta-right"><span class="post-share-label">Share:</span> <a class="post-share post-share-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fmatthiasblomme.github.io%2Fblogs%2Fposts%2Face-ai-hursley-2025%2Face-ai-hursley%2F" target="_blank" rel="noopener" title="Share on LinkedIn">[<span class="in">in</span>]</a></div>
 </div>
 <hr class="md-post-divider"/>
-
+<div class="md-post-tags"><span class="md-tag">ace</span> <span class="md-tag">ibm</span> <span class="md-tag">event</span> <span class="md-tag">techxchange</span> <span class="md-tag">ai</span> <span class="md-tag">hursley</span> <span class="md-tag">ibm labs</span></div>
 <!--MD_POST_META:END-->
 
 # ACE, AI, and Why You Should’ve Been in Hursley

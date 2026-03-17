@@ -7,6 +7,11 @@ description: This post shows how to validate a DFDL schema with IBM DFDL outside
   debugging, and a few schema gotchas worth knowing up front.
 author: Matthias Blomme
 reading_time: 7 min
+tags:
+- ace
+- dfdl
+- tools
+- testing
 ---
 
 ![cover](cover.png){ .md-banner }
@@ -17,7 +22,7 @@ reading_time: 7 min
   <div class="md-post-meta-right"><span class="post-share-label">Share:</span> <a class="post-share post-share-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fmatthiasblomme.github.io%2Fblogs%2Fposts%2Fibm-dfdl-tester%2Fibm-dfdl-tester%2F" target="_blank" rel="noopener" title="Share on LinkedIn">[<span class="in">in</span>]</a></div>
 </div>
 <hr class="md-post-divider"/>
-
+<div class="md-post-tags"><span class="md-tag">ace</span> <span class="md-tag">dfdl</span> <span class="md-tag">tools</span> <span class="md-tag">testing</span></div>
 <!--MD_POST_META:END-->
 
 

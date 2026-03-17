@@ -5,6 +5,11 @@ description: Today automated builds and deployments are a must to support busine
   demands. IBM App Connect Enterprise (ace) offers strong capabilities to automate
   build and.
 reading_time: 16 min
+tags:
+- ace
+- cicd
+- automation
+- bar
 ---
 
 <!--MD_POST_META:START-->
@@ -13,7 +18,7 @@ reading_time: 16 min
   <div class="md-post-meta-right"><span class="post-share-label">Share:</span> <a class="post-share post-share-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fmatthiasblomme.github.io%2Fblogs%2Fposts%2Fcreate-vs-package-bar%2Fcreate-vs-pacakage-bar%2F" target="_blank" rel="noopener" title="Share on LinkedIn">[<span class="in">in</span>]</a></div>
 </div>
 <hr class="md-post-divider"/>
-
+<div class="md-post-tags"><span class="md-tag">ace</span> <span class="md-tag">cicd</span> <span class="md-tag">automation</span> <span class="md-tag">bar</span></div>
 <!--MD_POST_META:END-->
 
 # Bar Build Commands: Unraveling the Differences

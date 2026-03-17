@@ -3,6 +3,10 @@ date: 2025-08-29
 title: 'Stop Copying Messages into the Environment: Use Context Tree in ACE 13.0.4.0+'
 description: Using the new context tree in an actual functional use case
 reading_time: 9 min
+tags:
+- ace
+- esql
+- v13
 ---
 
 <!--MD_POST_META:START-->
@@ -11,7 +15,7 @@ reading_time: 9 min
   <div class="md-post-meta-right"><span class="post-share-label">Share:</span> <a class="post-share post-share-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fmatthiasblomme.github.io%2Fblogs%2Fposts%2Fflow-order-context-tree%2FStop-Copying-Messages-into-Environment-Use-Context-Tree%2F" target="_blank" rel="noopener" title="Share on LinkedIn">[<span class="in">in</span>]</a></div>
 </div>
 <hr class="md-post-divider"/>
-
+<div class="md-post-tags"><span class="md-tag">ace</span> <span class="md-tag">esql</span> <span class="md-tag">v13</span></div>
 <!--MD_POST_META:END-->
 
 # Stop Copying Messages into the Environment: Use Context Tree in ACE 13.0.4.0+

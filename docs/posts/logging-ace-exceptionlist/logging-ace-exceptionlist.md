@@ -4,6 +4,11 @@ title: Logging ACE's ExceptionList Inserts (in the Activity log with the Log nod
 description: Properly handing and parsing the ACE Exception list to retreive the most
   usefull information (with JSONata)
 reading_time: 6 min
+tags:
+- ace
+- logging
+- jsonata
+- error-handling
 ---
 
 <!--MD_POST_META:START-->
@@ -12,7 +17,7 @@ reading_time: 6 min
   <div class="md-post-meta-right"><span class="post-share-label">Share:</span> <a class="post-share post-share-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fmatthiasblomme.github.io%2Fblogs%2Fposts%2Flogging-ace-exceptionlist%2Flogging-ace-exceptionlist%2F" target="_blank" rel="noopener" title="Share on LinkedIn">[<span class="in">in</span>]</a></div>
 </div>
 <hr class="md-post-divider"/>
-
+<div class="md-post-tags"><span class="md-tag">ace</span> <span class="md-tag">logging</span> <span class="md-tag">jsonata</span> <span class="md-tag">error-handling</span></div>
 <!--MD_POST_META:END-->
 
 # Logging ACE's ExceptionList Inserts (in the Activity log with the Log node)

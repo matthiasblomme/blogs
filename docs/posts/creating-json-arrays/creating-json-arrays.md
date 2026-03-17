@@ -3,6 +3,11 @@ date: 2025-08-18
 title: Create JSON Arrays in ESQL and Java (Without Losing Your Sanity)
 description: How can we properly create clean JSON arrays
 reading_time: 29 min
+tags:
+- ace
+- esql
+- json
+- java
 ---
 
 <!--MD_POST_META:START-->
@@ -11,7 +16,7 @@ reading_time: 29 min
   <div class="md-post-meta-right"><span class="post-share-label">Share:</span> <a class="post-share post-share-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fmatthiasblomme.github.io%2Fblogs%2Fposts%2Fcreating-json-arrays%2Fcreating-json-arrays%2F" target="_blank" rel="noopener" title="Share on LinkedIn">[<span class="in">in</span>]</a></div>
 </div>
 <hr class="md-post-divider"/>
-
+<div class="md-post-tags"><span class="md-tag">ace</span> <span class="md-tag">esql</span> <span class="md-tag">json</span> <span class="md-tag">java</span></div>
 <!--MD_POST_META:END-->
 
 # Create JSON Arrays in ESQL and Java (Without Losing Your Sanity)
