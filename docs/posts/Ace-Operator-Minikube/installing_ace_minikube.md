@@ -5,6 +5,12 @@ image: cover.png
 description: Even though we hardly ever see it, IBM App Connect Enterprise (ACE) is
   perfectly capable of running on plain Kubernetes.
 reading_time: 72 min
+tags:
+- ace
+- kubernetes
+- minikube
+- docker
+- operator
 ---
 
 ![cover](cover.png){ .md-banner }
@@ -15,7 +21,7 @@ reading_time: 72 min
   <div class="md-post-meta-right"><span class="post-share-label">Share:</span> <a class="post-share post-share-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fmatthiasblomme.github.io%2Fblogs%2Fposts%2FAce-Operator-Minikube%2Finstalling_ace_minikube%2F" target="_blank" rel="noopener" title="Share on LinkedIn">[<span class="in">in</span>]</a></div>
 </div>
 <hr class="md-post-divider"/>
-
+<div class="md-post-tags"><span class="md-tag">ace</span> <span class="md-tag">kubernetes</span> <span class="md-tag">minikube</span> <span class="md-tag">docker</span> <span class="md-tag">operator</span></div>
 <!--MD_POST_META:END-->
 
 

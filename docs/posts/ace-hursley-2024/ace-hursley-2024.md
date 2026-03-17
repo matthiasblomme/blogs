@@ -5,6 +5,13 @@ description: Last week, I had the opportunity to attend the IBM TechXchange earl
   eXperience program for IBM App Connect Enterprise (ACE) at the historic Hursley
   House
 reading_time: 3 min
+tags:
+- ace
+- ibm
+- event
+- techxchange
+- hursley
+- ibm labs
 ---
 
 <!--MD_POST_META:START-->
@@ -13,7 +20,7 @@ reading_time: 3 min
   <div class="md-post-meta-right"><span class="post-share-label">Share:</span> <a class="post-share post-share-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fmatthiasblomme.github.io%2Fblogs%2Fposts%2Face-hursley-2024%2Face-hursley-2024%2F" target="_blank" rel="noopener" title="Share on LinkedIn">[<span class="in">in</span>]</a></div>
 </div>
 <hr class="md-post-divider"/>
-
+<div class="md-post-tags"><span class="md-tag">ace</span> <span class="md-tag">ibm</span> <span class="md-tag">event</span> <span class="md-tag">techxchange</span> <span class="md-tag">hursley</span> <span class="md-tag">ibm labs</span></div>
 <!--MD_POST_META:END-->
 
 # A Week at IBM TechXchange Early eXperience Program in Hursley
