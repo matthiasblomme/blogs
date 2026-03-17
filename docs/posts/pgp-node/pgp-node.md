@@ -1,6 +1,7 @@
 ---
 date: '2026-02-17'
 title: 'PGP SupportPac on ACE 13.0.6.0: a full end-to-end setup'
+author: Matthias Blomme and Francis Cocx
 description: A practical, field-tested setup of the PGP SupportPac on ACE 13.0.6.0,
   from key generation to working encryption and decryption flows, including the runtime
   jar details that tend to get missed.
@@ -356,3 +357,10 @@ So if you don’t feel like typing everything by hand, you don’t have to.
 
 - [MyOpenTech-PGP-SupportPac - The Source Code project](https://github.com/matthiasblomme/MyOpenTech-PGP-SupportPac)
 - [PGP-SupportPac-for-IBM-ACE-V12 - The Deliverables project](https://github.com/matthiasblomme/PGP-SupportPac-for-IBM-ACE-V12)
+
+---
+
+Written by [Matthias Blomme](https://www.linkedin.com/in/matthiasblomme/) and [Francis Cocx](https://be.linkedin.com/in/cocxfrancis)
+
+\#IBMChampion \
+\#AppConnectEnterprise(ACE)
