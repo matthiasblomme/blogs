@@ -5,6 +5,7 @@ description: This post shows how to validate a DFDL schema with IBM DFDL outside
   Toolkit using a simpler CLI-based flow. It covers the setup and validation scripts
   I added to ibmDFDLCrossTester, support for ACE 12 and 13, useful trace output for
   debugging, and a few schema gotchas worth knowing up front.
+author: Matthias Blomme
 reading_time: 7 min
 ---
 
@@ -141,3 +142,10 @@ Happy testing.
 ## References
 
 - [ibmDFDLCrossTester - The Source Code Repo](https://github.com/matthiasblomme/ibmDFDLCrossTester)
+
+---
+
+Written by [Matthias Blomme](https://www.linkedin.com/in/matthiasblomme/)
+
+\#IBMChampion \
+\#AppConnectEnterprise(ACE)
