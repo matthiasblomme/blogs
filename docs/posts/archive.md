@@ -7,6 +7,8 @@ title: Archive
 <!--MD_ARCHIVE:START-->
 ## 2026
 ### March
+- **2026-03-14** - [Is that a fish? Part 2: Prompt tuning](visdeurbel-automated-detection/02.visdeurbel-prompt-tuning.md) · *32 min*
+- **2026-03-13** - [Is that a fish? Part 1: Motion detection](visdeurbel-automated-detection/01.visdeurbel-fish-detector.md) · *22 min*
 - **2026-03-10** - [Validate a DFDL schema outside the toolkit](ibm-dfdl-tester/ibm-dfdl-tester.md) · *7 min*
 
 ### February
@@ -15,7 +17,7 @@ title: Archive
 
 ### January
 - **2026-01-18** - [Creating a generic log node using context trees](generic-log-node/generic-log-node.md) · *17 min*
-- **2026-01-16** - [ACE v13 new features (when coming from v12)](migrating-ace-to-v13/v13-new-features.md) · *31 min*
+- **2026-01-16** - [ACE v13 new features (when coming from v12)](ace-v13-new-features-overview/v13-new-features.md) · *31 min*
 - **2026-01-16** - [Running Granite 4.0-1B locally on Android](running-granite-llm-on-android/run-granite-on-android.md) · *25 min*
 
 ## 2025
