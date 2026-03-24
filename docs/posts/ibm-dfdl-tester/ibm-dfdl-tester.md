@@ -18,7 +18,7 @@ tags:
 
 <!--MD_POST_META:START-->
 <div class="md-post-meta">
-  <div class="md-post-meta-left">2026-03-10 · ⏱ 7 min</div>
+  <div class="md-post-meta-left">Matthias Blomme · 2026-03-10 · ⏱ 7 min</div>
   <div class="md-post-meta-right"><span class="post-share-label">Share:</span> <a class="post-share post-share-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fmatthiasblomme.github.io%2Fblogs%2Fposts%2Fibm-dfdl-tester%2Fibm-dfdl-tester%2F" target="_blank" rel="noopener" title="Share on LinkedIn">[<span class="in">in</span>]</a></div>
 </div>
 <hr class="md-post-divider"/>
@@ -36,11 +36,11 @@ The project already provided the base for that. I built on that by adding simple
 
 ## One-time setup: populate the IBM jars
 
-One part of the setup needs to happen once up front, unless you switch environments or ACE versions.
+One part of the setup needs to happen up front, just once, unless you switch environments or ACE versions.
 
 Because IBM DFDL is bundled with ACE, the required jars are not available as regular project dependencies. To make them usable from the test project, I added a setup script that copies the required runtime jars into `lib/` and the IBM sample resources into `src/test/resources/`.
 
-For `sbt`, a normal install works, but a portable install is fine as well. The only real requirement is that the scripts can find `sbt.bat`, either on `PATH` or via an explicit path.
+For `sbt`, a normal install works, but a portable install is fine as well. The only real requirement is that the scripts can find `sbt.bat`, either via your environment `PATH` variable or via an explicit path call-out.
 
 You can run the setup script like this:
 
@@ -56,7 +56,7 @@ That gives the project the IBM bits it needs locally, without having to keep rea
 
 Once the IBM jars are in place, the actual validation flow is straightforward.
 
-Point `validate.ps1` at your schema and data file, and it runs the parse through IBM DFDL.
+Point `validate.ps1` at your schema and data file, and it runs the parse through the IBM DFDL libraries.
 
 `.\validate.ps1 -Schema "C:\path\to\MySchema.xsd" -Data "C:\path\to\mydata.txt"`
 
@@ -90,7 +90,7 @@ The `error:` lines are usually the ones worth looking at first. They tell you wh
 
 ![toolkit](img_5.png)
 
-One minor detail: the switch is called `-Trace` rather than `-Verbose`, because `-Verbose` is already a reserved PowerShell common parameter.
+One minor detail: the switch is called `-Trace` rather than `-Verbose`, because `-Verbose` is already a reserved PowerShell command parameter.
 
 ## CLI parameters at a glance
 
