@@ -7,17 +7,18 @@ title: Archive
 <!--MD_ARCHIVE:START-->
 ## 2026
 ### March
+- **2026-03-17** - [How This Blog Works: MkDocs, Python, and GitHub Pages](blog-hosting/blog-hosting.md) · *15 min*
 - **2026-03-14** - [Is that a fish? Part 2: Prompt tuning](visdeurbel-automated-detection/02.visdeurbel-prompt-tuning.md) · *32 min*
 - **2026-03-13** - [Is that a fish? Part 1: Motion detection](visdeurbel-automated-detection/01.visdeurbel-fish-detector.md) · *22 min*
 - **2026-03-10** - [Validate a DFDL schema outside the toolkit](ibm-dfdl-tester/ibm-dfdl-tester.md) · *7 min*
 
 ### February
 - **2026-02-20** - [Containerizing IBM ACE: A Blog Series - Upgrading in Containers](containerization-series/06.upgrading-in-containers.md) · *12 min*
-- **2026-02-17** - [PGP SupportPac on ACE 13.0.6.0: a full end-to-end setup](pgp-node/pgp-node.md) · *15 min*
+- **2026-02-17** - [PGP SupportPac on ACE 13.0.6.0: a full end-to-end setup](pgp-node/pgp-node.md) · *12 min*
 
 ### January
 - **2026-01-18** - [Creating a generic log node using context trees](generic-log-node/generic-log-node.md) · *17 min*
-- **2026-01-16** - [ACE v13 new features (when coming from v12)](ace-v13-new-features-overview/v13-new-features.md) · *31 min*
+- **2026-01-16** - [ACE v13 new features (when coming from v12)](ace-v13-new-features-overview/v13-new-features.md) · *34 min*
 - **2026-01-16** - [Running Granite 4.0-1B locally on Android](running-granite-llm-on-android/run-granite-on-android.md) · *25 min*
 
 ## 2025
@@ -30,7 +31,7 @@ title: Archive
 - **2025-09-20** - [Containerizing IBM ACE: A Blog Series - Scoping your runtimes](containerization-series/04.scoping-your-runtime.md) · *13 min*
 - **2025-09-11** - [Containerizing IBM ACE: A Blog Series - Images vs Artifacts](containerization-series/02.images-vs-artefacts.md) · *10 min*
 - **2025-09-11** - [Containerizing IBM ACE: A Blog Series - Things to Consider in Containers](containerization-series/03.things-to-consider-in-containers.md) · *10 min*
-- **2025-09-05** - [ACE, AI, and Why You Should’ve Been in Hursley](ace-ai-hursley-2025/ace-ai-hursley.md) · *7 min*
+- **2025-09-05** - [ACE, AI, and Why You Should've Been in Hursley](ace-ai-hursley-2025/ace-ai-hursley.md) · *7 min*
 - **2025-09-02** - [Containerizing IBM ACE: A Blog Series - The Basics](containerization-series/01.the-basics.md) · *9 min*
 
 ### August
