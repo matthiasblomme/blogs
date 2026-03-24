@@ -25,11 +25,11 @@ Expect walkthroughs, sharp opinions, and experiments straight out of my homelab 
 ## Latest Post
 
 <!--MD_LATEST_POSTS:START-->
+- **2026-03-17** - [How This Blog Works: MkDocs, Python, and GitHub Pages](posts/blog-hosting/blog-hosting.md) · *15 min*
 - **2026-03-14** - [Is that a fish? Part 2: Prompt tuning](posts/visdeurbel-automated-detection/02.visdeurbel-prompt-tuning.md) · *32 min*
 - **2026-03-13** - [Is that a fish? Part 1: Motion detection](posts/visdeurbel-automated-detection/01.visdeurbel-fish-detector.md) · *22 min*
 - **2026-03-10** - [Validate a DFDL schema outside the toolkit](posts/ibm-dfdl-tester/ibm-dfdl-tester.md) · *7 min*
 - **2026-02-20** - [Containerizing IBM ACE: A Blog Series - Upgrading in Containers](posts/containerization-series/06.upgrading-in-containers.md) · *12 min*
-- **2026-02-17** - [PGP SupportPac on ACE 13.0.6.0: a full end-to-end setup](posts/pgp-node/pgp-node.md) · *15 min*
 <!--MD_LATEST_POSTS:END-->
 
 ---
