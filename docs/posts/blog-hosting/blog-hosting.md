@@ -14,6 +14,8 @@ tags:
 reading_time: 15 min
 ---
 
+![cover](cover.png){ .md-banner }
+
 <!--MD_POST_META:START-->
 <div class="md-post-meta">
   <div class="md-post-meta-left">Matthias Blomme · 2026-03-17 · ⏱ 15 min</div>

@@ -1,5 +1,5 @@
 ---
-date: 2026-4-02
+date: 2026-04-02
 title: mqsirestart
 author: Matthias Blomme
 description: mqsirestart solves all your restart needs!
