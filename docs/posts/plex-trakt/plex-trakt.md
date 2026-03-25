@@ -171,6 +171,19 @@ First, run a one-time sync to push your existing Plex history into Trakt:
 docker compose run --rm plextraktsync sync
 ```
 
+If you'd rather sync a specific library instead of everything, use the `--library` flag:
+
+```bash
+docker compose run --rm plextraktsync sync --library "TV Shows"
+```
+
+You can also target a specific show or movie:
+
+```bash
+docker compose run --rm plextraktsync sync --show "Breaking Bad"
+docker compose run --rm plextraktsync sync --movie "Inception"
+```
+
 Once the sync is done, the container exits and cleans itself up. The perfect crime. On a big library, this can take a while, think hours. Once that's done, start the long-running watcher we created before:
 
 ```bash
