@@ -1,6 +1,8 @@
 ---
-title: 'Sync Plex watch history to Trakt with PlexTraktSync in Docker'
-description: How to run PlexTraktSync in Docker to sync Plex watch history, ratings, and collections to Trakt, including fixes for Google login and Docker networking issues.
+title: Sync Plex watch history to Trakt with PlexTraktSync in Docker
+description: How to run PlexTraktSync in Docker to sync Plex watch history, ratings,
+  and collections to Trakt, including fixes for Google login and Docker networking
+  issues.
 date: 2026-03-24
 author: Matthias Blomme
 tags:
@@ -8,12 +10,17 @@ tags:
 - plex
 - trakt
 - self-hosting
+reading_time: 11 min
 ---
 
 <!--MD_POST_META:START-->
-
+<div class="md-post-meta">
+  <div class="md-post-meta-left">Matthias Blomme · 2026-03-24 · ⏱ 11 min</div>
+  <div class="md-post-meta-right"><span class="post-share-label">Share:</span> <a class="post-share post-share-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fmatthiasblomme.github.io%2Fblogs%2Fposts%2Fplex-trakt%2Fplex-trakt%2F" target="_blank" rel="noopener" title="Share on LinkedIn">[<span class="in">in</span>]</a></div>
+</div>
+<hr class="md-post-divider"/>
+<div class="md-post-tags"><span class="md-tag">docker</span> <span class="md-tag">plex</span> <span class="md-tag">trakt</span> <span class="md-tag">self-hosting</span></div>
 <!--MD_POST_META:END-->
-
 
 # Syncing Plex watch history to Trakt with PlexTraktSync in Docker
 
