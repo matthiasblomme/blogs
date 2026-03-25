@@ -25,11 +25,11 @@ Expect walkthroughs, sharp opinions, and experiments straight out of my homelab 
 ## Latest Post
 
 <!--MD_LATEST_POSTS:START-->
+- **2026-4-02** - [mqsirestart](posts/mqsirestart/mqsirestart.md) · *5 min*
+- **2026-03-31** - [Keeping stuff stopped in IBM ACE](posts/keeping-stuff-stopped/keeping-stuff-stopped.md) · *8 min*
+- **2026-03-25** - [IBM Storage Strategy Days 2026](posts/storage-days-2026/storage-days-2026.md) · *1 min*
+- **2026-03-24** - [Sync Plex watch history to Trakt with PlexTraktSync in Docker](posts/plex-trakt/plex-trakt.md) · *11 min*
 - **2026-03-17** - [How This Blog Works: MkDocs, Python, and GitHub Pages](posts/blog-hosting/blog-hosting.md) · *15 min*
-- **2026-03-14** - [Is that a fish? Part 2: Prompt tuning](posts/visdeurbel-automated-detection/02.visdeurbel-prompt-tuning.md) · *32 min*
-- **2026-03-13** - [Is that a fish? Part 1: Motion detection](posts/visdeurbel-automated-detection/01.visdeurbel-fish-detector.md) · *22 min*
-- **2026-03-10** - [Validate a DFDL schema outside the toolkit](posts/ibm-dfdl-tester/ibm-dfdl-tester.md) · *7 min*
-- **2026-02-20** - [Containerizing IBM ACE: A Blog Series - Upgrading in Containers](posts/containerization-series/06.upgrading-in-containers.md) · *12 min*
 <!--MD_LATEST_POSTS:END-->
 
 ---

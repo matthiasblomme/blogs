@@ -345,4 +345,3 @@ This one is simpler (last one, I promise) than that. Which is exactly why it wor
 ---
 
 Written by [Matthias Blomme](https://www.linkedin.com/in/matthiasblomme/)
-

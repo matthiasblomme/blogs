@@ -1,21 +1,27 @@
 ---
-date: '2026-4-02'
-title: 'mqsirestart'
-author: Matthias Blomme 
+date: 2026-4-02
+title: mqsirestart
+author: Matthias Blomme
 description: mqsirestart solves all your restart needs!
 tags:
 - ace
 - mqsistop
 - mqsistart
 - mqsirestart
-
+reading_time: 5 min
 ---
 
 ![cover](cover.png){ .md-banner }
 
 <!--MD_POST_META:START-->
-
+<div class="md-post-meta">
+  <div class="md-post-meta-left">Matthias Blomme · 2026-4-02 · ⏱ 5 min</div>
+  <div class="md-post-meta-right"><span class="post-share-label">Share:</span> <a class="post-share post-share-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fmatthiasblomme.github.io%2Fblogs%2Fposts%2Fmqsirestart%2Fmqsirestart%2F" target="_blank" rel="noopener" title="Share on LinkedIn">[<span class="in">in</span>]</a></div>
+</div>
+<hr class="md-post-divider"/>
+<div class="md-post-tags"><span class="md-tag">ace</span> <span class="md-tag">mqsistop</span> <span class="md-tag">mqsistart</span> <span class="md-tag">mqsirestart</span></div>
 <!--MD_POST_META:END-->
+
 
 # mqsirestart — the best thing since sliced bread
 
@@ -101,6 +107,8 @@ We've all been there. It's 4:47 PM on a Friday. You type `mqsistop`. You get a S
 Stop juggling two commands like it's 2009. Stop living in a world of unnecessary risk. Stop the madness.
 
 Use `mqsirestart` today — your integration environment will thank you, your team will thank you, and honestly? **You'll thank you.**
+
+Availabe as a free download for a limited time, [get yours now!](https://github.com/matthiasblomme/ACE_MQ_Tooling/blob/656191e1205827fe461cb42e7f58044a8bd01afe/ACE/Administration/mqsirestart.cmd)!
 
 ---
 
