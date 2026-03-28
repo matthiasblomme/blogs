@@ -4,6 +4,11 @@ title: Creating a generic log node using context trees
 image: cover.png
 description: Using the Context Tree in a second real life use case, logging
 reading_time: 17 min
+tags:
+- ace
+- logging
+- esql
+- v13
 ---
 
 ![cover](cover.png){ .md-banner }
@@ -14,7 +19,7 @@ reading_time: 17 min
   <div class="md-post-meta-right"><span class="post-share-label">Share:</span> <a class="post-share post-share-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fmatthiasblomme.github.io%2Fblogs%2Fposts%2Fgeneric-log-node%2Fgeneric-log-node%2F" target="_blank" rel="noopener" title="Share on LinkedIn">[<span class="in">in</span>]</a></div>
 </div>
 <hr class="md-post-divider"/>
-
+<div class="md-post-tags"><span class="md-tag">ace</span> <span class="md-tag">logging</span> <span class="md-tag">esql</span> <span class="md-tag">v13</span></div>
 <!--MD_POST_META:END-->
 
 

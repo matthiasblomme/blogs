@@ -499,3 +499,10 @@ It’s just useful.
 Which is exactly what you want from a local model.
 
 Have fun!
+
+---
+
+Written by [Matthias Blomme](https://www.linkedin.com/in/matthiasblomme/)
+
+\#IBMChampion \
+\#AppConnectEnterprise(ACE)
