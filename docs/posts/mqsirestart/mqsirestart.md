@@ -56,6 +56,8 @@ And the best part? You already know how to use it. It's `mqsistart` and `mqsisto
 
 # Here's how to use it
 
+Just drop the script into `%MQSI_FILEPATH%/bin` and use it like the built-in scripts, because restarting things the hard way is a thing of the past.
+
 **Restart an integration server:**
 
 ```
