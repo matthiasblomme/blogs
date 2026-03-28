@@ -24,6 +24,7 @@ reading_time: 11 min
 <div class="md-post-tags"><span class="md-tag">docker</span> <span class="md-tag">plex</span> <span class="md-tag">trakt</span> <span class="md-tag">self-hosting</span></div>
 <!--MD_POST_META:END-->
 
+
 # Syncing Plex watch history to Trakt with PlexTraktSync in Docker
 
 Want your Plex watch history in Trakt without paying for Plex Pass (I'm already paying for that, thanks, but you don't have to) or Trakt VIP? PlexTraktSync does exactly that, and it runs just fine in Docker.

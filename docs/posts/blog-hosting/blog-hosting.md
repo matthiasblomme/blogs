@@ -25,6 +25,7 @@ reading_time: 15 min
 <div class="md-post-tags"><span class="md-tag">python</span> <span class="md-tag">mkdocs</span> <span class="md-tag">github-actions</span> <span class="md-tag">automation</span> <span class="md-tag">blogging</span></div>
 <!--MD_POST_META:END-->
 
+
 # How this blog works: MkDocs, Python, and GitHub Pages
 
 Ever wonder how this blog works without dragging in WordPress and all the other nonsense people keep calling "simple"? It’s markdown, MkDocs, a Python script, and GitHub Pages.
@@ -152,9 +153,6 @@ The script fills in the repetitive bits inside each post and also updates the ov
 For the metadata block inside a post, I use these markers:
 
 ```html
-<!--MD_POST_META:START-->
-
-<!--MD_POST_META:END-->
 ```
 
 That section gets replaced automatically based on the front matter and the site config. So things like the publishing date, reading time, tags, and share link are generated for me instead of being maintained by hand.
