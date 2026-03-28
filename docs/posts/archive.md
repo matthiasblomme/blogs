@@ -7,14 +7,12 @@ title: Archive
 <!--MD_ARCHIVE:START-->
 ## 2026
 ### April
-- **2026-4-02** - [mqsirestart](mqsirestart/mqsirestart.md) · *5 min*
+- **2026-04-02** - [mqsirestart](mqsirestart/mqsirestart.md) · *5 min*
 
 ### March
-- **2026-03-31** - [Keeping stuff stopped in IBM ACE](../../misc/keeping-stuff-stopped/keeping-stuff-stopped.md) · *8 min*
-- **2026-03-25** - [IBM Storage Strategy Days 2026](../../misc/storage-days-2026/storage-days-2026.md) · *1 min*
 - **2026-03-24** - [Sync Plex watch history to Trakt with PlexTraktSync in Docker](plex-trakt/plex-trakt.md) · *11 min*
 - **2026-03-17** - [How This Blog Works: MkDocs, Python, and GitHub Pages](blog-hosting/blog-hosting.md) · *15 min*
-- **2026-03-14** - [Is that a fish? Part 2: Prompt tuning](visdeurbel-automated-detection/02.visdeurbel-prompt-tuning.md) · *32 min*
+- **2026-03-14** - [Is that a fish? Part 2: Prompt tuning](../../misc/visdeurbel-automated-detection/02.visdeurbel-prompt-tuning.md) · *32 min*
 - **2026-03-13** - [Is that a fish? Part 1: Motion detection](visdeurbel-automated-detection/01.visdeurbel-fish-detector.md) · *22 min*
 - **2026-03-10** - [Validate a DFDL schema outside the toolkit](ibm-dfdl-tester/ibm-dfdl-tester.md) · *7 min*
 
