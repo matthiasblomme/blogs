@@ -1,9 +1,12 @@
 ---
 date: 2025-04-04
 title: Select The Row
-description: Let’s talk about SELECT in ESQL — and I don’t mean database queries (although
+description: Let's talk about SELECT in ESQL — and I don't mean database queries (although
   they are rather similar)
 reading_time: 16 min
+tags:
+- ace
+- esql
 ---
 
 <!--MD_POST_META:START-->
@@ -12,7 +15,7 @@ reading_time: 16 min
   <div class="md-post-meta-right"><span class="post-share-label">Share:</span> <a class="post-share post-share-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fmatthiasblomme.github.io%2Fblogs%2Fposts%2Fselect-the-row%2Fselect-the-row%2F" target="_blank" rel="noopener" title="Share on LinkedIn">[<span class="in">in</span>]</a></div>
 </div>
 <hr class="md-post-divider"/>
-
+<div class="md-post-tags"><span class="md-tag">ace</span> <span class="md-tag">esql</span></div>
 <!--MD_POST_META:END-->
 
 # Select The Row

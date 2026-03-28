@@ -4,6 +4,10 @@ title: Business Transaction Monitoring
 description: I wanted to try the new (re-introduced in 12.0.2.0) ACE Business Transaction
   Monitoring to see what the added value could be for a company/team/environment that.
 reading_time: 16 min
+tags:
+- ace
+- monitoring
+- btm
 ---
 
 <!--MD_POST_META:START-->
@@ -12,7 +16,7 @@ reading_time: 16 min
   <div class="md-post-meta-right"><span class="post-share-label">Share:</span> <a class="post-share post-share-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fmatthiasblomme.github.io%2Fblogs%2Fposts%2Fbtm%2Fbtm%2F" target="_blank" rel="noopener" title="Share on LinkedIn">[<span class="in">in</span>]</a></div>
 </div>
 <hr class="md-post-divider"/>
-
+<div class="md-post-tags"><span class="md-tag">ace</span> <span class="md-tag">monitoring</span> <span class="md-tag">btm</span></div>
 <!--MD_POST_META:END-->
 
 # Business Transaction Monitoring

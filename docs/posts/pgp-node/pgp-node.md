@@ -1,27 +1,34 @@
 ---
 date: '2026-02-17'
 title: 'PGP SupportPac on ACE 13.0.6.0: a full end-to-end setup'
+author: Matthias Blomme and Francis Cocx
 description: A practical, field-tested setup of the PGP SupportPac on ACE 13.0.6.0,
   from key generation to working encryption and decryption flows, including the runtime
   jar details that tend to get missed.
 reading_time: 12 min
+tags:
+- ace
+- security
+- pgp
+- encryption
 ---
 
 ![cover](cover.png){ .md-banner }
 
 <!--MD_POST_META:START-->
 <div class="md-post-meta">
-  <div class="md-post-meta-left">2026-02-17 · ⏱ 12 min</div>
+  <div class="md-post-meta-left">Matthias Blomme and Francis Cocx · 2026-02-17 · ⏱ 12 min</div>
   <div class="md-post-meta-right"><span class="post-share-label">Share:</span> <a class="post-share post-share-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fmatthiasblomme.github.io%2Fblogs%2Fposts%2Fpgp-node%2Fpgp-node%2F" target="_blank" rel="noopener" title="Share on LinkedIn">[<span class="in">in</span>]</a></div>
 </div>
 <hr class="md-post-divider"/>
-
+<div class="md-post-tags"><span class="md-tag">ace</span> <span class="md-tag">security</span> <span class="md-tag">pgp</span> <span class="md-tag">encryption</span></div>
 <!--MD_POST_META:END-->
 
 
 # PGP SupportPac on ACE: a full end-to-end setup
 
 > **Tested on ACE 13.0.6.0**
+
 
 Ever spent two hours wiring PGP in ACE only to hit a `NoClassDefFoundError` and question your life choices?  
 I know I have. And I maintain the damn thing.
@@ -73,7 +80,8 @@ We’ll generate both key pairs ourselves and build the key stores ACE expects.
 ## Open the ACE command console
 
 Use the ACE command console. Not a generic CMD window.
-If you already are in a generic CMD window, just set the ACE environment.
+If you’re already in a generic CMD window, just set the ACE environment.
+
 ```cmd
 cd "C:\Program Files\IBM\ACE\13.0.6.0"
 ace.cmd
@@ -244,7 +252,8 @@ Import:
 - `PGP_Policies` policy project
 
 Both need to deploy cleanly. If either fails, fix that first. Don’t troubleshoot encryption while the application isn’t even running.
-I’m assuming you’re familiar with importing projects into the Toolkit if you’re trying to get this node to work.
+
+I’ll assume you know how to import a project into the Toolkit.
 
 ![imported projects](img_9.png)
 
@@ -337,7 +346,6 @@ Nine times out of ten it’s a path, a user ID, a passphrase, or missing jars.
 Start there.
 
 
-
 Now that you’ve made it to the bottom of this post, you’ve earned the right to know that the [repo](https://github.com/matthiasblomme/PGP-SupportPac-for-IBM-ACE-V12) doesn’t just contain the plugin jars.
 
 It also includes:
@@ -347,3 +355,17 @@ It also includes:
 - Deployment and test scripts to validate everything automatically across standalone integration servers, node-managed setups, and Docker
 
 So if you don’t feel like typing everything by hand, you don’t have to.
+
+---
+
+## References
+
+- [MyOpenTech-PGP-SupportPac - The Source Code project](https://github.com/matthiasblomme/MyOpenTech-PGP-SupportPac)
+- [PGP-SupportPac-for-IBM-ACE-V12 - The Deliverables project](https://github.com/matthiasblomme/PGP-SupportPac-for-IBM-ACE-V12)
+
+---
+
+Written by [Matthias Blomme](https://www.linkedin.com/in/matthiasblomme/) and [Francis Cocx](https://be.linkedin.com/in/cocxfrancis)
+
+\#IBMChampion \
+\#AppConnectEnterprise(ACE)

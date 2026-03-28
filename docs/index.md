@@ -25,11 +25,11 @@ Expect walkthroughs, sharp opinions, and experiments straight out of my homelab 
 ## Latest Post
 
 <!--MD_LATEST_POSTS:START-->
-- **2026-02-20** — [Containerizing IBM ACE: A Blog Series - Upgrading in Containers](posts/containerization-series/06.upgrading-in-containers.md) · *12 min*
-- **2026-02-17** — [PGP SupportPac on ACE 13.0.6.0: a full end-to-end setup](posts/pgp-node/pgp-node.md) · *12 min*
-- **2026-01-18** — [Creating a generic log node using context trees](posts/generic-log-node/generic-log-node.md) · *17 min*
-- **2026-01-16** — [ACE v13 new features (when coming from v12)](posts/migrating-ace-to-v13/v13-new-features.md) · *31 min*
-- **2026-01-16** — [Running Granite 4.0-1B locally on Android](posts/running-granite-llm-on-android/run-granite-on-android.md) · *25 min*
+- **2026-4-02** - [mqsirestart](posts/mqsirestart/mqsirestart.md) · *5 min*
+- **2026-03-31** - [Keeping stuff stopped in IBM ACE](../misc/keeping-stuff-stopped/keeping-stuff-stopped.md) · *8 min*
+- **2026-03-25** - [IBM Storage Strategy Days 2026](../misc/storage-days-2026/storage-days-2026.md) · *1 min*
+- **2026-03-24** - [Sync Plex watch history to Trakt with PlexTraktSync in Docker](posts/plex-trakt/plex-trakt.md) · *11 min*
+- **2026-03-17** - [How This Blog Works: MkDocs, Python, and GitHub Pages](posts/blog-hosting/blog-hosting.md) · *15 min*
 <!--MD_LATEST_POSTS:END-->
 
 ---
