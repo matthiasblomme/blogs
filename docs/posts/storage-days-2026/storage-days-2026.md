@@ -94,3 +94,7 @@ After two days at the IBM Storage Strategy Event, this is probably the clearest 
 This may sound like hype, or a sales pitch, but it matches what kept showing up across the event. Storage is being presented much more as part of how AI workloads get fed, managed, and turned into something useful with real enterprise data.
 
 I did not leave as a storage expert, and that was never the plan. I did leave with a better understanding of, and appreciation for, what storage specialists have been doing all along, and why the rest of us should probably pay a bit more attention too.
+
+---
+
+Written by [Matthias Blomme](https://www.linkedin.com/in/matthiasblomme/)
