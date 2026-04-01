@@ -20,7 +20,7 @@ title: Archive
 
 ### January
 - **2026-01-18** - [Creating a generic log node using context trees](generic-log-node/generic-log-node.md) · *17 min*
-- **2026-01-16** - [ACE v13 new features (when coming from v12)](ace-v13-new-features-overview/v13-new-features.md) · *34 min*
+- **2026-01-16** - [ACE v13 new features (when coming from v12)](ace-v13-new-features-overview/v13-new-features.md) · *39 min*
 - **2026-01-16** - [Running Granite 4.0-1B locally on Android](running-granite-llm-on-android/run-granite-on-android.md) · *25 min*
 
 ## 2025
