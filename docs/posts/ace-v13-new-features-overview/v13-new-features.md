@@ -2,20 +2,20 @@
 date: 2026-01-16
 title: ACE v13 new features (when coming from v12)
 image: cover.png
-description: A summary of all the new features for ACE v13 up to 13.0.6.0
-reading_time: 34 min
+description: A summary of all the new features for ACE v13 up to 13.0.7.0
 tags:
 - ace
 - ibm
 - v13
 - migration
+reading_time: 39 min
 ---
 
 ![cover](cover.png){ .md-banner }
 
 <!--MD_POST_META:START-->
 <div class="md-post-meta">
-  <div class="md-post-meta-left">2026-01-16 · ⏱ 34 min</div>
+  <div class="md-post-meta-left">2026-01-16 · ⏱ 39 min</div>
   <div class="md-post-meta-right"><span class="post-share-label">Share:</span> <a class="post-share post-share-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fmatthiasblomme.github.io%2Fblogs%2Fposts%2Face-v13-new-features-overview%2Fv13-new-features%2F" target="_blank" rel="noopener" title="Share on LinkedIn">[<span class="in">in</span>]</a></div>
 </div>
 <hr class="md-post-divider"/>
@@ -67,6 +67,34 @@ The naming of product editions has slightly changed in v13. The overview below s
 
 If you do not have paid entitlements, the [Developer edition](https://www.ibm.com/resources/mrs/assets?source=swg-wmbfd)  remains available free of charge after IBM account 
 registration.
+
+### System
+
+#### Windows services
+
+Another small but practical change is the Windows service name. In v12 this was named 
+
+`AppConnectEnterpriseMasterService12.0.12.18`
+
+while in v13 it becomes 
+
+`AppConnectEnterpriseParentService13.0.7.0`
+
+#### Windows installer
+
+One practical change in ACE 13.0.7.0 is the installer command-line syntax. Older installers used options like this:
+
+```
+$aceExe + " /install /quiet LICENSE_ACCEPTED=TRUE InstallFolder=`"" + $installDir + "`" /log " + $logFile
+```
+
+The newer installer uses dash-style parameters instead, for example:
+
+```
+$aceExe -quiet -licenseAccept yes -installFolder $installDir -log $logFile
+```
+
+![installer](img_50.png)
 
 ### Designer
 
@@ -211,6 +239,12 @@ Defined proxies can be referenced by multiple connector nodes across Designer an
 Impact when coming from v12:
 Proxy management is centralized and reusable across supported connectors.
 
+#### Designer Batch Flows
+
+The Designer supports batch processing for each record in a dataset or query where the dataset or query is very large.
+
+![designer batch](img_60.png)
+
 ### Toolkit Enhancements
 
 #### New Nodes (and updates)
@@ -219,23 +253,23 @@ Proxy management is centralized and reusable across supported connectors.
 
 The following Discovery Request nodes were introduced across the 13.x releases:
 
-| 13.0.1.0                       | 13.0.3.0                           | 13.0.4.0                             | 13.0.5.0                   | 13.0.6.0      |
-|--------------------------------|------------------------------------|--------------------------------------|----------------------------|---------------|
-| Businessmap Request node       | Azure Cosmos DB Request node       | Azure Service Bus Request node       | Microsoft Azure Event Hubs | Apache Pulsar |
-| ClickSend Request node         | Milvus Request node                | IBM Planning Analytics Request node  | Google Gemini              | AstraDB       |
-| Crystal Ball Request node      | Pinecone Vector Database Request   |                                      | IBM Aspera                 | Databricks    |
-| Factorial HR Request node      | Workday Request                    |                                      | Redis                      |               |
-| Front Request node             |                                    |                                      | Splunk                     |               |
-| Hunter Request node            |                                    |                                      | Vespa                      |               |
-| IBM Targetprocess Request node |                                    |                                      |                            |               |
-| IBM watsonx.ai Request node    |                                    |                                      |                            |               |
-| Infobip Request node           |                                    |                                      |                            |               |
-| Toggl Track Request node       |                                    |                                      |                            |               |
-| Wrike Request node             |                                    |                                      |                            |               |
-| Zoho Books Request node        |                                    |                                      |                            |               |
-| Zoho CRM Request node          |                                    |                                      |                            |               |
-| Zoho Inventory Request node    |                                    |                                      |                            |               |
-| Zoho Recruit Request node      |                                    |                                      |                            |               |
+| 13.0.1.0                       | 13.0.3.0                           | 13.0.4.0                             | 13.0.5.0                   | 13.0.6.0      | 13.0.7.0                            |
+|--------------------------------|------------------------------------|--------------------------------------|----------------------------|---------------|-------------------------------------|
+| Businessmap Request node       | Azure Cosmos DB Request node       | Azure Service Bus Request node       | Microsoft Azure Event Hubs | Apache Pulsar | Freshservice Request node           |
+| ClickSend Request node         | Milvus Request node                | IBM Planning Analytics Request node  | Google Gemini              | AstraDB       | Google Analytics Request node       |
+| Crystal Ball Request node      | Pinecone Vector Database Request   |                                      | IBM Aspera                 | Databricks    | Microsoft Azure DevOps Request node |
+| Factorial HR Request node      | Workday Request                    |                                      | Redis                      |               | Microsoft Azure OpenAI Request node |
+| Front Request node             |                                    |                                      | Splunk                     |               | SAP S4 Hana Request node            |
+| Hunter Request node            |                                    |                                      | Vespa                      |               |                                     |
+| IBM Targetprocess Request node |                                    |                                      |                            |               |                                     |
+| IBM watsonx.ai Request node    |                                    |                                      |                            |               |                                     |
+| Infobip Request node           |                                    |                                      |                            |               |                                     |
+| Toggl Track Request node       |                                    |                                      |                            |               |                                     |
+| Wrike Request node             |                                    |                                      |                            |               |                                     |
+| Zoho Books Request node        |                                    |                                      |                            |               |                                     |
+| Zoho CRM Request node          |                                    |                                      |                            |               |                                     |
+| Zoho Inventory Request node    |                                    |                                      |                            |               |                                     |
+| Zoho Recruit Request node      |                                    |                                      |                            |               |                                     |
 
 
 
@@ -243,23 +277,23 @@ The following Discovery Request nodes were introduced across the 13.x releases:
 
 The following Discovery Input nodes were introduced across the 13.x releases:
 
-| 13.0.1.0                     | 13.0.4.0                       | 13.0.5.0                   | 13.0.6.0            |
-|------------------------------|--------------------------------|----------------------------|---------------------|
-| Businessmap Input node       | Amazon Event Bridge Input node | Microsoft Azure Event Hubs | Apache Pulsar,      |
-| ClickSend Input node         | Azure Service Bus Input node   |                            | AstraDB             |
-| Eventbrite Input node        |                                |                            | Databricks          |
-| Front Input node             |                                |                            | SAP SuccessFactors  |
-| Greenhouse Input node        |                                |                            |                     |
-| IBM Maximo Input node        |                                |                            |                     |
-| IBM Targetprocess Input node |                                |                            |                     |
-| Magento Input node           |                                |                            |                     |
-| Marketo Input node           |                                |                            |                     |
-| Slack Input node             |                                |                            |                     |
-| Toggl Track Input node       |                                |                            |                     |
-| Wrike Input node             |                                |                            |                     |
-| Zoho Books Input node        |                                |                            |                     |
-| Zoho CRM Input node          |                                |                            |                     |
-| Zoho Recruit Input node      |                                |                            |                     |
+| 13.0.1.0                     | 13.0.4.0                       | 13.0.5.0                   | 13.0.6.0            | 13.0.7.0                          |
+|------------------------------|--------------------------------|----------------------------|---------------------|-----------------------------------|
+| Businessmap Input node       | Amazon Event Bridge Input node | Microsoft Azure Event Hubs | Apache Pulsar,      | Amazon SQS Input nod              |
+| ClickSend Input node         | Azure Service Bus Input node   |                            | AstraDB             | Freshservice Input node           |
+| Eventbrite Input node        |                                |                            | Databricks          | Microsoft Azure DevOps Input node |
+| Front Input node             |                                |                            | SAP SuccessFactors  | SAP S4 Hana Input node            |
+| Greenhouse Input node        |                                |                            |                     |                                   |
+| IBM Maximo Input node        |                                |                            |                     |                                   |
+| IBM Targetprocess Input node |                                |                            |                     |                                   |
+| Magento Input node           |                                |                            |                     |                                   |
+| Marketo Input node           |                                |                            |                     |                                   |
+| Slack Input node             |                                |                            |                     |                                   |
+| Toggl Track Input node       |                                |                            |                     |                                   |
+| Wrike Input node             |                                |                            |                     |                                   |
+| Zoho Books Input node        |                                |                            |                     |                                   |
+| Zoho CRM Input node          |                                |                            |                     |                                   |
+| Zoho Recruit Input node      |                                |                            |                     |                                   |
 
 ##### JSONata Mapping Node
 
@@ -299,6 +333,17 @@ If you implemented custom Avro handling or external transaction coordination, pa
 native node configuration. Scaling configurations are also more flexible without architectural changes.
 
 ![img_29.png](img_29.png)
+
+Support for Kafka OAuth Bearer Tokens adds SASL/OAUTHBEARER authentication for the KafkaConsumer, KafkaProducer, and 
+KafkaRead nodes. In practice, this means ACE can now connect to Kafka brokers that expect OAuth bearer tokens, with the 
+security setup handled through policies and credentials rather than new node-specific properties. 
+
+![ikafka oauth](img_55.png)
+
+The new authentication types are also supported in the related tooling. That means ibmint set credential has been updated 
+for them, and the Toolkit now supports them as well when working with an External Directory Vault.
+
+![kafka credential](img_56.png)
 
 ##### TCPIP Nodes
 
@@ -533,6 +578,34 @@ Impact when coming from v12:
 Policy configuration is easier to navigate, and policy metadata can now be surfaced consistently in both the Toolkit and 
 CLI output.
 
+#### WS-ReliableMessaging 
+ACE 13.0.7.0 extends WS-ReliableMessaging support to Java 17 integration servers. WS-RM is configured through a new 
+dedicated `WS-ReliableMessaging` policy
+
+![ws-rm](img_53.png)
+
+It applies only to HTTP-based SOAP flows, and requires WS-Addressing to be enabled when used on a SOAP Request node. 
+
+![soap reques ws-rm](img_54.png)
+
+#### WS-Security policies for Java 17
+
+To support WS-Security on Java 17, two new policies are available:
+
+- WS-Security Input: for provider message flows
+- WS-Security Request: for consumer message flows
+
+Each policy type includes sections for configuring message signing and message encryption for both request and reply messages.
+
+Example:
+
+![ws-sec policy](img_58.png)
+
+The Configure button opens a more familiar WS-Security configuration view where you can set the details. This creates an additional `*.wspolicy.xml` file in your Policies project.
+
+You then assign the policy to your SOAP node.
+
+![soap wssec](img_59.png)
 
 #### Installation Options
 
@@ -559,6 +632,38 @@ Equivalent command-line options are available for scripted installations:
 Impact when coming from v12:
 Installation footprint can now be aligned more precisely with development or runtime-only environments, including fully 
 scripted setups.
+
+#### Claim check
+
+Claim check support lets a flow pass a reference to large binary data instead of pushing the full payload through the 
+message tree. The data can then be retrieved or streamed later only when needed, which is useful for large files and 
+avoids unnecessary payload handling in the flow.
+
+This is supported by the following nodes
+
+	- Amazon S3 Request
+	- Dropbox Request
+	- Freshservice Request
+	- Google Analytics Request
+	- Google Cloud Storage Request
+	- Microsoft Azure Blob storage Request
+	- Microsoft Azure DevOps Request
+	- Microsoft Azure OpenAI Request
+	- Microsoft SharePoint Request
+	- Microsoft Teams Request
+	- Salesforce Request
+	- SAP S4 Hana Request
+	- Slack Request
+
+#### Event Resilience Policies
+
+Discovery Connector flows use an in-memory queue to buffer events for further processing by downstream nodes. In some 
+cases (IS crash, pod restarts, …) this can lead to data loss. To make this more resilient, you can choose to buffer these 
+messages by using an Event Resilience Policy.
+
+![ievent resilience](img_57.png)
+
+Currently KAFKA is the only supported type here.
 
 ### CLI Enhancements
 
@@ -726,6 +831,23 @@ Tracing integration is more complete and better aligned with external collectors
 metadata, improving correlation during troubleshooting.
 
 ![otel in activity log](img_45.png)
+
+#### Expose REST API's as MCP Tools
+
+ACE now allows you (since 13.0.7.0) to expose any previously created (toolkit) REST API as an MCP server. In the dashboard 
+there is a new MCP icon that will bring you to a new MCP Dashboardd. When you click the "Create MCP server" button, a wizard 
+opens up that allows you to choose any deployed REST API from any active Integration server to convert to an MCP.
+
+![mcp 1](img_51.png)
+
+When converted, it looks something like this.
+
+![mcp2](img_52.png)
+
+#### X5059 and Username Tokens WS-Security
+
+ACE 13.0.7.0 adds WS-Security support for Java 17 integration servers for X509 and Username Tokens.
+
 
 ### Java
 
