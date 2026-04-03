@@ -1036,7 +1036,16 @@ the Java compatibility, credential strategy, observability configuration, and co
 - [Explore the new features in App Connect Enterprise 13.0.4.0](https://community.ibm.com/community/user/blogs/ben-thompson1/2025/06/18/ace-13-0-4-0)
 - [Explore the new features in App Connect Enterprise 13.0.5.0](https://community.ibm.com/community/user/blogs/ben-thompson1/2025/09/25/ace-13-0-5-0)
 - [Explore the new features in App Connect Enterprise 13.0.6.0](https://community.ibm.com/community/user/blogs/ben-thompson1/2025/12/11/ace-13-0-6-0)
+- [Explore the new features in App Connect Enterprise 13.0.7.0](https://community.ibm.com/community/user/blogs/ben-thompson1/2026/03/26/ace-13-0-7-0)
 - [Improved Observability: Writing OpenTelemetry Metadata to the Activity Log](https://community.ibm.com/community/user/blogs/shalini-r/2025/11/23/writing-otelmetadata-to-activitylog)
 - [A Deep-Dive on ACE 13 and its use of Java 17](https://community.ibm.com/community/user/blogs/ben-thompson1/2026/02/12/ace-java17)
 - [Configuring Embedded Global Cache for App Connect Enterprise running in containers](https://community.ibm.com/community/user/blogs/amar-shah1/2025/06/08/configuring-embedded-global-cache)
 - [IBM App Connect Enterprise Agent Preview](https://www.ibm.com/docs/en/app-connect/13.0.x?topic=app-connect-enterprise-agent-preview)
+- [Breaking the Memory Barrier: How We Revolutionized Large File Handling in Integration Connectors](https://community.ibm.com/community/user/blogs/ritesh-anand/2025/08/07/breaking-the-memory-barrier-how-we-revolutionized)
+- [Command-line options for installing IBM App Connect Enterprise on Windows](https://www.ibm.com/docs/en/app-connect/13.0.x?topic=windows-command-line-options-installation-wizard)
+- [Download IBM ACE v13 Evaluation Edition](https://www.ibm.com/resources/mrs/assets?source=swg-wmbfd)
+
+---
+
+Written by [Matthias Blomme](https://www.linkedin.com/in/matthiasblomme/)
+
