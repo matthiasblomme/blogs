@@ -6,6 +6,7 @@
 # Posts
 
 <!--MD_ALL_POSTS:START-->
+- **2026-04-07** - [ACE v13 new features (when coming from v12)](ace-v13-new-features-overview/v13-new-features.md) · *39 min*
 - **2026-03-28** - [mqsirestart](mqsirestart/mqsirestart.md) · *5 min*
 - **2026-03-27** - [IBM Storage Strategy Days 2026](storage-days-2026/storage-days-2026.md) · *9 min*
 - **2026-03-24** - [Sync Plex watch history to Trakt with PlexTraktSync in Docker](plex-trakt/plex-trakt.md) · *11 min*
@@ -15,7 +16,6 @@
 - **2026-02-20** - [Containerizing IBM ACE: A Blog Series - Upgrading in Containers](containerization-series/06.upgrading-in-containers.md) · *12 min*
 - **2026-02-17** - [PGP SupportPac on ACE 13.0.6.0: a full end-to-end setup](pgp-node/pgp-node.md) · *12 min*
 - **2026-01-18** - [Creating a generic log node using context trees](generic-log-node/generic-log-node.md) · *17 min*
-- **2026-01-16** - [ACE v13 new features (when coming from v12)](ace-v13-new-features-overview/v13-new-features.md) · *39 min*
 - **2026-01-16** - [Running Granite 4.0-1B locally on Android](running-granite-llm-on-android/run-granite-on-android.md) · *25 min*
 - **2025-10-30** - [Installing ACE 13.x on Minikube: Filling in the Blanks](Ace-Operator-Minikube/installing_ace_minikube.md) · *72 min*
 - **2025-10-20** - [IBM TechXchange 2025, Orlando. Overwhelming in all the right ways.](techxchange-2025/techxchange-2025.md) · *11 min*
