@@ -5,12 +5,12 @@ author: Matthias Blomme and Francis Cocx
 description: A practical, field-tested setup of the PGP SupportPac on ACE 13.0.6.0,
   from key generation to working encryption and decryption flows, including the runtime
   jar details that tend to get missed.
-reading_time: 12 min
 tags:
 - ace
 - security
 - pgp
 - encryption
+reading_time: 12 min
 ---
 
 ![cover](cover.png){ .md-banner }
@@ -27,19 +27,16 @@ tags:
 
 # PGP SupportPac on ACE: a full end-to-end setup
 
-> **Tested on ACE 13.0.6.0**
-
+> **Tested on ACE 13.0.7.0**
 
 Ever spent two hours wiring PGP in ACE only to hit a `NoClassDefFoundError` and question your life choices?  
 I know I have. And I maintain the damn thing.
 
 This is a practical walkthrough for getting the PGP SupportPac running on ACE 13.0.6.0.
 
-Keys. Key stores. Policies. Flows. Deployment. Encryption. Decryption.  
-In other words, the lot.
+Keys. Key stores. Policies. Flows. Deployment. Encryption. Decryption. In other words, the lot.
 
 No theory. Just a setup that works.
-
 
 
 ## What we’re setting up
@@ -63,9 +60,9 @@ Trigger that one. You should get your original content back.
 If the final output matches the original file, the setup is correct.  
 If it doesn’t, something in your configuration is wrong.
 
-![message flows](img.png)
+![message flows](img_14.png)
 
-Yes, those are the new icons.
+Yes, those are the new icons!
 
 # Part 1: key generation and key stores
 
@@ -333,6 +330,7 @@ Full key generation, key store setup, deployment, and round-trip encryption/decr
 | 13.0.4.0    | Validated  | Repository setup executed without changes |
 | 13.0.5.0    | Not tested | —                                         |
 | 13.0.6.0    | Validated  | Repository setup executed without changes |
+| 13.0.7.0    | Validated  | Repository setup executed without changes |
 
 
 # Final notes
