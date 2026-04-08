@@ -23,7 +23,7 @@ reading_time: 5 min
 <!--MD_POST_META:END-->
 
 
-# mqsirestart — the best thing since sliced bread
+# mqsirestart - the best thing since sliced bread
 
 Are you tired of having to perform **2 separate commands** just to restart an integration server or node?
 
@@ -35,7 +35,7 @@ Are you tired of **typos**? Of `mqsistpo`? Of `mqsisart`? Of the shame?
 
 **WELL. NO. MORE.**
 
-> *"I used to type two commands every single time. Two! Can you imagine? That's one too many." — A relieved IBM ACE administrator, probably*
+> *"I used to type two commands every single time. Two! Can you imagine? That's one too many." - A relieved IBM ACE administrator, probably*
 
 ---
 
@@ -43,14 +43,14 @@ Are you tired of **typos**? Of `mqsistpo`? Of `mqsisart`? Of the shame?
 
 The **ONE command** that does it ALL.
 
-`mqsirestart` offers the exact same familiar interface as `mqsistart` and `mqsistop` — except it does **BOTH**. In one go. Back to back. Like clockwork. Like a dream. Like a well-oiled integration middleware machine.
+`mqsirestart` offers the exact same familiar interface as `mqsistart` and `mqsistop` - except it does **BOTH**. In one go. Back to back. Like clockwork. Like a dream. Like a well-oiled integration middleware machine.
 
 ✅ **Drastically** cuts time between your stop and start command  
-✅ Eliminates the gap where things go wrong — and oh, things go wrong  
+✅ Eliminates the gap where things go wrong - and oh, things go wrong  
 ✅ Keeps your **uptime high** and your **incident count low**  
-✅ Works on integration **servers** *and* integration **nodes** — yes, BOTH  
+✅ Works on integration **servers** *and* integration **nodes** - yes, BOTH  
 
-And the best part? You already know how to use it. It's `mqsistart` and `mqsistop`. Combined. *That's it.* We didn't reinvent the wheel — we just stopped making you spin it **twice**.
+And the best part? You already know how to use it. It's `mqsistart` and `mqsistop`. Combined. *That's it.* We didn't reinvent the wheel - we just stopped making you spin it **twice**.
 
 ---
 
@@ -89,18 +89,18 @@ BIP8096I: Successful command initiation, check the system log to ensure that the
 
 ```
 
-Same flags. Same syntax. Same you — just *better*.
+Same flags. Same syntax. Same you - just *better*.
 
 ---
 
-# But wait — there's MORE!
+# But wait - there's MORE!
 
 Because `mqsirestart` doesn't just save you time. It saves you from **yourself**.
 
-We've all been there. It's 4:47 PM on a Friday. You type `mqsistop`. You get a Slack notification. You glance away. You forget. You leave for the weekend. Monday morning, 8:03 AM — your inbox is a war zone. `mqsirestart` removes that whole scenario from your life. **Completely.** Stop and start happen together, sequentially, automatically, *reliably*.
+We've all been there. It's 4:47 PM on a Friday. You type `mqsistop`. You get a Slack notification. You glance away. You forget. You leave for the weekend. Monday morning, 8:03 AM - your inbox is a war zone. `mqsirestart` removes that whole scenario from your life. **Completely.** Stop and start happen together, sequentially, automatically, *reliably*.
 
 > *"I'm not saying mqsirestart saved my marriage, but I'm not saying it didn't."  
-> — Anonymous, Senior Integration Engineer*
+> - Anonymous, Senior Integration Engineer*
 
 ---
 
@@ -108,7 +108,7 @@ We've all been there. It's 4:47 PM on a Friday. You type `mqsistop`. You get a S
 
 Stop juggling two commands like it's 2009. Stop living in a world of unnecessary risk. Stop the madness.
 
-Use `mqsirestart` today — your integration environment will thank you, your team will thank you, and honestly? **You'll thank you.**
+Use `mqsirestart` today - your integration environment will thank you, your team will thank you, and honestly? **You'll thank you.**
 
 Availabe as a free download for a limited time, [get yours now!](https://github.com/matthiasblomme/ACE_MQ_Tooling/blob/656191e1205827fe461cb42e7f58044a8bd01afe/ACE/Administration/mqsirestart.cmd)!
 
