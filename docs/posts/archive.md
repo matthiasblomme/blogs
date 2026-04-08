@@ -6,6 +6,9 @@ title: Archive
 
 <!--MD_ARCHIVE:START-->
 ## 2026
+### April
+- **2026-04-07** - [ACE v13 new features (when coming from v12)](ace-v13-new-features-overview/v13-new-features.md) · *39 min*
+
 ### March
 - **2026-03-28** - [mqsirestart](mqsirestart/mqsirestart.md) · *5 min*
 - **2026-03-27** - [IBM Storage Strategy Days 2026](storage-days-2026/storage-days-2026.md) · *9 min*
@@ -20,7 +23,6 @@ title: Archive
 
 ### January
 - **2026-01-18** - [Creating a generic log node using context trees](generic-log-node/generic-log-node.md) · *17 min*
-- **2026-01-16** - [ACE v13 new features (when coming from v12)](ace-v13-new-features-overview/v13-new-features.md) · *39 min*
 - **2026-01-16** - [Running Granite 4.0-1B locally on Android](running-granite-llm-on-android/run-granite-on-android.md) · *25 min*
 
 ## 2025
