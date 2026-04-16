@@ -4,5 +4,8 @@
 /.claude/worktrees/xenodochial-lamport/
 /.idea/aws.xml
 /.idea/fastRequest/fastRequestCurrentProjectLocalConfig.xml
+/.idea/amazonq.xml
+/.idea/awsToolkit.xml
+/.idea/claudeCodeTabState.xml
 /.claude/settings.local.json
 /.claude/worktrees/romantic-allen/
