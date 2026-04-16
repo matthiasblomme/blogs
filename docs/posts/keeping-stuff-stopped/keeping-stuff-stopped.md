@@ -8,13 +8,20 @@ tags:
 - operations
 - .stopped
 - mqsistopmsgflow
+reading_time: 7 min
 ---
 
 ![cover](cover.png){ .md-banner }
 
 <!--MD_POST_META:START-->
-
+<div class="md-post-meta">
+  <div class="md-post-meta-left">2026-03-31 · ⏱ 7 min</div>
+  <div class="md-post-meta-right"><span class="post-share-label">Share:</span> <a class="post-share post-share-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fmatthiasblomme.github.io%2Fblogs%2Fposts%2Fkeeping-stuff-stopped%2Fkeeping-stuff-stopped%2F" target="_blank" rel="noopener" title="Share on LinkedIn">[<span class="in">in</span>]</a></div>
+</div>
+<hr class="md-post-divider"/>
+<div class="md-post-tags"><span class="md-tag">ace</span> <span class="md-tag">operations</span> <span class="md-tag">.stopped</span> <span class="md-tag">mqsistopmsgflow</span></div>
 <!--MD_POST_META:END-->
+
 
 # Keeping stuff stopped in IBM ACE
 
