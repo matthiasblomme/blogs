@@ -7,6 +7,7 @@
 
 <!--MD_ALL_POSTS:START-->
 - **2026-04-07** - [ACE v13 new features (when coming from v12)](ace-v13-new-features-overview/v13-new-features.md) · *39 min*
+- **2026-03-31** - [Keeping stuff stopped in IBM ACE](keeping-stuff-stopped/keeping-stuff-stopped.md) · *7 min*
 - **2026-03-28** - [mqsirestart](mqsirestart/mqsirestart.md) · *5 min*
 - **2026-03-27** - [IBM Storage Strategy Days 2026](storage-days-2026/storage-days-2026.md) · *9 min*
 - **2026-03-24** - [Sync Plex watch history to Trakt with PlexTraktSync in Docker](plex-trakt/plex-trakt.md) · *11 min*
