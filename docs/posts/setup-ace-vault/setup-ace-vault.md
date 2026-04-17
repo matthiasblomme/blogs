@@ -347,6 +347,18 @@ Keep the vault key somewhere safe. You'll need the same setup again when you wir
 
 ---
 
+# References
+
+[Configuring an IBM App Connect Enterprise vault](https://www.ibm.com/docs/en/app-connect/13.0.x?topic=enterprise-configuring-app-connect-vault)
+
+[Configuring encrypted security credentials](https://www.ibm.com/docs/en/app-connect/13.0.x?topic=vault-configuring-encrypted-security-credentials)
+
+[mqsivault command](https://www.ibm.com/docs/en/app-connect/13.0.x?topic=commands-mqsivault-command)
+
+[mqsicredentials command](https://www.ibm.com/docs/en/app-connect/13.0.x?topic=commands-mqsicredentials-command)
+
+---
+
 Written by [Matthias Blomme](https://www.linkedin.com/in/matthiasblomme/)
 
 \#IBMChampion \
