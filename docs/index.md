@@ -25,11 +25,11 @@ Expect walkthroughs, sharp opinions, and experiments straight out of my homelab 
 ## Latest Post
 
 <!--MD_LATEST_POSTS:START-->
+- **2026-04-17** - [How to set up the IBM ACE vault from scratch](posts/setup-ace-vault/setup-ace-vault.md) · *22 min*
 - **2026-04-07** - [ACE v13 new features (when coming from v12)](posts/ace-v13-new-features-overview/v13-new-features.md) · *39 min*
 - **2026-03-31** - [Keeping stuff stopped in IBM ACE](posts/keeping-stuff-stopped/keeping-stuff-stopped.md) · *7 min*
 - **2026-03-28** - [mqsirestart](posts/mqsirestart/mqsirestart.md) · *5 min*
 - **2026-03-27** - [IBM Storage Strategy Days 2026](posts/storage-days-2026/storage-days-2026.md) · *9 min*
-- **2026-03-24** - [Sync Plex watch history to Trakt with PlexTraktSync in Docker](posts/plex-trakt/plex-trakt.md) · *11 min*
 <!--MD_LATEST_POSTS:END-->
 
 ---
