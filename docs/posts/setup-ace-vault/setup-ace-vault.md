@@ -11,6 +11,8 @@ tags:
 reading_time: 22 min
 ---
 
+![cover](cover.png){ .md-banner }
+
 <!--MD_POST_META:START-->
 <div class="md-post-meta">
   <div class="md-post-meta-left">2026-04-17 · ⏱ 22 min</div>
