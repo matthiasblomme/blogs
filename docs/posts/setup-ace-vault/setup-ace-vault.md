@@ -11,6 +11,8 @@ tags:
 reading_time: 22 min
 ---
 
+![cover](cover.png){ .md-banner }
+
 <!--MD_POST_META:START-->
 <div class="md-post-meta">
   <div class="md-post-meta-left">2026-04-17 · ⏱ 22 min</div>
@@ -19,6 +21,7 @@ reading_time: 22 min
 <hr class="md-post-divider"/>
 <div class="md-post-tags"><span class="md-tag">ace</span> <span class="md-tag">security</span> <span class="md-tag">vault</span> <span class="md-tag">ext-vault</span> <span class="md-tag">mqsisetdbparms</span></div>
 <!--MD_POST_META:END-->
+
 
 # How to set up the IBM ACE vault from scratch
 
