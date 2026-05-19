@@ -6,7 +6,11 @@ title: Archive
 
 <!--MD_ARCHIVE:START-->
 ## 2026
+### May
+- **2026-05-19** - [MCP in IBM App Connect Enterprise 13.0.7: turning the admin server into an MCP host](Ace-MCP/mcp_in_ace.md) · *47 min*
+
 ### April
+- **2026-04-19** - [Migrating ACE to v13](ace-migration/ace-migration.md) · *20 min*
 - **2026-04-17** - [How to set up the IBM ACE vault from scratch](setup-ace-vault/setup-ace-vault.md) · *22 min*
 - **2026-04-07** - [ACE v13 new features (when coming from v12)](ace-v13-new-features-overview/v13-new-features.md) · *39 min*
 
