@@ -1,14 +1,21 @@
 ---
 date: 2026-04-19
-title: 'Migrating ACE to v13'
-description: A walkthrough of an ACE v13 migration, from Transformation Advisor through Java 17 cleanup to what actually breaks once you flip the switch.
+title: Migrating ACE to v13
+description: A walkthrough of an ACE v13 migration, from Transformation Advisor through
+  Java 17 cleanup to what actually breaks once you flip the switch.
 tags:
 - ace
 - migration
+reading_time: 20 min
 ---
 
 <!--MD_POST_META:START-->
-
+<div class="md-post-meta">
+  <div class="md-post-meta-left">2026-04-19 · ⏱ 20 min</div>
+  <div class="md-post-meta-right"><span class="post-share-label">Share:</span> <a class="post-share post-share-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fmatthiasblomme.github.io%2Fblogs%2Fposts%2Face-migration%2Face-migration%2F" target="_blank" rel="noopener" title="Share on LinkedIn">[<span class="in">in</span>]</a></div>
+</div>
+<hr class="md-post-divider"/>
+<div class="md-post-tags"><span class="md-tag">ace</span> <span class="md-tag">migration</span></div>
 <!--MD_POST_META:END-->
 
 # Migrating ACE to v13
