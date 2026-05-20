@@ -36,7 +36,7 @@ ACE `13.0.7.0` brings with it an MCP server _inside_ the IntegrationServer runti
 `server.conf.yaml` and has two sibling stanzas: `Admin` and `Runtime`.
 
 - `MCP.Runtime` exposes deployed Toolkit REST API operations as MCP tools , the headline 13.0.7 feature.
-- `MCP.Admin` exposes a set of administration tools (list applications, list policies, etc., all read only) so an MCP-enabled agent
+- `MCP.Admin` exposes a set of administration tools (list applications, list policies, etc., all read-only) so an MCP-enabled agent
   can introspect the integration server itself. This is the one the IBM docs currently say nothing about.
 
 This post walks through enabling `MCP.Admin` on a vanilla standalone integration server, hitting it from both
@@ -44,7 +44,7 @@ This post walks through enabling `MCP.Admin` on a vanilla standalone integration
 get the description the server publishes, the JSON request, an Inspector screenshot, the `curl` equivalent, and the actual 
 JSON response from a real integration server populated with applications, policies, and credentials.
 
-> **No auth in this post.** `MCP.Admin` is unauthenticated by default, and we're keeping it that way to keep the
+> **No auth in this post.** `MCP.Admin` is unauthenticated by default, and we're leaving it that way to keep the
 > examples short. Anything reachable beyond your laptop should set authentication and serve over TLS with a proper
 > certificate, see [the auth section](#auth-do-this-before-anyone-else-can-reach-the-port) at the end.
 
@@ -117,7 +117,7 @@ set NODE_TLS_REJECT_UNAUTHORIZED=0
 npx @modelcontextprotocol/inspector
 ```
 
-Or if you prefer PowerShell
+Or if you prefer PowerShell:
 
 ```powershell
 $env:NODE_TLS_REJECT_UNAUTHORIZED = "0"
@@ -139,7 +139,7 @@ To talk to the ACE MCP, we need some configuration:
 | Configuration   | defaults are fine                                 |
 
 Click `Connect` and the status changes to `Connected` with `App Connect Enterprise / Version: 13.0.7.0` shown in the
-left pane. The `Tools` tab is what we are interested in
+left pane. The `Tools` tab is what we are interested in.
 
 ![img_2.png](img_2.png)
 
@@ -260,7 +260,7 @@ Select the `Provide basic information about the connected server` tool in the mi
 ![img_4.png](img_4.png)
 
 #### Curl
-Run the following curl, after performing the handshake, with `$SESSION` set (see _Step 2_)
+Run the following curl, after performing the handshake, with `$SESSION` set (see _Step 2_).
 
 ```bash
 curl -sk -X POST "$BASE" \
@@ -297,8 +297,7 @@ curl -sk -X POST "$BASE" \
 
 ### 3.2 List the Applications, Rest APIs, Services and Libraries of an integration runtime, together with their state
 
-This MCP tool gives you information about your deployed resources. Including some metadata such as state and last modified 
-and startup times.
+This MCP tool gives you information about your deployed resources, including some metadata such as state, last-modified time, and startup time.
 
 #### Inspector
 
@@ -550,7 +549,7 @@ That's a lot of structure for one tool, but it's all there: four applications (`
 ### 3.3 List any deployment or runtime resources this application needs
 
 This MCP tool gives you information about your dependencies. It shows the externals of an application, what it requires 
-in order to run. It requires a mandatory application name as a parameter , e.g. `TestApp` or `TestPGP` for our runtime.
+in order to run. Takes an application name as a parameter , e.g. `TestApp` or `TestPGP` for our runtime.
 
 #### Inspector
 
@@ -793,7 +792,7 @@ Now you can see exactly which queue manager `DefaultMQ` is pointing at, what cha
 
 ### 3.5 List the credentials of an integration runtime
 
-This MCP tool gives you an overview of all registered credentials for your runtime. It is (like the other tools), read-only,
+This MCP tool gives you an overview of all registered credentials for your runtime. Like the other tools it's read-only,
 and it doesn't give you any actual usernames or passwords (which makes sense).
 
 #### Inspector
@@ -956,7 +955,7 @@ I went for the `Global MCPs` approach:
 
 ![img_13.png](img_13.png)
 
-And I entered the following there, which ends up in the `mcp_settings.json` file, previously mentioned
+And I entered the following, which ends up in the previously-mentioned `mcp_settings.json`:
 
 ```json
 {
@@ -971,10 +970,10 @@ And I entered the following there, which ends up in the `mcp_settings.json` file
 
 Two things of note here:
 
-1. Have a good look at the `url`, where we use `/mcp` for the curl and Inspector, Bob requires the `/mcp/sse` endpoint. If you
-   just specify the MCP endpoint, you will get a bunch of SSE 404 errors. Regardless of how you configured it, Bob expects the 
-   SSE handshake. 
-2. The `type` also supports the setup of the `sse` type endpoint
+1. Have a good look at the `url`. We use `/mcp` for curl and Inspector, but Bob requires the `/mcp/sse` endpoint. If you
+   just specify the MCP endpoint, you will get a bunch of SSE 404 errors. Bob expects the SSE handshake regardless of how 
+   you configured it.
+2. The `type` field is set to `sse` to match.
 
 ![img_14.png](img_14.png)
 
@@ -1002,7 +1001,7 @@ hand and restarting the MCP in Bob to get everything running again.
 
 ## Problems I encountered
 
-Now, in the end I got this to work, but I did hit a couple of bumps on the way, sharing them so you can either find 
+I got this to work in the end, but I did hit a couple of bumps on the way. Sharing them so you can either find 
 a quick solution to the problem or avoid it altogether.
 
 ### Self-signed certificate vs Node.js
