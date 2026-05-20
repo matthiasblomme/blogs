@@ -157,31 +157,27 @@ use curl, instead of an additional tool. Three things you need to know:
 Below you can see the full handshake in PowerShell, capturing the session ID for later calls:
 
 ```powershell
+# Using curl.exe here. Invoke-WebRequest -SkipCertificateCheck is PowerShell 7+ only,
+# see the "PowerShell 5.1 doesn't have -SkipCertificateCheck" section under Problems.
 $base = 'https://localhost:7650/mcp'
-$initBody = @{
-  jsonrpc = '2.0'; id = 1; method = 'initialize'
-  params  = @{
-    protocolVersion = '2025-06-18'
-    capabilities    = @{}
-    clientInfo      = @{ name = 'blog-tester'; version = '1.0' }
-  }
-} | ConvertTo-Json -Depth 5 -Compress
+$initBody = '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-06-18","capabilities":{},"clientInfo":{"name":"blog-tester","version":"1.0"}}}'
 
-# initialize , grab the Mcp-Session-Id header
-$resp = Invoke-WebRequest -Method POST -Uri $base -SkipCertificateCheck `
-  -Headers @{ 'Content-Type' = 'application/json'
-              'Accept'       = 'application/json, text/event-stream' } `
-  -Body $initBody
-$session = $resp.Headers['Mcp-Session-Id']
+# initialize , capture headers with -D - and pull the Mcp-Session-Id out
+# Body goes in via stdin (--data-binary '@-') to dodge PowerShell 5.1's broken
+# native-arg-passing for strings containing " characters.
+$out = $initBody | curl.exe -sk -D - -X POST $base `
+  -H 'Content-Type: application/json' `
+  -H 'Accept: application/json, text/event-stream' `
+  --data-binary '@-'
+$session = ($out | Select-String -CaseSensitive:$false '^mcp-session-id:').Line -replace '(?i)^mcp-session-id:\s*',''
 $session
 
 # initialized notification (no response body expected)
-$notif = '{"jsonrpc":"2.0","method":"notifications/initialized"}'
-Invoke-WebRequest -Method POST -Uri $base -SkipCertificateCheck `
-  -Headers @{ 'Content-Type'    = 'application/json'
-              'Accept'          = 'application/json, text/event-stream'
-              'Mcp-Session-Id'  = $session } `
-  -Body $notif | Out-Null
+'{"jsonrpc":"2.0","method":"notifications/initialized"}' | curl.exe -sk -X POST $base `
+  -H 'Content-Type: application/json' `
+  -H 'Accept: application/json, text/event-stream' `
+  -H "Mcp-Session-Id: $session" `
+  --data-binary '@-' | Out-Null
 ```
 
 Bash equivalent, same pattern with `curl -D -` to capture headers:
@@ -262,12 +258,12 @@ Select the `Provide basic information about the connected server` tool in the mi
 #### Curl
 Run the following curl, after performing the handshake, with `$SESSION` set (see _Step 2_).
 
-```bash
-curl -sk -X POST "$BASE" \
-  -H "Content-Type: application/json" \
-  -H "Accept: application/json, text/event-stream" \
-  -H "Mcp-Session-Id: $SESSION" \
-  -d '{"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"info","arguments":{}}}'
+```powershell
+'{"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"info","arguments":{}}}' | curl.exe -sk -X POST $base `
+  -H 'Content-Type: application/json' `
+  -H 'Accept: application/json, text/event-stream' `
+  -H "Mcp-Session-Id: $session" `
+  --data-binary '@-'
 ```
 
 **Response** (the wire format wraps the payload in `result.content[0].text` as an escaped string; unwrapped for readability):
@@ -308,12 +304,12 @@ tool in the middle panel → `Run Tool` (no arguments required).
 
 #### Curl
 
-```bash
-curl -sk -X POST "$BASE" \
-  -H "Content-Type: application/json" \
-  -H "Accept: application/json, text/event-stream" \
-  -H "Mcp-Session-Id: $SESSION" \
-  -d '{"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":"list_integrations","arguments":{}}}'
+```powershell
+'{"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":"list_integrations","arguments":{}}}' | curl.exe -sk -X POST $base `
+  -H 'Content-Type: application/json' `
+  -H 'Accept: application/json, text/event-stream' `
+  -H "Mcp-Session-Id: $session" `
+  --data-binary '@-'
 ```
 
 **Response** (unwrapped from `result.content[0].text`):
@@ -560,12 +556,12 @@ you want to look at → `Run Tool`
 
 #### Curl
 
-```bash
-curl -sk -X POST "$BASE" \
-  -H "Content-Type: application/json" \
-  -H "Accept: application/json, text/event-stream" \
-  -H "Mcp-Session-Id: $SESSION" \
-  -d '{"jsonrpc":"2.0","id":4,"method":"tools/call","params":{"name":"list_application_needs","arguments":{"applicationName":"TestApp"}}}'
+```powershell
+'{"jsonrpc":"2.0","id":4,"method":"tools/call","params":{"name":"list_application_needs","arguments":{"applicationName":"TestApp"}}}' | curl.exe -sk -X POST $base `
+  -H 'Content-Type: application/json' `
+  -H 'Accept: application/json, text/event-stream' `
+  -H "Mcp-Session-Id: $session" `
+  --data-binary '@-'
 ```
 
 The argument key is `applicationName` (not `application`, caught me out the first time).
@@ -608,12 +604,12 @@ With full details
 
 **Summary across all policy projects** (no arguments):
 
-```bash
-curl -sk -X POST "$BASE" \
-  -H "Content-Type: application/json" \
-  -H "Accept: application/json, text/event-stream" \
-  -H "Mcp-Session-Id: $SESSION" \
-  -d '{"jsonrpc":"2.0","id":5,"method":"tools/call","params":{"name":"list_policies","arguments":{}}}'
+```powershell
+'{"jsonrpc":"2.0","id":5,"method":"tools/call","params":{"name":"list_policies","arguments":{}}}' | curl.exe -sk -X POST $base `
+  -H 'Content-Type: application/json' `
+  -H 'Accept: application/json, text/event-stream' `
+  -H "Mcp-Session-Id: $session" `
+  --data-binary '@-'
 ```
 
 **Response:**
@@ -644,12 +640,12 @@ curl -sk -X POST "$BASE" \
 
 **Single project, with full details** (`projectName` + `details=true`):
 
-```bash
-curl -sk -X POST "$BASE" \
-  -H "Content-Type: application/json" \
-  -H "Accept: application/json, text/event-stream" \
-  -H "Mcp-Session-Id: $SESSION" \
-  -d '{"jsonrpc":"2.0","id":6,"method":"tools/call","params":{"name":"list_policies","arguments":{"projectName":"PolicyProject","details":true}}}'
+```powershell
+'{"jsonrpc":"2.0","id":6,"method":"tools/call","params":{"name":"list_policies","arguments":{"projectName":"PolicyProject","details":true}}}' | curl.exe -sk -X POST $base `
+  -H 'Content-Type: application/json' `
+  -H 'Accept: application/json, text/event-stream' `
+  -H "Mcp-Session-Id: $session" `
+  --data-binary '@-'
 ```
 
 The schema names the selector `projectName` (and `details` as a separate boolean), not the `{wibble}:wobble` selector string the tool description hints at. The description is misleading here.
@@ -803,12 +799,12 @@ Select the `List the credentials of an integration runtime` tool in the middle p
 
 #### Curl
 
-```bash
-curl -sk -X POST "$BASE" \
-  -H "Content-Type: application/json" \
-  -H "Accept: application/json, text/event-stream" \
-  -H "Mcp-Session-Id: $SESSION" \
-  -d '{"jsonrpc":"2.0","id":7,"method":"tools/call","params":{"name":"list_credentials","arguments":{}}}'
+```powershell
+'{"jsonrpc":"2.0","id":7,"method":"tools/call","params":{"name":"list_credentials","arguments":{}}}' | curl.exe -sk -X POST $base `
+  -H 'Content-Type: application/json' `
+  -H 'Accept: application/json, text/event-stream' `
+  -H "Mcp-Session-Id: $session" `
+  --data-binary '@-'
 ```
 
 **Response** (unwrapped from `result.content[0].text`):
@@ -838,12 +834,12 @@ application and the flow → `Run Tool`.
 
 #### Curl
 
-```bash
-curl -sk -X POST "$BASE" \
-  -H "Content-Type: application/json" \
-  -H "Accept: application/json, text/event-stream" \
-  -H "Mcp-Session-Id: $SESSION" \
-  -d '{"jsonrpc":"2.0","id":8,"method":"tools/call","params":{"name":"describe_message_flow","arguments":{"applicationName":"TestApp","flowName":"TestFlow"}}}'
+```powershell
+'{"jsonrpc":"2.0","id":8,"method":"tools/call","params":{"name":"describe_message_flow","arguments":{"applicationName":"TestApp","flowName":"TestFlow"}}}' | curl.exe -sk -X POST $base `
+  -H 'Content-Type: application/json' `
+  -H 'Accept: application/json, text/event-stream' `
+  -H "Mcp-Session-Id: $session" `
+  --data-binary '@-'
 ```
 
 **Response** (unwrapped from `result.content[0].text`):
