@@ -30,7 +30,7 @@ tags:
 
 # Setting up MCP on ACE Minikube
 
-In the [previous post](upgrading_ace_minikube.md) we upgraded the Minikube ACE install to
+In the [previous post](upgrading_ace_minikube.md) we upgraded the Minikube ACE installation to
 operator `12.21.0` / operand `13.0.6.2-r1` specifically so the Dashboard's **MCP server** feature would be there. This
 post walks through the wizard, the artefacts it creates in the cluster, and the bits you have to wire up by hand when
 you're not on OpenShift or IBM Cloud Kubernetes Service.
@@ -100,10 +100,10 @@ The first step of the wizard asks what *kind* of MCP server you want to create:
 
 Two options, but only one is selectable on this operand version:
 
-| Option | Status on 13.0.6.x | What it does |
-|---|---|---|
-| **New server (connectors based)** | ✅ available | Creates a brand-new integration runtime preconfigured for MCP, with predefined connector configurations |
-| **Existing server (integration-flow based)** | ⚠️ greyed out | Would let you mount MCP onto an existing runtime — but disabled on `13.0.6.x`. Almost certainly the UI hook for `MCP.Runtime` from `13.0.7.0` |
+| Option                                       | Status on 13.0.6.x | What it does                                                                                                                                  |
+|----------------------------------------------|--------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
+| **New server (connectors based)**            | ✅ available        | Creates a brand-new integration runtime preconfigured for MCP, with predefined connector configurations                                       |
+| **Existing server (integration-flow based)** | ⚠️ greyed out      | Would let you mount MCP onto an existing runtime — but disabled on `13.0.6.x`. Almost certainly the UI hook for `MCP.Runtime` from `13.0.7.0` |
 
 So **connectors-based it is**. Pick that option and click **Next**.
 
