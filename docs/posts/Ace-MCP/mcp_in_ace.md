@@ -30,11 +30,10 @@ reading_time: 47 min
 
 # MCP in IBM App Connect Enterprise 13.0.7
 
-_A big shoutout goes to [Kim Meynendonckx](https://be.linkedin.com/in/kim-meynendonckx-3991833). This post has been very 
-much inspired by him (and maybe I kinda beat him to the punch in writing it)_
+_A big shoutout goes to [Kim Meynendonckx](https://be.linkedin.com/in/kim-meynendonckx-3991833). This post has been very much inspired by him (and maybe I kinda beat 
+him to the punch in writing it)._
 
 IBM shipped a cheeky little feature in the latest ACE release. Hidden, or at least undocumented.
-
 
 ACE `13.0.7.0` brings with it an MCP server _inside_ the IntegrationServer runtime. It's configured via a new `MCP:` block in
 `server.conf.yaml` and has two sibling stanzas: `Admin` and `Runtime`.
