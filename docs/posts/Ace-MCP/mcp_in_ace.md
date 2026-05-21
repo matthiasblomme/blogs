@@ -127,6 +127,9 @@ $env:NODE_TLS_REJECT_UNAUTHORIZED = "0"
 npx @modelcontextprotocol/inspector
 ```
 
+You can always disable ssl on the `RestAdminListener` level completely, but then nothing is SSL secured, and I would have
+a lot less to write about. So let's keep that one on.
+
 After installation, the Inspector spawns a local UI at `http://localhost:6274/`. 
 
 ![img_1.png](img_1.png)
@@ -1152,11 +1155,4 @@ it's a start, and it got my hopes up for things to come.
 * [Kim Meynendonckx](https://be.linkedin.com/in/kim-meynendonckx-3991833) , inspiration for this post
 
 ---
-
-Written by [Matthias Blomme](https://www.linkedin.com/in/matthiasblomme/)
-
-\#IBMChampion
-\#AppConnectEnterprise(ACE)
-\#MCP
-\#ModelContextProtocol
-\#AI
+z
