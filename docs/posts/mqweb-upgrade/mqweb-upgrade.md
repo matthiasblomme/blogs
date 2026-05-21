@@ -1,6 +1,6 @@
 ---
 date: 2026-05-21
-title: 'Two bugs, one MQ CSU: how 9.4.0.21 broke my mqweb (twice)'
+title: 'Two bugs, one MQ CSU: how MQ 9.4.0.21 broke my mqweb (twice)'
 image: cover.png
 description: An MQ 9.4.0.21 cumulative security update killed mqweb in two different
   ways on the same morning, a broken TEMP path that Liberty refused to claim, and
@@ -20,7 +20,12 @@ tags:
 ![cover](cover.png){ .md-banner }
 
 <!--MD_POST_META:START-->
-
+<div class="md-post-meta">
+  <div class="md-post-meta-left">2026-05-21 · ⏱ 6 min</div>
+  <div class="md-post-meta-right"><span class="post-share-label">Share:</span> <a class="post-share post-share-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fmatthiasblomme.github.io%2Fblogs%2Fposts%2Fmqweb-upgrade%2Fmqweb-upgrade%2F" target="_blank" rel="noopener" title="Share on LinkedIn">[<span class="in">in</span>]</a></div>
+</div>
+<hr class="md-post-divider"/>
+<div class="md-post-tags"><span class="md-tag">mq</span> <span class="md-tag">ibm-mq</span> <span class="md-tag">mqweb</span> <span class="md-tag">liberty</span> <span class="md-tag">upgrade</span> <span class="md-tag">csu</span> <span class="md-tag">troubleshooting</span></div>
 <!--MD_POST_META:END-->
 
 

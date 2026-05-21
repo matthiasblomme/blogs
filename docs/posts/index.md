@@ -6,6 +6,7 @@
 # Posts
 
 <!--MD_ALL_POSTS:START-->
+- **2026-05-21** - [Two bugs, one MQ CSU: how 9.4.0.21 broke my mqweb (twice)](mqweb-upgrade/mqweb-upgrade.md) · *6 min*
 - **2026-05-19** - [MCP in IBM App Connect Enterprise 13.0.7: turning the admin server into an MCP host](Ace-MCP/mcp_in_ace.md) · *47 min*
 - **2026-04-19** - [Migrating ACE to v13](ace-migration/ace-migration.md) · *20 min*
 - **2026-04-17** - [How to set up the IBM ACE vault from scratch](setup-ace-vault/setup-ace-vault.md) · *22 min*
