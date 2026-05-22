@@ -19,6 +19,8 @@
 
 
 
+# side car?
+
 
 
 # hashicorp
