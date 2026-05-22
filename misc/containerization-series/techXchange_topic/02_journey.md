@@ -31,13 +31,13 @@ Cross-industry.
 
 ## Session Title 
 
-PIVOT! ACE from node-managed to operator-based
+PIVOT! ACE from classical on-premise to operator-based
 
 ## Session Abstract
 
-Moving ACE to containers can look like a lift and shift. Going from node-managed to operator-based is a series of decisions, not a single move. We came from a node-managed setup: multiple integration servers under a single node. The build phase came first: one image for build and test. Then a single artifact, built once, promoted across environments. Building the same code per environment is a habit worth dropping. Runtime moved to the IntegrationRuntime operator. The dashboard stayed in scope, but not for single artifact storage. More small decisions sit between them. Lift and shift won't cut it.
+Moving ACE to containers can look like a lift and shift. Going from classical on-premise to operator-based is a series of decisions, not a single move. We had multiple integration servers under a single integration node. The build phase came first: one image for build and test. Then a single artifact, built once, promoted across environments. Building the same code per environment is a habit worth dropping. Runtime moved to the IntegrationRuntime operator. The dashboard stayed in scope, but not for single artifact storage. More small decisions sit between them. Lift and shift won't cut it.
 
-Three takeaways: containerizing ACE is many small decisions, not a single move. Build once and promote across environments. Some node-managed habits move with you, others belong in the past.
+Three takeaways: containerizing ACE is many small decisions, not a single move. Build once and promote across environments. Some on-premise habits move with you, others belong in the past.
 
 ## Why should this idea be considered for IBM TechXchange 2026?
 

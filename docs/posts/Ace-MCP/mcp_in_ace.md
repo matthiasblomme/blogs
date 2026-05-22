@@ -1154,5 +1154,9 @@ it's a start, and it got my hopes up for things to come.
 * [Ben Thompson , ACE 13.0.7.0 release blog](https://community.ibm.com/community/user/blogs/ben-thompson1/2026/03/26/ace-13-0-7-0)
 * [Kim Meynendonckx](https://be.linkedin.com/in/kim-meynendonckx-3991833) , inspiration for this post
 
+
 ---
-z
+
+Written by [Matthias Blomme](https://www.linkedin.com/in/matthiasblomme/) and inspired by [Kim Meynendonckx](https://be.linkedin.com/in/kim-meynendonckx-3991833)
+
+\#IBMChampion
