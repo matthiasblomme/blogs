@@ -1,4 +1,4 @@
-# Submission 5 — Handling ACE secrets across the move to containers
+# Submission 5: Handling ACE secrets across the move to containers
 
 Fields below match the TechXchange 2026 Call for Sessions form.
 
@@ -31,7 +31,7 @@ Keep it secret, keep it safe: ACE secrets in containers
 
 Don't put passwords in your flow. Or in your code. Or in base64-encoded files committed to git. Trust me, I've seen the lot, and plenty of ACE projects still ship them this way. Containers give you other options. The combination that works: ACE vaults for application secrets, Kubernetes secrets mounted, and container env vars for runtime secrets. ESQL reads from env vars at startup. Java compute fetches via the vault interface. Either way, the credential never sits in the image or the repo.
 
-Three takeaways: passwords don't belong in flow, code, or base64 files; ACE vault, k8s secrets, and container env vars are the working combination; ESQL via env vars or Java compute via vault interface, pick by flow.
+Three takeaways: passwords don't belong in flow, code, or base64 files. ACE vault, k8s secrets, and container env vars are the working combination. ESQL via env vars or Java compute via vault interface, pick by flow.
 
 ## Why should this idea be considered for IBM TechXchange 2026? (491 chars)
 
