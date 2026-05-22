@@ -19,14 +19,15 @@ Counts below are body-only, no labels.
 ### Title (60 chars)
 How ACE licensing rewrote our cluster topology
 
-### Abstract
-Containerising ACE looks like a topology problem. Underneath, it is a licensing problem. Two real customers, surprised in different ways.
+### Abstract (v2, post-dialog)
+Running ACE in containers looks different through the lens of licensing. Containers scale on demand. Per-container licensing makes every spinup a license check. Either you over-provision or auto-scaling stops being elastic. Same with resource sizing: per-container, every CPU bump is a license bump; pinned to a worker node, you have room to tune. Runtime scoping follows suit: bundle tight and one spike raises the whole container's license usage; split wide and each flow becomes its own license event. This conversation belongs in the right rooms, with engineering at the table.
 
-One could not get PVU licensing, so we licensed a single worker node and used labels to pin every ACE container to it. It works. Bulk restarts get awkward. The other rolled out adapter patterns on cloud and found that even at 0.1 vCPU per container, the licensed capacity to spin them up dominates the bill.
+Three takeaways: scaling, sizing, and scoping each shift under the licensing model; per-container and pinned-node paths split engineering work differently; the decision belongs to engineering alongside procurement.
 
-Dynamic startup scaling solved the resource contention. It did nothing for the licensing.
-
-Three takeaways: licensing model dictates topology before any other decision, node-pinning carries a real cost the day you do a full restart, and per-container licensing is the surprise that shows up on the bill, not in the design doc.
+### Parked openers (we'll circle back)
+1. *"Running ACE in containers looks different through the lens of licensing."* — shortest, currently used above
+2. *"Running ACE in containers brings the usual technical conversations. Through the lens of licensing, those conversations all change shape."* — two-sentence variant
+3. *"Setting up, deploying, and updating ACE in containers all look different through the lens of licensing."* — names operational areas
 
 ### Justification
 Licensing constraints rarely make it onto a slide. They shape every production deployment anyway. This is the kind of session IBM development cannot easily publish, because critiquing the licensing model is not their job. It is mine, as a Champion who has watched it bend real cluster designs more than once. The two customer stories are short, concrete and ready to tell. The murmering about dynamic startup scaling closes the loop: yes, the runtime got smarter, but the bill did not.
