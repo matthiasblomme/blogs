@@ -52,6 +52,9 @@ markdown_extensions:
   - pymdownx.superfences
   - pymdownx.inlinehilite
 
+not_in_nav: |
+  posts/**/*.md
+
 nav:
   - Home: index.md
   - Posts:
