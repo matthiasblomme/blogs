@@ -1,12 +1,11 @@
 ---
-date: 2026-05-21
-title: 'Two bugs, one MQ CSU: how MQ 9.4.0.21 broke my mqweb (twice)'
+date: 2026-05-26
+title: 'Two bugs, one MQ CSU: how 9.4.0.21 broke my mqweb (twice)'
 image: cover.png
 description: An MQ 9.4.0.21 cumulative security update killed mqweb in two different
   ways on the same morning, a broken TEMP path that Liberty refused to claim, and
   an ltpa.keys file the new JRE wouldn't decrypt. Here's what happened and what went
   into the runbook.
-reading_time: 6 min
 tags:
 - mq
 - ibm-mq
@@ -15,13 +14,14 @@ tags:
 - upgrade
 - csu
 - troubleshooting
+reading_time: 11 min
 ---
 
 ![cover](cover.png){ .md-banner }
 
 <!--MD_POST_META:START-->
 <div class="md-post-meta">
-  <div class="md-post-meta-left">2026-05-21 · ⏱ 6 min</div>
+  <div class="md-post-meta-left">2026-05-21 · ⏱ 11 min</div>
   <div class="md-post-meta-right"><span class="post-share-label">Share:</span> <a class="post-share post-share-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fmatthiasblomme.github.io%2Fblogs%2Fposts%2Fmqweb-upgrade%2Fmqweb-upgrade%2F" target="_blank" rel="noopener" title="Share on LinkedIn">[<span class="in">in</span>]</a></div>
 </div>
 <hr class="md-post-divider"/>
@@ -31,9 +31,9 @@ tags:
 
 # Two bugs, one MQ CSU: how 9.4.0.21 broke my mqweb (twice)
 
-> The story of an ordinary weekday.
+> Dear Sir/Madam, FIRE!
 
-I've had the occasional mqweb hiccup after MQ upgrades before. Up until now, stopping mqweb before patching and keeping 
+I've had the occasional mqweb hiccup after MQ upgrades before. Up until now, stopping mqweb before patching, and keeping 
 it stopped through any server reboot the maintenance triggered, was the entire fix. Two extra lines in the playbook, 
 problem solved. Apparently, this time, there was more.
 
@@ -111,7 +111,7 @@ rmdir /S /Q "<DataPath>\web\installations\<inst>\servers\mqweb\workarea"
 rmdir /S /Q "<DataPath>\web\installations\<inst>\servers\mqweb\logs\state"
 ```
 
-If the clean of the `workarea` or `state` folders fails, you didn't kill all the zombies.
+If you can't clean the `workarea` or `state` folders, you didn't kill all the zombies. `taskkill /F` is your friend.
 
 Then I pinned Liberty's temp dir in `jvm.options` so it never inherits a user profile again:
 
@@ -200,6 +200,8 @@ A CSU is "just a security update" right up until it isn't. Two things went strai
 really help you here). The wlp/JRE bump is what changed the rules under me, not anything in MQ proper. If you see the 
 Liberty version or the SR/FP move, assume the Liberty-facing edges of your config (TEMP paths, keystores, LTPA, custom
 `mqwebuser.xml`) need a once-over before you trust the next upgrade.
+
+No fire this time. Next CSU, we'll see.
 
 ---
 
