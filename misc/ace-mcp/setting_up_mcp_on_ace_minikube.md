@@ -30,7 +30,7 @@ tags:
 
 # Setting up MCP on ACE Minikube
 
-In the [previous post](upgrading_ace_minikube.md) we upgraded the Minikube ACE installation to
+In the [previous post](../../docs/posts/Ace-Operator-Minikube/upgrading_ace_minikube.md) we upgraded the Minikube ACE installation to
 operator `12.21.0` / operand `13.0.6.2-r1` specifically so the Dashboard's **MCP server** feature would be there. This
 post walks through the wizard, the artefacts it creates in the cluster, and the bits you have to wire up by hand when
 you're not on OpenShift or IBM Cloud Kubernetes Service.
@@ -48,7 +48,7 @@ A few framing notes before we start:
 
 ## Assumptions
 
-* You finished the upgrade in [Upgrading ACE on Minikube](upgrading_ace_minikube.md) and your
+* You finished the upgrade in [Upgrading ACE on Minikube](../../docs/posts/Ace-Operator-Minikube/upgrading_ace_minikube.md) and your
   Dashboard plus IntegrationRuntime CRs report `RESOLVEDVERSION   13.0.6.2-r1`, `STATUS   Ready`.
 * You can open the Dashboard UI (we used `https://ace-dashboard.local:12121/` after re-applying the ingress on a unique
   hostname — see the troubleshooting box in the upgrade post if you 404 here).
@@ -412,7 +412,7 @@ What didn't:
 * [IBM docs — Integration Runtime CR values (incl. `spec.mcp.runtime.*`)](https://www.ibm.com/docs/en/app-connect/certc_install_integrationruntimeoperandreference.html#crvalues)
 * [Prometheus Operator (bundle.yaml)](https://github.com/prometheus-operator/prometheus-operator)
 * [Slack API — OAuth v2 access](https://api.slack.com/methods/oauth.v2.access)
-* [Previous post: Upgrading ACE on Minikube](upgrading_ace_minikube.md)
+* [Previous post: Upgrading ACE on Minikube](../../docs/posts/Ace-Operator-Minikube/upgrading_ace_minikube.md)
 * [All the files used in this blog](https://github.com/matthiasblomme/ace-minikube)
 
 ---

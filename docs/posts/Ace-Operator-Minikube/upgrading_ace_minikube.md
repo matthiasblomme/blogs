@@ -1,5 +1,5 @@
 ---
-date: 2026-05-18
+date: 2026-05-30
 title: 'Upgrading ACE on Minikube: from 13.0.4 to 13.0.6.2 (and unlocking MCP)'
 image: cover.png
 description: A walkthrough of upgrading an existing ACE Operator + Dashboard + IntegrationRuntime
@@ -14,7 +14,7 @@ tags:
 - mcp
 ---
 
-![cover](../../docs/posts/Ace-Operator-Minikube/cover.png){ .md-banner }
+![cover](cover2.png){ .md-banner }
 
 <!--MD_POST_META:START-->
 
@@ -23,7 +23,7 @@ tags:
 
 # Upgrading ACE on Minikube: from 13.0.4 to 13.0.6.2 (and unlocking MCP)
 
-In the [previous post](../../docs/posts/Ace-Operator-Minikube/installing_ace_minikube.md), we set up IBM App Connect Enterprise (ACE) on
+In the [previous post](installing_ace_minikube.md), we set up IBM App Connect Enterprise (ACE) on
 Minikube end-to-end: Operator, Dashboard, an IntegrationRuntime, ingress, the works. That install pinned the Operator at
 `12.14.0` and the Dashboard at `version: '13.0'`, which resolved to operand `13.0.4.x-r1` at the time.
 
@@ -113,7 +113,7 @@ ibm-helm/ibm-appconnect-operator	12.20.1      	12.20.1    	A chart to deploy the
 ...
 ```
 
-These Helm charts don't tell you the operand version they produce, directly. For that, IBM publishes the 
+These Helm charts don't directly tell you the operand version they produce. For that, IBM publishes the 
 CASE-to-Application-Version table at [ibm.github.io/cloud-pak/assets/html/ibm-appconnect-table.html](https://ibm.github.io/cloud-pak/assets/html/ibm-appconnect-table.html).
 The relevant rows for this upgrade:
 
@@ -405,7 +405,7 @@ k -n ingress-nginx port-forward svc/ingress-nginx-controller 12121:443
 
 Opened `https://ace-dash.local:12121/`, clicked through the self-signed cert warning, and got a 404.
 
-Two causes stacked on top of each other.
+Two separate causes, both at once.
 
 **Cause 1: the dashboard ingress wasn't there anymore.** Somewhere between the installation and the upgrade, the
 `ace-dashboard-ingress` resource in the `ace-demo` namespace got deleted (probably a cleanup pass that went one step too
@@ -461,13 +461,13 @@ Now `https://ace-dashboard.local:12121/` lands on the upgraded `ace-demo` dashbo
 
 ### Verifying MCP support is there
 
-The whole point of the upgrade. From the dashboard, open up the left hand menu and navigate to the `MCP servers section`
+The whole point of the upgrade. From the dashboard, open the left-hand menu and navigate to the `MCP servers` section.
 
-![img.png](img.png)
+![img.png](../../../misc/ace-mcp/img.png)
 
-![img_1.png](img_1.png)
+![img_1.png](../../../misc/ace-mcp/img_1.png)
 
-If you see this, good job, you have MCP support. If you don't see it, double-check `resolvedVersion` on the Dashboard CR.
+If you see this, you have MCP support. If you don't see it, double-check `resolvedVersion` on the Dashboard CR.
 
 
 ## Step 7: Update the repo to match reality
@@ -498,21 +498,23 @@ not in git. Now's a good moment to capture it:
 k get ir ir-01-quickstart -o yaml > ./ir-01-quickstart.yaml
 ```
 
-Trim the export before committing: remove 
-- `metadata.resourceVersion`, 
-- `metadata.uid`, 
-- `metadata.generation`,
-- `metadata.creationTimestamp`, 
-- `metadata.managedFields`, 
-- `metadata.ownerReferences`, 
-- the entire `status:`
+Trim the export before committing. Remove:
 
-Keep
-- `metadata.name`, 
-- `metadata.namespace`, 
-- `spec:`. 
-- 
-- From this point on, the runtime is no longer UI-only. You can apply it declaratively.
+- `metadata.resourceVersion`
+- `metadata.uid`
+- `metadata.generation`
+- `metadata.creationTimestamp`
+- `metadata.managedFields`
+- `metadata.ownerReferences`
+- the entire `status:` block
+
+Keep:
+
+- `metadata.name`
+- `metadata.namespace`
+- `spec:`
+
+From this point on, the runtime is no longer UI-only. You can apply it declaratively.
 
 
 ## Rollback
@@ -541,7 +543,7 @@ often less painful than fighting a half-rolled-back operator.
 
 ## Long story short
 
-The upgrade itself takes five minutes. Everything around it took up the afternoon.
+The upgrade itself took five minutes. Everything around it took the afternoon.
 
 
 ---
@@ -552,7 +554,7 @@ The upgrade itself takes five minutes. Everything around it took up the afternoo
 * [Creating and managing MCP servers in Designer](https://www.ibm.com/docs/en/app-connect/13.0.x?topic=ddtiiacd-creating-managing-mcp-servers)
 * [ACE Operator on ArtifactHub](https://artifacthub.io/packages/helm/ibm-helm/ibm-appconnect-operator)
 * [ACE license identifiers (v13)](https://ibm.biz/acelicense-v13)
-* [Previous post: installing ACE on Minikube](../../docs/posts/Ace-Operator-Minikube/installing_ace_minikube.md)
+* [Previous post: installing ACE on Minikube](installing_ace_minikube.md)
 * [All the files used in this blog](https://github.com/matthiasblomme/ace-minikube)
 
 ---
