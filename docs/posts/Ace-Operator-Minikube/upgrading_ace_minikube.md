@@ -3,7 +3,8 @@ date: 2026-05-30
 title: 'Upgrading ACE on Minikube: from 13.0.4 to 13.0.6.2 (and unlocking MCP)'
 image: cover.png
 description: A walkthrough of upgrading an existing ACE Operator + Dashboard + IntegrationRuntime
-  install from 13.0.4.x to 13.0.6.2-r1 on Minikube, including the license rebadge that catches everyone.
+  install from 13.0.4.x to 13.0.6.2-r1 on Minikube, including the license rebadge
+  that catches everyone.
 tags:
 - ace
 - kubernetes
@@ -12,12 +13,18 @@ tags:
 - operator
 - upgrade
 - mcp
+reading_time: 34 min
 ---
 
 ![cover](cover2.png){ .md-banner }
 
 <!--MD_POST_META:START-->
-
+<div class="md-post-meta">
+  <div class="md-post-meta-left">2026-05-30 · ⏱ 34 min</div>
+  <div class="md-post-meta-right"><span class="post-share-label">Share:</span> <a class="post-share post-share-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fmatthiasblomme.github.io%2Fblogs%2Fposts%2FAce-Operator-Minikube%2Fupgrading_ace_minikube%2F" target="_blank" rel="noopener" title="Share on LinkedIn">[<span class="in">in</span>]</a></div>
+</div>
+<hr class="md-post-divider"/>
+<div class="md-post-tags"><span class="md-tag">ace</span> <span class="md-tag">kubernetes</span> <span class="md-tag">minikube</span> <span class="md-tag">helm</span> <span class="md-tag">operator</span> <span class="md-tag">upgrade</span> <span class="md-tag">mcp</span></div>
 <!--MD_POST_META:END-->
 
 
