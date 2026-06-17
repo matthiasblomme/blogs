@@ -25,11 +25,11 @@ Expect walkthroughs, sharp opinions, and experiments straight out of my homelab 
 ## Latest Post
 
 <!--MD_LATEST_POSTS:START-->
-- **2026-05-21** - [Two bugs, one MQ CSU: how MQ 9.4.0.21 broke my mqweb (twice)](posts/mqweb-upgrade/mqweb-upgrade.md) · *11 min*
+- **2026-06-17** - [Keeping stuff stopped in IBM ACE](posts/keeping-stuff-stopped/keeping-stuff-stopped.md) · *8 min*
+- **2026-05-30** - [Upgrading ACE on Minikube: from 13.0.4 to 13.0.6.2 (and unlocking MCP)](posts/Ace-Operator-Minikube/upgrading_ace_minikube.md) · *34 min*
+- **2026-05-26** - [Two bugs, one MQ CSU: how 9.4.0.21 broke my mqweb (twice)](posts/mqweb-upgrade/mqweb-upgrade.md) · *11 min*
 - **2026-05-19** - [MCP in IBM App Connect Enterprise 13.0.7: turning the admin server into an MCP host](posts/Ace-MCP/mcp_in_ace.md) · *47 min*
 - **2026-04-19** - [Migrating ACE to v13](posts/ace-migration/ace-migration.md) · *20 min*
-- **2026-04-17** - [How to set up the IBM ACE vault from scratch](posts/setup-ace-vault/setup-ace-vault.md) · *22 min*
-- **2026-04-07** - [ACE v13 new features (when coming from v12)](posts/ace-v13-new-features-overview/v13-new-features.md) · *39 min*
 <!--MD_LATEST_POSTS:END-->
 
 ---

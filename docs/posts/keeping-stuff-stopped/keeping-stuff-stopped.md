@@ -1,5 +1,5 @@
 ---
-date: 2026-03-31
+date: 2026-06-17
 title: Keeping stuff stopped in IBM ACE
 description: How to start an IBM ACE integration server without starting everything
   in it, and how to keep flows stopped across deployments.
@@ -8,18 +8,19 @@ tags:
 - operations
 - .stopped
 - mqsistopmsgflow
-reading_time: 7 min
+- IntegrationServer
+reading_time: 8 min
 ---
 
 ![cover](cover.png){ .md-banner }
 
 <!--MD_POST_META:START-->
 <div class="md-post-meta">
-  <div class="md-post-meta-left">2026-03-31 · ⏱ 7 min</div>
+  <div class="md-post-meta-left">2026-06-17 · ⏱ 8 min</div>
   <div class="md-post-meta-right"><span class="post-share-label">Share:</span> <a class="post-share post-share-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fmatthiasblomme.github.io%2Fblogs%2Fposts%2Fkeeping-stuff-stopped%2Fkeeping-stuff-stopped%2F" target="_blank" rel="noopener" title="Share on LinkedIn">[<span class="in">in</span>]</a></div>
 </div>
 <hr class="md-post-divider"/>
-<div class="md-post-tags"><span class="md-tag">ace</span> <span class="md-tag">operations</span> <span class="md-tag">.stopped</span> <span class="md-tag">mqsistopmsgflow</span></div>
+<div class="md-post-tags"><span class="md-tag">ace</span> <span class="md-tag">operations</span> <span class="md-tag">.stopped</span> <span class="md-tag">mqsistopmsgflow</span> <span class="md-tag">IntegrationServer</span></div>
 <!--MD_POST_META:END-->
 
 
@@ -65,10 +66,11 @@ ibmint deploy --input-bar-file MyApplication.bar \
               --overrides-file overrides.properties
 ```
 
+And deploy as normal.
+
 ## Stopping at runtime
 
-If the server is already running and you want to stop something without restarting anything, `mqsistopmsgflow` is the
-tool. No restart required.
+If the server is already running, and you want to stop something inside it, `mqsistopmsgflow` is the tool. No restart required.
 
 Stop a specific integration server:
 
@@ -108,15 +110,29 @@ Syntax:
 ### The deploy problem
 
 One thing catches people off guard. If you stop a flow with `mqsistopmsgflow` and then deploy a new BAR, what happens
-next depends on the flow's `startMode`. With `automatic`, the deploy brings it back up regardless of what you did before.
-With `maintained`, it stays stopped because the server honors the current state. With `manual`, it never starts, no matter what.
+next depends on the flow's `startMode`. With `automatic`, the deployment brings it back up regardless of what you did before.
+With `maintained`, it stays stopped because the server keeps the current state. With `manual`, it never starts, no matter what.
 
-Basically, `mqsistopmsgflow` on its own is only for temporary status management. And only reliable if the `startMode` is set to back it up.
+Basically, `mqsistopmsgflow` on its own is only good for temporary stops. And only reliable if the `startMode` is set to back it up.
+
+## Stopping during startup
+
+There's also a switch on the `IntegrationServer` command itself. When you start an independent integration server from the command line, `--start-msgflows false` brings it up with every message flow in stopped state. The flows are initialized but won't accept anything through their input nodes.
+
+```bash
+IntegrationServer --work-dir [workpath] --start-msgflows false
+```
+
+Default is `true`, so flows start as usual unless you say otherwise.
+
+This is a different _kind_ of stopped, if I can call it that. No state is stored anywhere. Start the server without the flag and the flows come up like normal. With the flag on, you can bring them up one at a time afterwards if you want.
+
+It's also what lets you run integration tests against flows that aren't live. Pair it with `--test-project` and the tests run while the flows stay stopped.
 
 ## .stopped files
 
-There is a third option that sits outside the deploy and runtime models entirely. You can prevent an integration server,
-application, or flow from starting in the first place, by placing an empty `.stopped` file in the right location. ACE picks it up when the component
+The last option is just a file on disk. You can prevent an integration server,
+application, or flow from starting in the first place by placing an empty `.stopped` file in the right location. ACE picks it up when the component
 above it restarts. For a flow, restart the application. For an application, restart the integration server. For the
 integration server, restart the node.
 
@@ -142,12 +158,12 @@ A `.stopped` file always wins, even if `startMode` is set to `automatic`.
 
 You can also set this up before anything is deployed. Create the folder and drop a `.stopped` file in it, and that
 component won't start when deployed. Stopping an application prevents its flows from starting too. If you only want
-a specific flow stopped, drop the `.stopped` file in that flow's own directory. Same if you want the application to
+a specific flow stopped, drop the `.stopped` file in that flow's own overrides directory. Same if you want the application to
 start but one flow inside it to stay down.
 
-Deleting the flow removes the folder too, redeploying keeps it.
+Delete the flow and its folder goes too. A redeployment keeps it.
 
-It's also the only approach here that doesn't require the server to be running first.
+It's also the only approach that needs neither a running server nor a prior deploy.
 
 ## Summary
 
@@ -156,7 +172,8 @@ It's also the only approach here that doesn't require the server to be running f
 | `startMode=manual`                  | At deploy time          | Yes                         | Yes                         |
 | `startMode=maintained`              | At deploy time          | Yes, keeps current state    | Yes, keeps current state    |
 | `mqsistopmsgflow` (no BAR update)   | While server is running | No                          | No                          |
-| `mqsistopmsgflow` (with BAR update) | While server is running | Yes, Only with `maintained` | Yes, Only with `maintained` |
+| `mqsistopmsgflow` (with BAR update) | While server is running | Yes, only with `maintained` | Yes, only with `maintained` |
+| `--start-msgflows false`            | At server startup       | No                          | No, set again on relaunch   |
 | `.stopped` file                     | Any time                | Yes                         | Yes                         |
 
 Pick the row that matches when you need the control to kick in.
