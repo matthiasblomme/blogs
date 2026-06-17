@@ -3,8 +3,8 @@ date: 2026-05-30
 title: 'Upgrading ACE on Minikube: from 13.0.4 to 13.0.6.2 (and unlocking MCP)'
 image: cover.png
 description: A walkthrough of upgrading an existing ACE Operator + Dashboard + IntegrationRuntime
-  install from 13.0.4.x to 13.0.6.2-r1 on Minikube, including the license rebadge
-  that catches everyone.
+  install from 13.0.4.x to 13.0.6.2-r1 on Minikube, including the license-ID rebadge
+  that silently blocks the upgrade.
 tags:
 - ace
 - kubernetes
@@ -31,16 +31,16 @@ reading_time: 34 min
 # Upgrading ACE on Minikube: from 13.0.4 to 13.0.6.2 (and unlocking MCP)
 
 In the [previous post](installing_ace_minikube.md), we set up IBM App Connect Enterprise (ACE) on
-Minikube end-to-end: Operator, Dashboard, an IntegrationRuntime, ingress, the works. That install pinned the Operator at
+Minikube end-to-end: Operator, Dashboard, an IntegrationRuntime, ingress, the works. That installation pinned the Operator at
 `12.14.0` and the Dashboard at `version: '13.0'`, which resolved to operand `13.0.4.x-r1` at the time.
 
 Time moves on. IBM released operand `13.0.6.2-r1` on 2026-02-20, and with the `13.0.6.1-r1` line they shipped
 **MCP server support** in the Designer. That's the feature I want to play with, so this post walks through upgrading the
 running cluster from `13.0.4.2-r1` to `13.0.6.2-r1`. The interesting bits are the operator-to-operand version matrix and
-a license-ID rebadge that the operator silently blocks the upgrade on.
+a license-ID rebadge the operator silently blocks on.
 
 Just like my original blog, I'll add some possible issues (which I may or may not have encountered and got frustrated 
-about) here and there, just so you can quickly resolve them should you also encounter them.
+about) here and there, so you can fix them fast if you hit them too.
 
 ## Assumptions
 
@@ -97,8 +97,9 @@ ir-01-quickstart-ir-65bf799dd-gtkls
   runtime: cp.icr.io/cp/appc/ace-server-prod:13.0.4.2-r1
 ```
 
-Save these somewhere. You'll thank yourself if the upgrade goes sideways. 
-_I pity the fool_ that does not save the current state.
+Save these somewhere. You'll thank yourself if the upgrade goes sideways.
+
+_I pity the fool_ who doesn't save the current state.
 
 
 ## Step 1: Pick a target operator version
@@ -139,7 +140,7 @@ stopping at `12.21.0`.
 ## Step 2: Back up before you touch anything
 
 If something goes wrong, you want the live CRs somewhere easy to reach. Dump them outside of source control (no need for these to be
-versioned), just in case you don't follow this guide to the letter and break everything.
+versioned), just in case you don't follow this guide to the letter and break everything. Don't say I didn't warn you.
 
 ```powershell
 $BK = "D:\GIT\ace-minikube\backups\pre-13.0.6.2-r1"
@@ -237,6 +238,8 @@ k get deploy ibm-appconnect -o jsonpath='{.spec.template.spec.containers[0].imag
 icr.io/cpopen/appconnect-operator@sha256:80ef372b7f5e4823084afbc0f80257781906661f1cab7b1877650596e00a2c86   # still the old one
 ```
 
+> "Have you tried turning it off and on again?" - Roy, The IT Crowd
+
 Fix: re-run with `--reset-values --values ./ace-operator-values.yaml` so Helm starts from the new chart's defaults and your
 file's overrides. No leftover state from the old release. After that, the deployment rolled correctly:
 
@@ -263,7 +266,7 @@ ts=2026-05-18T18:48:07.197897081Z level=info logger=controller.integrationruntim
 ts=2026-05-18T18:48:07.197959401Z level=info logger=controller.dashboard msg="13.0.6.2-r1 reconcile" Request.Namespace=ace-demo Request.Name=ace-dashboard
 ```
 
-That's the operator deciding to roll the Dashboard and IR pods to the new operand. Except… it doesn't. The pods stay on
+That's the operator deciding to roll the Dashboard and IR pods to the new operand. Except it doesn't. The pods stay on
 `13.0.4.2-r1`. What gives?
 
 Look further down:
@@ -292,8 +295,8 @@ IBM rotates these license IDs when they cut new operand patches. The `L-KPRV-AUG
 `AppConnectEnterpriseNonProductionFREE` tier is **`L-CKFT-S6CHZW`**. Same product, same tier, same `accept: true`. Just a
 new ID string.
 
-The URL in the operator's warning event (https://ibm.biz/acelicense-v13) is the authoritative source for what each operand
-patch expects. Always check it for your specific operand before patching blindly.
+The URL in the operator's warning event (https://ibm.biz/acelicense-v13) is where IBM lists what each operand
+patch expects. Check it for your specific operand before patching blindly.
 
 Patch both CRs:
 
@@ -327,9 +330,9 @@ ir-01-quickstart-ir-59759b9674-n9jzz   0/1     ContainerCreating   0           7
 ir-01-quickstart-ir-65bf799dd-gtkls    1/1     Running             24          257d   # old, will terminate
 ```
 
-The dashboard typically rolls in 30–60 seconds. The runtime takes a lot longer the first time because it has to pull the
+The dashboard typically rolls in 30-60 seconds. The runtime takes a lot longer the first time because it has to pull the
 new `ace-server-prod:13.0.6.2-r1` image, which is about 1+ GB. On a slow connection from Minikube to `cp.icr.io`,
-budget 15–20 minutes for that pull alone. There's no progress indicator beyond `ContainerCreating`, which can feel like a
+budget 15-20 minutes for that pull alone. There's no progress indicator beyond `ContainerCreating`, which can feel like a
 hang. It isn't. `kubectl describe pod` will show the `Pulling image` event.
 
 ### Container issue: `mcpruntimecerts` volume mount fails before secret exists
@@ -468,7 +471,7 @@ Now `https://ace-dashboard.local:12121/` lands on the upgraded `ace-demo` dashbo
 
 ### Verifying MCP support is there
 
-The whole point of the upgrade. From the dashboard, open the left-hand menu and navigate to the `MCP servers` section.
+Now e finally arrive at the whole point of the upgrade. From the dashboard, open the left-hand menu and navigate to the `MCP servers` section.
 
 ![img.png](../../../misc/ace-mcp/img.png)
 
