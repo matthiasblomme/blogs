@@ -1,5 +1,5 @@
 ---
-date: 2026-05-28
+date: 2026-06-20
 title: Why Your ACE REST Request Node Isn't Sending Basic Auth
 description: Two credential mechanisms, one pre-emptive and one reactive, and the
   silent "no error, no header" trap. Reproduced on ACE 12 and 13.
@@ -13,7 +13,7 @@ reading_time: 13 min
 
 <!--MD_POST_META:START-->
 <div class="md-post-meta">
-  <div class="md-post-meta-left">2026-05-28 · ⏱ 13 min</div>
+  <div class="md-post-meta-left">2026-06-20 · ⏱ 13 min</div>
   <div class="md-post-meta-right"><span class="post-share-label">Share:</span> <a class="post-share post-share-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fmatthiasblomme.github.io%2Fblogs%2Fposts%2Frest-request-basic-auth%2Frest-request-basic-auth%2F" target="_blank" rel="noopener" title="Share on LinkedIn">[<span class="in">in</span>]</a></div>
 </div>
 <hr class="md-post-divider"/>
@@ -22,6 +22,8 @@ reading_time: 13 min
 
 # Why Your ACE REST Request Node Isn't Sending Basic Auth
 
+> The truth is out there.
+
 ## How it started
 
 It started, as these things do, with a colleague's question. Neither of us could
@@ -29,26 +31,27 @@ crack it. Shame and determination ran deep.
 
 A REST Request node calling a Basic-auth endpoint. We tried the obvious thing
 first: the node's Security identity property with a `rest::` credential. That
-worked. `Authorization: Basic` header went out, the call succeeded. So the flow and the
-mock endpoint were working. Check.
+worked. `Authorization: Basic` header went out, the call succeeded. So the flow and the mock endpoint was working. Check.
 
 Then we switched to a Security Profile (the propagation approach), and… nothing. 
 No header. No exception, no `BIP` code, nothing in the event log. The request just 
-went out unauthenticated. 
+went out unauthenticated.
 
 So we did our homework: IBM documentation, videos, every forum thread
 we could find. As far as any of us could tell, the configuration was *correct*.
 And if you point the security identity at an entry that doesn't exist, you do get
-an error, so the profile setup was working. Which is when the actually-useful
-question finally surfaced:
+an error, so the profile setup was working. 
+
+![policy wrong user](img_3.png)
+
+![reply wrong user](img_4.png)
+
+Which is when the actually-useful question finally surfaced:
 
 > What if the setup is right, and it's my *endpoint* that's the problem?
 
 Turned out it was. But only partially.
 
-![policy wrong user](img_3.png)
-
-![reply wrong user](img_4.png)
 
 ## What's actually happening
 
@@ -74,16 +77,16 @@ not that your policy is wrong.
 
 There are three configurations that actually work:
 
-| # | Configuration | When `Authorization: Basic` is sent | Requirements |
-|---|---|---|---|
-| 1 | **Node Security identity**: `securityIdentity="<id>"`; credential `mqsisetdbparms <node> -n rest::<id> -u <user> -p <pass>` | **Pre-emptively**, on the first request | OpenAPI declares an `http`/`basic` (or `bearer`, or `apiKey`) requirement. `oauth2` not supported. |
-| 2 | **Security Profile**: `securityProfileName="{SecurityRegistry}:SAP"`; credential `mqsisetdbparms <node> -n <id>` (plain name, no prefix) | **Reactively**, only after the server replies `401` | A downstream that actually issues the `401` challenge |
-| 3 | **Security Profile + pre-emptive auth**: config #2 plus `mqsichangeproperties <node> -e <server> -o ComIbmSocketConnectionManager -n preemptiveAuthType -v Basic` | **Pre-emptively**, on the first request | Server restart; note it's server-wide |
+| # | Configuration                                                                                                                                                     | When `Authorization: Basic` is sent                 | Requirements                                                                                       |
+|---|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------|----------------------------------------------------------------------------------------------------|
+| 1 | **Node Security identity**: `securityIdentity="<id>"`; credential `mqsisetdbparms <node> -n rest::<id> -u <user> -p <pass>`                                       | **Pre-emptively**, on the first request             | OpenAPI declares an `http`/`basic` (or `bearer`, or `apiKey`) requirement. `oauth2` not supported. |
+| 2 | **Security Profile**: `securityProfileName="{SecurityRegistry}:SAP"`; credential `mqsisetdbparms <node> -n <id>` (plain name, no prefix)                          | **Reactively**, only after the server replies `401` | A downstream that actually issues the `401` challenge                                              |
+| 3 | **Security Profile + pre-emptive auth**: config #2 plus `mqsichangeproperties <node> -e <server> -o ComIbmSocketConnectionManager -n preemptiveAuthType -v Basic` | **Pre-emptively**, on the first request             | Server restart; note it's server-wide                                                              |
 
 ## Two gotchas you need to be aware of
 
 1. **`mqsisetdbparms` credentials only activate after the integration *server* is
-   restarted** (`mqsireload` or `mqsirestart`, if you follow my blogs ). Redeploying the app is not
+   restarted** (`mqsireload` or `[mqsirestart](https://matthiasblomme.github.io/blogs/posts/keeping-stuff-stopped/keeping-stuff-stopped/)`, if you follow my blogs). Redeploying the app is not
    enough. You'll see no credential until the server process reloads, which looks
    exactly like "auth doesn't work."
 2. **The mechanisms are independent.** A REST Request node has *both* a "Security
@@ -103,6 +106,8 @@ There are three configurations that actually work:
   mandatory (config #1 or #3).
 
 ## How to reproduce it
+
+> The flow, OpenAPI, and Security Profile policy used here live in [Ace_test_cases](https://github.com/matthiasblomme/Ace_test_cases), across the projects `RestBasicAuthRepro`, `RestBasicAuthRepro_test`, and `SecurityRegistry`.
 
 A tiny, self-contained setup:
 
@@ -127,6 +132,8 @@ A tiny, self-contained setup:
     - **`--no-challenge` mode:** always `200`.
 
 ## How the mock server works
+
+> Full source: [`mock_server.py`](https://github.com/matthiasblomme/Ace_test_cases/blob/main/RestBasicAuthRepro_test/mock_server.py) in the same repo as the test flow.
 
 The mock is a small, dependency-free Python script (just your standard-library
 `http.server`). Its whole job is to sit where the real endpoint would be, record
@@ -211,8 +218,6 @@ Config #2 against the challenge mock, two hits, the reactive handshake:
 2. POST /token  auth_present=True   <user:pass> -> mock 200
 ```
 
-
-
 Config #2 against the `--no-challenge` mock, one hit, nothing sent:
 
 ```
@@ -249,7 +254,7 @@ behavior isn't called out on the pages you'd naturally land on:
   Nothing links it from the Basic-auth task pages, and nothing tells you *when* you'd
   need it.
 
-There are even APARs (old one, I'll grant you that) that show how sharp the edges are here:
+There are even APARs (old ones, I'll grant you that) that show how sharp the edges are here:
 
 - [IT36261](https://www.ibm.com/support/pages/apar/IT36261): `preemptiveAuthType` is
   *ignored* when an outbound socket connection is reused from an earlier request.
@@ -271,4 +276,22 @@ have wired up.
 
 ---
 
+## References
+
+* [Configuring a message flow for identity propagation](https://www.ibm.com/docs/en/app-connect/13.0.x?topic=security-configuring-identity-propagation)
+* [Configuring security credentials for connecting to a REST API](https://www.ibm.com/docs/en/app-connect/13.0.x?topic=apis-configuring-security-credentials-connecting-rest-api)
+* [`mqsichangeproperties` command reference](https://www.ibm.com/docs/en/app-connect/13.0.x?topic=commands-mqsichangeproperties-command)
+* [APAR IT36261: `preemptiveAuthType` ignored on reused socket](https://www.ibm.com/support/pages/apar/IT36261)
+* [APAR PH05715: HTTPRequest returns 401 even with auth set](https://www.ibm.com/support/pages/apar/PH05715)
+* [mqsirestart on this blog](../mqsirestart/mqsirestart.md)
+* [All the files used in this blog](https://github.com/matthiasblomme/Ace_test_cases): the `RestBasicAuthRepro`, `RestBasicAuthRepro_test`, and `SecurityRegistry` projects
+
+---
+
 Written by [Matthias Blomme](https://www.linkedin.com/in/matthiasblomme/)
+
+\#IBMChampion
+\#AppConnectEnterprise(ACE)
+\#REST
+\#BasicAuth
+\#SecurityProfile
