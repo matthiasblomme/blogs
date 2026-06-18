@@ -471,7 +471,7 @@ Now `https://ace-dashboard.local:12121/` lands on the upgraded `ace-demo` dashbo
 
 ### Verifying MCP support is there
 
-Now e finally arrive at the whole point of the upgrade. From the dashboard, open the left-hand menu and navigate to the `MCP servers` section.
+Now we finally arrive at the whole point of the upgrade. From the dashboard, open the left-hand menu and navigate to the `MCP servers` section.
 
 ![img_20.png](img_20.png)
 
