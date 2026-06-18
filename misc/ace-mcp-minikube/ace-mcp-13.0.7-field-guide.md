@@ -1,5 +1,6 @@
 ---
-title: 'IBM App Connect and MCP — a field guide as of 13.0.7'
+title: 'IBM App Connect and MCP: a field guide as of 13.0.7'
+date: 2026-06-27
 author: Matthias Blomme
 description: What MCP looks like across ACE software and App Connect in containers, where the docs cover it, and where you still have to read the YAML.
 tags:
@@ -12,7 +13,14 @@ tags:
 status: draft
 ---
 
-# IBM App Connect and MCP — what's actually there in 13.0.7
+![cover](../../docs/posts/Ace-Operator-Minikube/cover_field_guide.png){ .md-banner }
+
+<!--MD_POST_META:START-->
+
+<!--MD_POST_META:END-->
+
+
+# IBM App Connect and MCP: what's actually there in 13.0.7
 
 There are at least four different things in the App Connect product family that get called "MCP" today, and the documentation for them is spread across `docs.ibm.com`, the ACE community blog, the operator image manifest, and a handful of comments inside `server.conf.yaml`. This post pulls together what's verifiable from the docs and release blogs, what's visible in the shipped product but not yet documented, and what still needs confirmation.
 
@@ -22,31 +30,32 @@ Versions referenced throughout:
 - App Connect Operator **12.20.0** and the **13.0.0** line
 - App Connect Dashboard **13.0.6.1-r1** (Dashboard MCP server arrives) and **13.0.7.0-r1** (Enterprise Agent arrives)
 
-> Status flags used in this post:
-> - ✅ verified in IBM docs or in the shipped product
-> - ⚠️ found but partial or undocumented
-> - 🔍 plausible / from a single source / needs second eyes
+Status used in the tables below:
+
+- `verified`: confirmed in IBM docs or in the shipped product
+- `partial`: found but partial or undocumented
+- `unverified`: plausible, from a single source, needs second eyes
 
 ---
 
 ## The four MCP-flavoured things in App Connect today
 
-| # | Component | Where it lives | What it exposes | First shipped | Documented |
-|---|---|---|---|---|---|
-| 1 | `MCP.Runtime` | `server.conf.yaml` | Deployed Toolkit REST API operations as MCP tools | ACE 13.0.7.0 | ✅ |
-| 2 | `MCP.Admin` | `server.conf.yaml` | "ACE administration tools" | ACE 13.0.7.0 | ⚠️ |
-| 3 | `spec.mcp.runtime` | Integration Runtime CR | Connector-based MCP server hosted in container | Dashboard 13.0.6.1-r1 | ✅ |
-| 4 | `acemcp` / `langgraph` containers | App Connect Enterprise Agent pod | Container/runtime/flow introspection for the embedded Dashboard chat | Operator 13.0.0 line | 🔍 |
+| #  | Component                         | Where it lives                   | What it exposes                                                      | First shipped         | Documented  |
+|----|-----------------------------------|----------------------------------|----------------------------------------------------------------------|-----------------------|-------------|
+| 1  | `MCP.Runtime`                     | `server.conf.yaml`               | Deployed Toolkit REST API operations as MCP tools                    | ACE 13.0.7.0          | verified    |
+| 2  | `MCP.Admin`                       | `server.conf.yaml`               | "ACE administration tools"                                           | ACE 13.0.7.0          | partial     |
+| 3  | `spec.mcp.runtime`                | Integration Runtime CR           | Connector-based MCP server hosted in container                       | Dashboard 13.0.6.1-r1 | verified    |
+| 4  | `acemcp` / `langgraph` containers | App Connect Enterprise Agent pod | Container/runtime/flow introspection for the embedded Dashboard chat | Operator 13.0.0 line  | unverified  |
 
 Same protocol, different audiences. Items 1, 2, and 3 expose tools to *external* MCP clients (Claude, IBM Bob, Cursor, ChatGPT, your own agent). Item 4 is internal plumbing for IBM's embedded chat experience and isn't intended for direct agent consumption.
 
 ---
 
-## On-prem ACE — MCP in `server.conf.yaml`
+## On-prem ACE: MCP in `server.conf.yaml`
 
-ACE 13.0.7.0 introduces a top-level `MCP:` block with two sibling stanzas: `Admin:` and `Runtime:`. Both default to off / commented out. Both are separate HTTP listeners running inside the integration server process, on separate ports.
+ACE 13.0.7.0 introduces a top-level `MCP:` block with two sibling stanzas, `Admin:` and `Runtime:`. Both default to off / commented out. Both are separate HTTP listeners running inside the integration server process, on separate ports.
 
-### `MCP.Runtime` — exposing REST APIs as MCP tools ✅
+### MCP.Runtime: exposing REST APIs as MCP tools
 
 The headline 13.0.7.0 feature. Pick an existing REST API flow already deployed to an integration server, pick which operations to expose, and they show up as MCP tools that any compliant client can list and invoke. Tool descriptions are generated from the REST API's OpenAPI specification.
 
@@ -72,9 +81,9 @@ MCP:
 
 `mcpStartMode` semantics matter:
 
-1. **`enabled`** — listener comes up at server start even with zero tools deployed
-2. **`automatic`** (default) — listener starts when at least one tool is deployed, stops when the last one is removed
-3. **`disabled`** — listener never starts
+1. **`enabled`**. Listener comes up at server start even with zero tools deployed.
+2. **`automatic`** (default). Listener starts when at least one tool is deployed, stops when the last one is removed.
+3. **`disabled`**. Listener never starts.
 
 `mcpCredentialName` is a reference to an ACE credential of type `mcp`. You create it via `mqsicredentials` / the vault, and when set, every MCP request needs a Basic Auth header carrying that credential.
 
@@ -100,10 +109,10 @@ curl https://localhost:7750/mcp
 
 Or attach an MCP client:
 
-- MCP Inspector — <https://github.com/modelcontextprotocol/inspector>
+- MCP Inspector, <https://github.com/modelcontextprotocol/inspector>
 - Claude Desktop / Cursor / VS Code with a Streamable HTTP MCP server entry
 
-### `MCP.Admin` — the undocumented sibling ⚠️
+### MCP.Admin: the undocumented sibling
 
 This is the part that started the whole investigation. It's in the same shipped `server.conf.yaml`, immediately above the Runtime block, and IBM doesn't currently document it anywhere I can find.
 
@@ -118,7 +127,7 @@ MCP:
 
 Two properties. Default `enabled: false`. Default port **7650**.
 
-**What it almost certainly is:** an MCP server that registers integration-server administration operations as tools, so an MCP-enabled agent can introspect or operate the server itself — list runtimes, list deployed flows, query status, possibly start/stop. Conceptually the standalone-ACE counterpart of the `acemcp` container shipped with the Dashboard's App Connect Enterprise Agent.
+**What it almost certainly is:** an MCP server that registers integration-server administration operations as tools, so an MCP-enabled agent can introspect or operate the server itself. List runtimes, list deployed flows, query status, possibly start/stop. Same idea as the `acemcp` container in the Enterprise Agent pod (see below), but for standalone.
 
 **What we don't know without testing:**
 
@@ -132,16 +141,18 @@ Two properties. Default `enabled: false`. Default port **7650**.
 
 1. Set `enabled: true`, restart the integration server
 2. Connect MCP Inspector to `http://localhost:7650/` (try `https://` first if the RestAdminListener is on HTTPS)
-3. Run `tools/list` — that *is* the documentation until IBM publishes a reference
+3. Run `tools/list`. That *is* the documentation until IBM publishes a reference
 4. Test a read-only tool first; only escalate if you trust the environment
 
 Once we have `tools/list` output, this section can be replaced with the real list.
 
+> "Vindication!" - Captain Holt, Brooklyn Nine-Nine
+
 ---
 
-## In containers — App Connect Dashboard MCP servers ✅
+## In containers: App Connect Dashboard MCP servers
 
-Distinct from the on-prem feature: the Dashboard wizard creates MCP servers built on App Connect **connectors**, not on Toolkit REST APIs. You authenticate to Salesforce / Slack / Insightly / etc., pick the actions you want, and those become MCP tools.
+Distinct from the on-prem feature. The Dashboard wizard creates MCP servers built on App Connect **connectors**, not on Toolkit REST APIs. You authenticate to Salesforce / Slack / Insightly / etc., pick the actions you want, and those become MCP tools.
 
 ### Availability
 
@@ -173,7 +184,7 @@ spec:
     use: AppConnectEnterpriseProduction
 ```
 
-### Integration Runtime CR — MCP knobs ✅
+### Integration Runtime CR: MCP knobs
 
 ```yaml
 spec:
@@ -188,7 +199,7 @@ spec:
         secretName: my-mcp-tls-secret              # auto-generated if omitted
 ```
 
-### TLS secret format ✅
+### TLS secret format
 
 Standard Kubernetes TLS secret:
 
@@ -196,9 +207,9 @@ Standard Kubernetes TLS secret:
 oc create secret tls my-mcp-tls-secret --cert=certificate.crt --key=private.key
 ```
 
-### Basic Auth secret format 🔍
+### Basic Auth secret format (unverified)
 
-Reported but unverified: the secret has a `configuration` field whose base64-decoded value is
+Reported but unverified. The secret has a `configuration` field whose base64-decoded value is
 
 ```
 mcp::basicAuthOverride username password
@@ -208,9 +219,9 @@ The `mcp::` prefix matches the `setdbparms.txt` credential convention used elsew
 
 ---
 
-## The App Connect Enterprise Agent (different beast) ✅
+## The App Connect Enterprise Agent (different beast)
 
-This is the embedded Dashboard chat feature. It uses MCP *internally* — not as a public endpoint for your agents — and is what you've probably seen referenced as IBM's "agentic AI chat experience" for App Connect.
+This is the embedded Dashboard chat feature. It uses MCP internally (not as a public endpoint for your agents) and is what you've probably seen referenced as IBM's "agentic AI chat experience" for App Connect.
 
 ### What it is
 
@@ -251,12 +262,12 @@ stringData:
 
 Two containers are documented in the operator image manifest:
 
-- **`acemcp`** — internal MCP server exposing container topology, runtime status, flow metadata, etc., as tools
-- **`langgraph`** — the orchestration loop driving the chat agent
+- **`acemcp`**, internal MCP server exposing container topology, runtime status, flow metadata, etc., as tools
+- **`langgraph`**, the orchestration loop driving the chat agent
 
-Image references confirmed in the IBM Cloud Pak image manifest: `cp/appc/ace-mcp`, `cp/appc/ace-mcp-prod`, `cp/appc/ace-kube-mcp`, `cp/appc/ace-kube-mcp-prod`, `cp/appc/ace-langgraph-agents-prod`. Note there are both `ace-mcp` and `ace-kube-mcp` variants — purpose of the distinction isn't documented.
+Image references confirmed in the IBM Cloud Pak image manifest: `cp/appc/ace-mcp`, `cp/appc/ace-mcp-prod`, `cp/appc/ace-kube-mcp`, `cp/appc/ace-kube-mcp-prod`, `cp/appc/ace-langgraph-agents-prod`. There are both `ace-mcp` and `ace-kube-mcp` variants, and the purpose of the distinction isn't documented.
 
-### `spec.pod.containers.acemcp.*` and `spec.pod.containers.langgraph.*` 🔍
+### `spec.pod.containers.acemcp.*` and `spec.pod.containers.langgraph.*` (unverified)
 
 Reported as the customisation paths on the Dashboard CR. The pattern matches how the operator lets you override container resources, image, and pull policy on other Dashboard/Designer containers, so it's plausible. Confirm with:
 
@@ -272,23 +283,23 @@ against your actual operator install.
 
 Same hygiene as anywhere MCP is exposed:
 
-1. Expose the **minimum** set of tools — especially for `MCP.Admin` if and when you turn it on
+1. Expose the **minimum** set of tools, especially for `MCP.Admin` if and when you turn it on
 2. Avoid mutating tools unless you've thought through what an LLM doing the wrong thing can break
 3. Use Basic Auth at minimum (via `mcpCredentialName` for Runtime, via `setdbparms` for Dashboard MCP servers)
-4. Use TLS — default-on for both Runtime and Dashboard MCP, but verify when you swap to your own certs
+4. Use TLS. Default-on for both Runtime and Dashboard MCP, but verify when you swap to your own certs
 5. For sensitive environments, terminate at a gateway with finer-grained auth (OAuth, mTLS, scope enforcement). IBM's own ContextForge MCP Gateway is one option
-6. Tool **descriptions** matter — agents use them to decide when to call a tool. Sloppy descriptions cause sloppy tool selection
+6. Tool **descriptions** matter. Agents use them to decide when to call a tool. Sloppy descriptions cause sloppy tool selection
 7. Use dedicated, least-privilege backend credentials for any account the MCP tools wrap
 
 ---
 
 ## What's still open
 
-1. **What tools `MCP.Admin` actually registers** — top priority; the minikube test should answer this
-2. **Whether `MCP.Admin` honours its own TLS/auth or inherits from `RestAdminListener`** — comments don't say
-3. **The exact basic auth secret payload for Dashboard MCP servers** (`mcp::basicAuthOverride` vs whatever it actually is) — decode an auto-generated secret
-4. **Operator/Dashboard versions where the Agent and `acemcp` first shipped GA** — Operator 13.0.0 / Dashboard 13.0.7.0-r1+ is the working answer, not yet confirmed
-5. **Whether `MCP.Admin` is preview/unsupported or production** — worth asking your IBM rep
+1. **What tools `MCP.Admin` actually registers**. Top priority. The minikube test should answer this.
+2. **Whether `MCP.Admin` honours its own TLS/auth or inherits from `RestAdminListener`**. Comments don't say.
+3. **The exact basic auth secret payload for Dashboard MCP servers** (`mcp::basicAuthOverride` vs whatever it actually is). Decode an auto-generated secret.
+4. **Operator/Dashboard versions where the Agent and `acemcp` first shipped GA**. Operator 13.0.0 / Dashboard 13.0.7.0-r1+ is the working answer, not yet confirmed.
+5. **Whether `MCP.Admin` is preview/unsupported or production**. Worth asking your IBM rep.
 
 ---
 
@@ -296,49 +307,49 @@ Same hygiene as anywhere MCP is exposed:
 
 ### Official IBM documentation
 
-| Status | Topic | Link |
-|---|---|---|
-| ✅ | Creating and managing MCP servers (Dashboard) | <https://www.ibm.com/docs/en/app-connect/13.0.x?topic=dashboard-creating-managing-mcp-servers> |
-| ✅ | Creating a Model Context Protocol (MCP) server | <https://www.ibm.com/docs/en/app-connect/13.0.x?topic=cmms-creating-mcp-server> |
-| ✅ | Exposing a REST API as an MCP tool | <https://www.ibm.com/docs/en/app-connect/13.0.x?topic=tools-exposing-rest-api-as-mcp-tool> |
-| ⚠️ | Configuring MCP properties (server.conf.yaml reference) — Runtime properties only, no Admin | <https://www.ibm.com/docs/en/app-connect/13.0.x?topic=tools-configuring-mcp-properties> |
-| ✅ | Using the IBM App Connect Enterprise Agent | <https://www.ibm.com/docs/en/app-connect/13.0.x?topic=dashboard-using-app-connect-enterprise-agent> |
-| ✅ | Integration Runtime reference — Custom resource values (`spec.mcp.runtime.*`) | <https://www.ibm.com/docs/en/app-connect/certc_install_integrationruntimeoperandreference.html#crvalues> |
+| Status     | Topic                                                                                  | Link |
+|------------|----------------------------------------------------------------------------------------|------|
+| verified   | Creating and managing MCP servers (Dashboard)                                          | <https://www.ibm.com/docs/en/app-connect/13.0.x?topic=dashboard-creating-managing-mcp-servers> |
+| verified   | Creating a Model Context Protocol (MCP) server                                         | <https://www.ibm.com/docs/en/app-connect/13.0.x?topic=cmms-creating-mcp-server> |
+| verified   | Exposing a REST API as an MCP tool                                                     | <https://www.ibm.com/docs/en/app-connect/13.0.x?topic=tools-exposing-rest-api-as-mcp-tool> |
+| partial    | Configuring MCP properties (server.conf.yaml reference). Runtime properties only, no Admin | <https://www.ibm.com/docs/en/app-connect/13.0.x?topic=tools-configuring-mcp-properties> |
+| verified   | Using the IBM App Connect Enterprise Agent                                             | <https://www.ibm.com/docs/en/app-connect/13.0.x?topic=dashboard-using-app-connect-enterprise-agent> |
+| verified   | Integration Runtime reference. Custom resource values (`spec.mcp.runtime.*`)           | <https://www.ibm.com/docs/en/app-connect/certc_install_integrationruntimeoperandreference.html#crvalues> |
 
 ### Release notes and blog posts
 
-| Status | Topic | Link |
-|---|---|---|
-| ✅ | Ben Thompson — ACE 13.0.7.0 features (MCP REST API exposure) | <https://community.ibm.com/community/user/blogs/ben-thompson1/2026/03/26/ace-13-0-7-0> |
-| ✅ | Ben Thompson — ACE 13.0.6.0 features | <https://community.ibm.com/community/user/blogs/ben-thompson1/2025/12/11/ace-13-0-6-0> |
-| ✅ | ACE 13.0 release notes / fix list | <https://www.ibm.com/support/pages/ibm-app-connect-enterprise-130-release-notes> |
+| Status     | Topic | Link |
+|------------|-------|------|
+| verified   | Ben Thompson, ACE 13.0.7.0 features (MCP REST API exposure) | <https://community.ibm.com/community/user/blogs/ben-thompson1/2026/03/26/ace-13-0-7-0> |
+| verified   | Ben Thompson, ACE 13.0.6.0 features | <https://community.ibm.com/community/user/blogs/ben-thompson1/2025/12/11/ace-13-0-6-0> |
+| verified   | ACE 13.0 release notes / fix list | <https://www.ibm.com/support/pages/ibm-app-connect-enterprise-130-release-notes> |
 
 ### Community and ecosystem
 
-| Status | Topic | Link |
-|---|---|---|
-| ✅ | IBM MCP repository (MQ, watsonx.data, OpenPages, BAW, z/OS Connect, API Connect for GraphQL, webMethods, etc.) | <https://github.com/IBM/mcp> |
-| ✅ | ContextForge MCP Gateway (AI gateway fronting MCP/A2A/REST) | <https://github.com/IBM/mcp-context-forge> |
-| ✅ | MCP Inspector (test harness) | <https://github.com/modelcontextprotocol/inspector> |
-| ✅ | Model Context Protocol spec | <https://modelcontextprotocol.io/docs/getting-started/intro> |
-| ✅ | IBM Cloud Pak image manifest (confirms `ace-mcp` / `ace-langgraph-agents-prod`) | <https://github.com/IBM/cloud-pak/blob/master/reference/image-manifests/ibm-cp-integration.yaml> |
+| Status     | Topic | Link |
+|------------|-------|------|
+| verified   | IBM MCP repository (MQ, watsonx.data, OpenPages, BAW, z/OS Connect, API Connect for GraphQL, webMethods, etc.) | <https://github.com/IBM/mcp> |
+| verified   | ContextForge MCP Gateway (AI gateway fronting MCP/A2A/REST) | <https://github.com/IBM/mcp-context-forge> |
+| verified   | MCP Inspector (test harness) | <https://github.com/modelcontextprotocol/inspector> |
+| verified   | Model Context Protocol spec | <https://modelcontextprotocol.io/docs/getting-started/intro> |
+| verified   | IBM Cloud Pak image manifest (confirms `ace-mcp` / `ace-langgraph-agents-prod`) | <https://github.com/IBM/cloud-pak/blob/master/reference/image-manifests/ibm-cp-integration.yaml> |
 
 ### Unverified items worth chasing
 
-| Status | Item | Notes |
-|---|---|---|
-| 🔍 | `mcp::basicAuthOverride username password` secret payload | Decode an auto-generated Dashboard MCP secret to confirm |
-| 🔍 | `spec.pod.containers.acemcp.*` and `spec.pod.containers.langgraph.*` | `oc explain` against the live CRD |
-| ⚠️ | `MCP.Admin` properties beyond `enabled` and `port` | Likely inherits from RestAdminListener; not stated |
-| ⚠️ | Operator / Dashboard versions for Agent GA | Working answer: Operator 13.0.0 / Dashboard 13.0.7.0-r1+ |
-| ⚠️ | Tools registered by `MCP.Admin` | Test on minikube, run `tools/list`, capture |
+| Status     | Item | Notes |
+|------------|------|-------|
+| unverified | `mcp::basicAuthOverride username password` secret payload | Decode an auto-generated Dashboard MCP secret to confirm |
+| unverified | `spec.pod.containers.acemcp.*` and `spec.pod.containers.langgraph.*` | `oc explain` against the live CRD |
+| partial    | `MCP.Admin` properties beyond `enabled` and `port` | Likely inherits from RestAdminListener; not stated |
+| partial    | Operator / Dashboard versions for Agent GA | Working answer: Operator 13.0.0 / Dashboard 13.0.7.0-r1+ |
+| partial    | Tools registered by `MCP.Admin` | Test on minikube, run `tools/list`, capture |
 
 ---
 
 ## Appendix: minimal test setup for `MCP.Admin`
 
 ```yaml
-# server.conf.yaml — minimal Admin MCP enablement
+# server.conf.yaml, minimal Admin MCP enablement
 MCP:
   Admin:
     enabled: true
