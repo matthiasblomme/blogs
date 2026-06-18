@@ -6,6 +6,8 @@
 # Posts
 
 <!--MD_ALL_POSTS:START-->
+- **2026-06-24** - [Setting up MCP on ACE Minikube](ace-mcp-minikube/setting_up_mcp_on_ace_minikube.md) · *24 min*
+- **2026-06-20** - [Why Your ACE REST Request Node Isn't Sending Basic Auth](rest-request-basic-auth/rest-request-basic-auth.md) · *13 min*
 - **2026-06-17** - [Keeping stuff stopped in IBM ACE](keeping-stuff-stopped/keeping-stuff-stopped.md) · *8 min*
 - **2026-05-30** - [Upgrading ACE on Minikube: from 13.0.4 to 13.0.6.2 (and unlocking MCP)](Ace-Operator-Minikube/upgrading_ace_minikube.md) · *34 min*
 - **2026-05-26** - [Two bugs, one MQ CSU: how 9.4.0.21 broke my mqweb (twice)](mqweb-upgrade/mqweb-upgrade.md) · *11 min*

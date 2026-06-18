@@ -1,11 +1,10 @@
 ---
 date: 2026-06-24
-title: 'Setting up MCP on ACE Minikube'
+title: Setting up MCP on ACE Minikube
 image: cover_mcp.png
-description: Walking through the IBM App Connect Dashboard's MCP server wizard
-  on a Minikube install at operand 13.0.6.2-r1. What works, what doesn't, and
-  what you have to wire up yourself when you're not on OpenShift or IKS.
-
+description: Walking through the IBM App Connect Dashboard's MCP server wizard on
+  a Minikube install at operand 13.0.6.2-r1. What works, what doesn't, and what you
+  have to wire up yourself when you're not on OpenShift or IKS.
 tags:
 - ace
 - kubernetes
@@ -14,12 +13,18 @@ tags:
 - model-context-protocol
 - ai
 - integration
+reading_time: 24 min
 ---
 
 ![cover](cover_mcp.png){ .md-banner }
 
 <!--MD_POST_META:START-->
-
+<div class="md-post-meta">
+  <div class="md-post-meta-left">2026-06-24 · ⏱ 24 min</div>
+  <div class="md-post-meta-right"><span class="post-share-label">Share:</span> <a class="post-share post-share-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fmatthiasblomme.github.io%2Fblogs%2Fposts%2Face-mcp-minikube%2Fsetting_up_mcp_on_ace_minikube%2F" target="_blank" rel="noopener" title="Share on LinkedIn">[<span class="in">in</span>]</a></div>
+</div>
+<hr class="md-post-divider"/>
+<div class="md-post-tags"><span class="md-tag">ace</span> <span class="md-tag">kubernetes</span> <span class="md-tag">minikube</span> <span class="md-tag">mcp</span> <span class="md-tag">model-context-protocol</span> <span class="md-tag">ai</span> <span class="md-tag">integration</span></div>
 <!--MD_POST_META:END-->
 
 
@@ -336,7 +341,7 @@ The IR's connector service on port 3001 is configured with `SERVER_MTLS_CA_PATH=
 
 There's an IBM doc page, [Connecting to Slack from a containerized environment](https://www.ibm.com/docs/en/app-connect/13.0.x?topic=slack-connecting-from-containerized-environment), that walks you through doing the OAuth dance manually with `curl`, so you can inject the resulting access token into App Connect without going through the dashboard's Connect button.
 
-![IBM doc, POST to oauth.access](mcp_slack_oauth_post_doc.png)
+![IBM doc, POST to oauth.access](img_20.png)
 
 The procedure is roughly:
 
