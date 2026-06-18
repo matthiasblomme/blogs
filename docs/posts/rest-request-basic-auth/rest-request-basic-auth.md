@@ -31,9 +31,9 @@ crack it. Shame and determination ran deep.
 
 A REST Request node calling a Basic-auth endpoint. We tried the obvious thing
 first: the node's Security identity property with a `rest::` credential. That
-worked. `Authorization: Basic` header went out, the call succeeded. So the flow and the mock endpoint was working. Check.
+worked. `Authorization: Basic` header went out, the call succeeded. So the flow and the mock endpoint were working. Check.
 
-Then we switched to a Security Profile (the propagation approach), and… nothing. 
+Then we switched to a Security Profile (the propagation approach), and nothing. 
 No header. No exception, no `BIP` code, nothing in the event log. The request just 
 went out unauthenticated.
 
@@ -83,10 +83,10 @@ There are three configurations that actually work:
 | 2 | **Security Profile**: `securityProfileName="{SecurityRegistry}:SAP"`; credential `mqsisetdbparms <node> -n <id>` (plain name, no prefix)                          | **Reactively**, only after the server replies `401` | A downstream that actually issues the `401` challenge                                              |
 | 3 | **Security Profile + pre-emptive auth**: config #2 plus `mqsichangeproperties <node> -e <server> -o ComIbmSocketConnectionManager -n preemptiveAuthType -v Basic` | **Pre-emptively**, on the first request             | Server restart; note it's server-wide                                                              |
 
-## Two gotchas you need to be aware of
+## Two gotchas
 
 1. **`mqsisetdbparms` credentials only activate after the integration *server* is
-   restarted** (`mqsireload` or `[mqsirestart](https://matthiasblomme.github.io/blogs/posts/keeping-stuff-stopped/keeping-stuff-stopped/)`, if you follow my blogs). Redeploying the app is not
+   restarted** (`mqsireload` or [`mqsirestart`](https://matthiasblomme.github.io/blogs/posts/keeping-stuff-stopped/keeping-stuff-stopped/), if you follow my blogs). Redeploying the app is not
    enough. You'll see no credential until the server process reloads, which looks
    exactly like "auth doesn't work."
 2. **The mechanisms are independent.** A REST Request node has *both* a "Security
@@ -113,7 +113,7 @@ A tiny, self-contained setup:
 
 - **Flow:** `HTTP Input /sap → Compute → REST Request → HTTP Reply`.
 
-    ![img.png](img.png) 
+    ![img.png](img.png)
 
 - **OpenAPI** (`openapi.json`): one `POST /token` operation that declares a `basic`
   security scheme. `securitySchemes: { basicAuth: { type: http, scheme: basic } }`
@@ -238,7 +238,7 @@ straight to the `rest::` credential.
 ## Why this is so hard to find
 
 If you go looking for any of this in the documentation, you mostly won't find it,
-and not for lack of trying (we checked the docs, the videos, the forums). The
+and not for lack of trying. The
 behavior isn't called out on the pages you'd naturally land on:
 
 - [Configuring a message flow for identity propagation](https://www.ibm.com/docs/en/app-connect/13.0.x?topic=security-configuring-identity-propagation)
