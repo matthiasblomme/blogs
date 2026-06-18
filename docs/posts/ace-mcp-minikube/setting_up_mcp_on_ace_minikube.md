@@ -30,7 +30,7 @@ reading_time: 24 min
 
 # Setting up MCP on ACE Minikube
 
-In the [previous post](https://matthiasblomme.github.io/blogs/posts/Ace-Operator-Minikube/upgrading_ace_minikube/) the Minikube ACE installation moved to operator `12.21.0` and operand `13.0.6.2-r1` so the Dashboard's MCP server feature would be there. This post walks through the wizard, the artifacts it creates in the cluster, and the bits you have to wire up by hand when you're not on OpenShift or IBM Cloud Kubernetes Service.
+In the [previous post](https://matthiasblomme.github.io/blogs/posts/Ace-Operator-Minikube/upgrading_ace_minikube/) the Minikube ACE installation moved to operator `12.21.0` and operand `13.0.6.2-r1` so the Dashboard's MCP server feature would be there. This post walks through the wizard, the artefacts it creates in the cluster, and the bits you have to wire up by hand when you're not on OpenShift or IBM Cloud Kubernetes Service.
 
 A few things before we start:
 
@@ -48,7 +48,7 @@ A few things before we start:
 
 ## Quick start
 
-In case you don't remember, that can happen to the best of us. Here are the quick start commands to start from.
+In case you don't remember, that can happen to the best of us. Here are the commands to start from.
 
 > "Even I make mistakes from time to time." - Maurice Moss, The IT Crowd
 
@@ -157,7 +157,7 @@ The webhook bounced the IR with:
 
 The wizard creates the IR with metrics on by default, and the ACE validating webhook checks at admission time that the Prometheus Operator's `ServiceMonitor` CRD is available in the cluster. On OpenShift and IKS that CRD ships out of the box. On Minikube it doesn't, and the wizard has no toggle to disable metrics, so you can't work around it from the UI.
 
-The fix is one-shot. Install the Prometheus Operator (the CRDs alone would technically satisfy the discovery check, but installing the operator bundle is the cleaner, well-trodden path):
+The fix is one-shot. Install the Prometheus Operator (the CRDs alone would technically satisfy the discovery check, but installing the operator bundle is the cleaner, standard path):
 
 ```bash
 k apply -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/main/bundle.yaml --server-side
@@ -226,7 +226,7 @@ NAME                                  READY   STATUS    RESTARTS   AGE
 ace-mcp-test-ir-f76bb476-t62d5        1/1     Running   0          3m13s
 ```
 
-The field-guide pattern materialized exactly. One IR plus three Configurations (`Accounts`, `REST Admin SSL files`, `setdbparms.txt`). The BAR file mentioned in the field guide doesn't appear as a separate Kubernetes resource. It's baked into the IR and deployed at startup.
+The resources line up exactly as expected: one IR plus three Configurations (`Accounts`, `REST Admin SSL files`, `setdbparms.txt`). The BAR file doesn't appear as a separate Kubernetes resource. It's baked into the IR and deployed at startup.
 
 
 ## Step 4: MCP tools, pick a connector
@@ -235,7 +235,7 @@ This is where you pick which connector actions become MCP tools. The wizard show
 
 ![MCP tools step, connectors catalogue](img_18.png)
 
-For a smoke test you need a connector you can authenticate quickly. I picked Slack because it's free to spin up a new workspace and app from scratch. Spoiler: it didn't work. This is where this post hits the wall, and where the field guide's "hosting: OpenShift or IKS" line stops being a polite footnote. If you like reading about my failures, keep going. If you'd rather not see your hero exposed, now's the time to leave.
+For a smoke test you need a connector you can authenticate quickly. I picked Slack because it's free to spin up a new workspace and app from scratch. Spoiler: it didn't work. This is where this post hits the wall, and where that "OpenShift or IKS" hosting line from the intro stops being a polite footnote. If you like reading about my failures, keep going. If not, skip ahead.
 
 Search Slack in the catalogue and expand it. The wizard splits the panel into the actions it can publish as MCP tools and the form that wants an access token before any of it goes live:
 
@@ -308,7 +308,7 @@ stern --all-namespaces .
 ```
 
 The `.` is a regex matching every pod name. Scope to a single namespace with `-n ace-demo`, or to ACE-managed pods only with `-l app.kubernetes.io/managed-by=ibm-appconnect`.
-Bonus: namespace-coloured output in the tail.
+Namespace-coloured output in the tail, too.
 
 ![img_14.png](img_14.png)
 
@@ -335,7 +335,7 @@ k exec deploy/ace-dashboard-dash -c control-ui -- \
 HTTP 000 errno=56                       # 56 = TLS handshake failed
 ```
 
-The IR's connector service on port 3001 is configured with `SERVER_MTLS_CA_PATH=.../adminssl/ca.crt.pem`, expecting a client certificate. The dashboard isn't presenting one, so the handshake fails before any HTTP response. That mTLS wiring is supposed to be set up automatically by the operator when a new IR is created. On OpenShift or IKS it is. On plain Kubernetes (minikube here) it isn't.
+The IR's connector service on port 3001 is configured with `SERVER_MTLS_CA_PATH=.../adminssl/ca.crt.pem`, expecting a client certificate. The dashboard isn't presenting one, so the handshake fails before any HTTP response. That mTLS wiring is supposed to be set up automatically by the operator when a new IR is created. On OpenShift or IKS it is. On plain Kubernetes (Minikube here) it isn't.
 
 ### Trying to work around it with the IBM "containerised environment" procedure
 
@@ -366,13 +366,11 @@ Two operational notes that bit me:
 
 > Trailing slash matters. `https://www.google.com/` is not the same as `https://www.google.com`. Whatever you registered as the Slack app's Redirect URL is what you must send in both the authorize URL and the POST body.
 
-Even with a freshly minted access token in hand, the wizard's Connect button still fails with the same `Failed to get account details for account ID: slack~Account 1` error. The button doesn't accept a pre-existing token. It always runs its own OAuth flow, then fails at the same internal `upsertAccountAndConnections` step. The manual procedure only helps if there's a separate path to inject the token into the `Accounts` Configuration secret directly (`ace-mcp-test-acc-<suffix>` in our case), and I couldn't find that path documented for `13.0.6.x`. I might not have looked hard enough, but at this point I was content where I was.
+Even with a freshly minted access token in hand, the wizard's Connect button still fails with the same `Failed to get account details for account ID: slack~Account 1` error. The button doesn't accept a pre-existing token. It always runs its own OAuth flow, then fails at the same internal `upsertAccountAndConnections` step. The manual procedure only helps if there's a separate path to inject the token into the `Accounts` Configuration secret directly (`ace-mcp-test-acc-<suffix>` in our case), and I couldn't find that path documented for `13.0.6.x`. I might not have looked hard enough, but at this point I'd had enough.
 
 ### Where this stops working on plain Kubernetes
 
-Re-reading the field guide note now:
-
-> Hosting: Red Hat OpenShift, or IBM Cloud Kubernetes Service at integration runtime 13.0.6.2-r1 or later. Other Kubernetes flavours: no automatic ingress, so you handle routing yourself.
+Recall the hosting line from the start of this post: Red Hat OpenShift, or IBM Cloud Kubernetes Service at integration runtime `13.0.6.2-r1` or later. Other Kubernetes flavours get no automatic ingress, so you handle routing yourself.
 
 "No automatic ingress" is the polite version. The actual gap is that the operator's dashboard↔IR cert wiring, including mTLS plumbing for the connector framework, relies on OpenShift Routes or IKS infrastructure to be there. On plain Kubernetes the IR comes up, the wizard creates all the artefacts, the OAuth dance works, and then the dashboard can't TLS-handshake with the IR it just created.
 
