@@ -7,6 +7,8 @@ title: Archive
 <!--MD_ARCHIVE:START-->
 ## 2026
 ### June
+- **2026-06-24** - [Setting up MCP on ACE Minikube](ace-mcp-minikube/setting_up_mcp_on_ace_minikube.md) · *24 min*
+- **2026-06-20** - [Why Your ACE REST Request Node Isn't Sending Basic Auth](rest-request-basic-auth/rest-request-basic-auth.md) · *13 min*
 - **2026-06-17** - [Keeping stuff stopped in IBM ACE](keeping-stuff-stopped/keeping-stuff-stopped.md) · *8 min*
 
 ### May
