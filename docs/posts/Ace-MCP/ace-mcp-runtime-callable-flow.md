@@ -44,6 +44,23 @@ Exposing it straight from ACE skips that. The integration server you already run
 The catch is you inherit ACE's take on MCP, the read-only admin API, the override file, the one-client-per-lifetime bug, the transport split further down. A dedicated gateway still earns its place when you want OAuth, rate limiting, or one front door over many backends. But if the REST API already lives in ACE, exposing it from there is the cheapest path to a working tool.
 
 
+## Enabling runtime MCP
+
+... TODO: add ref to server.conf.yaml settings and security
+
+```yaml
+MCP:
+  Admin:
+    enabled: true      
+    port: 7650          
+  Runtime:
+    mcpStartMode: 'automatic'      
+    host: ''                       
+    port: 7750                      
+    uriSuffix: '/mcp'             
+```
+
+... You can also secure your MCP by setting a mcpCredentialName property ...
 
 ## The REST API
 
@@ -65,7 +82,27 @@ Server: IBM App Connect Enterprise
 {"message":"Hello, Foo Bar!"}
 ```
 
-Nothing special from the outside, a GET that returns a small JSON document. That is exactly what MCP.Runtime wants: a deployed REST API with operations it can turn into tools. Keep it simple.
+Nothing special from the outside, a GET that returns a small JSON document. That is exactly what MCP.Runtime wants: a deployed REST API with operations it can turn into tools. Keep it simple, [stupid](https://en.wikipedia.org/wiki/KISS_principle).
+
+
+## Turning it on in server.conf.yaml
+
+Before you get to the wizard, MCP.Runtime has to be switched on. In the shipped `server.conf.yaml` the whole `MCP:` block is commented out, so out of the box nothing listens. You can uncomment it in place, but I dropped it in the override instead, `overrides/server.conf.yaml`, the cleaner home for config you want to keep across a reinstallation or a fixpack, or under version control.
+
+```yaml
+MCP:
+  Runtime:
+    mcpStartMode: 'automatic'
+    host: ''
+    port: 7750
+    uriSuffix: '/mcp'
+```
+
+`mcpStartMode` is the one to get right. `automatic`, the default, brings the listener up as soon as the first tool is deployed and takes it down again when the last one goes. `enabled` starts it at server boot with or without tools, and `disabled` keeps it off. For a server whose job is to host tools, `automatic` is fine. `host`, `port`, and `uriSuffix` are just where it listens, and `7750` and `/mcp` are the defaults, so my block mostly makes the config explicit.
+
+The one knob I left out, but worth knowing, is `mcpCredentialName`. Point it at an ACE credential of type `mcp` (created with `mqsicredentials` or the vault) and every MCP request then has to carry that credential as Basic Auth, no credential, no call. On a home lab on localhost I skip it, but on anything shared you want it on: an MCP tool is a door straight into your flows.
+
+Restart the server after the change and MCP.Runtime is armed, waiting for its first tool.
 
 
 ## Exposing it as an MCP tool
@@ -255,7 +292,11 @@ You can almost do it in containers. The Dashboard MCP wizard (the one from [Sett
 
 On a standalone integration server it is simpler and a bit more limited. MCP.Runtime only deals in REST APIs. There is no callable flow option in the Configure MCP server wizard that I could find.
 
-So the workaround. The callable flow stays where it is, an ordinary app with a Callable Input node on endpoint `/cf1` (short for callable flow 1, my creativity hard at work there) that returns one field:
+So the workaround. The callable flow stays where it is, an ordinary app with a Callable Input node on endpoint `/cf1` (short for callable flow 1, my creativity hard at work there).
+
+> There are only two hard things in computer science: cache invalidation and naming things. - Phil Karlton
+
+It returns one field:
 
 ```esql
 CREATE LASTCHILD OF OutputRoot DOMAIN 'JSON';
@@ -281,7 +322,11 @@ Or with Bob
 
 ![img_mcp_14.png](img_mcp_14.png)
 
-That `{"Hello":"World"}` came out of the callable flow, through the REST API, over MCP. It works. But it is a hop you would not want on a live system, an HTTP front door bolted on just so a flow can be a tool. For the purpose of this blog it is fine. On something real I would either wait for callable flows to be exposable on their own, or only do this where the REST API was going to exist anyway.
+That `{"Hello":"World"}` came out of the callable flow, through the REST API, over MCP. It works.
+
+> If it's stupid but it works, it isn't stupid.
+
+But it is a hop you would not want on a live system, an HTTP front door bolted on just so a flow can be a tool. For the purpose of this blog it is fine. On something real I would either wait for callable flows to be exposable on their own, or only do this where the REST API was going to exist anyway.
 
 
 ## Where this leaves us
