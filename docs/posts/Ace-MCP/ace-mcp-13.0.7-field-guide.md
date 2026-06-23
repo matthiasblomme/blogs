@@ -2,27 +2,34 @@
 title: 'IBM App Connect and MCP: a field guide as of 13.0.7'
 date: 2026-06-27
 author: Matthias Blomme
-description: What MCP looks like across ACE software and App Connect in containers, where the docs cover it, and where you still have to read the YAML.
+description: What MCP looks like across ACE software and App Connect in containers,
+  where the docs cover it, and where you still have to read the YAML.
 tags:
-  - ace
-  - app-connect
-  - mcp
-  - model-context-protocol
-  - ai
-  - integration
+- ace
+- app-connect
+- mcp
+- model-context-protocol
+- ai
+- integration
 status: draft
+reading_time: 14 min
 ---
 
 ![cover](cover_field_guide.png){ .md-banner }
 
 <!--MD_POST_META:START-->
-
+<div class="md-post-meta">
+  <div class="md-post-meta-left">Matthias Blomme · 2026-06-27 · ⏱ 14 min</div>
+  <div class="md-post-meta-right"><span class="post-share-label">Share:</span> <a class="post-share post-share-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fmatthiasblomme.github.io%2Fblogs%2Fposts%2FAce-MCP%2Face-mcp-13.0.7-field-guide%2F" target="_blank" rel="noopener" title="Share on LinkedIn">[<span class="in">in</span>]</a></div>
+</div>
+<hr class="md-post-divider"/>
+<div class="md-post-tags"><span class="md-tag">ace</span> <span class="md-tag">app-connect</span> <span class="md-tag">mcp</span> <span class="md-tag">model-context-protocol</span> <span class="md-tag">ai</span> <span class="md-tag">integration</span></div>
 <!--MD_POST_META:END-->
 
 
 # IBM App Connect and MCP: a field guide as of 13.0.7
 
-By 13.0.7, at least four different things in the App Connect family answer to the name MCP, and the documentation for them is scattered across `docs.ibm.com`, the ACE community blog, the operator image manifest, and a handful of comments inside `server.conf.yaml`. Three of the four now have a deep-dive of their own, linked below. This post is the map over them: what each one exposes and what it costs your runtime.
+With 13.0.7, at least four different things in the App Connect family answer to the name MCP, and the documentation for them is scattered across `docs.ibm.com`, the ACE community blog, the operator image manifest, and a handful of comments inside `server.conf.yaml`. Three of the four now have a deep-dive of their own, written by yours truly, linked below. This post is the one map to rule them all: what each one exposes and what it costs your runtime.
 
 Versions referenced throughout:
 
@@ -30,21 +37,16 @@ Versions referenced throughout:
 - Container side: App Connect Operator **12.21.0**, operand **13.0.6.2-r1**
 - App Connect Dashboard **13.0.6.1-r1** (Dashboard MCP server arrives) and **13.0.7.0-r1** (Enterprise Agent arrives)
 
-Status used in the table below:
-
-- `verified`: confirmed in IBM docs or in the shipped product
-- `partial`: found but partial or undocumented
-
 ---
 
 ## The four MCP-flavoured things in App Connect today
 
-| # | Component                         | Where it lives                      | What it exposes                                                  | First shipped         | Status             | Deep-dive                                                                                                                       |
-|---|-----------------------------------|-------------------------------------|------------------------------------------------------------------|-----------------------|--------------------|---------------------------------------------------------------------------------------------------------------------------------|
-| 1 | `MCP.Runtime`                     | `server.conf.yaml`, `mcptools.json` | Deployed REST API operations as MCP tools                        | ACE 13.0.7.0          | verified, hands-on | [Exposing a REST API as an MCP tool](https://matthiasblomme.github.io/blogs/posts/Ace-MCP/ace-mcp-runtime-callable-flow/)       |
-| 2 | `MCP.Admin`                       | `server.conf.yaml`                  | ACE administration tools, read-only                              | ACE 13.0.7.0          | verified           | [Turning the admin server into an MCP host](https://matthiasblomme.github.io/blogs/posts/Ace-MCP/mcp_in_ace/)                   |
-| 3 | `spec.mcp.runtime`                | Integration Runtime CR              | Connector-based MCP server, hosted in a container                | Dashboard 13.0.6.1-r1 | verified           | [Setting up MCP on ACE Minikube](https://matthiasblomme.github.io/blogs/posts/ace-mcp-minikube/setting_up_mcp_on_ace_minikube/) |
-| 4 | `acemcp` / `langgraph` containers | App Connect Enterprise Agent pod    | Container, runtime, and flow introspection for the embedded chat | Operator 13.0 line    | partial            | -                                                                                                                               |
+| # | Component                         | Where it lives                      | What it exposes                                                  | First shipped         | Deep-dive                                                                                                                       |
+|---|-----------------------------------|-------------------------------------|------------------------------------------------------------------|-----------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| 1 | `MCP.Runtime`                     | `server.conf.yaml`, `mcptools.json` | Deployed REST API operations as MCP tools                        | ACE 13.0.7.0          | [Exposing a REST API as an MCP tool](https://matthiasblomme.github.io/blogs/posts/Ace-MCP/ace-mcp-runtime-callable-flow/)       |
+| 2 | `MCP.Admin`                       | `server.conf.yaml`                  | ACE administration tools, read-only                              | ACE 13.0.7.0          | [Turning the admin server into an MCP host](https://matthiasblomme.github.io/blogs/posts/Ace-MCP/mcp_in_ace/)                   |
+| 3 | `spec.mcp.runtime`                | Integration Runtime CR              | Connector-based MCP server, hosted in a container                | Dashboard 13.0.6.1-r1 | [Setting up MCP on ACE Minikube](https://matthiasblomme.github.io/blogs/posts/ace-mcp-minikube/setting_up_mcp_on_ace_minikube/) |
+| 4 | `acemcp` / `langgraph` containers | App Connect Enterprise Agent pod    | Container, runtime, and flow introspection for the embedded chat | Operator 13.0 line    | -                                                                                                                               |
 
 Items 1, 2, and 3 expose tools to *external* MCP clients (Claude, IBM Bob, Cursor, ChatGPT, your own agent). Item 4 is internal plumbing for IBM's embedded chat, not a public endpoint.
 
@@ -56,11 +58,11 @@ It's all the same protocol, but what you can put behind it depends on where you 
 
 **A REST API.** The supported path, and the only one that is properly documented. Take a deployed Toolkit REST API, expose its operations with MCP.Runtime, and each one becomes a tool, named and described from the OpenAPI. That is the whole of [Exposing a REST API as an MCP tool](https://matthiasblomme.github.io/blogs/posts/Ace-MCP/ace-mcp-runtime-callable-flow/). In containers the same idea sits behind the "Existing server (integration-flow based)" option in the Dashboard wizard, greyed out on the operand I tested (see the container section).
 
-**A callable flow.** Not directly, on either side. On-prem, MCP.Runtime only deals in REST APIs, there is no callable-flow option in the wizard. You get there by wrapping the flow in a one-operation REST API and exposing that, which works end to end ([the same post](https://matthiasblomme.github.io/blogs/posts/Ace-MCP/ace-mcp-runtime-callable-flow/) covers it). In containers the Dashboard wizard does offer a `Callable flow` connector tile, but on plain Kubernetes at 13.0.6.2-r1 it deploys and then will not start, the connector it needs is not in the image ([Setting up MCP on ACE Minikube](https://matthiasblomme.github.io/blogs/posts/ace-mcp-minikube/setting_up_mcp_on_ace_minikube/)). So a callable flow is reachable only through a REST front door.
+**A callable flow.** Not directly, on either side. On-prem, MCP.Runtime only deals in REST APIs, there is no callable-flow option in the wizard. You get there by wrapping the flow in a one-operation REST API and exposing that, which works end to end ([the same post](https://matthiasblomme.github.io/blogs/posts/Ace-MCP/ace-mcp-runtime-callable-flow/) covers it). In containers the Dashboard wizard does offer a `Callable flow` connector tile, but on plain Kubernetes at 13.0.6.2-r1 it deploys and then will not start, the connector it needs is not in the image ([Setting up MCP on ACE Minikube](https://matthiasblomme.github.io/blogs/posts/ace-mcp-minikube/setting_up_mcp_on_ace_minikube/)). So a callable flow is reachable only through a REST front door at this moment.
 
 **A connector action.** Container only, and a different mechanism. The Dashboard MCP wizard does not touch your flows, it builds tools on App Connect connectors: authenticate to Salesforce, Slack, Insightly, and so on, pick the actions, and those become tools. Each server it spins up is a new integration runtime in its own pod. None of this exists on-prem. Full walkthrough in [the Minikube post](https://matthiasblomme.github.io/blogs/posts/ace-mcp-minikube/setting_up_mcp_on_ace_minikube/).
 
-**Anything else, an MQ, file, or timer flow.** Not exposable as it stands. MCP.Runtime speaks REST and reads the OpenAPI, so a flow with no REST front door gives it nothing to describe. If you want one as a tool, put a REST API in front of it, the same trick as the callable flow.
+**Anything else**, an MQ artifact, file, or timer flow. Not exposable as it stands. MCP.Runtime speaks REST and reads the OpenAPI, so a flow with no REST front door gives it nothing to describe. If you want one as a tool, put a REST API in front of it, the same trick as the callable flow.
 
 `MCP.Admin` is the odd one out here. It does not expose your integrations, it exposes the integration server's own admin operations as tools, so an agent can query the runtime about itself instead of acting on it. Different job, and it gets its own section below.
 
@@ -74,7 +76,7 @@ ACE 13.0.7 adds a top-level `MCP:` block with two stanzas, `Runtime:` and `Admin
 
 The headline feature, deployed REST API operations exposed as MCP tools. Two files hold it: the `MCP.Runtime` block in `server.conf.yaml` for the listener, and a `mcptools.json` per REST API for which operations are exposed and enabled (the admin API only reads those, you cannot flip a tool on over REST). Confirmed defaults on 13.0.7: `mcpStartMode: automatic`, port `7750`, `uriSuffix /mcp`, Streamable HTTP only, no auth until you set `mcpCredentialName`. On 13.0.7.2 the tool calls are intermittent, most return in milliseconds, the odd one stalls.
 
-The full hands-on, the wizard, the curl handshake, the JSON, and the callable-flow workaround, is in [Exposing a REST API as an MCP tool](https://matthiasblomme.github.io/blogs/posts/Ace-MCP/ace-mcp-runtime-callable-flow/).
+The full hands-on, the wizard, the curl handshake, the JSON, and the callable-flow workaround, I've written up here: [Exposing a REST API as an MCP tool](https://matthiasblomme.github.io/blogs/posts/Ace-MCP/ace-mcp-runtime-callable-flow/).
 
 ### MCP.Admin (port 7650)
 
@@ -82,7 +84,7 @@ A much smaller surface. Set `enabled: true`, restart, and the server registers s
 
 > "Have you tried turning it off and on again?" - Roy, The IT Crowd
 
-Every tool with its real request and response is in [Turning the admin server into an MCP host](https://matthiasblomme.github.io/blogs/posts/Ace-MCP/mcp_in_ace/).
+You can find examples of the tools with actual output in [Turning the admin server into an MCP host](https://matthiasblomme.github.io/blogs/posts/Ace-MCP/mcp_in_ace/).
 
 ---
 
