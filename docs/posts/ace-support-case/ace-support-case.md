@@ -22,15 +22,17 @@ It lives here: [github.com/matthiasblomme/bobmodes](https://github.com/matthiasb
 
 ## What it actually does
 
-Enough chit-chat, let's dive in. The mode acts as a senior ACE support specialist. You describe the problem, and it walks you through collecting a complete, well organised diagnostic bundle, the kind IBM Support can act on immediately instead of bouncing back with "can you also send...". Saving all of us some valuable time.
+Enough chit-chat. The mode acts as a senior ACE support specialist. You describe the problem, and it walks you through collecting a complete, well organised diagnostic bundle, the kind IBM Support can act on immediately instead of bouncing back with "can you also send...".
 
 It runs in five phases:
 
-1. **Triage**: a few questions, one or two at a time, to pin down the symptom, the timing, which node and integration server are involved, and what changed recently. It uses the answers to classify the problem (crash, performance, functional, deployment, database, SSL, or general).
+1. **Triage**: a few questions, one or two at a time, to pin down the symptom, the timing, which node and integration server are involved, and what changed recently. It uses the answers to classify the problem.
 2. **Runtime access check**: do you have a shell on the ACE server or not. If yes, it runs the commands. If no, it hands you a ready to run script and asks for the output.
 3. **Baseline collection**: `mqsiservice -v` for the version, then `aceDataCollector`, which is the single most complete automated diagnostic tool ACE ships and has no runtime impact.
 4. **Problem specific diagnostics**: a decision tree per problem type. Event log windows for a crash, user trace and `ACELogAnalyser` for performance, ODBC trace for a database issue, library path ordering for a GSKit problem, and so on.
 5. **Analysis and case generation**: it self checks the data, then writes an `ibm_case_submission.txt` with every field the IBM portal wants, title, product, exact fix pack, a severity suggestion, business impact, and a structured description, ready to paste.
+
+The classification turns on one split first: broken or slow, then the specific type if it's broken (crash, message flow, deployment, database, SSL). That first split decides how you collect, not just what: a slow system you reproduce and trace, a broken one you gather what the failure already left behind.
 
 One thing sits on top of all five: an optional rules file your organisation can fill in, so the mode follows your redaction and governance rules without you re-explaining them each time. More on that below.
 
@@ -138,7 +140,7 @@ Leave it empty and nothing changes, which is the default for a reason. Most peop
 
 ## Testing it without waiting for an outage
 
-A support-case mode is awkward to dry run, because you need a case. And the cleanest signal it keys off, an abend file, never shows up during normal operation. That is exactly what makes an abend file useful, and exactly what makes it a bad thing to sit and wait for.
+A support-case mode is awkward to dry run, because you need a case. And the cleanest signal it keys off, an abend file, never shows up during normal operation. Which is exactly what makes it useful, and a bad thing to sit and wait for.
 
 So let's make one on purpose.
 
