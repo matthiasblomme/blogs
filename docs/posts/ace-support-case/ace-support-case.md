@@ -2,7 +2,8 @@
 date: 2026-06-25
 title: Opening an IBM ACE support case with a custom Bob mode
 description: A custom Bob mode that walks you through collecting diagnostics for an
-  IBM App Connect Enterprise support case, and how to trigger an abend on purpose to test it.
+  IBM App Connect Enterprise support case, and how to trigger an abend on purpose
+  to test it.
 tags:
 - ace
 - bob
@@ -10,7 +11,21 @@ tags:
 - diagnostics
 - abend
 - aceDataCollector
+reading_time: 23 min
 ---
+
+![cover](cover.png){ .md-banner }
+
+<!--MD_POST_META:START-->
+<div class="md-post-meta">
+  <div class="md-post-meta-left">2026-06-25 · ⏱ 23 min</div>
+  <div class="md-post-meta-right"><span class="post-share-label">Share:</span> <a class="post-share post-share-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fmatthiasblomme.github.io%2Fblogs%2Fposts%2Face-support-case%2Face-support-case%2F" target="_blank" rel="noopener" title="Share on LinkedIn">[<span class="in">in</span>]</a></div>
+</div>
+<hr class="md-post-divider"/>
+<div class="md-post-tags"><span class="md-tag">ace</span> <span class="md-tag">bob</span> <span class="md-tag">support</span> <span class="md-tag">diagnostics</span> <span class="md-tag">abend</span> <span class="md-tag">aceDataCollector</span></div>
+<!--MD_POST_META:END-->
+
+
 
 # Opening an IBM ACE support case with a custom Bob mode
 
