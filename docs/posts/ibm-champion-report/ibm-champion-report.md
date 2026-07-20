@@ -3,26 +3,27 @@ date: 2026-06-30
 title: Reporting IBM Champion activity with a custom Bob mode and Claude skill
 description: A custom Bob mode (and Claude skill) that assembles your IBM Champion
   act-of-advocacy submission, builds a prefilled form URL, and stops you retyping
-  your Champion ID four times a year.
+  your Champion ID umpteen times a year.
 tags:
 - bob
 - ibm-champion
 - airtable
 - claude
 - automation
-
+reading_time: 16 min
 ---
 
 ![cover](cover.png){ .md-banner }
 
 <!--MD_POST_META:START-->
 <div class="md-post-meta">
-  <div class="md-post-meta-left">2026-06-30 · ⏱ 11 min</div>
+  <div class="md-post-meta-left">2026-06-30 · ⏱ 16 min</div>
   <div class="md-post-meta-right"><span class="post-share-label">Share:</span> <a class="post-share post-share-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fmatthiasblomme.github.io%2Fblogs%2Fposts%2Fibm-champion-report%2Fibm-champion-report%2F" target="_blank" rel="noopener" title="Share on LinkedIn">[<span class="in">in</span>]</a></div>
 </div>
 <hr class="md-post-divider"/>
 <div class="md-post-tags"><span class="md-tag">bob</span> <span class="md-tag">ibm-champion</span> <span class="md-tag">airtable</span> <span class="md-tag">claude</span> <span class="md-tag">automation</span></div>
 <!--MD_POST_META:END-->
+
 
 # Reporting IBM Champion activity with a custom Bob mode and Claude skill
 
@@ -50,14 +51,14 @@ ALTERNATE_EMAIL=...
 
 And simply tell it what you did. It assembles the whole submission and hands you two things: a prefilled form URL, and a copy-paste sheet for the few fields the URL can't fill.
 
-It is explicitly prohibited from doing 2 things:
+There are two things it explicitly won't do:
 
 - filling in the consent box
 - submitting the form
 
-That feels like the bit a human should be in the loop for. But if you really wanted to, changes are only a git fork away.
+That feels like the bit a human should still do. But if you really wanted to, that's only a git fork away.
 
-For the activity itself it walks through the following sections, one thing at a time, and if some of these are not clear from your input, you will be prompted on what to choose:
+For the activity itself it walks through the following, one thing at a time. Anything it can't work out from your input, it asks you:
 
 - what you did, enough to write a description and pick the type
 - the act-of-advocacy type, mapped to the exact dropdown entry
@@ -132,7 +133,7 @@ The truth is out there, apparently.
 
 The link is the one that beat me. No label works, no field ID is exposed, nothing prefills it, so the mode leaves it as a manual paste. Worth knowing, since a missing link is the one thing the form warns may disqualify your activity.
 
-The rest comes down to matching what the dropdowns expect. Single-select values have to be exact: "Write a Blog or Article", which is what I would have typed, isn't an option, while "Blog or Article" is, and "Blog on IBM property" if your blog sits on community.ibm.com. The product list runs to 516 entries with no "App Connect Enterprise" among them, the closest being "IBM App Connect". You would never know without opening the dropdown and reading all of it, so the mode did that once and wrote the whole list down.
+The rest is just matching what the dropdowns expect. Single-select values have to be exact: "Write a Blog or Article", which is what I would have typed, isn't an option, while "Blog or Article" is, and "Blog on IBM property" if your blog sits on community.ibm.com. The product list runs to 516 entries with no "App Connect Enterprise" among them, the closest being "IBM App Connect". You would never know without opening the dropdown and reading all of it, so the mode did that once and wrote the whole list down.
 
 One last thing, easy to miss: the form asks how many more activities you want to add after the first, and defaults that to 1, not Zero. Report a single blog post and stop, and it keeps a second, empty activity open behind you.
 
@@ -184,7 +185,7 @@ Same file works as a Claude Code skill. That one goes in `~/.claude/skills/`.
 
 ## Using it
 
-You describe the activity. I use it for my own reports, so it gets tested the honest way, on me before anyone else. Most recently an idea I submitted on the IBM Ideas portal:
+You describe the activity. I use it for my own reports. Most recently an idea I submitted on the IBM Ideas portal:
 
 ```
 Log this idea I submitted on the IBM Ideas portal as an act of advocacy:
@@ -196,7 +197,7 @@ It pulled my identity from `.env`, set the type to Ideas portal, the product to 
 ![img_1.png](img_1.png)
 
 
-You open the URL, paste the description and link, tick what you mean to tick, and submit. The retyping is gone. What's left is the part that actually needs a human: deciding the thing is worth reporting, and agreeing to the privacy terms.
+You open the URL, paste the description and link, tick what you mean to tick, and submit. The retyping is gone.
 
 ![img_2.png](img_2.png)
 
@@ -210,8 +211,6 @@ The URL and the sheet are the reliable path, and for a while that was the whole 
 
 If a browser MCP is hooked up, the mode goes further. It opens the prefilled URL, then types in the fields the URL can't reach: the description, the link, and the amplify box if you said yes. Same hard line as before. It stops at the consent checkbox and it does not submit. That click stays yours.
 
-Two things made this less obvious than "just type the fields in".
-
 It matches fields by their label, not their position on screen. The moment the description box fills, the whole block below it slides down about 50 pixels, so anything aimed at a coordinate from a second ago lands in empty space. The link goes nowhere, the checkbox stays unticked, and nothing errors to tell you. So it finds each field by name and works from that.
 
 And it wants your actual logged-in Chrome, not a clean one. The form sits behind ibm.biz, and a fresh profile walks straight into a login wall. An extension driving the Chrome you're already signed into skips that.
@@ -220,9 +219,9 @@ When it's done it reads every field back, tells you what took and what didn't, a
 
 ## Wrap up
 
-It's in the same repo as my ACE Support Skill. The form is still the form, I just stopped filling it in by hand. And I now know more about Airtable's prefill internals than I ever wanted to, which is apparently what it takes to not retype a Champion ID four times a year.
+It's in the same repo as my ACE Support Skill. The form is still the form, I just stopped filling it in by hand. And I now know more about Airtable's prefill internals than I ever wanted to, which is apparently what it takes to not retype a Champion ID umpteen times a year.
 
-Let it drive the browser, or take the sheet and fill the form in yourself. Your choice. Either way it stops one click short of done, which is exactly where it should stop.
+Let it drive the browser, or take the sheet and fill the form in yourself. Your choice. Either way it stops one click short of done.
 
 ---
 

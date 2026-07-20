@@ -26,7 +26,6 @@ reading_time: 23 min
 <!--MD_POST_META:END-->
 
 
-
 # Opening an IBM ACE support case with a custom Bob mode
 
 Opening an IBM support case for ACE can be a chore you almost always do under pressure, usually when something is already on fire. A good chunk of time goes into remembering what to collect: the exact version, the right logs, the trace, the abend file, ... You always (I say 'you', but maybe it's just me) forget that one thing support asks for two days later, that you could have grabbed in the first round. I do it rarely enough to forget some of these details, and the steps are spread across a dozen documentation pages.
