@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{#
+  Cross-domain canonical: the blog is dual-live — authored here, mirrored at
+  https://www.embee.be/blog/ with an identical URL shape. Exactly one copy may
+  be canonical, and that's the embee site, so search engines consolidate
+  ranking there while both stay browsable.
+
+  The host below must match `site` in the embee_it_website repo's
+  astro.config.mjs. If they disagree, this points at a URL whose own canonical
+  names a third address, and the consolidation this override exists for stops
+  working. (It was embee.matthiashomeportal.be until the site moved to the
+  business domain; that host now 301s to www.embee.be.)
+
+  This replicates Material's site_meta block (mkdocs-material 9.x base.html)
+  with only the canonical line changed: post URLs are rewritten from
+  <site_url>posts/... to the embee /blog/... equivalent; non-post pages
+  (home, archive, about) keep their github.io canonical since they have no
+  embee counterpart.
+#}
+
+{% block site_meta %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  {% if page.meta and page.meta.description %}
+    <meta name="description" content="{{ page.meta.description }}">
+  {% elif config.site_description %}
+    <meta name="description" content="{{ config.site_description }}">
+  {% endif %}
+  {% if page.meta and page.meta.author %}
+    <meta name="author" content="{{ page.meta.author }}">
+  {% elif config.site_author %}
+    <meta name="author" content="{{ config.site_author }}">
+  {% endif %}
+  {% set posts_prefix = config.site_url ~ "posts/" %}
+  {% set embee_prefix = "https://www.embee.be/blog/" %}
+  {% if page.canonical_url and page.canonical_url.startswith(posts_prefix) %}
+    <link rel="canonical" href="{{ embee_prefix ~ page.canonical_url[(posts_prefix | length):] }}">
+  {% elif page.canonical_url %}
+    <link rel="canonical" href="{{ page.canonical_url }}">
+  {% endif %}
+  {% if page.previous_page %}
+    <link rel="prev" href="{{ page.previous_page.url | url }}">
+  {% endif %}
+  {% if page.next_page %}
+    <link rel="next" href="{{ page.next_page.url | url }}">
+  {% endif %}
+  {% if "alternate" in config.extra %}
+    {% for alt in config.extra.alternate %}
+      <link rel="alternate" hreflang="{{ alt.lang }}" href="{{ alt.link | url }}">
+    {% endfor %}
+  {% endif %}
+  <link rel="icon" href="{{ config.theme.favicon | url }}">
+  <meta name="generator" content="mkdocs-{{ mkdocs_version }}">
+{% endblock %}
