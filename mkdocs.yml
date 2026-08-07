@@ -5,6 +5,7 @@ use_directory_urls: true
 
 theme:
   name: material
+  custom_dir: overrides
   logo: assets/logo.jpg
   favicon: assets/logo.jpg
   font:
