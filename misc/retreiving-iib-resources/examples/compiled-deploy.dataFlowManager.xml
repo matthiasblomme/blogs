@@ -1,0 +1,16 @@
+<Definition><MessageFlow uuid="dbf54b42-3eb7-4f75-bd93-fceaee5b3a4d" userTraceLevel="none" traceLevel="none" userTraceFilter="none" traceFilter="none" label="recoveryTest" additionalInstances="0" commitCount="1" commitInterval="0" traceNodeLevel="on" coordinatedTransaction="no" deployInfo="PGRlcGxveUluZm8gdmVyc2lvbj0iMSI+PGJhciBiYXJmaWxlbmFtZT0iQzpcVXNlcnNcQm1hdHRcQXBwRGF0YVxMb2NhbFxUZW1wXGNsYXVkZVxELS1HSVQtbm90ZXNcODc1YTQ0NDItNDk0OS00MjZlLWE2NmItNDQyNzZlYjRhMWY0XHNjcmF0Y2hwYWRcYmFyc1xSZWNvdmVyeVRlc3RfQ01GLmJhciIgdGltZT0iMjAyNi0wNy0zMSAxNDoxODoxMi4wMDAgKzAyMDAiLz48ZGVwbG95IHRpbWU9IjIwMjYtMDctMzEgMTQ6MTk6MzUuNTAzICswMjAwIiB1c2VySWQ9IlJvY2luYW50ZVxNYXR0aGlhcyIvPjxicm9rZXIgdGltZT0iMjAyNi0wNy0zMSAxNDoxOTozNS41MDMgKzAyMDAiIHVzZXJJZD0iUm9jaW5hbnRlXE1hdHRoaWFzIi8+PGtleXdvcmRzLz48L2RlcGxveUluZm8+" activeUserExitList="" inactiveUserExitList=""><ComIbmWSInputNode uuid="recoveryTest#FCMComposite_1_1" userTraceLevel="none" traceLevel="none" userTraceFilter="none" traceFilter="none" label="HTTP Input" messageDomainProperty="" messageSetProperty="" messageTypeProperty="" messageFormatProperty="" messageEncodingProperty="0" messageCodedCharSetIdProperty="0" topicProperty="" URLSpecifier="/recoverytest" timeoutForClient="180"><OutputTerminal uuid="timeout"/></ComIbmWSInputNode><ComIbmComputeNode uuid="recoveryTest#FCMComposite_1_2" userTraceLevel="none" traceLevel="none" userTraceFilter="none" traceFilter="none" label="Recovery Compute" dataSource="" transaction="automatic" treatWarningsAsErrors="no" throwExceptionOnDatabaseError="yes" initialStackSize="256" computeExpression="
+CREATE SCHEMA &quot;&quot; PATH &quot;&quot;
+
+CREATE COMPUTE MODULE RecoveryTestCompute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- ESQL_RECOVERY_CANARY_9F3A2B: grep for this string on the broker work path.
+		-- If it appears in a .esql file  -&gt; ESQL is deployed as readable source.
+		-- If it appears inside a .cmf    -&gt; ESQL was inlined at BAR build time.
+		-- If it appears nowhere          -&gt; ESQL text does not survive deployment.
+		SET OutputRoot = InputRoot;
+		SET OutputRoot.XMLNSC.result.status = &apos;recovered&apos;;
+		SET OutputRoot.XMLNSC.result.marker = &apos;ESQL_RECOVERY_CANARY_9F3A2B&apos;;
+		RETURN TRUE;
+	END;
+END MODULE;" computeMode="message" validate="no" freeResources="no"/><ComIbmWSReplyNode uuid="recoveryTest#FCMComposite_1_3" userTraceLevel="none" traceLevel="none" userTraceFilter="none" traceFilter="none" label="HTTP Reply" ignoreTransportFailures="yes" generateDefaultHttpHeaders="yes" timeoutForReply="120"/><Connection sourceNode="recoveryTest#FCMComposite_1_1" sourceTerminal="out" targetNode="recoveryTest#FCMComposite_1_2" targetTerminal="in"/><Connection sourceNode="recoveryTest#FCMComposite_1_2" sourceTerminal="out" targetNode="recoveryTest#FCMComposite_1_3" targetTerminal="in"/></MessageFlow><Supplement Status="yes" startMode="Maintained" deployedAsSource="false" testRecordMode="Disabled"/></Definition>

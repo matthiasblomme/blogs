@@ -2,20 +2,20 @@
 date: 2026-04-07
 title: ACE v13 new features (when coming from v12)
 image: cover.png
-description: A summary of all the new features for ACE v13 up to 13.0.7.0
+description: A summary of all the new features for ACE v13 up to 13.0.8.0
 tags:
 - ace
 - ibm
 - v13
 - migration
-reading_time: 39 min
+reading_time: 44 min
 ---
 
 ![cover](cover.png){ .md-banner }
 
 <!--MD_POST_META:START-->
 <div class="md-post-meta">
-  <div class="md-post-meta-left">2026-04-07 · ⏱ 39 min</div>
+  <div class="md-post-meta-left">2026-04-07 · ⏱ 44 min</div>
   <div class="md-post-meta-right"><span class="post-share-label">Share:</span> <a class="post-share post-share-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fmatthiasblomme.github.io%2Fblogs%2Fposts%2Face-v13-new-features-overview%2Fv13-new-features%2F" target="_blank" rel="noopener" title="Share on LinkedIn">[<span class="in">in</span>]</a></div>
 </div>
 <hr class="md-post-divider"/>
@@ -246,6 +246,25 @@ The Designer supports batch processing for each record in a dataset or query whe
 
 ![designer batch](img_60.png)
 
+#### Hive Connector
+
+Designer now has a connector for Apache Hive, the Hadoop-based data warehouse and SQL query engine. It works as both an 
+Event and a Request connector.
+
+![designer hive connector](img_61.png)
+
+#### Designer Import/Export
+
+Designer now supports exporting Accounts, Flows, and Proxies from one Designer instance and importing them into another. 
+Credentials are protected using an archive key, which makes it practical to share configured artefacts between developers 
+without exposing secrets.
+
+![designer import export](img_62.png)
+
+Impact when coming from v12:
+Designer artefacts can now be moved between environments and shared across a team, rather than being tied to a single 
+local installation.
+
 ### Toolkit Enhancements
 
 #### New Nodes (and updates)
@@ -254,23 +273,23 @@ The Designer supports batch processing for each record in a dataset or query whe
 
 The following Discovery Request nodes were introduced across the 13.x releases:
 
-| 13.0.1.0                       | 13.0.3.0                           | 13.0.4.0                             | 13.0.5.0                   | 13.0.6.0      | 13.0.7.0                            |
-|--------------------------------|------------------------------------|--------------------------------------|----------------------------|---------------|-------------------------------------|
-| Businessmap Request node       | Azure Cosmos DB Request node       | Azure Service Bus Request node       | Microsoft Azure Event Hubs | Apache Pulsar | Freshservice Request node           |
-| ClickSend Request node         | Milvus Request node                | IBM Planning Analytics Request node  | Google Gemini              | AstraDB       | Google Analytics Request node       |
-| Crystal Ball Request node      | Pinecone Vector Database Request   |                                      | IBM Aspera                 | Databricks    | Microsoft Azure DevOps Request node |
-| Factorial HR Request node      | Workday Request                    |                                      | Redis                      |               | Microsoft Azure OpenAI Request node |
-| Front Request node             |                                    |                                      | Splunk                     |               | SAP S4 Hana Request node            |
-| Hunter Request node            |                                    |                                      | Vespa                      |               |                                     |
-| IBM Targetprocess Request node |                                    |                                      |                            |               |                                     |
-| IBM watsonx.ai Request node    |                                    |                                      |                            |               |                                     |
-| Infobip Request node           |                                    |                                      |                            |               |                                     |
-| Toggl Track Request node       |                                    |                                      |                            |               |                                     |
-| Wrike Request node             |                                    |                                      |                            |               |                                     |
-| Zoho Books Request node        |                                    |                                      |                            |               |                                     |
-| Zoho CRM Request node          |                                    |                                      |                            |               |                                     |
-| Zoho Inventory Request node    |                                    |                                      |                            |               |                                     |
-| Zoho Recruit Request node      |                                    |                                      |                            |               |                                     |
+| 13.0.1.0                       | 13.0.3.0                           | 13.0.4.0                             | 13.0.5.0                   | 13.0.6.0      | 13.0.7.0                            | 13.0.8.0                        |
+|--------------------------------|------------------------------------|--------------------------------------|----------------------------|---------------|-------------------------------------|---------------------------------|
+| Businessmap Request node       | Azure Cosmos DB Request node       | Azure Service Bus Request node       | Microsoft Azure Event Hubs | Apache Pulsar | Freshservice Request node           | HashiCorp Vault Request node    |
+| ClickSend Request node         | Milvus Request node                | IBM Planning Analytics Request node  | Google Gemini              | AstraDB       | Google Analytics Request node       | Salesloft Request node          |
+| Crystal Ball Request node      | Pinecone Vector Database Request   |                                      | IBM Aspera                 | Databricks    | Microsoft Azure DevOps Request node | SAP Commerce Cloud Request node |
+| Factorial HR Request node      | Workday Request                    |                                      | Redis                      |               | Microsoft Azure OpenAI Request node |                                 |
+| Front Request node             |                                    |                                      | Splunk                     |               | SAP S4 Hana Request node            |                                 |
+| Hunter Request node            |                                    |                                      | Vespa                      |               |                                     |                                 |
+| IBM Targetprocess Request node |                                    |                                      |                            |               |                                     |                                 |
+| IBM watsonx.ai Request node    |                                    |                                      |                            |               |                                     |                                 |
+| Infobip Request node           |                                    |                                      |                            |               |                                     |                                 |
+| Toggl Track Request node       |                                    |                                      |                            |               |                                     |                                 |
+| Wrike Request node             |                                    |                                      |                            |               |                                     |                                 |
+| Zoho Books Request node        |                                    |                                      |                            |               |                                     |                                 |
+| Zoho CRM Request node          |                                    |                                      |                            |               |                                     |                                 |
+| Zoho Inventory Request node    |                                    |                                      |                            |               |                                     |                                 |
+| Zoho Recruit Request node      |                                    |                                      |                            |               |                                     |                                 |
 
 
 
@@ -278,23 +297,23 @@ The following Discovery Request nodes were introduced across the 13.x releases:
 
 The following Discovery Input nodes were introduced across the 13.x releases:
 
-| 13.0.1.0                     | 13.0.4.0                       | 13.0.5.0                   | 13.0.6.0            | 13.0.7.0                          |
-|------------------------------|--------------------------------|----------------------------|---------------------|-----------------------------------|
-| Businessmap Input node       | Amazon Event Bridge Input node | Microsoft Azure Event Hubs | Apache Pulsar,      | Amazon SQS Input nod              |
-| ClickSend Input node         | Azure Service Bus Input node   |                            | AstraDB             | Freshservice Input node           |
-| Eventbrite Input node        |                                |                            | Databricks          | Microsoft Azure DevOps Input node |
-| Front Input node             |                                |                            | SAP SuccessFactors  | SAP S4 Hana Input node            |
-| Greenhouse Input node        |                                |                            |                     |                                   |
-| IBM Maximo Input node        |                                |                            |                     |                                   |
-| IBM Targetprocess Input node |                                |                            |                     |                                   |
-| Magento Input node           |                                |                            |                     |                                   |
-| Marketo Input node           |                                |                            |                     |                                   |
-| Slack Input node             |                                |                            |                     |                                   |
-| Toggl Track Input node       |                                |                            |                     |                                   |
-| Wrike Input node             |                                |                            |                     |                                   |
-| Zoho Books Input node        |                                |                            |                     |                                   |
-| Zoho CRM Input node          |                                |                            |                     |                                   |
-| Zoho Recruit Input node      |                                |                            |                     |                                   |
+| 13.0.1.0                     | 13.0.4.0                       | 13.0.5.0                   | 13.0.6.0            | 13.0.7.0                          | 13.0.8.0             |
+|------------------------------|--------------------------------|----------------------------|---------------------|-----------------------------------|----------------------|
+| Businessmap Input node       | Amazon Event Bridge Input node | Microsoft Azure Event Hubs | Apache Pulsar,      | Amazon SQS Input nod              | Salesloft Input node |
+| ClickSend Input node         | Azure Service Bus Input node   |                            | AstraDB             | Freshservice Input node           |                      |
+| Eventbrite Input node        |                                |                            | Databricks          | Microsoft Azure DevOps Input node |                      |
+| Front Input node             |                                |                            | SAP SuccessFactors  | SAP S4 Hana Input node            |                      |
+| Greenhouse Input node        |                                |                            |                     |                                   |                      |
+| IBM Maximo Input node        |                                |                            |                     |                                   |                      |
+| IBM Targetprocess Input node |                                |                            |                     |                                   |                      |
+| Magento Input node           |                                |                            |                     |                                   |                      |
+| Marketo Input node           |                                |                            |                     |                                   |                      |
+| Slack Input node             |                                |                            |                     |                                   |                      |
+| Toggl Track Input node       |                                |                            |                     |                                   |                      |
+| Wrike Input node             |                                |                            |                     |                                   |                      |
+| Zoho Books Input node        |                                |                            |                     |                                   |                      |
+| Zoho CRM Input node          |                                |                            |                     |                                   |                      |
+| Zoho Recruit Input node      |                                |                            |                     |                                   |                      |
 
 ##### JSONata Mapping Node
 
@@ -306,6 +325,45 @@ data, comparable in purpose to XSLT for XML.
 Impact when coming from v12:
 JSON transformations can now be encapsulated in a dedicated node instead of embedding JSONata expressions in other 
 processing logic.
+
+##### Graphical IF Node
+
+![graphical if node](img_63.png)
+
+There's a graphical IF node for mid-flow routing now. It uses JSONata expressions to decide which output terminal a 
+message takes, and the interface lines up with the Designer and JSONata Transformation nodes. You can name output 
+terminals dynamically and reference message and context fields in the conditions. It joins the Filter, Route, and 
+RouteToLabel nodes as another way to branch a flow.
+
+##### Log4j Node
+
+![log4j node](img_64.png)
+
+The Log4j node (previously available as a SupportPac) is now integrated. It writes application log messages as they pass 
+through a flow, with configurable log levels (DEBUG, INFO, WARN, ERROR, FATAL), customizable log text with variable 
+substitution, and a configurable logger name. The behaviour is centralized in the `Log4jManager` section of `server.conf.yaml`.
+
+```yaml
+ResourceManagers:
+  Log4jManager:
+    configFile: 'C:\myconfiguration\log4j.xml'    # Set the log4j config file for the server
+```
+
+This new functionality has also been exposed in a new ESQL LOG4J function:
+
+```sql
+    BEGIN
+
+        ...
+        
+        SET logResult = LOG4J('tracelogger', 'INFO', 'ESQL: FirstName in message was ' || InputRoot.JSON.Data.FirstName);
+        
+        ...
+        
+        RETURN TRUE;
+    END;
+```
+
 
 ##### Kafka Nodes
 
@@ -435,6 +493,22 @@ error-handling logic in flows.
 
 ![request failures](img_40.png)
 
+##### HTTP Input Node
+
+13.0.7.0 did outbound OAuth 2.0. This is the inbound side. ACE can now act as a resource server: it validates incoming 
+OAuth tokens with token introspection and checks the required scopes before the message even enters the flow. You 
+configure an OAuth policy, reference it from a Security Profiles policy, and assign that profile to the HTTP Input node. 
+
+So it is `httpinput` > `security policy` > `oauth policy`
+
+![http input oauth policy](img_65.png)
+
+![img_66.png](img_66.png)
+
+Impact when coming from v12:
+Inbound HTTP flows can now enforce OAuth 2.0 at the node level, instead of fronting the flow with an external gateway or 
+custom token-validation logic. You just need 2 additional policies to make it work.
+
 ##### Callable Flow Nodes
 
 CallableInput and CallableReply nodes now support configuration of supported message domains and models. These properties 
@@ -560,6 +634,14 @@ Java:
 - MbContextTreeNode
 - MbContextTreeNodePayload
 
+There's also a new visual Expression Navigator that replaces the XPath Expression Builder for constructing expressions. It 
+understands Context Trees alongside regular XML data, and adds field filtering, tree expand/collapse, and double-click 
+field selection. If you prefer the old behaviour, the link at the bottom of the Expression Navigator takes you back to the 
+XPath Expression Builder.
+
+![expression navigator](img_67.png)
+
+More details, as always, in the IBM documentation portal [Expression Navigator](https://www.ibm.com/docs/en/app-connect/13.0.x?topic=xpath-expression-navigator)
 
 #### Policy Editor
 
@@ -607,6 +689,11 @@ The Configure button opens a more familiar WS-Security configuration view where 
 You then assign the policy to your SOAP node.
 
 ![soap wssec](img_59.png)
+
+With SAML and Kerberos token handling added, WS-Security on Java 17 is now complete: X509 and Username Tokens landed in 
+13.0.7.0, the rest in 13.0.8.0. There's also a Toolkit migration tool that converts your existing Java 8 WS Policy Sets 
+and Bindings files to the Java 17 format.
+
 
 #### Installation Options
 
@@ -712,6 +799,61 @@ This change continues the gradual shift away from the legacy `mqsi*` command fam
 tooling introduced in recent ACE releases.
 
 If you're coming from ACE 12, this is the direct replacement for `mqsimode`.
+
+##### ibmint display bar
+
+`ibmint display bar` shows information about a specified BAR file from the command line.
+
+![img_68.png](img_68.png)
+
+Request detail level 2 and it becomes a proper replacement for the older `mqsireadbar -r` command.
+
+![img_69.png](img_69.png)
+
+##### ibmint generate overrides
+
+`ibmint generate overrides` generates an example override file for a BAR file. This gives you a starting point for the 
+properties you can override at deploy time when promoting the same BAR across environments.
+
+![img_70.png](img_70.png)
+
+For my test case, I got the following output
+
+```yaml
+RestArrayBackendApp/RestArrayBackendFlow#additionalInstances=NewPropertyValue
+RestArrayBackendApp/RestArrayBackendFlow#commitCount=NewPropertyValue
+RestArrayBackendApp/RestArrayBackendFlow#commitInterval=NewPropertyValue
+RestArrayBackendApp/RestArrayBackendFlow#consumerPolicySet=NewPropertyValue
+RestArrayBackendApp/RestArrayBackendFlow#consumerPolicySetBindings=NewPropertyValue
+RestArrayBackendApp/RestArrayBackendFlow#coordinatedTransaction=NewPropertyValue
+RestArrayBackendApp/RestArrayBackendFlow#maximumRateMsgsPerSec=NewPropertyValue
+RestArrayBackendApp/RestArrayBackendFlow#monitoringProfile=NewPropertyValue
+RestArrayBackendApp/RestArrayBackendFlow#notificationThresholdMsgsPerSec=NewPropertyValue
+RestArrayBackendApp/RestArrayBackendFlow#processingTimeoutAction=NewPropertyValue
+RestArrayBackendApp/RestArrayBackendFlow#processingTimeoutSec=NewPropertyValue
+RestArrayBackendApp/RestArrayBackendFlow#providerPolicySet=NewPropertyValue
+RestArrayBackendApp/RestArrayBackendFlow#providerPolicySetBindings=NewPropertyValue
+RestArrayBackendApp/RestArrayBackendFlow#securityProfileName=NewPropertyValue
+RestArrayBackendApp/RestArrayBackendFlow#startInstancesWhenFlowStarts=NewPropertyValue
+RestArrayBackendApp/RestArrayBackendFlow#startMode=NewPropertyValue
+RestArrayBackendApp/RestArrayBackendFlow#wlmPolicy=NewPropertyValue
+RestArrayBackendApp/RestArrayBackendFlow#HTTP Reply.compressionType=NewPropertyValue
+RestArrayBackendApp/RestArrayBackendFlow#HTTP Reply.validateMaster=NewPropertyValue
+RestArrayBackendApp/RestArrayBackendFlow#HTTP Input.URLSpecifier=/restarray/backend
+RestArrayBackendApp/RestArrayBackendFlow#HTTP Input.decompressInputMessage=NewPropertyValue
+RestArrayBackendApp/RestArrayBackendFlow#HTTP Input.faultFormat=NewPropertyValue
+RestArrayBackendApp/RestArrayBackendFlow#HTTP Input.securityProfileName=NewPropertyValue
+RestArrayBackendApp/RestArrayBackendFlow#HTTP Input.timeoutForClient=NewPropertyValue
+RestArrayBackendApp/RestArrayBackendFlow#HTTP Input.useHTTPS=NewPropertyValue
+RestArrayBackendApp/RestArrayBackendFlow#HTTP Input.validateMaster=NewPropertyValue
+RestArrayBackendApp/RestArrayBackendFlow#Compute.connectDatasourceBeforeFlowStarts=NewPropertyValue
+RestArrayBackendApp/RestArrayBackendFlow#Compute.dataSource=NewPropertyValue
+RestArrayBackendApp/RestArrayBackendFlow#Compute.validateMaster=NewPropertyValue
+```
+
+It is handy, but even better would be a filter so you can choose to only receive the currently overridden values, in my 
+case `RestArrayBackendApp/RestArrayBackendFlow#HTTP Input.URLSpecifier=/restarray/backend`.
+
 
 #### Auto-complete
 
@@ -833,10 +975,25 @@ metadata, improving correlation during troubleshooting.
 
 ![otel in activity log](img_45.png)
 
+Compute nodes can now emit OpenTelemetry spans too, once extended tracing is on. Each `PROPAGATE` statement produces a 
+span, plus one final span for the node, and the attributes carry the compute mode, the ESQL return value, and propagation 
+details. Error spans mark failures, invalid labels, and rethrown exceptions.
+
+You enable it in server.conf.yaml by setting `openTelemetryScope` to `extended`:
+
+```yaml
+  OpenTelemetryManager:
+    openTelemetryEnabled: true          # Enable or disable OpenTelemetry tracing.
+    openTelemetryScope: 'extended'       # 'standard' - Record telemetry for transports which support open telemetry, e.g. MQ, HTTP, REST and Kafka nodes (default)
+                                          # 'extended' - In addition to 'standard' records telemetry for additional nodes, e.g. Compute, JavaCompute and Discovery connector nodes
+```
+
+More info on the [OpenTelemetry tracing](https://www.ibm.com/docs/en/app-connect/13.0.x?topic=management-configuring-opentelemetry-trace-integration-server) page.
+
 #### Expose REST API's as MCP Tools
 
 ACE now allows you (since 13.0.7.0) to expose any previously created (toolkit) REST API as an MCP server. In the dashboard 
-there is a new MCP icon that will bring you to a new MCP Dashboardd. When you click the "Create MCP server" button, a wizard 
+there is a new MCP icon that will bring you to a new MCP Dashboard. When you click the "Create MCP server" button, a wizard 
 opens up that allows you to choose any deployed REST API from any active Integration server to convert to an MCP.
 
 ![mcp 1](img_51.png)
@@ -849,6 +1006,110 @@ When converted, it looks something like this.
 
 ACE 13.0.7.0 adds WS-Security support for Java 17 integration servers for X509 and Username Tokens.
 
+#### Admin REST API for Summary Statistics
+
+There's a new administration REST API that returns summary statistics for integration servers, applications, message 
+flows, and nodes. You request the numbers on demand, so you get a live snapshot instead of waiting for the next 
+statistics interval to roll over.
+
+![admin rest api statistics](img_71.png)
+
+An example reply
+
+```json
+{
+    "name": "Summary",
+    "type": "Summary",
+    "uri": "http://localhost/apiv2/statistics/summary",
+    "count": 1,
+    "records": [
+        {
+            "WMQIStatisticsAccounting": {
+                "RecordType": "Summary",
+                "RecordCode": "Summary",
+                "MessageFlow": {
+                    "BrokerLabel": "integration_server",
+                    "BrokerUUID": "",
+                    "ExecutionGroupName": "TEST_SERVER_2",
+                    "ExecutionGroupUUID": "00000000-0000-0000-0000-000000000000",
+                    "MessageFlowName": "RestArrayBackendFlow",
+                    "MessageFlowURI": "/apiv2/applications/RestArrayBackendApp/messageflows/RestArrayBackendFlow",
+                    "ApplicationName": "RestArrayBackendApp",
+                    "StartDate": "2026-08-06",
+                    "StartTime": "13:17:17.629",
+                    "GMTStartTime": "2026-08-06T11:17:17.629+00:00",
+                    "EndDate": "2026-08-06",
+                    "EndTime": "13:17:32.537998",
+                    "GMTEndTime": "2026-08-06T11:17:32.537+00:00",
+                    "TotalElapsedTime": 23840,
+                    "MaximumElapsedTime": 23840,
+                    "MinimumElapsedTime": 23840,
+                    "TotalCPUTime": 11012,
+                    "MaximumCPUTime": 11012,
+                    "MinimumCPUTime": 11012,
+                    "CPUTimeWaitingForInputMessage": 0,
+                    "ElapsedTimeWaitingForInputMessage": 14875287,
+                    "TotalInputMessages": 1,
+                    "TotalSizeOfInputMessages": 495,
+                    "MaximumSizeOfInputMessages": 495,
+                    "MinimumSizeOfInputMessages": 495,
+                    "NumberOfThreadsInPool": 1,
+                    "TimesMaximumNumberOfThreadsReached": 1,
+                    "TotalNumberOfMQErrors": 0,
+                    "TotalNumberOfMessagesWithErrors": 0,
+                    "TotalNumberOfErrorsProcessingMessages": 0,
+                    "TotalNumberOfTimeOutsWaitingForRepliesToAggregateMessages": 0,
+                    "TotalNumberOfCommits": 0,
+                    "TotalNumberOfBackouts": 0,
+                    "AccountingOrigin": "Anonymous"
+                },
+                "NumberOfNodes": 3,
+                "Nodes": [
+                    {
+                        "Label": "Compute",
+                        "Type": "ComputeNode",
+                        "TotalElapsedTime": 6813,
+                        "MaximumElapsedTime": 6813,
+                        "MinimumElapsedTime": 6813,
+                        "TotalCPUTime": 2,
+                        "MaximumCPUTime": 2,
+                        "MinimumCPUTime": 2,
+                        "CountOfInvocations": 1,
+                        "NumberOfInputTerminals": 1,
+                        "NumberOfOutputTerminals": 6
+                    },
+                    {
+                        "Label": "HTTP Input",
+                        "Type": "WSInputNode",
+                        "TotalElapsedTime": 14356,
+                        "MaximumElapsedTime": 14356,
+                        "MinimumElapsedTime": 14356,
+                        "TotalCPUTime": 11009,
+                        "MaximumCPUTime": 11009,
+                        "MinimumCPUTime": 11009,
+                        "CountOfInvocations": 1,
+                        "NumberOfInputTerminals": 0,
+                        "NumberOfOutputTerminals": 4
+                    },
+                    {
+                        "Label": "HTTP Reply",
+                        "Type": "WSReplyNode",
+                        "TotalElapsedTime": 2671,
+                        "MaximumElapsedTime": 2671,
+                        "MinimumElapsedTime": 2671,
+                        "TotalCPUTime": 1,
+                        "MaximumCPUTime": 1,
+                        "MinimumCPUTime": 1,
+                        "CountOfInvocations": 1,
+                        "NumberOfInputTerminals": 1,
+                        "NumberOfOutputTerminals": 2
+                    }
+                ]
+            }
+        }
+    ]
+}
+```
 
 ### Java
 
@@ -865,9 +1126,11 @@ Current restrictions under Java 17:
   - CORBARequest
   - WRR
   - WXS
-  - WS-Security
-  - WS-ReliableMessaging
   - TFIM
+
+WS-Security and WS-ReliableMessaging used to be on that "not supported" list, but that gap has since been closed: 
+WS-ReliableMessaging and WS-Security (X509 and Username Tokens) arrived for Java 17 in 13.0.7.0, and 13.0.8.0 added the 
+remaining SAML and Kerberos WS-Security tokens. Both are now supported under Java 17.
 
 Environment variable behavior has changed. TMPDIR is not observed under Java 17. Instead, use _JAVA_OPTIONS or configure 
 jvmSystemProperty in the *.conf.yaml files.
@@ -888,7 +1151,7 @@ Impact when coming from v12:
 If you use JavaCompute nodes or custom Java integrations, validate them under Java 17 before switching the runtime. 
 Node support and JVM behavior differ from Java 8.
 
-Also definitely check out the more in dept report from Ben: [A Deep-Dive on ACE 13 and its use of Java 17](https://community.ibm.com/community/user/blogs/ben-thompson1/2026/02/12/ace-java17)
+Also definitely check out the more in-depth report from Ben: [A Deep-Dive on ACE 13 and its use of Java 17](https://community.ibm.com/community/user/blogs/ben-thompson1/2026/02/12/ace-java17)
 
 ### Credentials
 
@@ -1037,6 +1300,7 @@ the Java compatibility, credential strategy, observability configuration, and co
 - [Explore the new features in App Connect Enterprise 13.0.5.0](https://community.ibm.com/community/user/blogs/ben-thompson1/2025/09/25/ace-13-0-5-0)
 - [Explore the new features in App Connect Enterprise 13.0.6.0](https://community.ibm.com/community/user/blogs/ben-thompson1/2025/12/11/ace-13-0-6-0)
 - [Explore the new features in App Connect Enterprise 13.0.7.0](https://community.ibm.com/community/user/blogs/ben-thompson1/2026/03/26/ace-13-0-7-0)
+- [Explore the new features in App Connect Enterprise 13.0.8.0](https://community.ibm.com/community/user/blogs/ben-thompson1/2026/06/25/ace-13-0-8-0)
 - [Improved Observability: Writing OpenTelemetry Metadata to the Activity Log](https://community.ibm.com/community/user/blogs/shalini-r/2025/11/23/writing-otelmetadata-to-activitylog)
 - [A Deep-Dive on ACE 13 and its use of Java 17](https://community.ibm.com/community/user/blogs/ben-thompson1/2026/02/12/ace-java17)
 - [Configuring Embedded Global Cache for App Connect Enterprise running in containers](https://community.ibm.com/community/user/blogs/amar-shah1/2025/06/08/configuring-embedded-global-cache)
