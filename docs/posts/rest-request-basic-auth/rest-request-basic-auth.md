@@ -83,6 +83,15 @@ There are three configurations that actually work:
 | 2 | **Security Profile**: `securityProfileName="{SecurityRegistry}:SAP"`; credential `mqsisetdbparms <node> -n <id>` (plain name, no prefix)                          | **Reactively**, only after the server replies `401` | A downstream that actually issues the `401` challenge                                              |
 | 3 | **Security Profile + pre-emptive auth**: config #2 plus `mqsichangeproperties <node> -e <server> -o ComIbmSocketConnectionManager -n preemptiveAuthType -v Basic` | **Pre-emptively**, on the first request             | Server restart; note it's server-wide                                                              |
 
+You can't run the `mqsichangeproperties` command for a standalone integration server, but you can set this paramter in an overwrite server.conf.yaml like so:
+```yaml
+ResourceManagers:
+  SocketConnectionManager:
+    preemptiveAuthType: 'basic'  # Configure the authentication mechanism to use preemptively when making a HTTP based request.
+                             # Valid values are '', 'basic', 'ntlm', 'negotiate', 'nego2', 'bearer'.
+                             # Set to the default value of '' to disable preemptive authentication.
+```
+
 ## Two gotchas
 
 1. **`mqsisetdbparms` credentials only activate after the integration *server* is
