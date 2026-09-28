@@ -42,9 +42,7 @@ Check before publishing:
 
 For everybody going to TechXchange: congratulations. For those of you who aren't going: well, you're missing out. (To paraphrase Samson, an old Flemish children's TV show. Google it.)
 
-> "When I get sad, I stop being sad and be awesome instead." - Barney, How I Met Your Mother
-
-There's so much happening at the event that it's hard to build a proper agenda around what you like, what you want to see, and how much time you have at the venue. So you don't spend your first morning scrolling through a thousand sessions, the IBM Champions community is building a blueprint helper for you.
+There's so much happening at the event that it's hard to build a proper agenda around what you like, what you want to see, and how much time you have at the venue. So you don't spend your first morning scrolling through a thousand sessions, the IBM Champions community built a blueprint helper for you.
 
 It's an app you'll find at the IBM Community booth, where you can build your own TechXchange blueprint based on your interests, when you're there, and what you want to do. Four questions, three minutes, and you have your personalized event plan. Finish it and your name goes up on the wall, and there's a headshot and a giveaway in it for you.
 
@@ -62,7 +60,7 @@ The app is built with IBM Bob, by Jan Willem Steur, myself, and a group of teste
 
 Sign in with your IBMid, tell it what you're into, what you want out of the week and which days you're there. What comes out is a blueprint with the sessions worth your time, IBM Champions to go talk to, and community groups to join. Every pick comes with the reason it's on your list.
 
-The rest you'll see at the booth. And you can take it with you on your phone.
+You can take it with you on your phone. The rest you'll see at the booth.
 
 ![A blueprint, fresh out of the kiosk](img_4.png)
 
@@ -77,7 +75,7 @@ The blueprint is one step of the IBM Community booth's Learn to Earn journey:
 3. Add your ideas to the IBM Community wall, what you'd like to see in the community. There's a giant Jenga game in the same area, if you need a break.
 4. Get your professional headshot and a giveaway.
 
-Complete it and your name goes up on the wall. And you have a decent headshot for your LinkedIn profile, which, judging by some profiles, a lot of people could use.
+That's also how your name ends up on the wall. And you walk away with a decent headshot for your LinkedIn profile, which, judging by some profiles, a lot of people could use.
 
 *[photo placeholder: the booth itself, once it's set up - optional, for a post-event update]*
 
@@ -92,6 +90,10 @@ But it's a stripped-down version of what's waiting at the booth. The planner giv
 *[screenshot placeholder: planner skill output - a slice of the generated agenda note, your own picks blurred or a demo profile]*
 
 So use it to get a head start, and then come to the booth for the rest. Three minutes, and the kiosk does the scrolling for you.
+
+And for those of you who aren't going:
+
+> "When I get sad, I stop being sad and be awesome instead." - Barney, How I Met Your Mother
 
 ---
 
