@@ -36,6 +36,8 @@ Check before publishing:
 - Teaser: two screenshots only (start screen, top of a blueprint). The question screens
   and the Champions crop are in git history (commit 9471a95) if you want one back.
 - The name wall is from you, not from the kickoff note.
+- Links to misc/techxchange-planner-skill (untracked, not on this branch). Publish the
+  planner post first or together, or the link 404s.
 -->
 
 # Too many sessions? The IBM Champions built you a planner
@@ -81,23 +83,17 @@ That's also how your name ends up on the wall. And you walk away with a decent h
 
 ## Can't wait?
 
-If you want to start planning now, I have something for that too. Back in August I built a TechXchange planner as a Claude Code skill. It's in the same public repo as my [IBM Champion report skill](../ibm-champion-report/ibm-champion-report.md): [techxchange-planner](https://github.com/matthiasblomme/bobmodes/tree/main/bobmodes/techxchange-planner). Copy the folder into `~/.claude/skills/` and mention TechXchange. That's enough for Claude to pick it up.
+If you want to start planning now, I have something for that too. Back in August I wrote a Claude Code skill that scrapes the TechXchange session catalog, works out what you care about, and builds a day-by-day plan with alternates. Re-run it when the schedule changes and it tells you which picks clash. It's in my public skills repo, folder [techxchange-planner](https://github.com/matthiasblomme/bobmodes/tree/main/bobmodes/techxchange-planner), and the whole story is in [Planning TechXchange from the session catalog API](../techxchange-planner-skill/techxchange-planner-skill.md).
+
+Install it, start a new Claude Code session, and ask:
 
 ```
-Plan my TechXchange 2026 agenda. Which sessions should I attend?
+Which sessions should I attend?
 ```
-
-It pulls the full session catalog through the RainFocus API behind the catalog page, together with the agenda and FAQ pages. The last time I ran it, that was 1054 activities. Then it works out what you're interested in. First from your local AI chat history, using the catalog's own product tags as the word list. If that doesn't say enough, it asks who you are and what you work with, and only then a few multiple-choice rounds.
-
-The plan fits real session lengths (90 minutes for a lab, 45 for a breakout, 20 for a talk) and it only asks you something when there's a real choice to make. What you get is a day-by-day agenda with ranked alternates, each with the reason you'd swap it in.
-
-Run it again later and it scrapes the catalog again, diffs it against the last run, and checks your picks for clashes once the session times are out. It updates your agenda in place, so the choices you already made stay.
-
-Champions get one extra: drop the champions-only schedule over the placeholder in the skill, and your Champion commitments go into the plan first.
 
 But it's a stripped-down version of what's waiting at the booth. The planner gives you sessions, and that's it. No Champions to meet, no groups to join, no headshot, no giveaway, and no name on the wall. You also need Claude Code, and a bit of patience with a scraper.
 
-*[screenshot placeholder: planner skill output - a slice of the generated agenda note, your own picks blurred or a demo profile]*
+*[screenshot placeholder: planner agenda note, one day table with picks and alternates - same shot as in the planner post]*
 
 So use it to get a head start, and then come to the booth for the rest. Three minutes, and the kiosk does the scrolling for you.
 
