@@ -1,5 +1,5 @@
 ---
-title: 'Four questions, three minutes: your TechXchange blueprint'
+title: 'Too many sessions? The IBM Champions built you a planner'
 date: 2026-09-28
 author: Matthias Blomme
 description: TODO - the IBM Champions are building a Growth Blueprint helper for the
@@ -35,7 +35,7 @@ Check before publishing:
 - img_5.png is the Champions section cropped to Jan Willem and you (Juan Martin cut off).
 -->
 
-# Four questions, three minutes: your TechXchange blueprint
+# Too many sessions? The IBM Champions built you a planner
 
 For everybody going to TechXchange: congratulations. For those of you who aren't going: well, you're missing out. (To paraphrase Samson, an old Flemish children's TV show. Google it.)
 
