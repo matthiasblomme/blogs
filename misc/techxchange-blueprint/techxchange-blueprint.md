@@ -81,9 +81,19 @@ That's also how your name ends up on the wall. And you walk away with a decent h
 
 ## Can't wait?
 
-If you want to start planning now, I have something for that too. Back in August I built a TechXchange planner as a Claude Code skill. You'll find it, with its README, in my public repo: [techxchange-planner](https://github.com/matthiasblomme/bobmodes/tree/main/bobmodes/techxchange-planner). Copy the folder into `~/.claude/skills/` and ask Claude to plan your TechXchange.
+If you want to start planning now, I have something for that too. Back in August I built a TechXchange planner as a Claude Code skill. It's in the same public repo as my [IBM Champion report skill](../ibm-champion-report/ibm-champion-report.md): [techxchange-planner](https://github.com/matthiasblomme/bobmodes/tree/main/bobmodes/techxchange-planner). Copy the folder into `~/.claude/skills/` and mention TechXchange. That's enough for Claude to pick it up.
 
-It pulls the full session catalog through the RainFocus API behind the catalog page, together with the agenda and FAQ pages. The last time I ran it, that was 1054 activities. It builds a profile of what you're interested in, from your AI chat history, from a short description of yourself, or by asking you a few questions. Then it makes a personal agenda that fits the time slots, with ranked alternates. Run it again when times change and it checks your picks for clashes.
+```
+Plan my TechXchange 2026 agenda. Which sessions should I attend?
+```
+
+It pulls the full session catalog through the RainFocus API behind the catalog page, together with the agenda and FAQ pages. The last time I ran it, that was 1054 activities. Then it works out what you're interested in. First from your local AI chat history, using the catalog's own product tags as the word list. If that doesn't say enough, it asks who you are and what you work with, and only then a few multiple-choice rounds.
+
+The plan fits real session lengths (90 minutes for a lab, 45 for a breakout, 20 for a talk) and it only asks you something when there's a real choice to make. What you get is a day-by-day agenda with ranked alternates, each with the reason you'd swap it in.
+
+Run it again later and it scrapes the catalog again, diffs it against the last run, and checks your picks for clashes once the session times are out. It updates your agenda in place, so the choices you already made stay.
+
+Champions get one extra: drop the champions-only schedule over the placeholder in the skill, and your Champion commitments go into the plan first.
 
 But it's a stripped-down version of what's waiting at the booth. The planner gives you sessions, and that's it. No Champions to meet, no groups to join, no headshot, no giveaway, and no name on the wall. You also need Claude Code, and a bit of patience with a scraper.
 
