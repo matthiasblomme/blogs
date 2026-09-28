@@ -16,8 +16,8 @@ status: draft
 ---
 
 <!--
-First draft. Intro is yours (with the blog-buddy fixes); the sections below it are
-written from verified notes, so check tone and cut what you don't want.
+Teaser, text complete. Open before publishing: see the list below.
+Post-event update idea: a photo of the booth once it's set up.
 
 Sources for the booth facts:
 - notes/meetings/2026-09-21-ibm-champions-working-group-kickoff-onenote.md
@@ -84,8 +84,6 @@ The blueprint is one step of the IBM Community booth's Learn to Earn journey:
 4. Get your professional headshot and a giveaway.
 
 That's also how your name ends up on the wall. And you walk away with a decent headshot for your LinkedIn profile, which, judging by some profiles, a lot of people could use.
-
-*[photo placeholder: the booth itself, once it's set up - optional, for a post-event update]*
 
 ## Can't wait?
 
