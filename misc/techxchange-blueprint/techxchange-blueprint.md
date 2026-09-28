@@ -2,9 +2,10 @@
 title: 'Too many sessions? The IBM Champions built you a planner'
 date: 2026-09-28
 author: Matthias Blomme
-description: TODO - the IBM Champions are building a Growth Blueprint helper for the
-  IBM Community booth at TechXchange 2026. What it does, where to find it, and a
-  stripped-down version you can run now if you can't wait.
+description: The IBM Champions built a Growth Blueprint kiosk for the IBM Community
+  booth at TechXchange 2026. Four questions, three minutes, and you walk away with
+  sessions, Champions to meet and groups to join. Plus a stripped-down version you
+  can run now if you can't wait.
 tags:
 - techxchange
 - ibm-champion
@@ -15,8 +16,8 @@ status: draft
 ---
 
 <!--
-TEMPLATE, not a draft. Your intro is kept as written; everything under it is
-outline + verified filler for you to write out.
+First draft. Intro is yours (with the blog-buddy fixes); the sections below it are
+written from verified notes, so check tone and cut what you don't want.
 
 Sources for the booth facts:
 - notes/meetings/2026-09-21-ibm-champions-working-group-kickoff-onenote.md
@@ -31,8 +32,11 @@ Publishing: everywhere (own blog + IBM Community), but Jan Willem reviews it fir
 
 Check before publishing:
 - Screenshots are the prototype with mocked sign-in ("Hi, Sam") and mocked text. The
-  booth build may look different by the event. Say "prototype" or retake closer to the date.
+  booth build may look different by the event. Retake closer to the date if it changed.
 - img_5.png is the Champions section cropped to Jan Willem and you (Juan Martin cut off).
+- The privacy line (no name or email stored, records deleted 30 days after the event)
+  is the prototype's consent text. Confirm it still reads like that in the booth build.
+- The name wall is from you, not from the kickoff note.
 -->
 
 # Too many sessions? The IBM Champions built you a planner
@@ -45,38 +49,30 @@ There's so much happening at the event that it's hard to build a proper agenda a
 
 It's an app you'll find at the IBM Community booth, where you can build your own TechXchange blueprint based on your interests, when you're there, and what you want to do. Four questions, three minutes, and you have your personalized event plan. Finish it and your name goes up on the wall, and there's a headshot and a giveaway in it for you.
 
-<!-- Credits (your answer): Jan Willem, you and the testers built it; frame it as the
-Champions community working for the global community. Place it where it fits best,
-probably "Where to find it" or the closing. -->
-
 ## Where to find it
 
-<!--
-Filler, verified from the kickoff:
-- IBM Community booth, Advocacy neighborhood of the Sandbox, diagonally across from
-  the Champions Lounge.
-- Six laptops at one lab-style table, a monitor with instructions next to it.
-- Goes live when the Sandbox opens: Monday October 26, 6:00 p.m.
-- Built with IBM Bob ("attendee experience powered by Bob").
--->
+The IBM Community booth is in the Advocacy neighborhood of the Sandbox, diagonally across from the Champions Lounge. Look for a lab-style table with six laptops and a monitor next to it explaining what to do.
+
+It goes live when the Sandbox opens, Monday October 26 at 6 p.m.
+
+The app is built with IBM Bob, by Jan Willem Steur, myself, and a group of testers who clicked through it more times than they'd like to admit. Champions building something for the rest of the community, which is more or less the point of being a Champion.
 
 ![Start screen of the Growth Blueprint kiosk](img.png)
 
 ## Four questions, three minutes
 
-<!--
-Filler, from the prototype:
-- Sign in with your IBMid through the IBM Community. Sign out at the end (booth staff
-  help make sure you did).
-- Q1 technology areas (match the conference tracks), Q2 IBM products (optional,
-  searchable: MQ, App Connect, Bob, ...), Q3 what you want out of the event (pick up to
-  two: grow skills, meet Champions, ...), Q4 which days you're there.
-- It only recommends sessions on days you're around, and never one that already ended.
-- No name or email stored; individual records are deleted 30 days after the event.
-  (Prototype consent text - confirm it still reads like that on the day.)
+You sign in with your IBMid through the IBM Community, and you sign out again at the end. The booth staff will make sure you did, so the next person doesn't end up with your blueprint.
 
-Pick 2, maybe 3, of the screenshots below. "A couple of small screenshots."
--->
+Then it's four questions:
+
+1. Which technology areas are you here for? These match the conference tracks.
+2. Which IBM products are you interested in? Optional, and searchable, so you don't have to scroll to find MQ or App Connect.
+3. What do you want to get out of TechXchange? Pick up to two: grow your skills, meet IBM Champions, advance your career, and so on.
+4. Which days are you there?
+
+Don't rush that last one. It only recommends sessions on days you're around, and never one that has already ended. No point in planning your Tuesday around a session that finished on Monday.
+
+It doesn't store your name or email. Your answers and your blueprint are kept for reporting, and the individual records are deleted 30 days after the event.
 
 ![Question 1: technology areas](img_1.png)
 
@@ -84,65 +80,50 @@ Pick 2, maybe 3, of the screenshots below. "A couple of small screenshots."
 
 ![Question 3: what you want out of TechXchange](img_3.png)
 
+The screenshots are from the prototype, so the version at the booth might look a bit different.
+
 ## What you walk away with
 
-<!--
-Filler, from the prototype blueprint screen:
-- Sessions to prioritise, per day, each with the reason it was picked.
-- IBM Champions to connect with, matched on your interests, to set up a 1:1 in the
-  Champions Lounge.
-- IBM Community groups to join (topic groups, user groups).
-- "Your next 30 minutes": first session, and where the lounge and ideas wall are.
-- An optional first post in a group.
-- A QR code and pass code to take along: show it at the headshot and giveaway station.
--->
+Your blueprint starts with a short summary of what you told it, and then gets to the useful part:
+
+- **Sessions to prioritise**, per day, each with the reason it was picked. So you know why it's on your list, not just that it is.
+- **IBM Champions to connect with**, matched on your interests, so you can set up a 1:1 in the Champions Lounge.
+- **IBM Community groups to join**, topic groups and user groups, to keep the conversation going after the event.
+- **Your next 30 minutes**: your first session, and where the lounge and the wall are.
+- **One thing to do now**, if you want: a first post in one of those groups.
 
 ![Blueprint: your focus and sessions to prioritise](img_4.png)
 
 ![Blueprint: IBM Champions to connect with](img_5.png)
 
-*[screenshot placeholder: the pass / QR "Take it with you" block from the booth build (the local one shows a localhost URL)]*
+At the end you get a QR code and a pass code to take with you. Scan it with your phone and you have your blueprint in your pocket. Show the code at the headshot and giveaway station.
 
-*[photo placeholder: the booth itself, once it's set up - optional, for a post-event update]*
+*[screenshot placeholder: the pass / QR "Take it with you" block from the booth build (the local one shows a localhost URL)]*
 
 ## What happens after your blueprint
 
-<!--
-Filler, verified from the kickoff. The blueprint is step 2 of 4:
+The blueprint is one step of the IBM Community booth's Learn to Earn journey:
+
 1. Sign up for the IBM Community at the welcome desk.
-2. Build your blueprint (this thing).
-3. Add your ideas to the IBM Community wall. There's a giant Jenga game in the area too.
-4. Earn your professional headshot and a giveaway.
-Plus (your answer, not in the kickoff note): finish it and your name goes on a wall.
-No leaderboard.
-Keep this short, one paragraph or a 4-line list.
--->
+2. Build your blueprint.
+3. Add your ideas to the IBM Community wall, what you'd like to see in the community. There's a giant Jenga game in the same area, if you need a break.
+4. Get your professional headshot and a giveaway.
+
+Complete it and your name goes up on the wall. And you have a decent headshot for your LinkedIn profile, which, judging by some profiles, a lot of people could use.
+
+*[photo placeholder: the booth itself, once it's set up - optional, for a post-event update]*
 
 ## Can't wait?
 
-<!--
-Callout to the techxchange-planner skill. Facts (verified):
-- Claude Code skill only, no Bob mode. In https://github.com/matthiasblomme/bobmodes
-  under bobmodes/techxchange-planner; install = copy the folder to ~/.claude/skills/.
-- Scrapes the session catalog through the RainFocus API behind the catalog page, plus
-  the agenda and FAQ pages. Last scrape 2026-09-16: 1054 activities.
-- Builds your interest profile from your AI chat history, a self-description, or
-  guided questions.
-- Makes a slot-budgeted agenda with ranked alternates; re-run it and it clash-checks
-  your picks when times change.
+If you want to start planning now, I have something for that too. Back in August I built a TechXchange planner as a Claude Code skill. You'll find it, with its README, in my public repo: [techxchange-planner](https://github.com/matthiasblomme/bobmodes/tree/main/bobmodes/techxchange-planner). Copy the folder into `~/.claude/skills/` and ask Claude to plan your TechXchange.
 
-The "stripped-down" angle, concretely - what the planner does NOT do that the booth does:
-- no IBM Champions to meet, no Community groups, no first post
-- no headshot, no giveaway, no pass
-- you need Claude Code, and a bit of patience with a scraper
-So: sessions only. For the rest, come to the booth.
--->
+It pulls the full session catalog through the RainFocus API behind the catalog page, together with the agenda and FAQ pages. The last time I ran it, that was 1054 activities. It builds a profile of what you're interested in, from your AI chat history, from a short description of yourself, or by asking you a few questions. Then it makes a personal agenda that fits the time slots, with ranked alternates. Run it again when times change and it checks your picks for clashes.
+
+But it's a stripped-down version of what's waiting at the booth. The planner gives you sessions, and that's it. No Champions to meet, no groups to join, no headshot, no giveaway, and no name on the wall. You also need Claude Code, and a bit of patience with a scraper.
 
 *[screenshot placeholder: planner skill output - a slice of the generated agenda note, your own picks blurred or a demo profile]*
 
-## TODO closing line
-
-<!-- One dry line. Something about coming by the booth anyway. -->
+So use it to get a head start, and then come to the booth for the rest. Three minutes, and the kiosk does the scrolling for you.
 
 ---
 
