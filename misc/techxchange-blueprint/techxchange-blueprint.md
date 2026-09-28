@@ -36,6 +36,12 @@ Check before publishing:
 - Teaser: two screenshots only (start screen, top of a blueprint). The question screens
   and the Champions crop are in git history (commit 9471a95) if you want one back.
 - The name wall is from you, not from the kickoff note.
+- "Runs in IBM Bob" depends on the skill fixes that were uncommitted in D:/GIT/bob_modes
+  and D:/GIT/bobmodes on 2026-09-28 (times[] docs, reuse prompt, README "Claude Code
+  only" lines). Push the public repo before this goes out.
+- img_planner.png: Thursday table from the fixed skill's Bob run
+  (D:/tmp/txc-planner-bob-v2, plain-attendee profile, 19:39), all times checked against
+  that run's sessions_raw.json.
 - Links to misc/techxchange-planner-skill (untracked, not on this branch). Publish the
   planner post first or together, or the link 404s.
 -->
@@ -83,17 +89,17 @@ That's also how your name ends up on the wall. And you walk away with a decent h
 
 ## Can't wait?
 
-If you want to start planning now, I have something for that too. Back in August I wrote a Claude Code skill that scrapes the TechXchange session catalog, works out what you care about, and builds a day-by-day plan with alternates. Re-run it when the schedule changes and it tells you which picks clash. It's in my public skills repo, folder [techxchange-planner](https://github.com/matthiasblomme/bobmodes/tree/main/bobmodes/techxchange-planner), and the whole story is in [Planning TechXchange from the session catalog API](../techxchange-planner-skill/techxchange-planner-skill.md).
+If you want to start planning now, I have something for that too. Back in August I wrote a skill that scrapes the TechXchange session catalog, works out what you care about, and builds a day-by-day plan with alternates. Re-run it when the schedule changes and it tells you which picks clash. It's in my public skills repo, folder [techxchange-planner](https://github.com/matthiasblomme/bobmodes/tree/main/bobmodes/techxchange-planner), and the whole story is in [Planning TechXchange from the session catalog API](../techxchange-planner-skill/techxchange-planner-skill.md).
 
-Install it, start a new Claude Code session, and ask:
+It runs in IBM Bob and in Claude Code. Drop the folder in `~/.bob/skills/` or `~/.claude/skills/`, start a new session, and ask:
 
 ```
 Which sessions should I attend?
 ```
 
-But it's a stripped-down version of what's waiting at the booth. The planner gives you sessions, and that's it. No Champions to meet, no groups to join, no headshot, no giveaway, and no name on the wall. You also need Claude Code, and a bit of patience with a scraper.
+But it's a stripped-down version of what's waiting at the booth. The planner gives you sessions, and that's it. No Champions to meet, no groups to join, no headshot, no giveaway, and no name on the wall. And the first scrape takes a while. Run it again later and it asks whether to reuse what it already has.
 
-*[screenshot placeholder: planner agenda note, one day table with picks and alternates - same shot as in the planner post]*
+![One day of a planner agenda, with the clashes and alternates](img_planner.png)
 
 So use it to get a head start, and then come to the booth for the rest. Three minutes, and the kiosk does the scrolling for you.
 
