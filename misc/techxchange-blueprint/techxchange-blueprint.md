@@ -1,5 +1,5 @@
 ---
-title: 'TODO title - TechXchange 2026: build your blueprint at the IBM Community booth'
+title: 'Four questions, three minutes: your TechXchange blueprint'
 date: 2026-09-28
 author: Matthias Blomme
 description: TODO - the IBM Champions are building a Growth Blueprint helper for the
@@ -35,9 +35,11 @@ Check before publishing:
 - img_5.png is the Champions section cropped to Jan Willem and you (Juan Martin cut off).
 -->
 
-# TODO title
+# Four questions, three minutes: your TechXchange blueprint
 
 For everybody going to TechXchange: congratulations. For those of you who aren't going: well, you're missing out. (To paraphrase Samson, an old Flemish children's TV show. Google it.)
+
+> "When I get sad, I stop being sad and be awesome instead." - Barney, How I Met Your Mother
 
 There's so much happening at the event that it's hard to build a proper agenda around what you like, what you want to see, and how much time you have at the venue. So you don't spend your first morning scrolling through a thousand sessions, the IBM Champions community is building a blueprint helper for you.
 
