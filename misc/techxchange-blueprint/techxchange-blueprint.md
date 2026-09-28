@@ -91,7 +91,7 @@ That's also how your name ends up on the wall. And you walk away with a decent h
 
 If you want to start planning now, I have something for that too. Back in August I wrote a skill that scrapes the TechXchange session catalog, works out what you care about, and builds a day-by-day plan with alternates. Re-run it when the schedule changes and it tells you which picks clash. It's in my public skills repo, folder [techxchange-planner](https://github.com/matthiasblomme/bobmodes/tree/main/bobmodes/techxchange-planner), and the whole story is in [Planning TechXchange from the session catalog API](../techxchange-planner-skill/techxchange-planner-skill.md).
 
-It runs in IBM Bob and in Claude Code. Drop the folder in `~/.bob/skills/` or `~/.claude/skills/`, start a new session, and ask:
+It's a skill for IBM Bob. Drop the folder in `~/.bob/skills/`, start a new session, and ask:
 
 ```
 Which sessions should I attend?
