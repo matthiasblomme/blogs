@@ -35,7 +35,8 @@ Check before publishing:
   booth build may look different by the event. Retake closer to the date if it changed.
 - Teaser: two screenshots only (start screen, top of a blueprint). The question screens
   and the Champions crop are in git history (commit 9471a95) if you want one back.
-- The name wall is from you, not from the kickoff note.
+- The name wall is from your brief, not from the kickoff note. Tied to finishing the
+  blueprint (intro only); unsure whether it's that or the full journey - reviewer check.
 - "Runs in IBM Bob" depends on the skill fixes (times[] docs, reuse prompt, README
   "Claude Code only" lines). Pushed 2026-09-28 on branch
   features/techxchange-planner-times-and-rescrape (bobmodes cabe599, bob_modes b75327f),
@@ -84,7 +85,7 @@ The blueprint is one step of the IBM Community booth's Learn to Earn journey:
 3. Add your ideas to the IBM Community wall, what you'd like to see in the community. There's a giant Jenga game in the same area, if you need a break.
 4. Get your professional headshot and a giveaway.
 
-That's also how your name ends up on the wall. And you walk away with a decent headshot for your LinkedIn profile, which, judging by some profiles, a lot of people could use.
+So you walk away with a decent headshot for your LinkedIn profile, which, judging by some profiles, a lot of people could use.
 
 ## Can't wait?
 
