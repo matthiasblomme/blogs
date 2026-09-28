@@ -33,9 +33,8 @@ Publishing: everywhere (own blog + IBM Community), but Jan Willem reviews it fir
 Check before publishing:
 - Screenshots are the prototype with mocked sign-in ("Hi, Sam") and mocked text. The
   booth build may look different by the event. Retake closer to the date if it changed.
-- img_5.png is the Champions section cropped to Jan Willem and you (Juan Martin cut off).
-- The privacy line (no name or email stored, records deleted 30 days after the event)
-  is the prototype's consent text. Confirm it still reads like that in the booth build.
+- Teaser: two screenshots only (start screen, top of a blueprint). The question screens
+  and the Champions crop are in git history (commit 9471a95) if you want one back.
 - The name wall is from you, not from the kickoff note.
 -->
 
@@ -59,46 +58,15 @@ The app is built with IBM Bob, by Jan Willem Steur, myself, and a group of teste
 
 ![Start screen of the Growth Blueprint kiosk](img.png)
 
-## Four questions, three minutes
+## What you get
 
-You sign in with your IBMid through the IBM Community, and you sign out again at the end. The booth staff will make sure you did, so the next person doesn't end up with your blueprint.
+Sign in with your IBMid, tell it what you're into, what you want out of the week and which days you're there. What comes out is a blueprint with the sessions worth your time, IBM Champions to go talk to, and community groups to join. Every pick comes with the reason it's on your list.
 
-Then it's four questions:
+The rest you'll see at the booth. And you can take it with you on your phone.
 
-1. Which technology areas are you here for? These match the conference tracks.
-2. Which IBM products are you interested in? Optional, and searchable, so you don't have to scroll to find MQ or App Connect.
-3. What do you want to get out of TechXchange? Pick up to two: grow your skills, meet IBM Champions, advance your career, and so on.
-4. Which days are you there?
-
-Don't rush that last one. It only recommends sessions on days you're around, and never one that has already ended. No point in planning your Tuesday around a session that finished on Monday.
-
-It doesn't store your name or email. Your answers and your blueprint are kept for reporting, and the individual records are deleted 30 days after the event.
-
-![Question 1: technology areas](img_1.png)
-
-![Question 2: products, searching for App Connect](img_2.png)
-
-![Question 3: what you want out of TechXchange](img_3.png)
+![A blueprint, fresh out of the kiosk](img_4.png)
 
 The screenshots are from the prototype, so the version at the booth might look a bit different.
-
-## What you walk away with
-
-Your blueprint starts with a short summary of what you told it, and then gets to the useful part:
-
-- **Sessions to prioritise**, per day, each with the reason it was picked. So you know why it's on your list, not just that it is.
-- **IBM Champions to connect with**, matched on your interests, so you can set up a 1:1 in the Champions Lounge.
-- **IBM Community groups to join**, topic groups and user groups, to keep the conversation going after the event.
-- **Your next 30 minutes**: your first session, and where the lounge and the wall are.
-- **One thing to do now**, if you want: a first post in one of those groups.
-
-![Blueprint: your focus and sessions to prioritise](img_4.png)
-
-![Blueprint: IBM Champions to connect with](img_5.png)
-
-At the end you get a QR code and a pass code to take with you. Scan it with your phone and you have your blueprint in your pocket. Show the code at the headshot and giveaway station.
-
-*[screenshot placeholder: the pass / QR "Take it with you" block from the booth build (the local one shows a localhost URL)]*
 
 ## What happens after your blueprint
 
