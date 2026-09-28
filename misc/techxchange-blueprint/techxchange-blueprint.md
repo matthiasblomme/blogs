@@ -37,10 +37,8 @@ Check before publishing:
   and the Champions crop are in git history (commit 9471a95) if you want one back.
 - The name wall is from your brief, not from the kickoff note. Tied to finishing the
   blueprint (intro only); unsure whether it's that or the full journey - reviewer check.
-- "Runs in IBM Bob" depends on the skill fixes (times[] docs, reuse prompt, README
-  "Claude Code only" lines). Pushed 2026-09-28 on branch
-  features/techxchange-planner-times-and-rescrape (bobmodes cabe599, bob_modes b75327f),
-  NOT merged. The teaser links tree/main, so merge to main before this goes out.
+- "Runs in IBM Bob": skill fixes merged to public bobmodes main 2026-09-28
+  (PR #11, merge 9f35809). Done.
 - img_planner.png: Thursday table from the fixed skill's Bob run
   (D:/tmp/txc-planner-bob-v2, plain-attendee profile, 19:39), all times checked against
   that run's sessions_raw.json.
