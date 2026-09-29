@@ -69,6 +69,8 @@ It goes live when the Sandbox opens, Monday October 26 at 6 p.m.
 
 The app is built with IBM Bob, by Jan Willem Steur, myself, and a group of testers who clicked through it more times than they'd like to admit. Champions building something for the rest of the community, which is more or less the point of being a Champion. It runs on OpenShift, and it talks to the IBM Community through a brand new Community MCP server. So when you join a group or post a question from the booth, that happens right there, under your own name.
 
+Do you fancy helping to build the next thing like this? Then have a look at the IBM Champions program. What it is, and what it takes to get nominated, is on the [IBM Champions program overview](https://www.ibm.com/community/champions-program/). Writing about what you do, like this blog, is one way to get there.
+
 ![Start screen of the Growth Blueprint kiosk](img.png)
 
 ## What you get
