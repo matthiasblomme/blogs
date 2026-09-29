@@ -13,6 +13,7 @@ tags:
 - bob
 - event
 status: draft
+reading_time: 4 min
 ---
 
 <!--
@@ -39,18 +40,16 @@ Check before publishing:
   blueprint (intro only); unsure whether it's that or the full journey - reviewer check.
 - "Runs in IBM Bob": skill fixes merged to public bobmodes main 2026-09-28
   (PR #11, merge 9f35809). Done.
-- img_planner.png: Thursday table from the fixed skill's Bob run
-  (D:/tmp/txc-planner-bob-v2, plain-attendee profile, 19:39), all times checked against
-  that run's sessions_raw.json.
-- Links to misc/techxchange-planner-skill (untracked, not on this branch). Publish the
-  planner post first or together, or the link 404s.
+- img_planner.png: copy of the planner post's img.png (your Tuesday, one pick per slot),
+  so both posts show the same plan.
+- Planner post link is the relative repo path; swap in the live URL once you have it.
 -->
 
 # Too many sessions? The IBM Champions built you a planner
 
 For everybody going to TechXchange: congratulations. For those of you who aren't going: well, you're missing out. (To paraphrase Samson, an old Flemish children's TV show. Google it.)
 
-There's so much happening at the event that it's hard to build a proper agenda around what you like, what you want to see, and how much time you have at the venue. So you don't spend your first morning scrolling through a thousand sessions, the IBM Champions community built a blueprint helper for you.
+There's so much happening at the event that it's hard to build a proper agenda around what you like, what you want to see, and how much time you have at the venue. So you don't spend your first morning scrolling through 1137 sessions, the IBM Champions community built a blueprint helper for you.
 
 It's an app you'll find at the IBM Community booth, where you can build your own TechXchange blueprint based on your interests, when you're there, and what you want to do. Four questions, three minutes, and you have your personalized event plan. Finish it and your name goes up on the wall, and there's a headshot and a giveaway in it for you.
 
@@ -87,17 +86,19 @@ So you walk away with a decent headshot for your LinkedIn profile, which, judgin
 
 ## Can't wait?
 
-If you want to start planning now, I have something for that too. Back in August I wrote a skill that scrapes the TechXchange session catalog, works out what you care about, and builds a day-by-day plan with alternates. Re-run it when the schedule changes and it tells you which picks clash. It's in my public skills repo, folder [techxchange-planner](https://github.com/matthiasblomme/bobmodes/tree/main/bobmodes/techxchange-planner), and the whole story is in [Planning TechXchange from the session catalog API](../techxchange-planner-skill/techxchange-planner-skill.md).
+If you want to start planning now, I have something for that too. It's a Bob skill that scrapes the TechXchange session catalog, works out what you care about, and builds a day-by-day plan with alternates. Re-run it when the schedule changes and it tells you which picks clash. It's in my public skills repo, folder [techxchange-planner](https://github.com/matthiasblomme/bobmodes/tree/main/bobmodes/techxchange-planner), and the whole story is in [Let Bob plan your TechXchange week](../techxchange-planner-skill/techxchange-planner-skill.md).
 
-It's a skill for IBM Bob. Drop the folder in `~/.bob/skills/`, start a new session, and ask:
+I used it for my own week. Two talks to give, the champion program on top, and more ACE and MQ sessions than I could ever attend. This is my Tuesday, as Bob planned it:
+
+![My Tuesday, as Bob planned it](img_planner.png)
+
+Drop the folder in `~/.bob/skills/`, open Bob, and ask:
 
 ```
-Which sessions should I attend?
+Which sessions should I attend at TechXchange?
 ```
 
-But it's a stripped-down version of what's waiting at the booth. The planner gives you sessions, and that's it. No Champions to meet, no groups to join, no headshot, no giveaway, and no name on the wall. And the first scrape takes a while. Run it again later and it asks whether to reuse what it already has.
-
-![One day of a planner agenda, with the clashes and alternates](img_planner.png)
+But it's a stripped-down version of what's waiting at the booth. The planner gives you sessions, and that's it. No Champions to meet, no groups to join, no headshot, no giveaway, and no name on the wall. And the first scrape takes about six minutes. Run it again later and it asks whether to reuse what it already has.
 
 So use it to get a head start, and then come to the booth for the rest. Three minutes, and the kiosk does the scrolling for you.
 
@@ -110,4 +111,5 @@ And for those of you who aren't going:
 Written by [Matthias Blomme](https://www.linkedin.com/in/matthiasblomme/)
 
 \#IBMChampion \
-\#TechXchange
+\#TechXchange \
+\#Bob
