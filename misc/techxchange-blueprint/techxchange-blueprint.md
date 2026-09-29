@@ -16,62 +16,13 @@ status: draft
 reading_time: 5 min
 ---
 
-<!--
-Teaser, text complete. Open before publishing: see the list below.
-Post-event update idea: a photo of the booth once it's set up.
-
-Sources for the booth facts:
-- notes/meetings/2026-09-21-ibm-champions-working-group-kickoff-onenote.md
-  (Learn to Earn journey, location, laptops, go-live time)
-- D:/Projects/Bob/txc26-growth-blueprint (the prototype; screenshots taken from a local
-  run on 2026-09-28, branch fix/main-repairs-and-pass-on-sign-in, mocked sign-in and
-  mocked LLM text)
-- Planner skill: D:/GIT/bobmodes/bobmodes/techxchange-planner, public repo
-  https://github.com/matthiasblomme/bobmodes
-
-Publishing: everywhere (own blog + IBM Community), but Jan Willem reviews it first.
-
-Check before publishing:
-- Screenshots are the prototype with mocked sign-in ("Hi, Sam") and mocked text. The
-  booth build may look different by the event. Retake closer to the date if it changed.
-- Teaser: two screenshots only (start screen, top of a blueprint). The question screens
-  and the Champions crop are in git history (commit 9471a95) if you want one back.
-- The name wall is from your brief, not from the kickoff note. Tied to finishing the
-  blueprint (intro only); unsure whether it's that or the full journey - reviewer check.
-- "Runs in IBM Bob": skill fixes merged to public bobmodes main 2026-09-28
-  (PR #11, merge 9f35809). Done.
-- img_planner.png: copy of the planner post's img.png (your Tuesday, one pick per slot),
-  so both posts show the same plan.
-- Planner post link is relative (../techxchange-planner-skill/...), the house style for
-  cross-post links. It resolves once this post moves to docs/posts/<slug>/; the planner
-  post is on main at docs/posts/techxchange-planner-skill/ (PR #59). The IBM Community
-  version needs the absolute URL instead.
-- "Who built it" links: Jan-Willem and Kristin Community profile pages checked 2026-09-29
-  (page shows the name); LinkedIn URLs from web search (Jan-Willem: Naviam/ZNAPZ, Maximo;
-  Kristin: slug from her own #ibmchampion posts; Kat: Higher Logic, IBM Community).
-  Your Community link is the people/matthias-blomme URL your other posts use (it sends
-  logged-out readers to the IBM login; the UserKey links for Jan-Willem and Kristin are
-  public). people/kat-jarvis also hits the login wall, so it is not verified.
-  TODO: Kat's Community profile URL, testers' full names and
-  links (plan lists first names only: FJ, Steve, Armin, Philip, Michael, Nezi; FJ is
-  probably Francois Brandelik, community.ibm.com/community/user/expert/fj - confirm).
-- Community MCP mention (Higher Logic built it for this activation): check with Jan
-  Willem / the IBM Community team that it can be named publicly before the event.
-- The kickoff note says the blueprint also recommends booths. Neither the prototype nor
-  the merged plan does, so booths are left out. Confirm with Jan Willem.
-- "What you get" facts: Jan Willem's plan + merged plan (doc-kb my-knowledge,
-  Conferences/2026_TechXchange/ChampionsWorkingGroup/), kickoff call recording note.
-  Community action on the spot and the QR pass are planned behaviour; the prototype
-  shows the post as a draft only.
--->
-
 # Too many sessions? The IBM Champions built you a planner
 
 For everybody going to TechXchange: congratulations. For those of you who aren't going: well, you're missing out. (To paraphrase, an old Flemish children's TV show.)
 
-There's so much happening at the event that it's hard to build a proper agenda around what you like, what you want to see, and how much time you have at the venue. So you don't spend your first morning scrolling through 1137 sessions, the IBM Champions community built a blueprint helper just for you.
+There's so much happening at the event that it's hard to build a proper agenda around what you like, what you want to see, and how much time you have at the venue. So you don't spend your first morning scrolling through 1137 sessions, the IBM Champions community built a blueprint helper just for you. You'll find it at the IBM Community booth.
 
-You'll find it at the IBM Community booth. Tell it what you're interested in, when you're there and what you want to get out of the week, and it builds your own TechXchange blueprint. Four questions, three minutes, done. Your name goes up on the wall, and if you do the rest of the booth journey too, you might just walk away with a professional headshot. And who knows, maybe there even is a giveaway.
+Tell it what you're interested in, when you're there and what you want to get out of the week, and it builds your own TechXchange blueprint. Four questions, three minutes, done. Your name goes up on the wall, and if you do the rest of the booth journey too, you might just walk away with a professional headshot. And who knows, maybe there even is a giveaway.
 
 ## Where to find it
 
@@ -137,13 +88,13 @@ Drop the folder in `~/.bob/skills/`, open Bob, and ask:
 Which sessions should I attend at TechXchange?
 ```
 
-But it's a stripped-down version of what's waiting at the booth. The planner gives you sessions, and that's it. No Champions to meet, no groups to join, no headshot, no giveaway, and no name on the wall. And the first scrape takes about six minutes. Run it again later and it asks whether to reuse what it already has.
+But it's a stripped-down version of what's waiting at the booth. The planner gives you sessions, and that's it. No Champions to meet, no groups to join, no headshot, no giveaway, and no name on the wall. 
 
 So use it to get a head start, and then come to the booth for the rest. Three minutes, and the kiosk does the scrolling for you.
 
 And for those of you who aren't going:
 
-> "When I get sad, I stop being sad and be awesome instead." - Barney, How I Met Your Mother
+> "When I get sad, I stop being sad and be awesome instead." - Barney
 
 ---
 
