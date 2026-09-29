@@ -53,7 +53,7 @@ Before you leave the laptop, you do one thing in the community right there: join
 
 ## What happens after your blueprint
 
-The blueprint is one step of the IBM Community booth's __Learn to Earn journey__, built around this year's __Build with Purpose__ theme:
+The blueprint is one step of the IBM Community booth's Learn to Earn journey, built around this year's Build with Purpose theme:
 
 1. Sign up for the IBM Community at the welcome desk, if you are not a member yet (this is a requirement).
 2. Build your blueprint.
@@ -86,7 +86,7 @@ Drop the folder in `~/.bob/skills/`, open Bob, and ask:
 Which sessions should I attend at TechXchange?
 ```
 
-But it's a stripped-down version of what's waiting at the booth. The planner gives you sessions, and that's it. No Champions to meet, no groups to join, no headshot, no giveaway, and no name on the wall. 
+But it's a stripped-down version of what's waiting at the booth. Consider it the amuse-bouche. The main course is in Atlanta. The planner gives you sessions, and that's it. No Champions to meet, no groups to join, no headshot, no giveaway, and no name on the wall.
 
 So use it to get a head start, and then come to the booth for the rest. Three minutes, and the kiosk does the scrolling for you.
 
