@@ -42,7 +42,10 @@ Check before publishing:
   (PR #11, merge 9f35809). Done.
 - img_planner.png: copy of the planner post's img.png (your Tuesday, one pick per slot),
   so both posts show the same plan.
-- Planner post link is the relative repo path; swap in the live URL once you have it.
+- Planner post link is relative (../techxchange-planner-skill/...), the house style for
+  cross-post links. It resolves once this post moves to docs/posts/<slug>/; the planner
+  post is on main at docs/posts/techxchange-planner-skill/ (PR #59). The IBM Community
+  version needs the absolute URL instead.
 - Community MCP mention (Higher Logic built it for this activation): check with Jan
   Willem / the IBM Community team that it can be named publicly before the event.
 - The kickoff note says the blueprint also recommends booths. Neither the prototype nor
