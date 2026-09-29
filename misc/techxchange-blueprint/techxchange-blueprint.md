@@ -46,6 +46,12 @@ Check before publishing:
   cross-post links. It resolves once this post moves to docs/posts/<slug>/; the planner
   post is on main at docs/posts/techxchange-planner-skill/ (PR #59). The IBM Community
   version needs the absolute URL instead.
+- "Who built it" links: Jan-Willem and Kristin Community profile pages checked 2026-09-29
+  (page shows the name); LinkedIn URLs from web search (Jan-Willem: Naviam/ZNAPZ, Maximo;
+  Kristin: slug from her own #ibmchampion posts; Kat: Higher Logic, IBM Community).
+  TODO: your Community profile URL, Kat's Community profile URL, testers' full names and
+  links (plan lists first names only: FJ, Steve, Armin, Philip, Michael, Nezi; FJ is
+  probably Francois Brandelik, community.ibm.com/community/user/expert/fj - confirm).
 - Community MCP mention (Higher Logic built it for this activation): check with Jan
   Willem / the IBM Community team that it can be named publicly before the event.
 - The kickoff note says the blueprint also recommends booths. Neither the prototype nor
@@ -70,6 +76,8 @@ The booth is in the Advocacy neighborhood of the Sandbox, diagonally across from
 
 It opens together with the Sandbox, Monday October 26 at 6 p.m.
 
+Build your blueprint: 
+
 ![Start screen of the Growth Blueprint kiosk](img.png)
 
 ## What you get
@@ -83,7 +91,7 @@ Sign in with your IBMid, tell it what you're into, what you want out of the week
 
 Every pick comes with the reason it's on your list.
 
-Before you leave the laptop, you do one thing in the community right there: join a group, post a question, or answer one. Then you get a QR code. It opens your blueprint on your phone, and it's your proof at the headshot station. The rest you'll see at the booth.
+Before you leave the laptop, you do one thing in the community right there: join a group, post a question, or answer one. Then you get a QR code. It opens your blueprint on your phone, and it's your proof at the headshot station. The rest you'll see at the booth. Not going to give away (hint) everything just yet.
 
 ![A blueprint, fresh out of the kiosk](img_4.png)
 
@@ -93,16 +101,22 @@ The screenshots are from the prototype, so the version at the booth might look a
 
 The blueprint is one step of the IBM Community booth's Learn to Earn journey, built around this year's Build with Purpose theme:
 
-1. Sign up for the IBM Community at the welcome desk.
+1. Sign up for the IBM Community at the welcome desk, if you are not a member yet (this is a requirement).
 2. Build your blueprint.
 3. Add your ideas to the IBM Community wall, what you'd like to see in the community. There's a giant Jenga game in the same area, if you need a break.
-4. Earn your professional headshot and the giveaway.
+4. Earn your professional headshot..
 
 There's nothing to win, but you can earn. You walk away with a decent headshot for your LinkedIn profile, which, judging by some profiles, a lot of people could use.
 
 ## Who built it
 
-Jan Willem Steur and I built it with IBM Bob, and a group of testers clicked through it more times than they'd like to admit. Champions building something for the rest of the community. Isn't that what being a Champion is about? It runs on OpenShift and talks to the IBM Community through the new Community MCP server. So when you join a group or post a question from the booth, it happens for real, under your own name.
+This is an IBM Champions project. The IBM Community team asked the Champions to build the booth activation, and a working group of Champions picked it up. Champions building something for the rest of the community. Isn't that what being a Champion is about?
+
+Two of us did the building, with IBM Bob: Jan-Willem Steur ([LinkedIn](https://www.linkedin.com/in/janwillemsteur/), [IBM Community](https://community.ibm.com/community/user/champion-directory/expert?UserKey=95a8c58f-a884-4d11-9220-02653c7816ad)) and myself ([LinkedIn](https://www.linkedin.com/in/matthiasblomme/), [IBM Community](TODO-matthias-community-profile)).
+
+But we didn't do it alone. Kristin Rangel ([LinkedIn](https://www.linkedin.com/in/kristin-rangel-a958b779/), [IBM Community](https://community.ibm.com/community/user/profile/contributions/contributions-list?UserKey=d1276cd1-0b56-47ec-8b14-bc967bd97a44)) led the working group and ran the testing. Kat Jarvis ([LinkedIn](https://www.linkedin.com/in/catherine-kat-jarvis/), [IBM Community](TODO-kat-community-profile)) from the IBM Community team got the whole thing started and kept it moving on the IBM side. And then there are the testers, FJ, Steve, Armin, Philip, Michael and Nezi, who clicked through it more times than they'd like to admit. Thanks, all of you.
+
+It runs on OpenShift and talks to the IBM Community through the new Community MCP server. So when you join a group or post a question from the booth, it happens for real, under your own name.
 
 Do you fancy helping out on the next one? Then have a look at the IBM Champions program. The [IBM Champions program overview](https://www.ibm.com/community/champions-program/) explains what it is and how you get nominated. Writing blogs like this one is one way to get there.
 
