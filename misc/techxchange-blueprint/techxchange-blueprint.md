@@ -18,7 +18,7 @@ reading_time: 5 min
 
 # Too many sessions? The IBM Champions built you a planner
 
-For everybody going to TechXchange: congratulations. For those of you who aren't going: well, you're missing out. (To paraphrase, an old Flemish children's TV show.)
+For everybody going to TechXchange: congratulations. For those of you who aren't going: well, you're missing out. (To paraphrase an old Flemish children's TV show.)
 
 There's so much happening at the event that it's hard to build a proper agenda around what you like, what you want to see, and how much time you have at the venue. So you don't spend your first morning scrolling through 1137 sessions, the IBM Champions community built a blueprint helper just for you. You'll find it at the IBM Community booth.
 
@@ -26,7 +26,7 @@ Tell it what you're interested in, when you're there and what you want to get ou
 
 ## Where to find it
 
-The booth is in the Advocacy neighborhood of the Sandbox, diagonally across from the Champions Lounge, usually populated with a bunch of people in blue jackets. Look for the table with six laptops, and a monitor explaining what to do. That monitor is also used for the blogging workshops, so check the session catalog for those.
+The booth is in the Advocacy neighborhood of the Sandbox, diagonally across from the Champions Lounge (a bunch of people in blue jackets). Look for the table with six laptops, and a monitor explaining what to do. That monitor is also used for a couple of blogging workshops, so definetly check the session catalog for those.
 
 It opens together with the Sandbox, Monday October 26 at 6 p.m.
 
@@ -45,15 +45,15 @@ Sign in with your IBMid, tell it what you're into, what you want out of the week
 
 Every pick comes with the reason it's on your list.
 
-Before you leave the laptop, you do one thing in the community right there: join a group, post a question, or answer one. Then you get a QR code. It opens your blueprint on your phone, and it's your proof at the headshot station. The rest you'll see at the booth. Not going to give away (hint) everything just yet.
+Before you leave the laptop, you do one thing in the community right there: join a group or post a question. Then you get a QR code. It opens your blueprint on your phone, and it's your proof at the headshot station. The rest you'll see at the booth. Not going to give away (hint) everything just yet.
 
 ![A blueprint, fresh out of the kiosk](img_4.png)
 
-The screenshots are from the prototype, so the version at the booth might look a bit different.
+>  The screenshots are from the prototype, so the version at the booth might look a bit different.
 
 ## What happens after your blueprint
 
-The blueprint is one step of the IBM Community booth's Learn to Earn journey, built around this year's Build with Purpose theme:
+The blueprint is one step of the IBM Community booth's __Learn to Earn journey__, built around this year's __Build with Purpose__ theme:
 
 1. Sign up for the IBM Community at the welcome desk, if you are not a member yet (this is a requirement).
 2. Build your blueprint.
@@ -69,8 +69,6 @@ This is an IBM Champions project. The IBM Community team asked the Champions to 
 Two of us did the building, with IBM Bob: Jan-Willem Steur ([LinkedIn](https://www.linkedin.com/in/janwillemsteur/), [IBM Community](https://community.ibm.com/community/user/champion-directory/expert?UserKey=95a8c58f-a884-4d11-9220-02653c7816ad)) and myself ([LinkedIn](https://www.linkedin.com/in/matthiasblomme/), [IBM Community](https://community.ibm.com/community/user/people/matthias-blomme)).
 
 But we didn't do it alone. Kristin Rangel ([LinkedIn](https://www.linkedin.com/in/kristin-rangel-a958b779/), [IBM Community](https://community.ibm.com/community/user/profile/contributions/contributions-list?UserKey=d1276cd1-0b56-47ec-8b14-bc967bd97a44)) led the working group and ran the testing. Kat Jarvis ([LinkedIn](https://www.linkedin.com/in/catherine-kat-jarvis/), [IBM Community](TODO-kat-community-profile)) from the IBM Community team got the whole thing started and kept it moving on the IBM side. And then there are the testers, FJ, Steve, Armin, Philip, Michael and Nezi, who clicked through it more times than they'd like to admit. Thanks, all of you.
-
-It runs on OpenShift and talks to the IBM Community through the new Community MCP server. So when you join a group or post a question from the booth, it happens for real, under your own name.
 
 Do you fancy helping out on the next one? Then have a look at the IBM Champions program. The [IBM Champions program overview](https://www.ibm.com/community/champions-program/) explains what it is and how you get nominated. Writing blogs like this one is one way to get there.
 
