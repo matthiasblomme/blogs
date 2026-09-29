@@ -62,17 +62,13 @@ For everybody going to TechXchange: congratulations. For those of you who aren't
 
 There's so much happening at the event that it's hard to build a proper agenda around what you like, what you want to see, and how much time you have at the venue. So you don't spend your first morning scrolling through 1137 sessions, the IBM Champions community built a blueprint helper just for you.
 
-You'll find it at the IBM Community booth. Tell it what you're interested in, when you're there and what you want to get out of the week, and it builds your own TechXchange blueprint. Four questions, three minutes, done. Your name goes up on the wall, and if you do the rest of the booth journey too, you walk away with a professional headshot and a giveaway.
+You'll find it at the IBM Community booth. Tell it what you're interested in, when you're there and what you want to get out of the week, and it builds your own TechXchange blueprint. Four questions, three minutes, done. Your name goes up on the wall, and if you do the rest of the booth journey too, you might just walk away with a professional headshot. And who knows, maybe there even is a giveaway.
 
 ## Where to find it
 
-The booth is in the Advocacy neighborhood of the Sandbox, diagonally across from the Champions Lounge. Look for the table with six laptops and a monitor explaining what to do. That monitor is also used for the blogging workshops, so check the session catalog for those.
+The booth is in the Advocacy neighborhood of the Sandbox, diagonally across from the Champions Lounge, usually populated with a bunch of people in blue jackets. Look for the table with six laptops, and a monitor explaining what to do. That monitor is also used for the blogging workshops, so check the session catalog for those.
 
 It opens together with the Sandbox, Monday October 26 at 6 p.m.
-
-Jan Willem Steur and I built it with IBM Bob, and a group of testers clicked through it more times than they'd like to admit. Champions building something for the rest of the community. Isn't that what being a Champion is about? It runs on OpenShift and talks to the IBM Community through the new Community MCP server. So when you join a group or post a question from the booth, it happens for real, under your own name.
-
-Do you fancy helping out on the next one? Then have a look at the IBM Champions program. The [IBM Champions program overview](https://www.ibm.com/community/champions-program/) explains what it is and how you get nominated. Writing blogs like this one is one way to get there.
 
 ![Start screen of the Growth Blueprint kiosk](img.png)
 
@@ -103,6 +99,12 @@ The blueprint is one step of the IBM Community booth's Learn to Earn journey, bu
 4. Earn your professional headshot and the giveaway.
 
 There's nothing to win, but you can earn. You walk away with a decent headshot for your LinkedIn profile, which, judging by some profiles, a lot of people could use.
+
+## Who built it
+
+Jan Willem Steur and I built it with IBM Bob, and a group of testers clicked through it more times than they'd like to admit. Champions building something for the rest of the community. Isn't that what being a Champion is about? It runs on OpenShift and talks to the IBM Community through the new Community MCP server. So when you join a group or post a question from the booth, it happens for real, under your own name.
+
+Do you fancy helping out on the next one? Then have a look at the IBM Champions program. The [IBM Champions program overview](https://www.ibm.com/community/champions-program/) explains what it is and how you get nominated. Writing blogs like this one is one way to get there.
 
 ## Can't wait?
 
