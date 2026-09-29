@@ -49,7 +49,10 @@ Check before publishing:
 - "Who built it" links: Jan-Willem and Kristin Community profile pages checked 2026-09-29
   (page shows the name); LinkedIn URLs from web search (Jan-Willem: Naviam/ZNAPZ, Maximo;
   Kristin: slug from her own #ibmchampion posts; Kat: Higher Logic, IBM Community).
-  TODO: your Community profile URL, Kat's Community profile URL, testers' full names and
+  Your Community link is the people/matthias-blomme URL your other posts use (it sends
+  logged-out readers to the IBM login; the UserKey links for Jan-Willem and Kristin are
+  public). people/kat-jarvis also hits the login wall, so it is not verified.
+  TODO: Kat's Community profile URL, testers' full names and
   links (plan lists first names only: FJ, Steve, Armin, Philip, Michael, Nezi; FJ is
   probably Francois Brandelik, community.ibm.com/community/user/expert/fj - confirm).
 - Community MCP mention (Higher Logic built it for this activation): check with Jan
@@ -112,7 +115,7 @@ There's nothing to win, but you can earn. You walk away with a decent headshot f
 
 This is an IBM Champions project. The IBM Community team asked the Champions to build the booth activation, and a working group of Champions picked it up. Champions building something for the rest of the community. Isn't that what being a Champion is about?
 
-Two of us did the building, with IBM Bob: Jan-Willem Steur ([LinkedIn](https://www.linkedin.com/in/janwillemsteur/), [IBM Community](https://community.ibm.com/community/user/champion-directory/expert?UserKey=95a8c58f-a884-4d11-9220-02653c7816ad)) and myself ([LinkedIn](https://www.linkedin.com/in/matthiasblomme/), [IBM Community](TODO-matthias-community-profile)).
+Two of us did the building, with IBM Bob: Jan-Willem Steur ([LinkedIn](https://www.linkedin.com/in/janwillemsteur/), [IBM Community](https://community.ibm.com/community/user/champion-directory/expert?UserKey=95a8c58f-a884-4d11-9220-02653c7816ad)) and myself ([LinkedIn](https://www.linkedin.com/in/matthiasblomme/), [IBM Community](https://community.ibm.com/community/user/people/matthias-blomme)).
 
 But we didn't do it alone. Kristin Rangel ([LinkedIn](https://www.linkedin.com/in/kristin-rangel-a958b779/), [IBM Community](https://community.ibm.com/community/user/profile/contributions/contributions-list?UserKey=d1276cd1-0b56-47ec-8b14-bc967bd97a44)) led the working group and ran the testing. Kat Jarvis ([LinkedIn](https://www.linkedin.com/in/catherine-kat-jarvis/), [IBM Community](TODO-kat-community-profile)) from the IBM Community team got the whole thing started and kept it moving on the IBM side. And then there are the testers, FJ, Steve, Armin, Philip, Michael and Nezi, who clicked through it more times than they'd like to admit. Thanks, all of you.
 
