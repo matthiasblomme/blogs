@@ -6,6 +6,9 @@ title: Archive
 
 <!--MD_ARCHIVE:START-->
 ## 2026
+### September
+- **2026-09-29** - [Let Bob plan your TechXchange week](techxchange-planner-skill/techxchange-planner-skill.md) · *19 min*
+
 ### June
 - **2026-06-30** - [Reporting IBM Champion activity with a custom Bob mode and Claude skill](ibm-champion-report/ibm-champion-report.md) · *16 min*
 - **2026-06-27** - [IBM App Connect and MCP: a field guide as of 13.0.7](Ace-MCP/ace-mcp-13.0.7-field-guide.md) · *14 min*
@@ -23,7 +26,7 @@ title: Archive
 ### April
 - **2026-04-19** - [Migrating ACE to v13](ace-migration/ace-migration.md) · *20 min*
 - **2026-04-17** - [How to set up the IBM ACE vault from scratch](setup-ace-vault/setup-ace-vault.md) · *22 min*
-- **2026-04-07** - [ACE v13 new features (when coming from v12)](ace-v13-new-features-overview/v13-new-features.md) · *39 min*
+- **2026-04-07** - [ACE v13 new features (when coming from v12)](ace-v13-new-features-overview/v13-new-features.md) · *44 min*
 
 ### March
 - **2026-03-28** - [mqsirestart](mqsirestart/mqsirestart.md) · *5 min*
