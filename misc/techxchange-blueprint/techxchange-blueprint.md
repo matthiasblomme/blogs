@@ -86,7 +86,8 @@ Drop the folder in `~/.bob/skills/`, open Bob, and ask:
 Which sessions should I attend at TechXchange?
 ```
 
-But it's a stripped-down version of what's waiting at the booth. Consider it the amuse-bouche. The main course is in Atlanta. The planner gives you sessions, and that's it. No Champions to meet, no groups to join, no headshot, no giveaway, and no name on the wall.
+The skill gives you sessions, and that's it. No Champions to meet, no groups to join, no headshot, no giveaway, and no name on the wall.
+It's a stripped-down version of what's waiting at the booth. Consider it the amuse-bouche. The main course is in Atlanta.
 
 So use it to get a head start, and then come to the booth for the rest. Three minutes, and the kiosk does the scrolling for you.
 
