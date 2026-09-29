@@ -13,7 +13,7 @@ tags:
 - bob
 - event
 status: draft
-reading_time: 4 min
+reading_time: 5 min
 ---
 
 <!--
@@ -43,31 +43,46 @@ Check before publishing:
 - img_planner.png: copy of the planner post's img.png (your Tuesday, one pick per slot),
   so both posts show the same plan.
 - Planner post link is the relative repo path; swap in the live URL once you have it.
+- Community MCP mention (Higher Logic built it for this activation): check with Jan
+  Willem / the IBM Community team that it can be named publicly before the event.
+- The kickoff note says the blueprint also recommends booths. Neither the prototype nor
+  the merged plan does, so booths are left out. Confirm with Jan Willem.
+- "What you get" facts: Jan Willem's plan + merged plan (doc-kb my-knowledge,
+  Conferences/2026_TechXchange/ChampionsWorkingGroup/), kickoff call recording note.
+  Community action on the spot and the QR pass are planned behaviour; the prototype
+  shows the post as a draft only.
 -->
 
 # Too many sessions? The IBM Champions built you a planner
 
-For everybody going to TechXchange: congratulations. For those of you who aren't going: well, you're missing out. (To paraphrase Samson, an old Flemish children's TV show. Google it.)
+For everybody going to TechXchange: congratulations. For those of you who aren't going: well, you're missing out. (To paraphrase, an old Flemish children's TV show.)
 
 There's so much happening at the event that it's hard to build a proper agenda around what you like, what you want to see, and how much time you have at the venue. So you don't spend your first morning scrolling through 1137 sessions, the IBM Champions community built a blueprint helper for you.
 
-It's an app you'll find at the IBM Community booth, where you can build your own TechXchange blueprint based on your interests, when you're there, and what you want to do. Four questions, three minutes, and you have your personalized event plan. Finish it and your name goes up on the wall, and there's a headshot and a giveaway in it for you.
+It's an app you'll find at the IBM Community booth, where you can build your own TechXchange event blueprint. Based on your interests, when you're there, and what you want to do. Four questions, three minutes, and you have your personalized event plan. Finish it and your name goes up on the wall. Finish the whole booth journey and you earn a professional headshot and a giveaway.
 
 ## Where to find it
 
-The IBM Community booth is in the Advocacy neighborhood of the Sandbox, diagonally across from the Champions Lounge. Look for a lab-style table with six laptops and a monitor next to it explaining what to do.
+The IBM Community booth is in the Advocacy neighborhood of the Sandbox, diagonally across from the Champions Lounge. Look for a lab-style table with six laptops and a monitor next to it explaining what to do. That same monitor runs blogging workshops at set times, and those are in the session catalog.
 
 It goes live when the Sandbox opens, Monday October 26 at 6 p.m.
 
-The app is built with IBM Bob, by Jan Willem Steur, myself, and a group of testers who clicked through it more times than they'd like to admit. Champions building something for the rest of the community, which is more or less the point of being a Champion.
+The app is built with IBM Bob, by Jan Willem Steur, myself, and a group of testers who clicked through it more times than they'd like to admit. Champions building something for the rest of the community, which is more or less the point of being a Champion. It runs on OpenShift, and it talks to the IBM Community through a brand new Community MCP server. So when you join a group or post a question from the booth, that happens right there, under your own name.
 
 ![Start screen of the Growth Blueprint kiosk](img.png)
 
 ## What you get
 
-Sign in with your IBMid, tell it what you're into, what you want out of the week and which days you're there. What comes out is a blueprint with the sessions worth your time, IBM Champions to go talk to, and community groups to join. Every pick comes with the reason it's on your list.
+Sign in with your IBMid, tell it what you're into, what you want out of the week and which days you're there. So instead of browsing the catalog, decoding topic groups and guessing who to meet, you get a plan:
 
-You can take it with you on your phone. The rest you'll see at the booth.
+- sessions worth your time, Champion-led sessions and AMAs first. Only on days you're there, nothing that's already over, and no two at the same time.
+- IBM Champions to go talk to. Only the ones who opted in, so they're happy to meet you for a 1:1 in the Champions Lounge or the booth lounge. Send them a message in the TechXchange mobile app to set it up.
+- IBM Community groups to join.
+- what to do in the next 30 minutes.
+
+Every pick comes with the reason it's on your list.
+
+Before you leave the laptop, you do one thing in the community right there: join a group, post a question, or answer one. Then you get a QR code. It opens your blueprint on your phone, and it's your proof at the headshot station. The rest you'll see at the booth.
 
 ![A blueprint, fresh out of the kiosk](img_4.png)
 
@@ -75,14 +90,14 @@ The screenshots are from the prototype, so the version at the booth might look a
 
 ## What happens after your blueprint
 
-The blueprint is one step of the IBM Community booth's Learn to Earn journey:
+The blueprint is one step of the IBM Community booth's Learn to Earn journey, built around this year's Build with Purpose theme:
 
 1. Sign up for the IBM Community at the welcome desk.
 2. Build your blueprint.
 3. Add your ideas to the IBM Community wall, what you'd like to see in the community. There's a giant Jenga game in the same area, if you need a break.
-4. Get your professional headshot and a giveaway.
+4. Earn your professional headshot and the giveaway.
 
-So you walk away with a decent headshot for your LinkedIn profile, which, judging by some profiles, a lot of people could use.
+There's nothing to win, but you can earn. You walk away with a decent headshot for your LinkedIn profile, which, judging by some profiles, a lot of people could use.
 
 ## Can't wait?
 
