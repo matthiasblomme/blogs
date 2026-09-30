@@ -72,7 +72,7 @@ Do you fancy helping out on the next one? Then have a look at the IBM Champions 
 
 ## Can't wait?
 
-If you want to start planning now, I have something for that too. It's a Bob skill that scrapes the TechXchange session catalog, works out what you care about, and builds a day-by-day plan with alternates. Re-run it when the schedule changes and it tells you which picks clash. It's in my public skills repo, folder [techxchange-planner](https://github.com/matthiasblomme/bobmodes/tree/main/bobmodes/techxchange-planner), and the whole story is in [Let Bob plan your TechXchange week](../techxchange-planner-skill/techxchange-planner-skill.md).
+If you want to start planning now, I have something for that too. It's a Bob skill that scrapes the TechXchange session catalog, works out what you care about, and builds a day-by-day plan with alternates. Re-run it when the schedule changes and it tells you which picks clash. It's in my public skills repo, folder [techxchange-planner](https://github.com/matthiasblomme/bobmodes/tree/main/bobmodes/techxchange-planner), and the whole story is in [Let Bob plan your TechXchange week](https://community.ibm.com/community/user/blogs/matthias-blomme/2026/09/29/let-bob-plan-your-techxchange-week).
 
 I used it for my own week. Two talks to give, the Champion program on top, and more ACE and MQ sessions than I could ever attend. This is my Tuesday, as Bob planned it:
 
