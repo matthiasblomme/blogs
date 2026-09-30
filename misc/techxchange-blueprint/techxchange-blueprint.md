@@ -26,11 +26,11 @@ Tell it what you're interested in, when you're there and what you want to get ou
 
 ## Where to find it
 
-The booth is in the Advocacy neighborhood of the Sandbox, diagonally across from the Champions Lounge (a bunch of people in blue jackets). Look for the table with six laptops, and a monitor explaining what to do. That monitor is also used for a couple of blogging workshops, so definetly check the session catalog for those.
+The booth is in the Advocacy neighborhood of the Sandbox, diagonally across from the Champions Lounge (a bunch of people in blue jackets). Look for the table with six laptops, and a monitor explaining what to do. That monitor is also used for a couple of blogging workshops, so definitely check the session catalog for those.
 
 It opens together with the Sandbox, Monday October 26 at 6 p.m.
 
-Build your blueprint: 
+Build your blueprint:
 
 ![Start screen of the Growth Blueprint kiosk](img.png)
 
@@ -49,7 +49,7 @@ Before you leave the laptop, you do one thing in the community right there: join
 
 ![A blueprint, fresh out of the kiosk](img_4.png)
 
->  The screenshots are from the prototype, so the version at the booth might look a bit different.
+> The screenshots are from the prototype, so the version at the booth might look a bit different.
 
 ## What happens after your blueprint
 
@@ -58,7 +58,7 @@ The blueprint is one step of the IBM Community booth's Learn to Earn journey, bu
 1. Sign up for the IBM Community at the welcome desk, if you are not a member yet (this is a requirement).
 2. Build your blueprint.
 3. Add your ideas to the IBM Community wall, what you'd like to see in the community. There's a giant Jenga game in the same area, if you need a break.
-4. Earn your professional headshot..
+4. Earn your professional headshot.
 
 There's nothing to win, but you can earn. You walk away with a decent headshot for your LinkedIn profile, which, judging by some profiles, a lot of people could use.
 
@@ -87,9 +87,7 @@ Which sessions should I attend at TechXchange?
 ```
 
 The skill gives you sessions, and that's it. No Champions to meet, no groups to join, no headshot, no giveaway, and no name on the wall.
-It's a stripped-down version of what's waiting at the booth. Consider it the amuse-bouche. The main course is in Atlanta.
-
-So use it to get a head start, and then come to the booth for the rest. Three minutes, and the kiosk does the scrolling for you.
+It's a stripped-down version of what's waiting at the booth. Consider it the amuse-bouche. The main course is in Atlanta. So use it to get a head start, and then come to the booth for the rest. Three minutes, and the kiosk does the scrolling for you.
 
 And for those of you who aren't going:
 
