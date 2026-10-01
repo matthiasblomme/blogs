@@ -22,7 +22,7 @@ For everybody going to TechXchange: congratulations. For those of you who aren't
 
 There's so much happening at the event that it's hard to build a proper agenda around what you like, what you want to see, and how much time you have at the venue. And nobody wants to spend their first morning scrolling through 1137 sessions. So the IBM Champions community built a blueprint helper, just for you. You'll find it at the IBM Community booth.
 
-Tell it what you're interested in, when you're there and what you want to get out of the week, and it builds your own TechXchange blueprint. A couple of questions, three minutes, done. Your name goes up on the wall, and if you do the rest of the booth journey too, you might just walk away with a professional headshot. And who knows, maybe there's even a giveaway.
+Tell it what you're interested in, when you're there and what you want to get out of the week, and it builds your own TechXchange blueprint. A couple of questions, three minutes, done. Your name goes up on the wall, and if you do the rest of the booth journey too, you might just walk away with a professional headshot.
 
 ## Where to find it
 
@@ -43,11 +43,11 @@ Sign in with your IBMid and answer the questions. You get a plan, no guessing wh
 
 Every pick comes with the reason it's on your list.
 
-Before you leave, join a group or post a question, right there from the laptop. Then you get a QR code to take with you. It opens your blueprint on your phone, and it's what you show at the headshot station. The rest you'll see at the booth. Not going to give everything away just yet (hint, hint).
-
 ![A blueprint, fresh out of the kiosk](img_4.png)
 
 > The screenshots are from the prototype, so the version at the booth might look a bit different.
+
+Before you leave, join a group or post a question, right there from the laptop. Then you get a QR code to take with you. It opens your blueprint on your phone, and it's what you show at the headshot station. The rest you'll see at the booth. Not going to give everything away just yet.
 
 ## What happens after your blueprint
 
@@ -66,7 +66,7 @@ This is an IBM Champions project. The IBM Community team asked the Champions to 
 
 Two of us did the building, with IBM Bob: Jan-Willem Steur ([LinkedIn](https://www.linkedin.com/in/janwillemsteur/), [IBM Community](https://community.ibm.com/community/user/champion-directory/expert?UserKey=95a8c58f-a884-4d11-9220-02653c7816ad)) and myself ([LinkedIn](https://www.linkedin.com/in/matthiasblomme/), [IBM Community](https://community.ibm.com/community/user/people/matthias-blomme)).
 
-But we didn't do it alone. Kristin Rangel ([LinkedIn](https://www.linkedin.com/in/kristin-rangel-a958b779/), [IBM Community](https://community.ibm.com/community/user/profile/contributions/contributions-list?UserKey=d1276cd1-0b56-47ec-8b14-bc967bd97a44)) led the working group and ran the testing. Kat Jarvis ([LinkedIn](https://www.linkedin.com/in/catherine-kat-jarvis/)) from the IBM Community team got the whole thing started and kept it moving on the IBM side. And then there are the testers, FJ, Steve, Armin, Philip, Michael and Nezi, who clicked through it more times than they'd like to admit. Thanks, all of you.
+But we didn't do it alone. Kristin Rangel ([LinkedIn](https://www.linkedin.com/in/kristin-rangel-a958b779/), [IBM Community](https://community.ibm.com/community/user/profile/contributions/contributions-list?UserKey=d1276cd1-0b56-47ec-8b14-bc967bd97a44)) led the working group and ran the testing. Kat Jarvis ([LinkedIn](https://www.linkedin.com/in/catherine-kat-jarvis/)) from the IBM Community team and Libby Ingrassia ([LinkedIn](https://www.linkedin.com/in/libbyingrassia/)) from the IBM Champions program got the whole thing started, and kept it moving on the IBM side. And then there's a growing group of testers, who clicked through it more times than they'd like to admit. Thanks, all of you.
 
 Do you fancy helping out on the next one? Then have a look at the IBM Champions program. The [IBM Champions program overview](https://www.ibm.com/community/champions-program/) explains what it is and how you get nominated. Writing blogs like this one is one way to get there.
 
@@ -93,6 +93,8 @@ So: Monday October 26, 6 p.m., the Advocacy neighborhood. Come build your bluepr
 And for those of you who aren't going:
 
 > "When I get sad, I stop being sad and be awesome instead." - Barney, How I Met Your Mother
+
+But you'll have to wait until next year.
 
 ---
 
