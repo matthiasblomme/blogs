@@ -86,8 +86,9 @@ Drop the folder in `~/.bob/skills/`, open Bob, and ask:
 Which sessions should I attend at TechXchange?
 ```
 
-The skill gives you sessions, and that's it. No Champions to meet, no groups to join, no headshot, no giveaway, and no name on the wall.
-It's a stripped-down version of what's waiting at the booth. Consider it the amuse-bouche. The main course is in Atlanta. So use it to get a head start, and then come to the booth for the rest. Three minutes, and the kiosk does the scrolling for you.
+It's a stripped-down version of what's waiting at the booth. Consider it the amuse-bouche. The main course is in Atlanta.
+
+So: Monday October 26, 6 p.m., the Advocacy neighborhood. Come build your blueprint, and come say hi.
 
 And for those of you who aren't going:
 
