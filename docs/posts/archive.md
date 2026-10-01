@@ -6,6 +6,9 @@ title: Archive
 
 <!--MD_ARCHIVE:START-->
 ## 2026
+### October
+- **2026-10-01** - [Too many sessions? The IBM Champions built you a planner](techxchange-blueprint/techxchange-blueprint.md) · *8 min*
+
 ### September
 - **2026-09-29** - [Let Bob plan your TechXchange week](techxchange-planner-skill/techxchange-planner-skill.md) · *19 min*
 

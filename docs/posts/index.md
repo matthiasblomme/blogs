@@ -6,6 +6,7 @@
 # Posts
 
 <!--MD_ALL_POSTS:START-->
+- **2026-10-01** - [Too many sessions? The IBM Champions built you a planner](techxchange-blueprint/techxchange-blueprint.md) · *8 min*
 - **2026-09-29** - [Let Bob plan your TechXchange week](techxchange-planner-skill/techxchange-planner-skill.md) · *19 min*
 - **2026-06-30** - [Reporting IBM Champion activity with a custom Bob mode and Claude skill](ibm-champion-report/ibm-champion-report.md) · *16 min*
 - **2026-06-27** - [IBM App Connect and MCP: a field guide as of 13.0.7](Ace-MCP/ace-mcp-13.0.7-field-guide.md) · *14 min*
