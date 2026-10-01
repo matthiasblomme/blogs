@@ -70,6 +70,8 @@ But we didn't do it alone. Kristin Rangel ([LinkedIn](https://www.linkedin.com/i
 
 Do you fancy helping out on the next one? Then have a look at the IBM Champions program. The [IBM Champions program overview](https://www.ibm.com/community/champions-program/) explains what it is and how you get nominated. Writing blogs like this one is one way to get there.
 
+Already a Champion? Then you can help too. Opt in for one-on-ones at TechXchange, and the blueprint can send people your way, matched on interests you share. It doesn't have to be about Bob. Help them find their way around the community, and maybe you even inspire the next Champion. Opting in means checking the mobile app a few times a day, and meeting people in the Champions Lounge or the booth lounge when your schedule allows. It helps the community, and it might even count as a Champion activity you can report. [Opt in here](https://forms.cloud.microsoft/pages/responsepage.aspx?id=axi3JSvxyUiuYjsoaiNEMhaYOzzTVlhLvdUXyb2WqUBURFlUVFMzTU9VSVRNR0xKV1pEUDZLMkREUy4u&route=shorturl).
+
 ## Can't wait?
 
 If you want to start planning now, I have something for that too. It's a Bob skill that scrapes the TechXchange session catalog, works out what you care about, and builds a day-by-day plan with alternates. Re-run it when the schedule changes and it tells you which picks clash. It's in my public skills repo, folder [techxchange-planner](https://github.com/matthiasblomme/bobmodes/tree/main/bobmodes/techxchange-planner), and the whole story is in [Let Bob plan your TechXchange week](https://community.ibm.com/community/user/blogs/matthias-blomme/2026/09/29/let-bob-plan-your-techxchange-week).
