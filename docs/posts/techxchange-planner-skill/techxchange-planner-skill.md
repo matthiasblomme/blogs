@@ -13,6 +13,8 @@ tags:
 reading_time: 19 min
 ---
 
+![cover](cover.png){ .md-banner }
+
 <!--MD_POST_META:START-->
 <div class="md-post-meta">
   <div class="md-post-meta-left">2026-09-29 · ⏱ 19 min</div>
@@ -21,6 +23,7 @@ reading_time: 19 min
 <hr class="md-post-divider"/>
 <div class="md-post-tags"><span class="md-tag">techxchange</span> <span class="md-tag">ibm-champion</span> <span class="md-tag">bob</span> <span class="md-tag">automation</span> <span class="md-tag">python</span></div>
 <!--MD_POST_META:END-->
+
 
 # Let Bob plan your TechXchange week
 
