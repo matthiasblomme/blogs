@@ -16,6 +16,8 @@ status: draft
 reading_time: 5 min
 ---
 
+![cover](cover.png){ .md-banner }
+
 # Too many sessions? The IBM Champions built you a planner
 
 For everybody going to TechXchange: congratulations. For those of you who aren't going: well, you're missing out. (To paraphrase Samson, an old Flemish children's TV show. Google it.)
@@ -66,7 +68,7 @@ This is an IBM Champions project. The IBM Community team asked the Champions to 
 
 Two of us did the building, with IBM Bob: Jan-Willem Steur ([LinkedIn](https://www.linkedin.com/in/janwillemsteur/), [IBM Community](https://community.ibm.com/community/user/champion-directory/expert?UserKey=95a8c58f-a884-4d11-9220-02653c7816ad)) and myself ([LinkedIn](https://www.linkedin.com/in/matthiasblomme/), [IBM Community](https://community.ibm.com/community/user/people/matthias-blomme)).
 
-But we didn't do it alone. Kristin Rangel ([LinkedIn](https://www.linkedin.com/in/kristin-rangel-a958b779/), [IBM Community](https://community.ibm.com/community/user/profile/contributions/contributions-list?UserKey=d1276cd1-0b56-47ec-8b14-bc967bd97a44)) led the working group and ran the testing. Kat Jarvis ([LinkedIn](https://www.linkedin.com/in/catherine-kat-jarvis/)) from the IBM Community team and Libby Ingrassia ([LinkedIn](https://www.linkedin.com/in/libbyingrassia/)) from the IBM Champions program got the whole thing started, and kept it moving on the IBM side. And then there's a growing group of testers, who clicked through it more times than they'd like to admit. Thanks, all of you.
+But we didn't do it alone. Kristin Rangel ([LinkedIn](https://www.linkedin.com/in/kristin-rangel-a958b779/), [IBM Community](https://community.ibm.com/community/user/profile/contributions/contributions-list?UserKey=d1276cd1-0b56-47ec-8b14-bc967bd97a44)) led the working group and ran the testing. Kat Jarvis ([LinkedIn](https://www.linkedin.com/in/catherine-kat-jarvis/), [IBM Community](https://community.ibm.com/community/user/people/kat-jarvis)) from the IBM Community team and Libby Ingrassia ([LinkedIn](https://www.linkedin.com/in/libbyingrassia/), [IBM Community](https://community.ibm.com/community/user/people/libby-ingrassia)) from the IBM Champions program got the whole thing started, and kept it moving on the IBM side. And then there's a growing group of testers, who clicked through it more times than they'd like to admit. Thanks, all of you.
 
 Do you fancy helping out on the next one? Then have a look at the IBM Champions program. The [IBM Champions program overview](https://www.ibm.com/community/champions-program/) explains what it is and how you get nominated. Writing blogs like this one is one way to get there.
 
