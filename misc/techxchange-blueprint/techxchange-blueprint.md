@@ -26,7 +26,7 @@ Tell it what you're interested in, when you're there and what you want to get ou
 
 ## Where to find it
 
-The booth is in the Advocacy neighborhood of the Sandbox, diagonally across from the Champions Lounge (look for a bunch of people in blue jackets). Look for the table with six laptops, and a monitor explaining what to do. That monitor is also used for a couple of blogging workshops, so definitely check the session catalog for those. Or just say yes when the app asks.
+The booth is in the Advocacy neighborhood of the Sandbox, diagonally across from the Champions Lounge (look for a bunch of people in blue jackets). At the booth, there's a table with six laptops and a monitor explaining what to do. That monitor is also used for a couple of blogging workshops, so definitely check the session catalog for those. Or just say yes when the app asks.
 
 It opens together with the Sandbox, Monday October 26 at 6 p.m. This is what you'll see:
 
