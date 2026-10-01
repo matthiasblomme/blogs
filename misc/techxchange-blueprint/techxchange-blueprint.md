@@ -26,7 +26,7 @@ Tell it what you're interested in, when you're there and what you want to get ou
 
 ## Where to find it
 
-The booth is in the Advocacy neighborhood of the Sandbox, diagonally across from the Champions Lounge (a bunch of people in blue jackets). Look for the table with six laptops, and a monitor explaining what to do. That monitor is also used for a couple of blogging workshops, so definitely check the session catalog for those.
+The booth is in the Advocacy neighborhood of the Sandbox, diagonally across from the Champions Lounge (look for the bunch of people in blue jackets). Look for the table with six laptops, and a monitor explaining what to do. That monitor is also used for a couple of blogging workshops, so definitely check the session catalog for those. Or just say yes when the app asks.
 
 It opens together with the Sandbox, Monday October 26 at 6 p.m. This is what you'll see:
 
@@ -34,7 +34,7 @@ It opens together with the Sandbox, Monday October 26 at 6 p.m. This is what you
 
 ## What you get
 
-Sign in with your IBMid, tell it what you're into, what you want out of the week and which days you're there. So instead of browsing the catalog, decoding topic groups and guessing who to meet, you get a plan:
+Sign in with your IBMid and answer the questions. You get a plan, no guessing who to meet:
 
 - Sessions worth your time, Champion-led sessions and AMAs first. Only on days you're there, nothing that's already over, and no two at the same time.
 - IBM Champions to go talk to. Only the ones who opted in, so they're happy to meet you for a 1:1 in the Champions Lounge or the booth lounge. Send them a message in the TechXchange mobile app to set it up.
@@ -43,7 +43,7 @@ Sign in with your IBMid, tell it what you're into, what you want out of the week
 
 Every pick comes with the reason it's on your list.
 
-Before you leave the laptop, you do one thing in the community right there: join a group or post a question. Then you get a QR code. It opens your blueprint on your phone, and it's your proof at the headshot station. The rest you'll see at the booth. Not going to give everything away just yet (hint, hint).
+Before you leave, join a group or post a question, right there from the laptop. Then you get a QR code to take with you. It opens your blueprint on your phone, and it's what you show at the headshot station. The rest you'll see at the booth. Not going to give everything away just yet (hint, hint).
 
 ![A blueprint, fresh out of the kiosk](img_4.png)
 
@@ -51,7 +51,7 @@ Before you leave the laptop, you do one thing in the community right there: join
 
 ## What happens after your blueprint
 
-The blueprint is one step of the IBM Community booth's Learn to Earn journey, built around this year's Build with Purpose theme:
+The blueprint is one step of the IBM Community booth's Learn to Earn journey:
 
 1. Sign up for the IBM Community at the welcome desk, if you're not a member yet. You need to be one to sign in.
 2. Build your blueprint.
@@ -62,7 +62,7 @@ There's nothing to win, but you can earn. You walk away with a decent headshot f
 
 ## Who built it
 
-This is an IBM Champions project. The IBM Community team asked the Champions to build the booth activation, and a working group of Champions picked it up. Champions building something for the rest of the community. Isn't that what being a Champion is about?
+This is an IBM Champions project. The IBM Community team asked the Champions to build something for the booth, and a working group of Champions picked it up. Champions building something for the rest of the community. Isn't that what being a Champion is about?
 
 Two of us did the building, with IBM Bob: Jan-Willem Steur ([LinkedIn](https://www.linkedin.com/in/janwillemsteur/), [IBM Community](https://community.ibm.com/community/user/champion-directory/expert?UserKey=95a8c58f-a884-4d11-9220-02653c7816ad)) and myself ([LinkedIn](https://www.linkedin.com/in/matthiasblomme/), [IBM Community](https://community.ibm.com/community/user/people/matthias-blomme)).
 
@@ -70,7 +70,7 @@ But we didn't do it alone. Kristin Rangel ([LinkedIn](https://www.linkedin.com/i
 
 Do you fancy helping out on the next one? Then have a look at the IBM Champions program. The [IBM Champions program overview](https://www.ibm.com/community/champions-program/) explains what it is and how you get nominated. Writing blogs like this one is one way to get there.
 
-Already a Champion? Then you can help too. Opt in for one-on-ones at TechXchange, and the blueprint can send people your way, matched on interests you share. It doesn't have to be about Bob. Help them find their way around the community, and maybe you even inspire the next Champion. Opting in means checking the mobile app a few times a day, and meeting people in the Champions Lounge or the booth lounge when your schedule allows. It helps the community, and it might even count as a Champion activity you can report. [Opt in here](https://forms.cloud.microsoft/pages/responsepage.aspx?id=axi3JSvxyUiuYjsoaiNEMhaYOzzTVlhLvdUXyb2WqUBURFlUVFMzTU9VSVRNR0xKV1pEUDZLMkREUy4u&route=shorturl).
+Already a Champion? Then you can help too. Opt in for one-on-ones at TechXchange, and the blueprint can send people with the same interests your way. It doesn't have to be about Bob. Help them find their way around the community, and maybe you even inspire the next Champion. Opting in means checking the mobile app a few times a day, and meeting people in the Champions Lounge or the booth lounge when your schedule allows. It helps the community, and it might even count as a Champion activity you can report. [Opt in here](https://forms.cloud.microsoft/pages/responsepage.aspx?id=axi3JSvxyUiuYjsoaiNEMhaYOzzTVlhLvdUXyb2WqUBURFlUVFMzTU9VSVRNR0xKV1pEUDZLMkREUy4u&route=shorturl).
 
 ## Can't wait?
 
