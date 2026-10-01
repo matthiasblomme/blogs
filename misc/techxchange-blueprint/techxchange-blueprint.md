@@ -3,7 +3,7 @@ title: 'Too many sessions? The IBM Champions built you a planner'
 date: 2026-09-28
 author: Matthias Blomme
 description: The IBM Champions built a Growth Blueprint kiosk for the IBM Community
-  booth at TechXchange 2026. Four questions, three minutes, and you walk away with
+  booth at TechXchange 2026. A couple of questions, three minutes, and you walk away with
   sessions, Champions to meet and groups to join. Plus a stripped-down version you
   can run now if you can't wait.
 tags:
@@ -20,9 +20,9 @@ reading_time: 5 min
 
 For everybody going to TechXchange: congratulations. For those of you who aren't going: well, you're missing out. (To paraphrase Samson, an old Flemish children's TV show. Google it.)
 
-There's so much happening at the event that it's hard to build a proper agenda around what you like, what you want to see, and how much time you have at the venue. So you don't spend your first morning scrolling through 1137 sessions, the IBM Champions community built a blueprint helper just for you. You'll find it at the IBM Community booth.
+There's so much happening at the event that it's hard to build a proper agenda around what you like, what you want to see, and how much time you have at the venue. And nobody wants to spend their first morning scrolling through 1137 sessions. So the IBM Champions community built a blueprint helper, just for you. You'll find it at the IBM Community booth.
 
-Tell it what you're interested in, when you're there and what you want to get out of the week, and it builds your own TechXchange blueprint. Four questions, three minutes, done. Your name goes up on the wall, and if you do the rest of the booth journey too, you might just walk away with a professional headshot. And who knows, maybe there's even a giveaway.
+Tell it what you're interested in, when you're there and what you want to get out of the week, and it builds your own TechXchange blueprint. A couple of questions, three minutes, done. Your name goes up on the wall, and if you do the rest of the booth journey too, you might just walk away with a professional headshot. And who knows, maybe there's even a giveaway.
 
 ## Where to find it
 
