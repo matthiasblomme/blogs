@@ -21,7 +21,6 @@ no content).
 | text-done | [Bob modes](misc/Bob/bob-modes.md) | 1,500 | Four screenshot placeholders to fill; one empty `##` heading near the end needs a title. |
 | text-done | [Dynamic startup resources](misc/ace-dynamic-resources/dynamic_startup_resources.md) | 700 | Back half is five TODO sections - blocked on testing on the cgroup-v2 cluster. IBM docs link for `spec.startupResources` still to locate. |
 | outline | [Fasttrack snack: Bob](misc/fasttrack-snack-bob/fasttrack-snack-bob.md) | 300 | Demo abstract is written; the post itself isn't started (`## Demo` is empty). |
-| outline | [TechXchange Growth Blueprint teaser](misc/techxchange-blueprint/techxchange-blueprint.md) | 150 | Templated 2026-09-28 on branch `blog/techxchange-blueprint`: intro written and blog-buddy reviewed, sections are verified filler notes in HTML comments, 6 prototype screenshots (img-img_5) + 2 placeholders (pass/QR block, planner output) + optional booth photo. Must go out before 2026-10-26. Publish on own blog + IBM Community, Jan Willem reviews first. |
 | outline | [Custom input node development](misc/custom-input-node/custom-input-node-developmend.md) | 50 | Working notes only. |
 | outline | [SFTP proxy](misc/sftp-proxy/sftp-proxy.md) | 25 | 8-line setup outline. |
 | outline | [Dynamic policy assign](misc/dynamic-policy-assign/dynamic-policy-assign.md) | 35 | 5-line outline. |

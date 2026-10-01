@@ -1,22 +1,30 @@
 ---
-title: 'Too many sessions? The IBM Champions built you a planner'
-date: 2026-09-28
-author: Matthias Blomme
+title: Too many sessions? The IBM Champions built you a planner
+date: 2026-10-01
 description: The IBM Champions built a Growth Blueprint kiosk for the IBM Community
-  booth at TechXchange 2026. A couple of questions, three minutes, and you walk away with
-  sessions, Champions to meet and groups to join. Plus a stripped-down version you
-  can run now if you can't wait.
+  booth at TechXchange 2026. A couple of questions, three minutes, and you walk away
+  with sessions, Champions to meet and groups to join. Plus a stripped-down version
+  you can run now if you can't wait.
 tags:
 - techxchange
 - ibm-champion
 - ibm-community
 - bob
 - event
-status: draft
-reading_time: 5 min
+reading_time: 8 min
 ---
 
 ![cover](cover.png){ .md-banner }
+
+<!--MD_POST_META:START-->
+<div class="md-post-meta">
+  <div class="md-post-meta-left">2026-10-01 · ⏱ 8 min</div>
+  <div class="md-post-meta-right"><span class="post-share-label">Share:</span> <a class="post-share post-share-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fmatthiasblomme.github.io%2Fblogs%2Fposts%2Ftechxchange-blueprint%2Ftechxchange-blueprint%2F" target="_blank" rel="noopener" title="Share on LinkedIn">[<span class="in">in</span>]</a></div>
+</div>
+<hr class="md-post-divider"/>
+<div class="md-post-tags"><span class="md-tag">techxchange</span> <span class="md-tag">ibm-champion</span> <span class="md-tag">ibm-community</span> <span class="md-tag">bob</span> <span class="md-tag">event</span></div>
+<!--MD_POST_META:END-->
+
 
 # Too many sessions? The IBM Champions built you a planner
 

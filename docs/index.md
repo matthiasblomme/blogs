@@ -25,11 +25,11 @@ Expect walkthroughs, sharp opinions, and experiments straight out of my homelab 
 ## Latest Post
 
 <!--MD_LATEST_POSTS:START-->
+- **2026-10-01** - [Too many sessions? The IBM Champions built you a planner](posts/techxchange-blueprint/techxchange-blueprint.md) · *8 min*
 - **2026-09-29** - [Let Bob plan your TechXchange week](posts/techxchange-planner-skill/techxchange-planner-skill.md) · *19 min*
 - **2026-06-30** - [Reporting IBM Champion activity with a custom Bob mode and Claude skill](posts/ibm-champion-report/ibm-champion-report.md) · *16 min*
 - **2026-06-27** - [IBM App Connect and MCP: a field guide as of 13.0.7](posts/Ace-MCP/ace-mcp-13.0.7-field-guide.md) · *14 min*
 - **2026-06-25** - [Opening an IBM ACE support case with a custom Bob mode](posts/ace-support-case/ace-support-case.md) · *23 min*
-- **2026-06-24** - [Setting up MCP on ACE Minikube](posts/ace-mcp-minikube/setting_up_mcp_on_ace_minikube.md) · *24 min*
 <!--MD_LATEST_POSTS:END-->
 
 ---
