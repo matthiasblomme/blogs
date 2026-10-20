@@ -1,0 +1,22 @@
+# Generic-rule false positives for the public-repo-scrub commit gate (tracked, public).
+# Sample and test addresses used in posts.
+shootemup@aol.com
+john@wick.com
+baba@yaga.com
+receiver@testpgp.com
+sender@testpgp.com
+# Lab and minikube cluster addresses in the setup posts.
+rule:private-ip
+# Demo values in posts: a sample password, a token placeholder, a vault key name.
+passw0rd
+hf_...
+mcp::sslpwd
+# Word settings and base64 deploy descriptors in samples.
+useWord2013TrackBottomHyphenation
+re:PGRlcGxveUluZm8gdmVyc2lvbj0iMSI\+.*
+# Public sites and own domains named in posts, and placeholders.
+re:([a-z0-9-]+\.)*(dbeaver\.io|slproweb\.com|jsonata\.org|postman\.com|theneurondaily\.com|opencv\.org|ansible\.com|rundeck\.com|labelstud\.io|randomwordgenerator\.com|roboflow\.com|nvidia\.com|list-manage\.com)
+re:([a-z0-9-]+\.)*(visdeurbel\.nl|videostreams\.nl|matthiashomeportal\.be)
+somerandomhostname.com
+my.super.secret.domain.com
+example.sharepoint.com
